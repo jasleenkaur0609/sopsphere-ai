@@ -1,11 +1,4 @@
-/*
-File: App.jsx
-
-Purpose:
-Main application component.
-It loads the application's routing configuration.
-*/
-
+import React from "react";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
