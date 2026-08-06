@@ -1,0 +1,298 @@
+/* ==========================================================
+   AUTH BUTTONS
+   AI SOP MANAGEMENT PORTAL
+==========================================================*/
+
+/* ==================================================
+   BUTTON RESET
+==================================================*/
+
+.auth-btn{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    border-radius:18px;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    transition:all .35s ease;
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+}
+
+/* ==================================================
+   PRIMARY BUTTON
+==================================================*/
+
+.auth-btn-primary{
+
+    color:white;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        #16A34A
+    );
+
+    box-shadow:
+
+    0 15px 35px rgba(34,197,94,.25),
+
+    inset 0 1px 0 rgba(255,255,255,.12);
+
+}
+
+.auth-btn-primary:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+    0 25px 50px rgba(34,197,94,.35);
+
+    filter:brightness(1.08);
+
+}
+
+.auth-btn-primary:active{
+
+    transform:scale(.98);
+
+}
+
+/* ==================================================
+   SECONDARY BUTTON
+==================================================*/
+
+.auth-btn-secondary{
+
+    background:rgba(255,255,255,.05);
+
+    color:var(--text);
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.auth-btn-secondary:hover{
+
+    background:rgba(255,255,255,.08);
+
+    transform:translateY(-2px);
+
+}
+
+/* ==================================================
+   SOCIAL BUTTONS
+==================================================*/
+
+.social-buttons{
+
+    display:flex;
+
+    gap:14px;
+
+    margin-top:25px;
+
+}
+
+.social-btn{
+
+    flex:1;
+
+    height:56px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    border-radius:18px;
+
+    cursor:pointer;
+
+    color:var(--text);
+
+    font-weight:600;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.04);
+
+    transition:all .35s ease;
+
+}
+
+.social-btn:hover{
+
+    transform:translateY(-3px);
+
+    border-color:var(--primary);
+
+    background:rgba(34,197,94,.08);
+
+}
+
+.social-btn svg{
+
+    font-size:22px;
+
+}
+
+/* ==================================================
+   RIPPLE EFFECT
+==================================================*/
+
+.auth-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+
+    left:50%;
+
+    width:0;
+
+    height:0;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.18);
+
+    transform:translate(-50%,-50%);
+
+    transition:.55s;
+
+}
+
+.auth-btn:hover::before{
+
+    width:420px;
+
+    height:420px;
+
+}
+
+/* ==================================================
+   LOADING BUTTON
+==================================================*/
+
+.auth-btn-loading{
+
+    pointer-events:none;
+
+    opacity:.8;
+
+}
+
+.auth-spinner{
+
+    width:20px;
+
+    height:20px;
+
+    border:2px solid rgba(255,255,255,.25);
+
+    border-top:2px solid white;
+
+    border-radius:50%;
+
+    animation:buttonSpin .8s linear infinite;
+
+}
+
+@keyframes buttonSpin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ==================================================
+   DISABLED
+==================================================*/
+
+.auth-btn:disabled{
+
+    cursor:not-allowed;
+
+    opacity:.55;
+
+    transform:none;
+
+}
+
+/* ==================================================
+   ICONS
+==================================================*/
+
+.auth-btn svg{
+
+    font-size:20px;
+
+}
+
+/* ==================================================
+   LINK BUTTON
+==================================================*/
+
+.auth-link-btn{
+
+    color:var(--primary);
+
+    font-weight:700;
+
+    transition:.3s;
+
+}
+
+.auth-link-btn:hover{
+
+    color:white;
+
+}
+
+/* ==================================================
+   ANIMATION
+==================================================*/
+
+.auth-btn{
+
+    animation:fadeIn .6s ease;
+
+}

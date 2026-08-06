@@ -1,0 +1,292 @@
+/* ==========================================================
+   AUTH FORM
+   AI SOP MANAGEMENT PORTAL
+==========================================================*/
+
+/* ===============================
+   FORM
+================================*/
+
+.auth-form{
+
+    width:100%;
+
+}
+
+.auth-form-group{
+
+    margin-bottom:24px;
+
+}
+
+/* ===============================
+   LABELS
+================================*/
+
+.auth-label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    color:var(--text);
+
+    font-size:15px;
+
+    font-weight:600;
+
+    letter-spacing:.3px;
+
+}
+
+/* ===============================
+   MATERIAL UI TEXTFIELD
+================================*/
+
+.auth-form .MuiTextField-root{
+
+    width:100%;
+
+}
+
+/* Input Root */
+
+.auth-form .MuiOutlinedInput-root{
+
+    background:rgba(255,255,255,.04);
+
+    border-radius:18px;
+
+    color:var(--text);
+
+    transition:all .35s ease;
+
+}
+
+/* Field Border */
+
+.auth-form .MuiOutlinedInput-notchedOutline{
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+/* Hover */
+
+.auth-form .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline{
+
+    border-color:var(--primary);
+
+}
+
+/* Focus */
+
+.auth-form .Mui-focused
+.MuiOutlinedInput-notchedOutline{
+
+    border:2px solid var(--primary);
+
+    box-shadow:0 0 20px rgba(34,197,94,.15);
+
+}
+
+/* Input */
+
+.auth-form input{
+
+    color:var(--text);
+
+    padding:18px 16px;
+
+    font-size:15px;
+
+}
+
+/* Placeholder */
+
+.auth-form input::placeholder{
+
+    color:var(--text-muted);
+
+    opacity:1;
+
+}
+
+/* Autofill */
+
+.auth-form input:-webkit-autofill{
+
+    -webkit-text-fill-color:white;
+
+    transition:background-color 99999s;
+
+}
+
+/* ===============================
+   ICONS
+================================*/
+
+.auth-form .MuiInputAdornment-root{
+
+    color:var(--text-muted);
+
+}
+
+.auth-form .MuiOutlinedInput-root:hover
+.MuiInputAdornment-root{
+
+    color:var(--primary);
+
+}
+
+.auth-form .Mui-focused
+.MuiInputAdornment-root{
+
+    color:var(--primary);
+
+}
+
+/* ===============================
+   PASSWORD BUTTON
+================================*/
+
+.auth-password-btn{
+
+    color:var(--text-muted);
+
+    transition:.3s;
+
+}
+
+.auth-password-btn:hover{
+
+    color:var(--primary);
+
+    transform:scale(1.05);
+
+}
+
+/* ===============================
+   REMEMBER SECTION
+================================*/
+
+.auth-options{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-top:12px;
+
+    margin-bottom:30px;
+
+    gap:20px;
+
+}
+
+/* ===============================
+   CHECKBOX
+================================*/
+
+.auth-options .MuiCheckbox-root{
+
+    color:var(--text-muted);
+
+}
+
+.auth-options .Mui-checked{
+
+    color:var(--primary)!important;
+
+}
+
+.auth-options .MuiFormControlLabel-label{
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+}
+
+/* ===============================
+   FORGOT PASSWORD
+================================*/
+
+.auth-forgot{
+
+    color:var(--primary);
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.auth-forgot:hover{
+
+    color:white;
+
+}
+
+/* ===============================
+   ERRORS
+================================*/
+
+.auth-error{
+
+    margin-top:8px;
+
+    font-size:13px;
+
+    color:#EF4444;
+
+}
+
+/* ===============================
+   HELP TEXT
+================================*/
+
+.auth-helper{
+
+    margin-top:6px;
+
+    color:var(--text-muted);
+
+    font-size:13px;
+
+}
+
+/* ===============================
+   SUCCESS
+================================*/
+
+.auth-success{
+
+    color:#22C55E;
+
+}
+
+/* ===============================
+   DISABLED
+================================*/
+
+.auth-form .Mui-disabled{
+
+    opacity:.65;
+
+}
+
+/* ===============================
+   SPACING
+================================*/
+
+.auth-form>*:last-child{
+
+    margin-bottom:0;
+
+}

@@ -1,0 +1,351 @@
+/* ==========================================================
+   AUTH CARD
+   AI SOP MANAGEMENT PORTAL
+==========================================================*/
+
+/* ===============================
+   LOGIN CARD
+================================*/
+
+.auth-card {
+
+    width: 100%;
+
+    max-width: 520px;
+
+    background: rgba(24,24,27,.72);
+
+    backdrop-filter: blur(28px);
+
+    -webkit-backdrop-filter: blur(28px);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    border-radius: 32px;
+
+    padding: 50px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.40),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    transition: all .4s ease;
+
+}
+
+/* Hover */
+
+.auth-card:hover{
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 50px 100px rgba(0,0,0,.55),
+        0 0 40px rgba(34,197,94,.10);
+
+}
+
+/* ===================================
+   TOP GLOW
+===================================*/
+
+.auth-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:4px;
+
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        var(--secondary),
+        var(--accent)
+    );
+
+}
+
+/* ===================================
+   CORNER GLOW
+===================================*/
+
+.auth-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:240px;
+
+    height:240px;
+
+    right:-120px;
+
+    top:-120px;
+
+    border-radius:50%;
+
+    background:rgba(34,197,94,.08);
+
+    filter:blur(70px);
+
+}
+
+/* ===================================
+   TITLE
+===================================*/
+
+.auth-card-title{
+
+    font-size:38px;
+
+    font-weight:800;
+
+    color:var(--text);
+
+    margin-bottom:10px;
+
+}
+
+/* ===================================
+   SUBTITLE
+===================================*/
+
+.auth-card-subtitle{
+
+    color:var(--text-muted);
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    margin-bottom:35px;
+
+}
+
+/* ===================================
+   DIVIDER
+===================================*/
+
+.auth-divider{
+
+    position:relative;
+
+    text-align:center;
+
+    margin:32px 0;
+
+    color:var(--text-muted);
+
+    font-size:14px;
+
+}
+
+.auth-divider::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:50%;
+
+    width:42%;
+
+    height:1px;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.auth-divider::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    top:50%;
+
+    width:42%;
+
+    height:1px;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+/* ===================================
+   SECURITY CARD
+===================================*/
+
+.security-box{
+
+    margin-top:32px;
+
+    padding:18px 22px;
+
+    border-radius:18px;
+
+    background:rgba(34,197,94,.06);
+
+    border:1px solid rgba(34,197,94,.12);
+
+    display:flex;
+
+    gap:16px;
+
+    align-items:flex-start;
+
+}
+
+.security-icon{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(34,197,94,.12);
+
+    color:var(--primary);
+
+    font-size:22px;
+
+}
+
+.security-content h4{
+
+    font-size:16px;
+
+    color:var(--text);
+
+    margin-bottom:4px;
+
+}
+
+.security-content p{
+
+    font-size:14px;
+
+    color:var(--text-muted);
+
+    line-height:1.6;
+
+}
+
+/* ===================================
+   REGISTER
+===================================*/
+
+.auth-register{
+
+    margin-top:32px;
+
+    text-align:center;
+
+}
+
+.auth-register span{
+
+    color:var(--text-muted);
+
+}
+
+.auth-register a{
+
+    color:var(--primary);
+
+    font-weight:700;
+
+    margin-left:6px;
+
+    transition:.3s;
+
+}
+
+.auth-register a:hover{
+
+    color:white;
+
+}
+
+/* ===================================
+   FOOTER
+===================================*/
+
+.auth-footer{
+
+    margin-top:30px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:var(--text-muted);
+
+    opacity:.7;
+
+}
+
+/* ===================================
+   BADGE
+===================================*/
+
+.auth-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:8px 16px;
+
+    border-radius:50px;
+
+    background:rgba(34,197,94,.08);
+
+    border:1px solid rgba(34,197,94,.12);
+
+    color:var(--primary);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:22px;
+
+}
+
+/* ===================================
+   GLASS EFFECT
+===================================*/
+
+.glass{
+
+    backdrop-filter:blur(20px);
+
+    -webkit-backdrop-filter:blur(20px);
+
+}

@@ -1,0 +1,318 @@
+/* ==========================================================
+   AUTH BACKGROUND
+   AI SOP MANAGEMENT PORTAL
+==========================================================*/
+
+.auth-page{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* ==================================================
+   MAIN BACKGROUND
+==================================================*/
+
+.auth-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(circle at 15% 20%,
+    rgba(34,197,94,.16),
+    transparent 28%),
+
+    radial-gradient(circle at 85% 75%,
+    rgba(147,51,234,.16),
+    transparent 30%),
+
+    radial-gradient(circle at 50% 50%,
+    rgba(245,158,11,.08),
+    transparent 40%),
+
+    linear-gradient(
+        135deg,
+        #09090B,
+        #111827,
+        #18181B
+    );
+
+    z-index:-5;
+
+}
+
+/* ==================================================
+   GRID
+==================================================*/
+
+.auth-page::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+        rgba(255,255,255,.03) 1px,
+        transparent 1px
+    ),
+
+    linear-gradient(
+        90deg,
+        rgba(255,255,255,.03) 1px,
+        transparent 1px
+    );
+
+    background-size:60px 60px;
+
+    opacity:.35;
+
+    z-index:-4;
+
+}
+
+/* ==================================================
+   GREEN ORB
+==================================================*/
+
+.bg-orb-1{
+
+    position:absolute;
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:#22C55E;
+
+    filter:blur(170px);
+
+    opacity:.18;
+
+    top:-140px;
+
+    left:-120px;
+
+    animation:floatGreen 16s infinite ease-in-out;
+
+}
+
+/* ==================================================
+   PURPLE ORB
+==================================================*/
+
+.bg-orb-2{
+
+    position:absolute;
+
+    width:450px;
+
+    height:450px;
+
+    border-radius:50%;
+
+    background:#9333EA;
+
+    filter:blur(190px);
+
+    opacity:.18;
+
+    bottom:-170px;
+
+    right:-150px;
+
+    animation:floatPurple 18s infinite ease-in-out;
+
+}
+
+/* ==================================================
+   GOLD ORB
+==================================================*/
+
+.bg-orb-3{
+
+    position:absolute;
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    background:#F59E0B;
+
+    filter:blur(110px);
+
+    opacity:.12;
+
+    top:45%;
+
+    left:48%;
+
+    animation:pulseOrb 8s infinite;
+
+}
+
+/* ==================================================
+   GLASS SHAPES
+==================================================*/
+
+.glass-square{
+
+    position:absolute;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.03);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:24px;
+
+}
+
+.square-1{
+
+    width:110px;
+
+    height:110px;
+
+    top:120px;
+
+    right:18%;
+
+    transform:rotate(18deg);
+
+}
+
+.square-2{
+
+    width:90px;
+
+    height:90px;
+
+    bottom:120px;
+
+    left:8%;
+
+    transform:rotate(-15deg);
+
+}
+
+.square-3{
+
+    width:65px;
+
+    height:65px;
+
+    top:62%;
+
+    right:35%;
+
+    transform:rotate(35deg);
+
+}
+
+/* ==================================================
+   NOISE
+==================================================*/
+
+.bg-noise{
+
+    position:absolute;
+
+    inset:0;
+
+    opacity:.04;
+
+    background-image:
+
+    radial-gradient(circle,#fff 1px,transparent 1px);
+
+    background-size:22px 22px;
+
+    pointer-events:none;
+
+}
+
+/* ==================================================
+   ANIMATIONS
+==================================================*/
+
+@keyframes floatGreen{
+
+    0%{
+
+        transform:translate(0,0);
+
+    }
+
+    50%{
+
+        transform:translate(50px,35px);
+
+    }
+
+    100%{
+
+        transform:translate(0,0);
+
+    }
+
+}
+
+@keyframes floatPurple{
+
+    0%{
+
+        transform:translate(0,0);
+
+    }
+
+    50%{
+
+        transform:translate(-60px,-30px);
+
+    }
+
+    100%{
+
+        transform:translate(0,0);
+
+    }
+
+}
+
+@keyframes pulseOrb{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.18);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}

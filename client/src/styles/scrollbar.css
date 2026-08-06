@@ -1,0 +1,47 @@
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#111827;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(
+        180deg,
+        #22C55E,
+        #9333EA
+    );
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:linear-gradient(
+        180deg,
+        #16A34A,
+        #7E22CE
+    );
+
+}
+
+*{
+
+    scrollbar-width:thin;
+
+    scrollbar-color:#22C55E #111827;
+
+}

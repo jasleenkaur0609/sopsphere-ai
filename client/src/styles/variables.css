@@ -1,0 +1,85 @@
+/* ======================================================
+   AI SOP MANAGEMENT PORTAL
+   DESIGN TOKENS
+====================================================== */
+
+:root {
+
+  /* ===========================
+     BRAND COLORS
+  =========================== */
+
+  --primary: #22C55E;
+  --primary-hover: #16A34A;
+
+  --secondary: #9333EA;
+  --secondary-hover: #7E22CE;
+
+  --accent: #F59E0B;
+  --danger: #EF4444;
+  --warning: #FACC15;
+  --info: #06B6D4;
+
+  /* ===========================
+     BACKGROUND
+  =========================== */
+
+  --background: #09090B;
+  --surface: #18181B;
+  --surface-light: #27272A;
+
+  /* ===========================
+     GLASS EFFECT
+  =========================== */
+
+  --glass: rgba(255,255,255,.05);
+  --glass-2: rgba(255,255,255,.08);
+
+  --card: rgba(24,24,27,.75);
+
+  --border: rgba(255,255,255,.08);
+
+  /* ===========================
+     TEXT
+  =========================== */
+
+  --text: #FAFAFA;
+  --text-light: #D4D4D8;
+  --text-muted: #A1A1AA;
+
+  /* ===========================
+     SHADOWS
+  =========================== */
+
+  --shadow-sm: 0 8px 18px rgba(0,0,0,.15);
+
+  --shadow-md: 0 18px 45px rgba(0,0,0,.25);
+
+  --shadow-lg: 0 40px 90px rgba(0,0,0,.45);
+
+  /* ===========================
+     BORDER RADIUS
+  =========================== */
+
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+  --radius-xl: 36px;
+
+  /* ===========================
+     SPACING
+  =========================== */
+
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 30px;
+  --space-xl: 50px;
+
+  /* ===========================
+     TRANSITIONS
+  =========================== */
+
+  --transition: .35s ease;
+
+}
