@@ -1,0 +1,1564 @@
+/*==========================================================
+                    THEME
+==========================================================*/
+
+:root{
+
+    --bg:#19111F;
+    --bg-secondary:#24172D;
+
+    --card:#2F1D3B;
+
+    --primary:#9B4D78;
+    --secondary:#C98AAA;
+    --accent:#D8B66C;
+
+    --text:#F8F5F3;
+    --text-light:#CFC5D2;
+
+    --border:rgba(255,255,255,.08);
+
+}
+
+/*==========================================================
+                    RESET
+==========================================================*/
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html,
+body,
+#root{
+
+    width:100%;
+
+    height:100%;
+
+    overflow:hidden;
+
+    font-family:"Inter",sans-serif;
+
+}
+
+/*==========================================================
+                    PAGE
+==========================================================*/
+
+.register-page{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #19111F,
+
+        #24172D,
+
+        #2F1D3B,
+
+        #19111F
+
+    );
+
+}
+
+/*==========================================================
+                GRID
+==========================================================*/
+
+.register-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+
+        rgba(255,255,255,.025) 1px,
+
+        transparent 1px
+
+    ),
+
+    linear-gradient(
+
+        90deg,
+
+        rgba(255,255,255,.025) 1px,
+
+        transparent 1px
+
+    );
+
+    background-size:60px 60px;
+
+}
+
+/*==========================================================
+                BACKGROUND
+==========================================================*/
+
+.register-bg{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(
+
+        circle at 10% 15%,
+
+        rgba(155,77,120,.22),
+
+        transparent 30%
+
+    ),
+
+    radial-gradient(
+
+        circle at 90% 20%,
+
+        rgba(201,138,170,.18),
+
+        transparent 30%
+
+    ),
+
+    radial-gradient(
+
+        circle at 55% 95%,
+
+        rgba(216,182,108,.12),
+
+        transparent 35%
+
+    );
+
+}
+
+/*==========================================================
+                BLOBS
+==========================================================*/
+
+.blob{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.35;
+
+    animation:blobMove 12s infinite ease-in-out;
+
+}
+
+.blob1{
+
+    width:300px;
+
+    height:300px;
+
+    background:var(--primary);
+
+    top:-120px;
+
+    left:-120px;
+
+}
+
+.blob2{
+
+    width:420px;
+
+    height:420px;
+
+    background:var(--secondary);
+
+    top:15%;
+
+    right:-150px;
+
+    animation-delay:2s;
+
+}
+
+.blob3{
+
+    width:260px;
+
+    height:260px;
+
+    background:var(--accent);
+
+    bottom:-100px;
+
+    left:40%;
+
+    animation-delay:4s;
+
+}
+
+@keyframes blobMove{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(30px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+/*==========================================================
+                CONTAINER
+==========================================================*/
+
+.register-container{
+
+    position:relative;
+
+    z-index:5;
+
+    width:min(1650px,95vw);
+
+    height:min(920px,95vh);
+
+    display:grid;
+
+    grid-template-columns:58% 42%;
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    border:1px solid var(--border);
+
+    background:rgba(255,255,255,.03);
+
+    backdrop-filter:blur(24px);
+
+    box-shadow:
+
+    0 30px 80px rgba(0,0,0,.35);
+
+}
+
+/*==========================================================
+                LEFT
+==========================================================*/
+
+.register-left{
+
+    padding:32px 40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+}
+
+/*==========================================================
+                RIGHT
+==========================================================*/
+
+.register-right{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:24px;
+
+    border-left:1px solid rgba(255,255,255,.06);
+
+    background:rgba(0,0,0,.05);
+
+}
+/*==========================================================
+                    BRAND
+==========================================================*/
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+.brand-logo{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    box-shadow:
+        0 15px 35px rgba(155,77,120,.35);
+
+}
+
+.brand h2{
+
+    color:var(--text);
+
+    font-size:28px;
+
+    font-weight:700;
+
+    margin-bottom:3px;
+
+}
+
+.brand span{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    letter-spacing:.5px;
+
+}
+
+/*==========================================================
+                    HERO
+==========================================================*/
+
+.hero-content{
+
+    max-width:560px;
+
+    margin-top:10px;
+
+}
+
+.register-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 18px;
+
+    margin-bottom:20px;
+
+    border-radius:40px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:var(--accent);
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.register-badge svg{
+
+    font-size:15px;
+
+}
+
+.hero-content h1{
+
+    font-size:42px;
+
+    line-height:1.15;
+
+    font-weight:800;
+
+    color:var(--text);
+
+    margin-bottom:18px;
+
+}
+
+.hero-content h1 span{
+
+    background:linear-gradient(
+
+        135deg,
+
+        var(--primary),
+
+        var(--secondary),
+
+        var(--accent)
+
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+}
+
+.hero-content p{
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+    line-height:1.8;
+
+    max-width:500px;
+
+}
+
+/*==========================================================
+                    BENEFITS
+==========================================================*/
+
+.benefits{
+
+    margin-top:28px;
+
+    display:grid;
+
+    gap:14px;
+
+}
+
+.benefit-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:15px 18px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    transition:.35s;
+
+}
+
+.benefit-item:hover{
+
+    transform:translateX(6px);
+
+    background:rgba(255,255,255,.07);
+
+}
+
+.benefit-item svg{
+
+    color:var(--accent);
+
+    font-size:18px;
+
+}
+
+.benefit-item span{
+
+    color:var(--text);
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+/*==========================================================
+                    PROGRESS
+==========================================================*/
+
+.register-progress{
+
+    margin-top:28px;
+
+}
+
+.progress-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+
+}
+
+.progress-header span{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.progress-bar{
+
+    width:100%;
+
+    height:8px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.progress-fill{
+
+    width:33.33%;
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        var(--primary),
+
+        var(--secondary),
+
+        var(--accent)
+
+    );
+
+}
+
+/*==========================================================
+                    ANIMATIONS
+==========================================================*/
+
+.brand{
+
+    animation:fadeDown .8s ease;
+
+}
+
+.hero-content{
+
+    animation:fadeLeft 1s ease;
+
+}
+
+.benefits{
+
+    animation:fadeUp 1.2s ease;
+
+}
+
+.register-progress{
+
+    animation:fadeUp 1.4s ease;
+
+}
+
+@keyframes fadeLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-45px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+/*==========================================================
+                    REGISTER CARD
+==========================================================*/
+
+.register-card{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:520px;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    background:rgba(47,29,59,.72);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(24px);
+
+    -webkit-backdrop-filter:blur(24px);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.32);
+
+}
+
+/*==========================================================
+                    HEADER
+==========================================================*/
+
+.register-header{
+
+    text-align:center;
+
+    margin-bottom:18px;
+
+}
+
+.register-header h2{
+
+    color:var(--text);
+
+    font-size:32px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
+
+}
+
+.register-header p{
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+    line-height:1.6;
+
+}
+
+/*==========================================================
+                    FORM
+==========================================================*/
+
+.register-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+/*==========================================================
+                    TWO COLUMN
+==========================================================*/
+
+.row{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:14px;
+
+}
+
+/*==========================================================
+                    INPUT GROUP
+==========================================================*/
+
+.input-group{
+
+    width:100%;
+
+}
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:var(--text);
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+/*==========================================================
+                    INPUT FIELD
+==========================================================*/
+
+.input-field{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    width:100%;
+
+    height:50px;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:all .35s ease;
+
+}
+
+.input-field:hover{
+
+    border-color:rgba(201,138,170,.35);
+
+}
+
+.input-field:focus-within{
+
+    border-color:var(--secondary);
+
+    box-shadow:
+
+        0 0 0 4px rgba(201,138,170,.12);
+
+}
+
+.input-icon{
+
+    position:absolute;
+
+    left:16px;
+
+    color:var(--accent);
+
+    font-size:15px;
+
+}
+
+.input-field input{
+
+    width:100%;
+
+    height:100%;
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-size:14px;
+
+    padding-left:46px;
+
+    padding-right:46px;
+
+}
+
+.input-field input::placeholder{
+
+    color:rgba(255,255,255,.42);
+
+}
+
+/*==========================================================
+                PASSWORD BUTTON
+==========================================================*/
+
+.password-toggle{
+
+    position:absolute;
+
+    right:10px;
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:transparent;
+
+    color:var(--text-light);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.password-toggle:hover{
+
+    background:rgba(255,255,255,.05);
+
+    color:var(--accent);
+
+}
+
+/*==========================================================
+                TERMS
+==========================================================*/
+
+.terms-check{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+    margin-top:4px;
+
+    cursor:pointer;
+
+}
+
+.terms-check input{
+
+    margin-top:3px;
+
+    accent-color:var(--primary);
+
+}
+
+.terms-check span{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+
+.terms-link{
+
+    margin:0 4px;
+
+    border:none;
+
+    background:none;
+
+    color:var(--accent);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+.terms-link:hover{
+
+    color:var(--secondary);
+
+}
+
+/*==========================================================
+                REGISTER BUTTON
+==========================================================*/
+
+.register-btn{
+
+    position:relative;
+
+    width:100%;
+
+    height:52px;
+
+    margin-top:6px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+
+        135deg,
+
+        var(--primary),
+
+        var(--secondary)
+
+    );
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    box-shadow:
+
+        0 15px 30px rgba(155,77,120,.35);
+
+}
+
+.register-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+
+        0 20px 40px rgba(155,77,120,.45);
+
+}
+
+.register-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:60%;
+
+    height:100%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.25),
+
+            transparent
+
+        );
+
+    transform:skewX(-20deg);
+
+    transition:left .7s;
+
+}
+
+.register-btn:hover::before{
+
+    left:150%;
+
+}
+
+.register-btn svg{
+
+    transition:.3s;
+
+}
+
+.register-btn:hover svg{
+
+    transform:translateX(4px);
+
+}
+/*==========================================================
+                    LOGIN SECTION
+==========================================================*/
+
+.login-section{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:18px;
+
+}
+
+.login-section p{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+}
+
+.login-link{
+
+    border:none;
+
+    background:none;
+
+    color:var(--accent);
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.login-link:hover{
+
+    color:var(--secondary);
+
+}
+
+/*==========================================================
+                    CARD BORDER
+==========================================================*/
+
+.register-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:24px;
+
+    padding:1px;
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        rgba(255,255,255,.10),
+
+        transparent,
+
+        rgba(216,182,108,.10)
+
+    );
+
+    -webkit-mask:
+
+        linear-gradient(#fff 0 0) content-box,
+
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    pointer-events:none;
+
+}
+
+/*==========================================================
+                    CARD ANIMATION
+==========================================================*/
+
+.register-left{
+
+    animation:leftSlide .8s ease;
+
+}
+
+.register-right{
+
+    animation:rightSlide .8s ease;
+
+}
+
+.register-card{
+
+    animation:cardAppear .9s ease;
+
+}
+
+@keyframes leftSlide{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes rightSlide{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes cardAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+            translateY(25px)
+
+            scale(.96);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+
+            translateY(0)
+
+            scale(1);
+
+    }
+
+}
+
+/*==========================================================
+                    HOVER EFFECT
+==========================================================*/
+
+.register-card{
+
+    transition:
+
+        transform .35s,
+
+        box-shadow .35s;
+
+}
+
+.register-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+
+        0 30px 65px rgba(0,0,0,.35);
+
+}
+
+/*==========================================================
+                    RESPONSIVE
+==========================================================*/
+
+@media (max-width:1366px){
+
+    .register-container{
+
+        width:96vw;
+
+        height:92vh;
+
+        grid-template-columns:55% 45%;
+
+    }
+
+    .register-left{
+
+        padding:24px 28px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:34px;
+
+    }
+
+    .hero-content p{
+
+        font-size:14px;
+
+        line-height:1.6;
+
+    }
+
+    .benefits{
+
+        gap:10px;
+
+        margin-top:20px;
+
+    }
+
+    .benefit-item{
+
+        padding:12px 14px;
+
+    }
+
+    .register-card{
+
+        max-width:450px;
+
+        padding:22px;
+
+    }
+
+}
+
+/*==========================================================
+                    TABLET
+==========================================================*/
+
+@media (max-width:1024px){
+
+    html,
+
+    body,
+
+    #root{
+
+        overflow:auto;
+
+    }
+
+    .register-page{
+
+        position:relative;
+
+        height:auto;
+
+        min-height:100vh;
+
+        overflow:auto;
+
+        padding:30px 0;
+
+    }
+
+    .register-container{
+
+        width:94%;
+
+        height:auto;
+
+        display:flex;
+
+        flex-direction:column;
+
+    }
+
+    .register-left{
+
+        padding:35px;
+
+    }
+
+    .register-right{
+
+        padding:30px;
+
+    }
+
+}
+
+/*==========================================================
+                    MOBILE
+==========================================================*/
+
+@media (max-width:768px){
+
+    .register-left{
+
+        text-align:center;
+
+        align-items:center;
+
+    }
+
+    .brand{
+
+        justify-content:center;
+
+    }
+
+    .hero-content{
+
+        display:flex;
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+    .hero-content h1{
+
+        font-size:30px;
+
+    }
+
+    .benefits{
+
+        width:100%;
+
+    }
+
+    .row{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .register-card{
+
+        max-width:100%;
+
+    }
+
+}
+
+/*==========================================================
+                    SMALL MOBILE
+==========================================================*/
+
+@media (max-width:480px){
+
+    .register-left{
+
+        display:none;
+
+    }
+
+    .register-container{
+
+        width:100%;
+
+        border-radius:0;
+
+    }
+
+    .register-right{
+
+        padding:18px;
+
+    }
+
+    .register-card{
+
+        padding:18px;
+
+        border-radius:18px;
+
+    }
+
+}
+
+/*==========================================================
+                    FOCUS
+==========================================================*/
+
+button:focus-visible,
+
+input:focus-visible{
+
+    outline:2px solid var(--secondary);
+
+    outline-offset:2px;
+
+}
+
+/*==========================================================
+                    SELECTION
+==========================================================*/
+
+::selection{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/*==========================================================
+                    SMOOTH TRANSITIONS
+==========================================================*/
+
+*{
+
+    transition:
+
+        background-color .3s,
+
+        color .3s,
+
+        border-color .3s,
+
+        transform .3s,
+
+        box-shadow .3s;
+
+}
