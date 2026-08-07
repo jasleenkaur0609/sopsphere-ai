@@ -1,34 +1,31 @@
+import "./Login.css";
+
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
-  Paper,
-  Typography,
-  TextField,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  Divider,
-  Link,
-} from "@mui/material";
-
-import {
-  EmailRounded,
-  LockRounded,
-  Visibility,
-  VisibilityOff,
-  ArrowForwardRounded,
-  SecurityRounded,
-} from "@mui/icons-material";
-
-import AuthLayout from "../../layouts/AuthLayout";
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaArrowRight,
+  FaGoogle,
+  FaMicrosoft,
+  FaRobot,
+  FaShieldAlt,
+  FaChartLine,
+  FaBrain,
+} from "react-icons/fa";
 
 export default function Login() {
+
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
   const [rememberMe, setRememberMe] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
 
@@ -40,11 +37,13 @@ export default function Login() {
 
   const handleChange = (e) => {
 
+    const { name, value } = e.target;
+
     setFormData({
 
       ...formData,
 
-      [e.target.name]: e.target.value,
+      [name]: value,
 
     });
 
@@ -54,246 +53,487 @@ export default function Login() {
 
     e.preventDefault();
 
-    console.log(formData);
+    setLoading(true);
+
+    setTimeout(() => {
+
+      setLoading(false);
+
+      navigate("/dashboard");
+
+    }, 1800);
 
   };
 
   return (
 
-    <AuthLayout>
+    <div className="login-page">
 
-      <Paper
-        elevation={0}
-        className="auth-card"
-      >
+      {/* Animated Background */}
 
-        <div className="auth-badge">
+      <div className="login-bg"></div>
 
-          <SecurityRounded />
+      <div className="blob blob1"></div>
 
-          Enterprise Secure Login
+      <div className="blob blob2"></div>
 
-        </div>
+      <div className="blob blob3"></div>
 
-        <Typography className="auth-card-title">
+      {/* Login Container */}
 
-          Welcome Back 👋
+      <div className="login-container">
+                {/*==========================================================
+                        LEFT PANEL
+        ==========================================================*/}
 
-        </Typography>
+        <div className="login-left">
 
-        <Typography className="auth-card-subtitle">
+          <div className="brand">
 
-          Sign in to access your AI SOP Management Portal.
+            <div className="brand-logo">
 
-        </Typography>
-
-        <form
-          className="auth-form"
-          onSubmit={handleSubmit}
-        >
-
-          <div className="auth-form-group">
-
-            <label className="auth-label">
-
-              Email Address
-
-            </label>
-
-            <TextField
-
-              fullWidth
-
-              name="email"
-
-              placeholder="name@company.com"
-
-              value={formData.email}
-
-              onChange={handleChange}
-
-              InputProps={{
-
-                startAdornment: (
-
-                  <InputAdornment position="start">
-
-                    <EmailRounded />
-
-                  </InputAdornment>
-
-                ),
-
-              }}
-
-            />
-
-          </div>
-
-          <div className="auth-form-group">
-
-            <label className="auth-label">
-
-              Password
-
-            </label>
-
-            <TextField
-
-              fullWidth
-
-              name="password"
-
-              placeholder="Enter password"
-
-              type={showPassword ? "text" : "password"}
-
-              value={formData.password}
-
-              onChange={handleChange}
-
-              InputProps={{
-
-                startAdornment: (
-
-                  <InputAdornment position="start">
-
-                    <LockRounded />
-
-                  </InputAdornment>
-
-                ),
-
-                endAdornment: (
-
-                  <InputAdornment position="end">
-
-                    <IconButton
-
-                      className="auth-password-btn"
-
-                      onClick={() =>
-
-                        setShowPassword(!showPassword)
-
-                      }
-
-                    >
-
-                      {showPassword ? (
-
-                        <VisibilityOff />
-
-                      ) : (
-
-                        <Visibility />
-
-                      )}
-
-                    </IconButton>
-
-                  </InputAdornment>
-
-                ),
-
-              }}
-
-            />
-
-          </div>
-                    <div className="auth-options">
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={rememberMe}
-                  onChange={(e) =>
-                    setRememberMe(e.target.checked)
-                  }
-                />
-              }
-              label="Remember Me"
-            />
-
-            <Link
-              href="/forgot-password"
-              underline="none"
-              className="auth-forgot"
-            >
-              Forgot Password?
-            </Link>
-
-          </div>
-
-          <Button
-            type="submit"
-            className="auth-btn auth-btn-primary"
-            endIcon={<ArrowForwardRounded />}
-          >
-            Sign In
-          </Button>
-
-          <div className="auth-divider">
-
-            OR CONTINUE WITH
-
-          </div>
-
-          <div className="social-buttons">
-
-            <Button
-              className="social-btn"
-              fullWidth
-            >
-              <img
-                src="https://www.svgrepo.com/show/355037/microsoft.svg"
-                alt="Microsoft"
-                width="22"
-              />
-
-              Microsoft
-
-            </Button>
-
-            <Button
-              className="social-btn"
-              fullWidth
-            >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="Google"
-                width="22"
-              />
-
-              Google
-
-            </Button>
-
-          </div>
-
-          <div className="security-box">
-
-            <div className="security-icon">
-
-              <SecurityRounded />
+              AI
 
             </div>
 
-            <div className="security-content">
+            <div>
 
-              <h4>
+              <h2>AI SOP Portal</h2>
 
-                Enterprise Security
+              <span>Enterprise Intelligence Platform</span>
 
-              </h4>
+            </div>
+
+          </div>
+
+          <div className="hero-content">
+
+            <span className="login-badge">
+
+              <FaRobot />
+
+              AI Powered Enterprise Platform
+
+            </span>
+
+            <h1>
+
+              Intelligent
+
+              <br />
+
+              Workspace for
+
+              <br />
+
+              <span>Modern Enterprises</span>
+
+            </h1>
+
+            <p>
+
+              Manage SOPs, automate workflows, collaborate securely,
+
+              generate AI-powered documents and gain business insights
+
+              from one intelligent platform.
+
+            </p>
+
+          </div>
+
+          {/*==============================
+                LIVE STATS
+          ==============================*/}
+
+          <div className="stats-grid">
+
+            <div className="stat-box">
+
+              <FaBrain className="stat-icon"/>
+
+              <div>
+
+                <h3>98%</h3>
+
+                <span>AI Accuracy</span>
+
+              </div>
+
+            </div>
+
+            <div className="stat-box">
+
+              <FaShieldAlt className="stat-icon"/>
+
+              <div>
+
+                <h3>100%</h3>
+
+                <span>Secure</span>
+
+              </div>
+
+            </div>
+
+            <div className="stat-box">
+
+              <FaChartLine className="stat-icon"/>
+
+              <div>
+
+                <h3>250K+</h3>
+
+                <span>SOP Processed</span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/*==============================
+                FLOATING CARDS
+          ==============================*/}
+
+          <div className="floating-card card-top">
+
+            <FaRobot />
+
+            <div>
+
+              <h4>AI Assistant</h4>
+
+              <span>Always Available</span>
+
+            </div>
+
+          </div>
+
+          <div className="floating-card card-middle">
+
+            <FaShieldAlt />
+
+            <div>
+
+              <h4>Enterprise Security</h4>
+
+              <span>ISO 27001 Ready</span>
+
+            </div>
+
+          </div>
+
+          <div className="floating-card card-bottom">
+
+            <FaChartLine />
+
+            <div>
+
+              <h4>Analytics</h4>
+
+              <span>Real-time Insights</span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/*==========================================================
+                        RIGHT PANEL
+        ==========================================================*/}
+
+        <div className="login-right">
+
+          <div className="login-card">
+
+            <div className="login-header">
+
+              <h2>
+
+                Welcome Back
+
+              </h2>
 
               <p>
 
-                Your account is protected with
-                Multi-Factor Authentication,
-                Role Based Access Control,
-                encrypted communication
-                and complete audit logging.
+                Sign in to continue to your workspace
+
+              </p>
+
+            </div>
+                        {/*==========================================================
+                            LOGIN FORM
+            ==========================================================*/}
+
+            <form
+              className="login-form"
+              onSubmit={handleSubmit}
+            >
+
+              {/*==============================
+                    EMAIL
+              ==============================*/}
+
+              <div className="input-group">
+
+                <label>
+
+                  Email Address
+
+                </label>
+
+                <div className="input-field">
+
+                  <FaEnvelope className="input-icon" />
+
+                  <input
+
+                    type="email"
+
+                    name="email"
+
+                    placeholder="Enter your email"
+
+                    value={formData.email}
+
+                    onChange={handleChange}
+
+                    required
+
+                  />
+
+                </div>
+
+              </div>
+
+              {/*==============================
+                    PASSWORD
+              ==============================*/}
+
+              <div className="input-group">
+
+                <label>
+
+                  Password
+
+                </label>
+
+                <div className="input-field">
+
+                  <FaLock className="input-icon" />
+
+                  <input
+
+                    type={showPassword ? "text" : "password"}
+
+                    name="password"
+
+                    placeholder="Enter your password"
+
+                    value={formData.password}
+
+                    onChange={handleChange}
+
+                    required
+
+                  />
+
+                  <button
+
+                    type="button"
+
+                    className="password-toggle"
+
+                    onClick={() =>
+
+                      setShowPassword(!showPassword)
+
+                    }
+
+                  >
+
+                    {
+
+                      showPassword
+
+                        ?
+
+                        <FaEyeSlash />
+
+                        :
+
+                        <FaEye />
+
+                    }
+
+                  </button>
+
+                </div>
+
+              </div>
+
+              {/*==============================
+                  REMEMBER + FORGOT
+              ==============================*/}
+
+              <div className="login-options">
+
+                <label className="remember-me">
+
+                  <input
+
+                    type="checkbox"
+
+                    checked={rememberMe}
+
+                    onChange={() =>
+
+                      setRememberMe(!rememberMe)
+
+                    }
+
+                  />
+
+                  Remember Me
+
+                </label>
+
+                <button
+
+                  type="button"
+
+                  className="forgot-password"
+
+                  onClick={() =>
+
+                    navigate("/forgot-password")
+
+                  }
+
+                >
+
+                  Forgot Password?
+
+                </button>
+
+              </div>
+
+              {/*==============================
+                    LOGIN BUTTON
+              ==============================*/}
+
+              <button
+
+                className="login-btn"
+
+                type="submit"
+
+                disabled={loading}
+
+              >
+
+                {
+
+                  loading
+
+                  ?
+
+                  "Signing In..."
+
+                  :
+
+                  <>
+
+                    Sign In
+
+                    <FaArrowRight />
+
+                  </>
+
+                }
+
+              </button>
+
+            </form>
+
+            {/*==========================================================
+                    SOCIAL LOGIN
+            ==========================================================*/}
+
+            <div className="divider">
+
+              <span>
+
+                OR CONTINUE WITH
+
+              </span>
+
+            </div>
+
+            <div className="social-login">
+
+              <button className="social-btn">
+
+                <FaMicrosoft />
+
+                Microsoft
+
+              </button>
+
+              <button className="social-btn">
+
+                <FaGoogle />
+
+                Google
+
+              </button>
+
+            </div>
+                        {/*==========================================================
+                        CREATE ACCOUNT
+            ==========================================================*/}
+
+            <div className="register-section">
+
+              <p>
+
+                Don't have an account?
+
+              </p>
+
+              <button
+
+                type="button"
+
+                className="register-link"
+
+                onClick={() => navigate("/register")}
+
+              >
+
+                Create Account
+
+              </button>
+
+            </div>
+
+            {/*==========================================================
+                        TERMS
+            ==========================================================*/}
+
+            <div className="login-footer">
+
+              <p>
+
+                By signing in you agree to our
+
+                <span> Terms of Service </span>
+
+                and
+
+                <span> Privacy Policy</span>
 
               </p>
 
@@ -301,37 +541,11 @@ export default function Login() {
 
           </div>
 
-          <div className="auth-register">
+        </div>
 
-            <span>
+      </div>
 
-              Don't have an account?
-
-            </span>
-
-            <Link
-              href="/register"
-              underline="none"
-            >
-
-              Register Now
-
-            </Link>
-
-          </div>
-
-          <div className="auth-footer">
-
-            © 2026 AI SOP Management Portal
-
-          </div>
-
-        </form>
-
-      </Paper>
-
-    </AuthLayout>
-
+    </div>
 
   );
 
