@@ -6,9 +6,6 @@ import { useNavigate } from "react-router-dom";
 import {
   FaUser,
   FaEnvelope,
-  FaPhoneAlt,
-  FaBuilding,
-  FaIdBadge,
   FaLock,
   FaEye,
   FaEyeSlash,
@@ -36,14 +33,6 @@ export default function Register() {
 
     email: "",
 
-    phone: "",
-
-    employeeId: "",
-
-    department: "",
-
-    designation: "",
-
     password: "",
 
     confirmPassword: "",
@@ -54,13 +43,13 @@ export default function Register() {
 
     const { name, value } = e.target;
 
-    setFormData({
+    setFormData((prev) => ({
 
-      ...formData,
+      ...prev,
 
       [name]: value,
 
-    });
+    }));
 
   };
 
@@ -90,9 +79,9 @@ export default function Register() {
 
       setLoading(false);
 
-      navigate("/verify-otp");
+      navigate("/verify-email");
 
-    }, 1800);
+    }, 1500);
 
   };
 
@@ -117,6 +106,10 @@ export default function Register() {
 
         <div className="register-left">
 
+          {/*==============================
+                    BRAND
+          ==============================*/}
+
           <div className="brand">
 
             <div className="brand-logo">
@@ -129,11 +122,87 @@ export default function Register() {
 
               <h2>AI SOP Portal</h2>
 
-              <span>Enterprise Intelligence Platform</span>
+              <span>Enterprise Knowledge Platform</span>
 
             </div>
 
           </div>
+
+          {/*==============================
+                  STEP INDICATOR
+          ==============================*/}
+
+          <div className="step-indicator">
+
+            <span className="step-label">
+
+              Step 1 of 4
+
+            </span>
+
+            <div className="step-progress">
+
+              <div className="step-progress-fill"></div>
+
+            </div>
+
+            <div className="step-items">
+
+              <div className="step-item active">
+
+                <div className="step-circle">
+
+                  1
+
+                </div>
+
+                <span>Create Account</span>
+
+              </div>
+
+              <div className="step-item">
+
+                <div className="step-circle">
+
+                  2
+
+                </div>
+
+                <span>Verify Email</span>
+
+              </div>
+
+              <div className="step-item">
+
+                <div className="step-circle">
+
+                  3
+
+                </div>
+
+                <span>Profile</span>
+
+              </div>
+
+              <div className="step-item">
+
+                <div className="step-circle">
+
+                  4
+
+                </div>
+
+                <span>Verify Mobile</span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/*==============================
+                    HERO
+          ==============================*/}
 
           <div className="hero-content">
 
@@ -141,7 +210,7 @@ export default function Register() {
 
               <FaCheckCircle />
 
-              Join the Future of Enterprise Automation
+              Secure Enterprise Registration
 
             </span>
 
@@ -157,27 +226,20 @@ export default function Register() {
 
             <p>
 
-              Get access to AI-powered SOP management, intelligent
-              document processing, workflow automation, advanced analytics,
-              and secure enterprise collaboration — all from one platform.
+              Start your journey with the AI SOP Portal.
+              Create your secure account to manage SOPs,
+              collaborate with teams, automate workflows,
+              and access AI-powered enterprise tools.
 
             </p>
 
           </div>
 
           {/*==============================
-                BENEFITS
+                    BENEFITS
           ==============================*/}
 
           <div className="benefits">
-
-            <div className="benefit-item">
-
-              <FaCheckCircle />
-
-              <span>AI-Powered SOP Generation</span>
-
-            </div>
 
             <div className="benefit-item">
 
@@ -191,7 +253,7 @@ export default function Register() {
 
               <FaCheckCircle />
 
-              <span>Role Based User Access</span>
+              <span>AI Powered SOP Management</span>
 
             </div>
 
@@ -199,29 +261,15 @@ export default function Register() {
 
               <FaCheckCircle />
 
-              <span>Real-time Reports & Analytics</span>
+              <span>Workflow Automation</span>
 
             </div>
 
-          </div>
+            <div className="benefit-item">
 
-          {/*==============================
-                PROGRESS
-          ==============================*/}
+              <FaCheckCircle />
 
-          <div className="register-progress">
-
-            <div className="progress-header">
-
-              <span>Account Setup</span>
-
-              <span>Step 1 of 3</span>
-
-            </div>
-
-            <div className="progress-bar">
-
-              <div className="progress-fill"></div>
+              <span>Real-time Analytics & Reports</span>
 
             </div>
 
@@ -247,7 +295,8 @@ export default function Register() {
 
               <p>
 
-                Fill in your details to create your enterprise account.
+                Create your account to begin the secure
+                onboarding process.
 
               </p>
 
@@ -273,22 +322,15 @@ export default function Register() {
 
                   <div className="input-field">
 
-                    <FaUser className="input-icon"/>
+                    <FaUser className="input-icon" />
 
                     <input
-
                       type="text"
-
                       name="firstName"
-
-                      placeholder="First Name"
-
+                      placeholder="Enter first name"
                       value={formData.firstName}
-
                       onChange={handleChange}
-
                       required
-
                     />
 
                   </div>
@@ -301,22 +343,15 @@ export default function Register() {
 
                   <div className="input-field">
 
-                    <FaUser className="input-icon"/>
+                    <FaUser className="input-icon" />
 
                     <input
-
                       type="text"
-
                       name="lastName"
-
-                      placeholder="Last Name"
-
+                      placeholder="Enter last name"
                       value={formData.lastName}
-
                       onChange={handleChange}
-
                       required
-
                     />
 
                   </div>
@@ -335,151 +370,16 @@ export default function Register() {
 
                 <div className="input-field">
 
-                  <FaEnvelope className="input-icon"/>
+                  <FaEnvelope className="input-icon" />
 
                   <input
-
                     type="email"
-
                     name="email"
-
-                    placeholder="Enter your email"
-
+                    placeholder="Enter your email address"
                     value={formData.email}
-
                     onChange={handleChange}
-
                     required
-
                   />
-
-                </div>
-
-              </div>
-
-              {/*==============================
-                    PHONE
-              ==============================*/}
-
-              <div className="row">
-
-                <div className="input-group">
-
-                  <label>Phone Number</label>
-
-                  <div className="input-field">
-
-                    <FaPhoneAlt className="input-icon"/>
-
-                    <input
-
-                      type="tel"
-
-                      name="phone"
-
-                      placeholder="Phone Number"
-
-                      value={formData.phone}
-
-                      onChange={handleChange}
-
-                      required
-
-                    />
-
-                  </div>
-
-                </div>
-
-                <div className="input-group">
-
-                  <label>Employee ID</label>
-
-                  <div className="input-field">
-
-                    <FaIdBadge className="input-icon"/>
-
-                    <input
-
-                      type="text"
-
-                      name="employeeId"
-
-                      placeholder="Employee ID"
-
-                      value={formData.employeeId}
-
-                      onChange={handleChange}
-
-                      required
-
-                    />
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              {/*==============================
-                    DEPARTMENT
-              ==============================*/}
-
-              <div className="row">
-
-                <div className="input-group">
-
-                  <label>Department</label>
-
-                  <div className="input-field">
-
-                    <FaBuilding className="input-icon"/>
-
-                    <input
-
-                      type="text"
-
-                      name="department"
-
-                      placeholder="Department"
-
-                      value={formData.department}
-
-                      onChange={handleChange}
-
-                      required
-
-                    />
-
-                  </div>
-
-                </div>
-
-                <div className="input-group">
-
-                  <label>Designation</label>
-
-                  <div className="input-field">
-
-                    <FaBuilding className="input-icon"/>
-
-                    <input
-
-                      type="text"
-
-                      name="designation"
-
-                      placeholder="Designation"
-
-                      value={formData.designation}
-
-                      onChange={handleChange}
-
-                      required
-
-                    />
-
-                  </div>
 
                 </div>
 
@@ -495,50 +395,29 @@ export default function Register() {
 
                 <div className="input-field">
 
-                  <FaLock className="input-icon"/>
+                  <FaLock className="input-icon" />
 
                   <input
-
                     type={showPassword ? "text" : "password"}
-
                     name="password"
-
-                    placeholder="Create Password"
-
+                    placeholder="Create a strong password"
                     value={formData.password}
-
                     onChange={handleChange}
-
                     required
-
                   />
 
                   <button
-
                     type="button"
-
                     className="password-toggle"
-
                     onClick={() =>
-
                       setShowPassword(!showPassword)
-
                     }
-
                   >
 
                     {
-
                       showPassword
-
-                      ?
-
-                      <FaEyeSlash/>
-
-                      :
-
-                      <FaEye/>
-
+                        ? <FaEyeSlash />
+                        : <FaEye />
                     }
 
                   </button>
@@ -557,71 +436,64 @@ export default function Register() {
 
                 <div className="input-field">
 
-                  <FaLock className="input-icon"/>
+                  <FaLock className="input-icon" />
 
                   <input
-
                     type={
-
                       showConfirmPassword
-
-                        ?
-
-                        "text"
-
-                        :
-
-                        "password"
-
+                        ? "text"
+                        : "password"
                     }
-
                     name="confirmPassword"
-
-                    placeholder="Confirm Password"
-
+                    placeholder="Re-enter your password"
                     value={formData.confirmPassword}
-
                     onChange={handleChange}
-
                     required
-
                   />
 
                   <button
-
                     type="button"
-
                     className="password-toggle"
-
-                    onClick={()=>
-
+                    onClick={() =>
                       setShowConfirmPassword(
-
                         !showConfirmPassword
-
                       )
-
                     }
-
                   >
 
                     {
-
                       showConfirmPassword
-
-                      ?
-
-                      <FaEyeSlash/>
-
-                      :
-
-                      <FaEye/>
-
+                        ? <FaEyeSlash />
+                        : <FaEye />
                     }
 
                   </button>
 
                 </div>
+
+              </div>
+
+              {/*==============================
+                PASSWORD REQUIREMENTS
+              ==============================*/}
+
+              <div className="password-info">
+
+                <p>Password should contain:</p>
+
+                <ul>
+
+                  <li>✓ At least 8 characters</li>
+
+                  <li>✓ One uppercase letter</li>
+
+                  <li>✓ One lowercase letter</li>
+
+                  <li>✓ One number</li>
+
+                  <li>✓ One special character</li>
+
+                </ul>
 
               </div>
                             {/*==============================
@@ -631,17 +503,9 @@ export default function Register() {
               <label className="terms-check">
 
                 <input
-
                   type="checkbox"
-
                   checked={agreeTerms}
-
-                  onChange={() =>
-
-                    setAgreeTerms(!agreeTerms)
-
-                  }
-
+                  onChange={() => setAgreeTerms(!agreeTerms)}
                 />
 
                 <span>
@@ -655,7 +519,7 @@ export default function Register() {
                     Terms & Conditions
                   </button>
 
-                  and
+                  {" "}and{" "}
 
                   <button
                     type="button"
@@ -673,32 +537,28 @@ export default function Register() {
               ==============================*/}
 
               <button
-
                 type="submit"
-
                 className="register-btn"
-
                 disabled={loading}
-
               >
 
                 {
 
                   loading
 
-                  ?
+                    ?
 
-                  "Creating Account..."
+                    "Creating Account..."
 
-                  :
+                    :
 
-                  <>
+                    <>
 
-                    Create Account
+                      Create Account
 
-                    <FaArrowRight/>
+                      <FaArrowRight />
 
-                  </>
+                    </>
 
                 }
 
