@@ -5,18 +5,24 @@
 :root{
 
     --bg:#19111F;
+
     --bg-secondary:#24172D;
 
     --card:#2C1C38;
 
     --primary:#9B4D78;
+
     --secondary:#C98AAA;
+
     --accent:#D8B66C;
 
     --text:#F8F5F3;
+
     --text-light:#CFC5D2;
 
     --border:rgba(255,255,255,.08);
+
+    --glass:rgba(255,255,255,.04);
 
 }
 
@@ -27,7 +33,9 @@
 *{
 
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
 
 }
@@ -37,8 +45,11 @@ body,
 #root{
 
     width:100%;
+
     height:100%;
+
     overflow:hidden;
+
     font-family:"Inter",sans-serif;
 
 }
@@ -46,12 +57,13 @@ body,
 body{
 
     background:var(--bg);
+
     color:var(--text);
 
 }
 
 /*==========================================================
-                    REGISTER PAGE
+                        PAGE
 ==========================================================*/
 
 .register-page{
@@ -66,17 +78,22 @@ body{
 
     align-items:center;
 
-    padding:20px;
-
     overflow:hidden;
 
     background:
+
     linear-gradient(
+
         135deg,
+
         #19111F,
+
         #24172D,
-        #2B1B37,
+
+        #2C1C38,
+
         #19111F
+
     );
 
 }
@@ -96,14 +113,21 @@ body{
     background-image:
 
         linear-gradient(
+
             rgba(255,255,255,.025) 1px,
+
             transparent 1px
+
         ),
 
         linear-gradient(
+
             90deg,
+
             rgba(255,255,255,.025) 1px,
+
             transparent 1px
+
         );
 
     background-size:60px 60px;
@@ -111,7 +135,7 @@ body{
 }
 
 /*==========================================================
-                        BLOBS
+                    BACKGROUND
 ==========================================================*/
 
 .register-bg{
@@ -123,24 +147,40 @@ body{
     background:
 
         radial-gradient(
-            circle at 10% 15%,
+
+            circle at 12% 15%,
+
             rgba(155,77,120,.20),
+
             transparent 30%
+
         ),
 
         radial-gradient(
+
             circle at 90% 20%,
+
             rgba(201,138,170,.15),
+
             transparent 30%
+
         ),
 
         radial-gradient(
-            circle at 55% 100%,
+
+            circle at 50% 100%,
+
             rgba(216,182,108,.10),
+
             transparent 35%
+
         );
 
 }
+
+/*==========================================================
+                    BLOBS
+==========================================================*/
 
 .blob{
 
@@ -159,24 +199,28 @@ body{
 .blob1{
 
     width:280px;
+
     height:280px;
 
-    background:var(--primary);
-
     top:-120px;
+
     left:-120px;
+
+    background:var(--primary);
 
 }
 
 .blob2{
 
     width:360px;
+
     height:360px;
 
-    background:var(--secondary);
+    top:18%;
 
-    right:-120px;
-    top:15%;
+    right:-140px;
+
+    background:var(--secondary);
 
     animation-delay:2s;
 
@@ -185,12 +229,14 @@ body{
 .blob3{
 
     width:240px;
+
     height:240px;
 
-    background:var(--accent);
+    bottom:-100px;
 
-    bottom:-80px;
     left:40%;
+
+    background:var(--accent);
 
     animation-delay:4s;
 
@@ -198,23 +244,23 @@ body{
 
 @keyframes blobMove{
 
-0%{
+    0%{
 
-transform:translateY(0);
+        transform:translateY(0);
 
-}
+    }
 
-50%{
+    50%{
 
-transform:translateY(30px);
+        transform:translateY(30px);
 
-}
+    }
 
-100%{
+    100%{
 
-transform:translateY(0);
+        transform:translateY(0);
 
-}
+    }
 
 }
 
@@ -228,19 +274,19 @@ transform:translateY(0);
 
     z-index:5;
 
-    width:min(1700px,96vw);
+    width:min(1600px,94vw);
 
-    height:94vh;
+    height:min(900px,90vh);
 
     display:grid;
 
     grid-template-columns:56% 44%;
 
+    border-radius:28px;
+
     overflow:hidden;
 
-    border-radius:26px;
-
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid var(--border);
 
     background:rgba(255,255,255,.03);
 
@@ -258,15 +304,13 @@ transform:translateY(0);
 
 .register-left{
 
-    padding:26px 34px;
+    padding:32px 42px;
 
     display:flex;
 
     flex-direction:column;
 
     justify-content:space-between;
-
-    overflow:hidden;
 
 }
 
@@ -282,69 +326,11 @@ transform:translateY(0);
 
     align-items:center;
 
-    padding:18px;
-
-    overflow:hidden;
+    padding:24px;
 
     border-left:1px solid rgba(255,255,255,.06);
 
-}
-
-/*==========================================================
-                    REGISTER CARD
-==========================================================*/
-
-.register-card{
-
-    width:100%;
-
-    max-width:510px;
-
-    height:100%;
-
-    max-height:100%;
-
-    overflow-y:auto;
-
-    overflow-x:hidden;
-
-    padding:22px;
-
-    border-radius:22px;
-
-    background:rgba(44,28,56,.78);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(20px);
-
-    box-shadow:
-
-        0 20px 50px rgba(0,0,0,.30);
-
-}
-
-/*==========================================================
-                REGISTER CARD SCROLLBAR
-==========================================================*/
-
-.register-card::-webkit-scrollbar{
-
-    width:6px;
-
-}
-
-.register-card::-webkit-scrollbar-thumb{
-
-    background:var(--primary);
-
-    border-radius:20px;
-
-}
-
-.register-card::-webkit-scrollbar-track{
-
-    background:transparent;
+    background:rgba(0,0,0,.05);
 
 }
 /*==========================================================
@@ -357,25 +343,174 @@ transform:translateY(0);
 
     align-items:center;
 
-    gap:14px;
+    gap:16px;
 
-    margin-bottom:20px;
+    margin-bottom:24px;
 
 }
 
 .brand-logo{
 
-    width:56px;
+    width:60px;
 
-    height:56px;
+    height:60px;
 
-    border-radius:16px;
+    border-radius:18px;
 
     display:flex;
 
     justify-content:center;
 
     align-items:center;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    box-shadow:
+        0 15px 35px rgba(155,77,120,.35);
+
+}
+
+.brand h2{
+
+    color:var(--text);
+
+    font-size:28px;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+
+}
+
+.brand span{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    letter-spacing:.5px;
+
+}
+
+/*==========================================================
+                STEP INDICATOR
+==========================================================*/
+
+.step-indicator{
+
+    margin-bottom:34px;
+
+}
+
+.step-label{
+
+    display:block;
+
+    color:var(--accent);
+
+    font-size:13px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.step-progress{
+
+    width:100%;
+
+    height:8px;
+
+    border-radius:30px;
+
+    background:rgba(255,255,255,.08);
+
+    overflow:hidden;
+
+    margin-bottom:22px;
+
+}
+
+.step-progress-fill{
+
+    width:25%;
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    border-radius:30px;
+
+}
+
+.step-items{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+}
+
+.step-item{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:8px;
+
+    flex:1;
+
+}
+
+.step-circle{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    background:rgba(255,255,255,.06);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:var(--text-light);
+
+    transition:.35s;
+
+}
+
+.step-item.active .step-circle{
 
     background:linear-gradient(
         135deg,
@@ -385,32 +520,27 @@ transform:translateY(0);
 
     color:#fff;
 
-    font-size:22px;
-
-    font-weight:700;
-
-    box-shadow:
-        0 10px 25px rgba(155,77,120,.35);
+    border:none;
 
 }
 
-.brand h2{
+.step-item span{
 
-    font-size:24px;
+    text-align:center;
 
-    font-weight:700;
+    font-size:11px;
+
+    color:var(--text-light);
+
+    line-height:1.4;
+
+}
+
+.step-item.active span{
 
     color:var(--text);
 
-    margin-bottom:2px;
-
-}
-
-.brand span{
-
-    font-size:13px;
-
-    color:var(--text-light);
+    font-weight:600;
 
 }
 
@@ -420,7 +550,7 @@ transform:translateY(0);
 
 .hero-content{
 
-    max-width:520px;
+    max-width:560px;
 
 }
 
@@ -432,9 +562,9 @@ transform:translateY(0);
 
     gap:10px;
 
-    padding:8px 18px;
+    padding:10px 18px;
 
-    margin-bottom:20px;
+    margin-bottom:22px;
 
     border-radius:40px;
 
@@ -458,15 +588,15 @@ transform:translateY(0);
 
 .hero-content h1{
 
-    font-size:36px;
+    font-size:42px;
 
     line-height:1.15;
 
     font-weight:800;
 
-    margin-bottom:14px;
-
     color:var(--text);
+
+    margin-bottom:16px;
 
 }
 
@@ -476,11 +606,11 @@ transform:translateY(0);
 
         135deg,
 
-        #6EE7B7,
+        var(--primary),
 
-        #A855F7,
+        var(--secondary),
 
-        #F4B860
+        var(--accent)
 
     );
 
@@ -496,9 +626,9 @@ transform:translateY(0);
 
     font-size:15px;
 
-    line-height:1.7;
+    line-height:1.8;
 
-    max-width:500px;
+    max-width:520px;
 
 }
 
@@ -508,11 +638,11 @@ transform:translateY(0);
 
 .benefits{
 
-    margin-top:20px;
+    margin-top:28px;
 
     display:grid;
 
-    gap:10px;
+    gap:14px;
 
 }
 
@@ -524,7 +654,7 @@ transform:translateY(0);
 
     gap:14px;
 
-    padding:12px 18px;
+    padding:15px 18px;
 
     border-radius:16px;
 
@@ -532,13 +662,13 @@ transform:translateY(0);
 
     border:1px solid rgba(255,255,255,.06);
 
-    transition:.3s;
+    transition:.35s;
 
 }
 
 .benefit-item:hover{
 
-    transform:translateX(4px);
+    transform:translateX(6px);
 
     background:rgba(255,255,255,.07);
 
@@ -548,7 +678,7 @@ transform:translateY(0);
 
     color:var(--accent);
 
-    font-size:16px;
+    font-size:18px;
 
 }
 
@@ -563,72 +693,6 @@ transform:translateY(0);
 }
 
 /*==========================================================
-                    PROGRESS
-==========================================================*/
-
-.register-progress{
-
-    margin-top:18px;
-
-}
-
-.progress-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    margin-bottom:8px;
-
-}
-
-.progress-header span{
-
-    color:var(--text-light);
-
-    font-size:12px;
-
-    font-weight:600;
-
-}
-
-.progress-bar{
-
-    width:100%;
-
-    height:6px;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    background:rgba(255,255,255,.08);
-
-}
-
-.progress-fill{
-
-    width:33%;
-
-    height:100%;
-
-    border-radius:20px;
-
-    background:linear-gradient(
-
-        90deg,
-
-        var(--primary),
-
-        var(--secondary),
-
-        var(--accent)
-
-    );
-
-}
-
-/*==========================================================
                     ANIMATIONS
 ==========================================================*/
 
@@ -638,21 +702,21 @@ transform:translateY(0);
 
 }
 
+.step-indicator{
+
+    animation:fadeDown 1s ease;
+
+}
+
 .hero-content{
 
-    animation:fadeLeft .9s ease;
+    animation:fadeLeft 1.1s ease;
 
 }
 
 .benefits{
 
-    animation:fadeUp 1s ease;
-
-}
-
-.register-progress{
-
-    animation:fadeUp 1.2s ease;
+    animation:fadeUp 1.3s ease;
 
 }
 
@@ -702,7 +766,7 @@ transform:translateY(0);
 
         opacity:0;
 
-        transform:translateY(20px);
+        transform:translateY(25px);
 
     }
 
@@ -721,19 +785,26 @@ transform:translateY(0);
 
 .register-card{
 
+    position:relative;
+
     width:100%;
 
     max-width:500px;
 
-    height:100%;
+    padding:34px;
 
-    max-height:100%;
+    border-radius:24px;
 
-    display:flex;
+    background:rgba(44,28,56,.82);
 
-    flex-direction:column;
+    border:1px solid rgba(255,255,255,.08);
 
-    overflow:hidden;
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35);
 
 }
 
@@ -745,29 +816,29 @@ transform:translateY(0);
 
     text-align:center;
 
-    margin-bottom:14px;
-
-    flex-shrink:0;
+    margin-bottom:28px;
 
 }
 
 .register-header h2{
 
-    font-size:30px;
+    font-size:34px;
 
-    font-weight:800;
+    font-weight:700;
 
     color:var(--text);
 
-    margin-bottom:4px;
+    margin-bottom:8px;
 
 }
 
 .register-header p{
 
+    font-size:14px;
+
     color:var(--text-light);
 
-    font-size:13px;
+    line-height:1.6;
 
 }
 
@@ -777,43 +848,11 @@ transform:translateY(0);
 
 .register-form{
 
-    flex:1;
-
-    overflow-y:auto;
-
-    overflow-x:hidden;
-
-    padding-right:6px;
-
     display:flex;
 
     flex-direction:column;
 
-    gap:10px;
-
-}
-
-/*==========================================================
-                FORM SCROLLBAR
-==========================================================*/
-
-.register-form::-webkit-scrollbar{
-
-    width:6px;
-
-}
-
-.register-form::-webkit-scrollbar-thumb{
-
-    background:var(--primary);
-
-    border-radius:20px;
-
-}
-
-.register-form::-webkit-scrollbar-track{
-
-    background:transparent;
+    gap:18px;
 
 }
 
@@ -825,9 +864,9 @@ transform:translateY(0);
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
 
-    gap:10px;
+    gap:16px;
 
 }
 
@@ -845,13 +884,13 @@ transform:translateY(0);
 
     display:block;
 
-    margin-bottom:5px;
-
-    font-size:12px;
-
-    font-weight:600;
+    margin-bottom:8px;
 
     color:var(--text);
+
+    font-size:13px;
+
+    font-weight:600;
 
 }
 
@@ -867,15 +906,15 @@ transform:translateY(0);
 
     align-items:center;
 
-    height:44px;
+    height:52px;
 
-    border-radius:12px;
+    border-radius:14px;
+
+    background:rgba(255,255,255,.04);
 
     border:1px solid rgba(255,255,255,.08);
 
-    background:rgba(255,255,255,.05);
-
-    transition:.3s;
+    transition:.35s;
 
 }
 
@@ -891,7 +930,7 @@ transform:translateY(0);
 
     box-shadow:
 
-        0 0 0 3px rgba(201,138,170,.12);
+        0 0 0 4px rgba(201,138,170,.10);
 
 }
 
@@ -899,11 +938,11 @@ transform:translateY(0);
 
     position:absolute;
 
-    left:14px;
+    left:16px;
+
+    font-size:15px;
 
     color:var(--accent);
-
-    font-size:14px;
 
 }
 
@@ -921,37 +960,37 @@ transform:translateY(0);
 
     color:var(--text);
 
-    font-size:13px;
+    font-size:14px;
 
-    padding-left:42px;
+    padding-left:46px;
 
-    padding-right:42px;
+    padding-right:48px;
 
 }
 
 .input-field input::placeholder{
 
-    color:rgba(255,255,255,.45);
+    color:rgba(255,255,255,.40);
 
 }
 
 /*==========================================================
-                PASSWORD TOGGLE
+                PASSWORD BUTTON
 ==========================================================*/
 
 .password-toggle{
 
     position:absolute;
 
-    right:8px;
+    right:10px;
 
-    width:28px;
+    width:34px;
 
-    height:28px;
+    height:34px;
 
     border:none;
 
-    border-radius:8px;
+    border-radius:10px;
 
     background:transparent;
 
@@ -965,16 +1004,71 @@ transform:translateY(0);
 
     align-items:center;
 
+    transition:.3s;
+
 }
 
 .password-toggle:hover{
 
     background:rgba(255,255,255,.05);
 
+    color:var(--accent);
+
 }
 
 /*==========================================================
-                    TERMS
+                PASSWORD INFO
+==========================================================*/
+
+.password-info{
+
+    padding:16px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.password-info p{
+
+    color:var(--text);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+}
+
+.password-info ul{
+
+    list-style:none;
+
+    display:grid;
+
+    gap:6px;
+
+}
+
+.password-info li{
+
+    color:var(--text-light);
+
+    font-size:12px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+/*==========================================================
+                    TERMS & CONDITIONS
 ==========================================================*/
 
 .terms-check{
@@ -983,17 +1077,23 @@ transform:translateY(0);
 
     align-items:flex-start;
 
-    gap:10px;
+    gap:12px;
 
-    margin-top:2px;
+    cursor:pointer;
 
 }
 
 .terms-check input{
 
-    margin-top:3px;
+    width:18px;
+
+    height:18px;
+
+    margin-top:2px;
 
     accent-color:var(--primary);
+
+    cursor:pointer;
 
 }
 
@@ -1001,25 +1101,29 @@ transform:translateY(0);
 
     color:var(--text-light);
 
-    font-size:12px;
+    font-size:13px;
 
-    line-height:1.5;
+    line-height:1.6;
 
 }
 
 .terms-link{
 
-    background:none;
-
     border:none;
+
+    background:none;
 
     color:var(--accent);
 
-    font-size:12px;
+    font-size:13px;
+
+    font-weight:600;
 
     cursor:pointer;
 
-    margin:0 3px;
+    margin:0 4px;
+
+    transition:.3s;
 
 }
 
@@ -1030,18 +1134,20 @@ transform:translateY(0);
 }
 
 /*==========================================================
-                BUTTON
+                    REGISTER BUTTON
 ==========================================================*/
 
 .register-btn{
 
     width:100%;
 
-    height:44px;
+    height:54px;
 
     border:none;
 
-    border-radius:12px;
+    border-radius:14px;
+
+    margin-top:8px;
 
     display:flex;
 
@@ -1049,9 +1155,7 @@ transform:translateY(0);
 
     align-items:center;
 
-    gap:10px;
-
-    margin-top:4px;
+    gap:12px;
 
     background:linear-gradient(
 
@@ -1065,21 +1169,50 @@ transform:translateY(0);
 
     color:#fff;
 
-    font-size:14px;
+    font-size:15px;
 
     font-weight:700;
 
     cursor:pointer;
 
-    transition:.3s;
+    transition:.35s;
+
+    box-shadow:
+
+        0 18px 35px rgba(155,77,120,.35);
 
 }
 
 .register-btn:hover{
 
-    transform:translateY(-2px);
+    transform:translateY(-3px);
+
+    box-shadow:
+
+        0 24px 40px rgba(155,77,120,.45);
 
 }
+
+.register-btn svg{
+
+    transition:.3s;
+
+}
+
+.register-btn:hover svg{
+
+    transform:translateX(5px);
+
+}
+
+.register-btn:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+}
+
 /*==========================================================
                     LOGIN SECTION
 ==========================================================*/
@@ -1094,9 +1227,7 @@ transform:translateY(0);
 
     gap:8px;
 
-    margin-top:14px;
-
-    flex-shrink:0;
+    margin-top:24px;
 
 }
 
@@ -1104,7 +1235,7 @@ transform:translateY(0);
 
     color:var(--text-light);
 
-    font-size:12px;
+    font-size:13px;
 
 }
 
@@ -1144,23 +1275,23 @@ transform:translateY(0);
 
     inset:0;
 
-    border-radius:22px;
+    border-radius:24px;
 
     padding:1px;
 
     background:
 
-        linear-gradient(
+    linear-gradient(
 
-            135deg,
+        135deg,
 
-            rgba(255,255,255,.10),
+        rgba(255,255,255,.12),
 
-            transparent,
+        transparent,
 
-            rgba(216,182,108,.12)
+        rgba(216,182,108,.10)
 
-        );
+    );
 
     -webkit-mask:
 
@@ -1175,84 +1306,26 @@ transform:translateY(0);
 }
 
 /*==========================================================
-                    ANIMATION
+                    HOVER
 ==========================================================*/
-
-.register-left{
-
-    animation:leftSlide .8s ease;
-
-}
-
-.register-right{
-
-    animation:rightSlide .8s ease;
-
-}
 
 .register-card{
 
-    animation:cardFade .8s ease;
+    transition:
+
+        transform .35s,
+
+        box-shadow .35s;
 
 }
 
-@keyframes leftSlide{
+.register-card:hover{
 
-    from{
+    transform:translateY(-4px);
 
-        opacity:0;
+    box-shadow:
 
-        transform:translateX(-50px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
-
-}
-
-@keyframes rightSlide{
-
-    from{
-
-        opacity:0;
-
-        transform:translateX(50px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
-
-}
-
-@keyframes cardFade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(20px) scale(.98);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:none;
-
-    }
+        0 30px 70px rgba(0,0,0,.35);
 
 }
 
@@ -1260,96 +1333,56 @@ transform:translateY(0);
                     RESPONSIVE
 ==========================================================*/
 
-@media (max-width:1440px){
+@media (max-width:1366px){
 
     .register-container{
 
         width:96vw;
 
-        height:94vh;
+        height:92vh;
+
+    }
+
+    .register-left{
+
+        padding:28px 32px;
 
     }
 
     .hero-content h1{
 
-        font-size:34px;
+        font-size:36px;
 
     }
 
     .benefits{
 
-        gap:8px;
-
-    }
-
-}
-
-@media (max-width:1366px){
-
-    .register-container{
-
-        grid-template-columns:54% 46%;
-
-    }
-
-    .register-left{
-
-        padding:22px 26px;
-
-    }
-
-    .hero-content h1{
-
-        font-size:32px;
-
-    }
-
-    .hero-content p{
-
-        font-size:14px;
+        gap:10px;
 
     }
 
     .benefit-item{
 
-        padding:10px 14px;
-
-    }
-
-}
-
-@media (max-width:1100px){
-
-    .register-container{
-
-        grid-template-columns:1fr;
-
-    }
-
-    .register-left{
-
-        display:none;
-
-    }
-
-    .register-right{
-
-        padding:20px;
+        padding:12px 16px;
 
     }
 
     .register-card{
 
-        max-width:600px;
+        max-width:470px;
+
+        padding:28px;
 
     }
 
 }
 
-@media (max-width:768px){
+@media (max-width:1024px){
 
     html,
+
     body,
+
     #root{
 
         overflow:auto;
@@ -1362,31 +1395,69 @@ transform:translateY(0);
 
         min-height:100vh;
 
+        height:auto;
+
         overflow:auto;
 
-        padding:20px;
+        padding:30px 0;
 
     }
 
     .register-container{
 
+        width:94%;
+
         height:auto;
+
+        display:flex;
+
+        flex-direction:column;
+
+    }
+
+    .register-left{
+
+        padding:35px;
+
+    }
+
+    .register-right{
+
+        padding:30px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .register-left{
+
+        display:none;
+
+    }
+
+    .register-container{
+
+        width:100%;
+
+        height:100%;
+
+        border-radius:0;
+
+    }
+
+    .register-right{
+
+        padding:18px;
 
     }
 
     .register-card{
 
-        height:auto;
+        max-width:100%;
 
-        max-height:none;
-
-        overflow:visible;
-
-    }
-
-    .register-form{
-
-        overflow:visible;
+        padding:22px;
 
     }
 
@@ -1400,43 +1471,32 @@ transform:translateY(0);
 
 @media (max-width:480px){
 
-    .register-right{
-
-        padding:12px;
-
-    }
-
-    .register-card{
-
-        padding:18px;
-
-    }
-
     .register-header h2{
 
-        font-size:26px;
+        font-size:28px;
 
     }
 
     .input-field{
 
-        height:42px;
+        height:48px;
 
     }
 
     .register-btn{
 
-        height:42px;
+        height:48px;
 
     }
 
 }
 
 /*==========================================================
-                    GLOBAL
+                    ACCESSIBILITY
 ==========================================================*/
 
 button:focus-visible,
+
 input:focus-visible{
 
     outline:2px solid var(--secondary);
@@ -1453,15 +1513,19 @@ input:focus-visible{
 
 }
 
+/*==========================================================
+                    SMOOTH TRANSITIONS
+==========================================================*/
+
 *{
 
     transition:
 
         background-color .3s,
 
-        border-color .3s,
-
         color .3s,
+
+        border-color .3s,
 
         transform .3s,
 
