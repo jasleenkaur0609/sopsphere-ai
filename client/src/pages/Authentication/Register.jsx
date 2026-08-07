@@ -100,182 +100,151 @@ export default function Register() {
       <div className="blob blob3"></div>
 
       <div className="register-container">
-                {/*==========================================================
-                        LEFT PANEL
-        ==========================================================*/}
+               {/*==========================================================
+                    LEFT PANEL
+==========================================================*/}
 
-        <div className="register-left">
+<div className="register-left">
 
-          {/*==============================
-                    BRAND
-          ==============================*/}
+  {/*==============================
+            BRAND
+  ==============================*/}
 
-          <div className="brand">
+  <div className="brand">
 
-            <div className="brand-logo">
+    <div className="brand-logo">
+      AI
+    </div>
 
-              AI
+    <div className="brand-text">
 
-            </div>
+      <h2>AI SOP Portal</h2>
 
-            <div>
+      <span>Enterprise Knowledge Platform</span>
 
-              <h2>AI SOP Portal</h2>
+    </div>
 
-              <span>Enterprise Knowledge Platform</span>
+  </div>
 
-            </div>
+  {/*==============================
+        STEP INDICATOR
+  ==============================*/}
 
-          </div>
+  <div className="step-indicator">
 
-          {/*==============================
-                  STEP INDICATOR
-          ==============================*/}
+    <span className="step-label">
 
-          <div className="step-indicator">
+      Step 1 of 4
 
-            <span className="step-label">
+    </span>
 
-              Step 1 of 4
+    <div className="step-progress">
 
-            </span>
+      <div className="step-progress-fill"></div>
 
-            <div className="step-progress">
+    </div>
 
-              <div className="step-progress-fill"></div>
+    <div className="step-items">
 
-            </div>
+      <div className="step-item active">
 
-            <div className="step-items">
+        <div className="step-circle">1</div>
 
-              <div className="step-item active">
+        <span>Create Account</span>
 
-                <div className="step-circle">
+      </div>
 
-                  1
+      <div className="step-item">
 
-                </div>
+        <div className="step-circle">2</div>
 
-                <span>Create Account</span>
+        <span>Email Verification</span>
 
-              </div>
+      </div>
 
-              <div className="step-item">
+      <div className="step-item">
 
-                <div className="step-circle">
+        <div className="step-circle">3</div>
 
-                  2
+        <span>Profile Completion</span>
 
-                </div>
+      </div>
 
-                <span>Verify Email</span>
+      <div className="step-item">
 
-              </div>
+        <div className="step-circle">4</div>
 
-              <div className="step-item">
+        <span>Mobile Verification</span>
 
-                <div className="step-circle">
+      </div>
 
-                  3
+    </div>
 
-                </div>
+  </div>
 
-                <span>Profile</span>
+  {/*==============================
+            HERO
+  ==============================*/}
 
-              </div>
+  <div className="hero-content">
 
-              <div className="step-item">
+    <div className="register-badge">
 
-                <div className="step-circle">
+      <FaCheckCircle />
 
-                  4
+      <span>Secure Registration</span>
 
-                </div>
+    </div>
 
-                <span>Verify Mobile</span>
+    <h1>
 
-              </div>
+      Create Your <span>Enterprise Account</span>
 
-            </div>
+    </h1>
 
-          </div>
+    <p>
 
-          {/*==============================
-                    HERO
-          ==============================*/}
+      Securely create your enterprise account to access AI-powered SOP management,
+      workflow automation, and team collaboration from a single platform.
 
-          <div className="hero-content">
+    </p>
 
-            <span className="register-badge">
+  </div>
 
-              <FaCheckCircle />
+  {/*==============================
+            BENEFITS
+  ==============================*/}
 
-              Secure Enterprise Registration
+  <div className="benefits">
 
-            </span>
+    <div className="benefit-item">
 
-            <h1>
+      <FaCheckCircle />
 
-              Create Your
+      <span>Enterprise Grade Security</span>
 
-              <br />
+    </div>
 
-              <span>Enterprise Account</span>
+    <div className="benefit-item">
 
-            </h1>
+      <FaCheckCircle />
 
-            <p>
+      <span>AI Powered SOP Management</span>
 
-              Start your journey with the AI SOP Portal.
-              Create your secure account to manage SOPs,
-              collaborate with teams, automate workflows,
-              and access AI-powered enterprise tools.
+    </div>
 
-            </p>
+    <div className="benefit-item">
 
-          </div>
+      <FaCheckCircle />
 
-          {/*==============================
-                    BENEFITS
-          ==============================*/}
+      <span>Workflow Automation</span>
 
-          <div className="benefits">
+    </div>
 
-            <div className="benefit-item">
+  </div>
 
-              <FaCheckCircle />
-
-              <span>Enterprise Grade Security</span>
-
-            </div>
-
-            <div className="benefit-item">
-
-              <FaCheckCircle />
-
-              <span>AI Powered SOP Management</span>
-
-            </div>
-
-            <div className="benefit-item">
-
-              <FaCheckCircle />
-
-              <span>Workflow Automation</span>
-
-            </div>
-
-            <div className="benefit-item">
-
-              <FaCheckCircle />
-
-              <span>Real-time Analytics & Reports</span>
-
-            </div>
-
-          </div>
-
-        </div>
+</div>
+        
 
         {/*==========================================================
                         RIGHT PANEL
@@ -479,23 +448,13 @@ export default function Register() {
 
               <div className="password-info">
 
-                <p>Password should contain:</p>
+    <p>
 
-                <ul>
+        ✓ Minimum 8 characters • Uppercase • Lowercase • Number • Special Character
 
-                  <li>✓ At least 8 characters</li>
+    </p>
 
-                  <li>✓ One uppercase letter</li>
-
-                  <li>✓ One lowercase letter</li>
-
-                  <li>✓ One number</li>
-
-                  <li>✓ One special character</li>
-
-                </ul>
-
-              </div>
+</div>
                             {/*==============================
                   TERMS & CONDITIONS
               ==============================*/}
