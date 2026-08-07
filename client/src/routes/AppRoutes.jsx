@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home/Home";
 import Login from "../pages/Authentication/Login";
-// import Register from "../pages/Authentication/Register";
+import Register from "../pages/Authentication/Register";
 // import ForgotPassword from "../pages/Authentication/ForgotPassword";
 // import Dashboard from "../pages/Dashboard/Dashboard";
 
@@ -18,7 +18,7 @@ function AppRoutes() {
 
       {/* Uncomment when ready */}
 
-      {/* <Route path="/register" element={<Register />} /> */}
+      <Route path="/register" element={<Register />} />
 
       {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
 
