@@ -1,0 +1,1386 @@
+/*=========================================================
+                    GOOGLE FONT
+=========================================================*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/*=========================================================
+                    VARIABLES
+=========================================================*/
+
+:root{
+
+    --primary:#7C3AED;
+    --secondary:#A855F7;
+    --accent:#F4B860;
+
+    --success:#22C55E;
+
+    --background:#181220;
+    --background-dark:#22172F;
+
+    --card:#2C1E38;
+
+    --text:#FFFFFF;
+    --text-light:#CFC7D7;
+
+    --border:rgba(255,255,255,.08);
+
+}
+
+/*=========================================================
+                    RESET
+=========================================================*/
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html,
+body,
+#root{
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    font-family:"Inter",sans-serif;
+
+    background:var(--background);
+
+}
+
+/*=========================================================
+                    PAGE
+=========================================================*/
+
+.verify-page{
+
+    position:fixed;
+
+    inset:0;
+
+    overflow:auto;
+
+    background:
+
+    linear-gradient(
+
+        135deg,
+
+        #181220,
+
+        #24172D,
+
+        #2C1E38,
+
+        #181220
+
+    );
+
+}
+
+/*=========================================================
+                    GRID
+=========================================================*/
+
+.verify-page::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(
+
+        rgba(255,255,255,.02) 1px,
+
+        transparent 1px
+
+    ),
+
+    linear-gradient(
+
+        90deg,
+
+        rgba(255,255,255,.02) 1px,
+
+        transparent 1px
+
+    );
+
+    background-size:60px 60px;
+
+    pointer-events:none;
+
+}
+
+/*=========================================================
+                    BACKGROUND
+=========================================================*/
+
+.bg-gradient{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(
+
+        circle at 12% 18%,
+
+        rgba(124,58,237,.18),
+
+        transparent 28%
+
+    ),
+
+    radial-gradient(
+
+        circle at 88% 12%,
+
+        rgba(168,85,247,.18),
+
+        transparent 30%
+
+    ),
+
+    radial-gradient(
+
+        circle at 50% 100%,
+
+        rgba(244,184,96,.08),
+
+        transparent 35%
+
+    );
+
+}
+
+/*=========================================================
+                    BLOBS
+=========================================================*/
+
+.blob{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.35;
+
+    animation:floatBlob 12s ease-in-out infinite;
+
+}
+
+.blob1{
+
+    width:260px;
+
+    height:260px;
+
+    top:-100px;
+
+    left:-80px;
+
+    background:#7C3AED;
+
+}
+
+.blob2{
+
+    width:320px;
+
+    height:320px;
+
+    right:-120px;
+
+    top:20%;
+
+    background:#A855F7;
+
+    animation-delay:2s;
+
+}
+
+.blob3{
+
+    width:220px;
+
+    height:220px;
+
+    left:45%;
+
+    bottom:-80px;
+
+    background:#F4B860;
+
+    animation-delay:4s;
+
+}
+
+@keyframes floatBlob{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(25px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/*=========================================================
+                    MAIN CONTAINER
+=========================================================*/
+
+.verify-container{
+
+    position:relative;
+
+    z-index:5;
+
+    width:min(1600px,96vw);
+
+    min-height:880px;
+
+    margin:40px auto;
+
+    display:grid;
+
+    grid-template-columns:420px 1fr;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid var(--border);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(24px);
+
+    box-shadow:
+
+        0 25px 70px rgba(0,0,0,.35);
+
+}
+
+/*=========================================================
+                    LEFT PANEL
+=========================================================*/
+
+.verify-left{
+
+    padding:34px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:24px;
+
+    background:rgba(255,255,255,.02);
+
+    border-right:1px solid rgba(255,255,255,.08);
+
+}
+
+/*=========================================================
+                    RIGHT PANEL
+=========================================================*/
+
+.verify-right{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px;
+
+    background:transparent;
+
+}
+/*=========================================================
+                    BRAND
+=========================================================*/
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+.brand-logo{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:#fff;
+
+    font-size:28px;
+
+    font-weight:800;
+
+    flex-shrink:0;
+
+    box-shadow:
+        0 15px 35px rgba(124,58,237,.35);
+
+}
+
+.brand-text{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.brand-text h2{
+
+    color:#fff;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    line-height:1.2;
+
+}
+
+.brand-text span{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    margin-top:4px;
+
+}
+
+/*=========================================================
+                REGISTRATION PROGRESS
+=========================================================*/
+
+.progress-wrapper{
+
+    padding:22px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.progress-wrapper h4{
+
+    color:var(--accent);
+
+    font-size:13px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    margin-bottom:18px;
+
+}
+
+.progress-bar{
+
+    width:100%;
+
+    height:6px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    margin-bottom:22px;
+
+}
+
+.progress-fill{
+
+    width:50%;
+
+    height:100%;
+
+    border-radius:30px;
+
+    background:linear-gradient(
+        90deg,
+        var(--success),
+        var(--primary)
+    );
+
+}
+
+.steps{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:8px;
+
+}
+
+.step{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.step-circle{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+
+}
+
+.step span{
+
+    font-size:11px;
+
+    line-height:1.4;
+
+    color:var(--text-light);
+
+}
+
+.step.completed .step-circle{
+
+    background:linear-gradient(
+        135deg,
+        #22C55E,
+        #16A34A
+    );
+
+    border:none;
+
+    color:#fff;
+
+}
+
+.step.active .step-circle{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    border:none;
+
+    color:#fff;
+
+    box-shadow:
+        0 10px 25px rgba(124,58,237,.35);
+
+}
+
+.step.completed span,
+.step.active span{
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+/*=========================================================
+                    HERO CARD
+=========================================================*/
+
+.hero-card{
+
+    padding:24px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.hero-icon{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(124,58,237,.15);
+
+    margin-bottom:18px;
+
+}
+
+.hero-icon svg{
+
+    color:var(--accent);
+
+    font-size:30px;
+
+}
+
+.hero-card h1{
+
+    color:#fff;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.hero-card p{
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+    line-height:1.7;
+
+}
+
+.hero-card strong{
+
+    color:#fff;
+
+}
+
+/*=========================================================
+                    FEATURES
+=========================================================*/
+
+.feature-list{
+
+    display:grid;
+
+    gap:12px;
+
+}
+
+.feature{
+
+    display:flex;
+
+    gap:14px;
+
+    align-items:flex-start;
+
+    padding:16px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.feature svg{
+
+    color:var(--accent);
+
+    font-size:20px;
+
+    margin-top:2px;
+
+    flex-shrink:0;
+
+}
+
+.feature h5{
+
+    color:#fff;
+
+    font-size:15px;
+
+    margin-bottom:4px;
+
+}
+
+.feature p{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+/*=========================================================
+                    VERIFY CARD
+=========================================================*/
+
+.verify-card{
+
+    width:100%;
+
+    max-width:620px;
+
+    padding:42px;
+
+    border-radius:28px;
+
+    background:rgba(44,30,56,.94);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.35);
+
+    position:relative;
+
+}
+
+.verify-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:28px;
+
+    padding:1px;
+
+    background:linear-gradient(
+
+        135deg,
+
+        rgba(255,255,255,.12),
+
+        transparent,
+
+        rgba(244,184,96,.08)
+
+    );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    pointer-events:none;
+
+}
+
+/*=========================================================
+                    HEADER
+=========================================================*/
+
+.verify-header{
+
+    text-align:center;
+
+    margin-bottom:28px;
+
+}
+
+.verify-header h2{
+
+    color:#fff;
+
+    font-size:34px;
+
+    font-weight:800;
+
+    margin-bottom:10px;
+
+}
+
+.verify-header p{
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+    line-height:1.7;
+
+}
+
+/*=========================================================
+                EMAIL BANNER
+=========================================================*/
+
+.email-banner{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:12px;
+
+    padding:16px;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    margin-bottom:30px;
+
+}
+
+.email-banner-icon{
+
+    font-size:18px;
+
+    color:var(--accent);
+
+}
+
+.email-banner span{
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+/*=========================================================
+                    OTP SECTION
+=========================================================*/
+
+.otp-section{
+
+    margin-bottom:28px;
+
+}
+
+.otp-inputs{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:14px;
+
+}
+
+.otp-input{
+
+    width:60px;
+
+    height:64px;
+
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff;
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:700;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.otp-input:hover{
+
+    border-color:rgba(255,255,255,.20);
+
+}
+
+.otp-input:focus{
+
+    border-color:var(--primary);
+
+    background:rgba(255,255,255,.08);
+
+    box-shadow:
+
+        0 0 0 4px rgba(124,58,237,.18);
+
+}
+
+/*=========================================================
+                    TIMER
+=========================================================*/
+
+.timer-section{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:24px;
+
+    margin-bottom:30px;
+
+}
+
+.timer-section p{
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+}
+
+.timer-section span{
+
+    color:var(--accent);
+
+    font-weight:700;
+
+    margin-left:6px;
+
+}
+
+.resend-btn{
+
+    border:none;
+
+    background:none;
+
+    color:var(--accent);
+
+    font-size:14px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.resend-btn:hover{
+
+    color:var(--primary);
+
+}
+/*=========================================================
+                    ACTION BUTTONS
+=========================================================*/
+
+.verify-actions{
+
+    display:flex;
+
+    gap:16px;
+
+    width:100%;
+
+}
+
+.back-btn{
+
+    flex:1;
+
+    height:56px;
+
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.05);
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.back-btn:hover{
+
+    background:rgba(255,255,255,.08);
+
+    transform:translateY(-2px);
+
+}
+
+.verify-btn{
+
+    flex:2;
+
+    height:56px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:
+        0 18px 40px rgba(124,58,237,.30);
+
+}
+
+.verify-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 24px 50px rgba(124,58,237,.40);
+
+}
+
+.verify-btn:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+}
+
+.change-email{
+
+    margin-top:24px;
+
+    text-align:center;
+
+}
+
+.change-email p{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.change-email button{
+
+    border:none;
+
+    background:none;
+
+    color:var(--accent);
+
+    font-size:14px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.change-email button:hover{
+
+    color:var(--primary);
+
+}
+
+/*=========================================================
+                    RESPONSIVE
+=========================================================*/
+
+@media(max-width:1200px){
+
+    .verify-container{
+
+        grid-template-columns:360px 1fr;
+
+    }
+
+}
+
+@media(max-width:992px){
+
+    html,
+    body,
+    #root{
+
+        overflow:auto;
+
+    }
+
+    .verify-page{
+
+        overflow:auto;
+
+        padding:24px;
+
+    }
+
+    .verify-container{
+
+        display:flex;
+
+        flex-direction:column;
+
+        min-height:auto;
+
+    }
+
+    .verify-left{
+
+        border-right:none;
+
+        border-bottom:1px solid rgba(255,255,255,.08);
+
+    }
+
+    .verify-right{
+
+        padding:30px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .verify-left{
+
+        display:none;
+
+    }
+
+    .verify-container{
+
+        width:100%;
+
+        margin:0;
+
+        border-radius:0;
+
+    }
+
+    .verify-right{
+
+        padding:20px;
+
+    }
+
+    .verify-card{
+
+        max-width:100%;
+
+        padding:28px;
+
+    }
+
+    .verify-header h2{
+
+        font-size:28px;
+
+    }
+
+    .otp-input{
+
+        width:52px;
+
+        height:56px;
+
+        font-size:20px;
+
+    }
+
+    .otp-inputs{
+
+        gap:10px;
+
+    }
+
+    .verify-actions{
+
+        flex-direction:column;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .otp-input{
+
+        width:42px;
+
+        height:46px;
+
+        font-size:18px;
+
+    }
+
+}
+
+/*=========================================================
+                    ACCESSIBILITY
+=========================================================*/
+
+button:focus-visible,
+input:focus-visible{
+
+    outline:2px solid var(--primary);
+
+    outline-offset:2px;
+
+}
+
+::selection{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/*=========================================================
+                    ANIMATIONS
+=========================================================*/
+
+.brand{
+
+    animation:fadeDown .7s ease;
+
+}
+
+.progress-wrapper{
+
+    animation:fadeDown .9s ease;
+
+}
+
+.hero-card{
+
+    animation:fadeLeft 1s ease;
+
+}
+
+.feature-list{
+
+    animation:fadeUp 1.2s ease;
+
+}
+
+.verify-card{
+
+    animation:zoomIn .8s ease;
+
+}
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes fadeLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.97);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
