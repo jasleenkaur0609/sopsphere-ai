@@ -1,0 +1,1437 @@
+/*==========================================================
+                    GOOGLE FONT
+==========================================================*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+/*==========================================================
+                    VARIABLES
+==========================================================*/
+:root {
+
+  --bg: #19111F;
+  --bg-secondary: #24172D;
+  --card: #2B1B37;
+
+  --primary: #8B5CF6;
+  --secondary: #9B4D78;
+  --accent: #F4B860;
+  --success: #22C55E;
+
+  --text: #FFFFFF;
+  --text-light: #D7D0DB;
+
+  --border: rgba(255,255,255,.08);
+  --glass: rgba(255,255,255,.04);
+
+}
+
+/*==========================================================
+                    RESET
+==========================================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body,
+#root{
+
+    width:100%;
+    height:100%;
+    overflow:hidden;
+
+    font-family:"Inter",sans-serif;
+    background:var(--bg);
+
+}
+
+/*==========================================================
+                    PAGE
+==========================================================*/
+
+.verify-page{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #19111F,
+            #24172D,
+            #2B1B37,
+            #19111F
+        );
+
+}
+
+/*==========================================================
+                GRID BACKGROUND
+==========================================================*/
+
+.verify-page::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+
+    background-size:55px 55px;
+
+}
+
+/*==========================================================
+                BACKGROUND EFFECT
+==========================================================*/
+
+.register-bg{
+
+    position:absolute;
+    inset:0;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(139,92,246,.18),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 88% 15%,
+            rgba(155,77,120,.18),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(244,184,96,.10),
+            transparent 38%
+        );
+
+}
+
+/*==========================================================
+                BLOBS
+==========================================================*/
+
+.blob{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(120px);
+
+    opacity:.35;
+
+    animation:blobFloat 12s infinite ease-in-out;
+
+}
+
+.blob1{
+
+    width:260px;
+    height:260px;
+
+    top:-90px;
+    left:-90px;
+
+    background:var(--primary);
+
+}
+
+.blob2{
+
+    width:320px;
+    height:320px;
+
+    top:20%;
+    right:-120px;
+
+    background:var(--secondary);
+
+    animation-delay:2s;
+
+}
+
+.blob3{
+
+    width:220px;
+    height:220px;
+
+    bottom:-80px;
+    left:45%;
+
+    background:var(--accent);
+
+    animation-delay:4s;
+
+}
+
+@keyframes blobFloat{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(28px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/*==========================================================
+                MAIN CONTAINER
+==========================================================*/
+
+.verify-container{
+
+    position:relative;
+
+    z-index:5;
+
+    width:min(1700px,96vw);
+
+    height:92vh;
+
+    display:grid;
+
+    grid-template-columns:42% 58%;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:28px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(22px);
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.35);
+
+}
+
+/*==========================================================
+                LEFT PANEL
+==========================================================*/
+
+.verify-left{
+
+    padding:34px 38px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:flex-start;
+
+}
+
+/*==========================================================
+                RIGHT PANEL
+==========================================================*/
+
+.verify-right{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+
+    border-left:1px solid rgba(255,255,255,.08);
+
+}
+/*==========================================================
+                        BRAND
+==========================================================*/
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:34px;
+
+}
+
+.brand-logo{
+
+    width:72px;
+
+    height:72px;
+
+    border-radius:22px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        #33D17A,
+        #8B5CF6
+    );
+
+    color:#fff;
+
+    font-size:34px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 18px 45px rgba(139,92,246,.35);
+
+}
+
+.brand-text{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.brand-text h2{
+
+    color:#fff;
+
+    font-size:32px;
+
+    font-weight:800;
+
+    margin-bottom:4px;
+
+}
+
+.brand-text span{
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+    letter-spacing:.4px;
+
+}
+
+/*==========================================================
+                REGISTRATION PROGRESS
+==========================================================*/
+
+.step-indicator{
+
+    margin-bottom:40px;
+
+}
+
+.step-label{
+
+    text-align:center;
+
+    display:block;
+
+    color:var(--accent);
+
+    font-size:14px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+    margin-bottom:18px;
+
+}
+
+/*==========================================================
+                    PROGRESS BAR
+==========================================================*/
+
+.step-progress{
+
+    width:100%;
+
+    height:7px;
+
+    background:rgba(255,255,255,.08);
+
+    border-radius:40px;
+
+    overflow:hidden;
+
+    margin-bottom:28px;
+
+}
+
+.step-progress-fill{
+
+    width:50%;
+
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #22C55E,
+        #8B5CF6
+    );
+
+}
+
+/*==========================================================
+                        STEP ROW
+==========================================================*/
+
+.step-items{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:6px;
+
+}
+
+.step-item{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    text-align:center;
+
+}
+
+.step-circle{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin-bottom:12px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+    font-weight:700;
+
+    transition:.35s;
+
+}
+
+.step-item span{
+
+    color:var(--text-light);
+
+    font-size:14px;
+
+    line-height:1.45;
+
+    font-weight:500;
+
+    max-width:110px;
+
+}
+
+.step-item.completed .step-circle{
+
+    background:linear-gradient(
+        135deg,
+        #22C55E,
+        #16A34A
+    );
+
+    border:none;
+
+    color:#fff;
+
+}
+
+.step-item.completed span{
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+.step-item.active .step-circle{
+
+    background:linear-gradient(
+        135deg,
+        #33D17A,
+        #8B5CF6
+    );
+
+    border:none;
+
+    color:#fff;
+
+    box-shadow:
+        0 12px 30px rgba(139,92,246,.35);
+
+}
+
+.step-item.active span{
+
+    color:#fff;
+
+    font-weight:700;
+
+}
+
+/*==========================================================
+                    HERO SECTION
+==========================================================*/
+
+.hero-content{
+
+    margin-top:42px;
+
+}
+
+.hero-icon{
+
+    width:86px;
+
+    height:86px;
+
+    border-radius:24px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(139,92,246,.12);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    margin-bottom:22px;
+
+}
+
+.hero-icon svg{
+
+    font-size:38px;
+
+    color:var(--accent);
+
+}
+
+.hero-content h1{
+
+    color:#fff;
+
+    font-size:42px;
+
+    font-weight:800;
+
+    line-height:1.15;
+
+    margin-bottom:18px;
+
+}
+
+.hero-content p{
+
+    color:var(--text-light);
+
+    font-size:16px;
+
+    line-height:1.8;
+
+}
+
+.hero-content strong{
+
+    color:#fff;
+
+}
+
+/*==========================================================
+                    INFORMATION CARDS
+==========================================================*/
+
+.verification-info{
+
+    margin-top:34px;
+
+    display:grid;
+
+    gap:16px;
+
+}
+
+.info-item{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:16px;
+
+    padding:18px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+
+}
+
+.info-item:hover{
+
+    background:rgba(255,255,255,.06);
+
+    transform:translateX(5px);
+
+}
+
+.info-item svg{
+
+    color:var(--accent);
+
+    font-size:22px;
+
+    margin-top:2px;
+
+}
+
+.info-item h4{
+
+    color:#fff;
+
+    font-size:16px;
+
+    margin-bottom:6px;
+
+}
+
+.info-item p{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    line-height:1.6;
+
+}
+/*==========================================================
+                    VERIFY CARD
+==========================================================*/
+
+.verify-card{
+
+    width:100%;
+
+    max-width:700px;
+
+    background:rgba(43,27,55,.94);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    padding:48px;
+
+    backdrop-filter:blur(28px);
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.35);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.verify-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:30px;
+
+    padding:1px;
+
+    background:linear-gradient(
+
+        135deg,
+
+        rgba(255,255,255,.15),
+
+        transparent,
+
+        rgba(244,184,96,.10)
+
+    );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    pointer-events:none;
+
+}
+
+/*==========================================================
+                    HEADER
+==========================================================*/
+
+.verify-header{
+
+    text-align:center;
+
+    margin-bottom:34px;
+
+}
+
+.verify-header h2{
+
+    color:#fff;
+
+    font-size:48px;
+
+    font-weight:800;
+
+    margin-bottom:12px;
+
+}
+
+.verify-header p{
+
+    color:var(--text-light);
+
+    font-size:18px;
+
+    line-height:1.7;
+
+}
+
+/*==========================================================
+                    EMAIL BANNER
+==========================================================*/
+
+.email-display{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:14px;
+
+    width:100%;
+
+    padding:18px 20px;
+
+    margin-bottom:40px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.email-icon{
+
+    color:var(--accent);
+
+    font-size:22px;
+
+}
+
+.email-display span{
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+/*==========================================================
+                    OTP INPUTS
+==========================================================*/
+
+.otp-section{
+
+    width:100%;
+
+    margin-bottom:36px;
+
+}
+
+.otp-inputs{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:16px;
+
+}
+
+.otp-input{
+
+    width:68px;
+
+    height:72px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    background:rgba(255,255,255,.04);
+
+    color:#fff;
+
+    text-align:center;
+
+    font-size:28px;
+
+    font-weight:700;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.otp-input:hover{
+
+    border-color:rgba(255,255,255,.20);
+
+}
+
+.otp-input:focus{
+
+    border-color:var(--primary);
+
+    background:rgba(255,255,255,.08);
+
+    box-shadow:
+
+        0 0 0 5px rgba(139,92,246,.18);
+
+}
+
+/*==========================================================
+                    TIMER
+==========================================================*/
+
+.timer-section{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:28px;
+
+    margin-bottom:34px;
+
+}
+
+.timer-section p{
+
+    color:var(--text-light);
+
+    font-size:15px;
+
+}
+
+.timer-section span{
+
+    color:var(--accent);
+
+    font-weight:700;
+
+    margin-left:8px;
+
+}
+
+.resend-btn{
+
+    border:none;
+
+    background:none;
+
+    color:var(--accent);
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.resend-btn:hover{
+
+    color:var(--primary);
+
+}
+/*==========================================================
+                    ACTION BUTTONS
+==========================================================*/
+
+.verify-actions{
+
+    display:flex;
+
+    gap:18px;
+
+    width:100%;
+
+    margin-top:8px;
+
+}
+
+.back-btn{
+
+    flex:1;
+
+    height:56px;
+
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:rgba(255,255,255,.05);
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.back-btn:hover{
+
+    background:rgba(255,255,255,.08);
+
+    transform:translateY(-2px);
+
+}
+
+.verify-btn{
+
+    flex:2;
+
+    height:56px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    box-shadow:
+        0 18px 40px rgba(139,92,246,.30);
+
+}
+
+.verify-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 22px 45px rgba(139,92,246,.40);
+
+}
+
+.verify-btn:disabled{
+
+    opacity:.7;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+/*==========================================================
+                CHANGE EMAIL
+==========================================================*/
+
+.change-email{
+
+    margin-top:28px;
+
+    text-align:center;
+
+}
+
+.change-email p{
+
+    color:var(--text-light);
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+.change-email button{
+
+    background:none;
+
+    border:none;
+
+    color:var(--accent);
+
+    font-size:14px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.change-email button:hover{
+
+    color:var(--primary);
+
+}
+
+/*==========================================================
+                    RESPONSIVE
+==========================================================*/
+
+@media (max-width:1400px){
+
+    .verify-container{
+
+        width:96vw;
+
+        grid-template-columns:40% 60%;
+
+    }
+
+    .verify-card{
+
+        max-width:620px;
+
+        padding:40px;
+
+    }
+
+}
+
+@media (max-width:1200px){
+
+    .verify-container{
+
+        grid-template-columns:38% 62%;
+
+    }
+
+    .brand-text h2{
+
+        font-size:28px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:34px;
+
+    }
+
+    .verify-header h2{
+
+        font-size:38px;
+
+    }
+
+}
+
+@media (max-width:992px){
+
+    html,
+    body,
+    #root{
+
+        overflow:auto;
+
+    }
+
+    .verify-page{
+
+        position:relative;
+
+        padding:24px;
+
+        overflow:auto;
+
+    }
+
+    .verify-container{
+
+        display:flex;
+
+        flex-direction:column;
+
+        height:auto;
+
+        width:95%;
+
+    }
+
+    .verify-left{
+
+        padding:32px;
+
+    }
+
+    .verify-right{
+
+        padding:32px;
+
+        border-left:none;
+
+        border-top:1px solid rgba(255,255,255,.08);
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .verify-left{
+
+        display:none;
+
+    }
+
+    .verify-container{
+
+        width:100%;
+
+        height:100%;
+
+        border-radius:0;
+
+    }
+
+    .verify-right{
+
+        padding:20px;
+
+    }
+
+    .verify-card{
+
+        max-width:100%;
+
+        padding:28px;
+
+    }
+
+    .verify-header h2{
+
+        font-size:30px;
+
+    }
+
+    .verify-header p{
+
+        font-size:14px;
+
+    }
+
+    .otp-input{
+
+        width:54px;
+
+        height:58px;
+
+        font-size:22px;
+
+    }
+
+    .otp-inputs{
+
+        gap:10px;
+
+    }
+
+    .verify-actions{
+
+        flex-direction:column;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .otp-input{
+
+        width:44px;
+
+        height:48px;
+
+        font-size:18px;
+
+    }
+
+    .otp-inputs{
+
+        gap:8px;
+
+    }
+
+    .verify-header h2{
+
+        font-size:26px;
+
+    }
+
+    .hero-content h1{
+
+        font-size:28px;
+
+    }
+
+}
+
+/*==========================================================
+                    ACCESSIBILITY
+==========================================================*/
+
+button:focus-visible,
+input:focus-visible{
+
+    outline:2px solid var(--primary);
+
+    outline-offset:2px;
+
+}
+
+::selection{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/*==========================================================
+                    ANIMATIONS
+==========================================================*/
+
+.brand{
+
+    animation:fadeDown .8s ease;
+
+}
+
+.step-indicator{
+
+    animation:fadeDown 1s ease;
+
+}
+
+.hero-content{
+
+    animation:fadeLeft 1.2s ease;
+
+}
+
+.verification-info{
+
+    animation:fadeUp 1.4s ease;
+
+}
+
+.verify-card{
+
+    animation:zoomIn .8s ease;
+
+}
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes fadeLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-30px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:none;
+
+    }
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.96);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
