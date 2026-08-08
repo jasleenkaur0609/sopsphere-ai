@@ -8,8 +8,9 @@ import {
     FaArrowLeft,
     FaArrowRight,
     FaEnvelope,
+    FaCheckCircle,
     FaCheck,
-    FaShieldAlt,
+    FaLock,
     FaClock
 
 } from "react-icons/fa";
@@ -20,7 +21,7 @@ export default function VerifyEmailOTP() {
 
     const inputRefs = useRef([]);
 
-    const [otp, setOtp] = useState(["","","","","",""]);
+    const [otp, setOtp] = useState(["", "", "", "", "", ""]);
 
     const [timer, setTimer] = useState(60);
 
@@ -28,91 +29,91 @@ export default function VerifyEmailOTP() {
 
     const email = "jas***@company.com";
 
-    /*==========================================================
+    /*==================================================
                         TIMER
-    ==========================================================*/
+    ==================================================*/
 
     useEffect(() => {
 
-        if(timer<=0) return;
+        if (timer <= 0) return;
 
-        const interval = setInterval(()=>{
+        const interval = setInterval(() => {
 
-            setTimer(prev=>prev-1);
+            setTimer((prev) => prev - 1);
 
-        },1000);
+        }, 1000);
 
-        return ()=>clearInterval(interval);
+        return () => clearInterval(interval);
 
-    },[timer]);
+    }, [timer]);
 
-    /*==========================================================
-                        OTP CHANGE
-    ==========================================================*/
+    /*==================================================
+                    OTP CHANGE
+    ==================================================*/
 
-    const handleChange=(value,index)=>{
+    const handleChange = (value, index) => {
 
-        if(!/^[0-9]?$/.test(value)) return;
+        if (!/^[0-9]?$/.test(value)) return;
 
-        const updated=[...otp];
+        const updated = [...otp];
 
-        updated[index]=value;
+        updated[index] = value;
 
         setOtp(updated);
 
-        if(value && index<5){
+        if (value && index < 5) {
 
-            inputRefs.current[index+1]?.focus();
-
-        }
-
-    };
-
-    /*==========================================================
-                        BACKSPACE
-    ==========================================================*/
-
-    const handleKeyDown=(e,index)=>{
-
-        if(
-
-            e.key==="Backspace" &&
-
-            otp[index]==="" &&
-
-            index>0
-
-        ){
-
-            inputRefs.current[index-1]?.focus();
+            inputRefs.current[index + 1]?.focus();
 
         }
 
     };
 
-    /*==========================================================
+    /*==================================================
+                    BACKSPACE
+    ==================================================*/
+
+    const handleKeyDown = (e, index) => {
+
+        if (
+
+            e.key === "Backspace" &&
+
+            otp[index] === "" &&
+
+            index > 0
+
+        ) {
+
+            inputRefs.current[index - 1]?.focus();
+
+        }
+
+    };
+
+    /*==================================================
                         PASTE
-    ==========================================================*/
+    ==================================================*/
 
-    const handlePaste=(e)=>{
+    const handlePaste = (e) => {
 
         e.preventDefault();
 
-        const value=e.clipboardData
+        const value = e.clipboardData
 
             .getData("text")
 
-            .replace(/\D/g,"")
+            .replace(/\D/g, "")
 
-            .slice(0,6)
+            .slice(0, 6)
 
             .split("");
 
-        const updated=[...otp];
+        const updated = [...otp];
 
-        value.forEach((digit,index)=>{
+        value.forEach((digit, index) => {
 
-            updated[index]=digit;
+            updated[index] = digit;
 
         });
 
@@ -120,13 +121,13 @@ export default function VerifyEmailOTP() {
 
     };
 
-    /*==========================================================
+    /*==================================================
                         VERIFY
-    ==========================================================*/
+    ==================================================*/
 
-    const handleVerify=()=>{
+    const handleVerify = () => {
 
-        if(otp.join("").length!==6){
+        if (otp.join("").length !== 6) {
 
             alert("Please enter the complete OTP.");
 
@@ -136,462 +137,124 @@ export default function VerifyEmailOTP() {
 
         setLoading(true);
 
-        setTimeout(()=>{
+        setTimeout(() => {
 
             setLoading(false);
 
             navigate("/complete-profile");
 
-        },1500);
+        }, 1500);
 
     };
+    return (
 
-    return(
+<div className="verify-page">
 
-        <div className="verify-page">
+    <div className="bg-gradient"></div>
 
-            <div className="bg-gradient"></div>
+    <div className="blob blob1"></div>
+    <div className="blob blob2"></div>
+    <div className="blob blob3"></div>
 
-            <div className="blob blob1"></div>
+    <div className="verify-container">
 
-            <div className="blob blob2"></div>
+        {/*==================================================
+                        LEFT PANEL
+        ==================================================*/}
 
-            <div className="blob blob3"></div>
+        <div className="verify-left">
 
-            <div className="verify-container">
-                                {/*==========================================================
-                                LEFT PANEL
-                ==========================================================*/}
+            {/*==============================================
+                        BRAND
+            ==============================================*/}
 
-                <div className="verify-left">
+            <div className="brand">
 
-                    {/*==============================
-                            BRAND
-                    ==============================*/}
+                <div className="brand-logo">
 
-                    <div className="brand">
-
-                        <div className="brand-logo">
-
-                            AI
-
-                        </div>
-
-                        <div className="brand-text">
-
-                            <h2>
-
-                                AI SOP Portal
-
-                            </h2>
-
-                            <span>
-
-                                Enterprise Knowledge Platform
-
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                    {/*==============================
-                        REGISTRATION PROGRESS
-                    ==============================*/}
-
-                    <div className="progress-wrapper">
-
-                        <h4>
-
-                            Registration Progress
-
-                        </h4>
-
-                        <div className="progress-bar">
-
-                            <div className="progress-fill"></div>
-
-                        </div>
-
-                        <div className="steps">
-
-                            <div className="step completed">
-
-                                <div className="step-circle">
-
-                                    <FaCheck />
-
-                                </div>
-
-                                <span>
-
-                                    Create
-                                    <br />
-                                    Account
-
-                                </span>
-
-                            </div>
-
-                            <div className="step active">
-
-                                <div className="step-circle">
-
-                                    2
-
-                                </div>
-
-                                <span>
-
-                                    Email
-                                    <br />
-                                    Verification
-
-                                </span>
-
-                            </div>
-
-                            <div className="step">
-
-                                <div className="step-circle">
-
-                                    3
-
-                                </div>
-
-                                <span>
-
-                                    Profile
-                                    <br />
-                                    Completion
-
-                                </span>
-
-                            </div>
-
-                            <div className="step">
-
-                                <div className="step-circle">
-
-                                    4
-
-                                </div>
-
-                                <span>
-
-                                    Mobile
-                                    <br />
-                                    Verification
-
-                                </span>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    {/*==============================
-                            HERO
-                    ==============================*/}
-
-                    <div className="hero-card">
-
-                        <div className="hero-icon">
-
-                            <FaEnvelope />
-
-                        </div>
-
-                        <h1>
-
-                            Verify Your Email
-
-                        </h1>
-
-                        <p>
-
-                            Your account has been created successfully.
-
-                            Enter the verification code sent to
-
-                            <strong>
-
-                                {" "}
-
-                                {email}
-
-                            </strong>
-
-                            {" "}to continue registration.
-
-                        </p>
-
-                    </div>
-
-                    {/*==============================
-                            FEATURES
-                    ==============================*/}
-
-                    <div className="feature-list">
-
-                        <div className="feature-list">
-
-    <div className="feature">
-
-        <FaShieldAlt />
-
-        <div>
-
-            <h5>Secure & Fast Verification</h5>
-
-            <p>
-
-                Your email is securely verified using encrypted validation.
-                Most users complete this step in under one minute.
-
-            </p>
-
-        </div>
-
-    </div>
-
-</div>
-
-                    </div>
+                    AI
 
                 </div>
 
-                {/*==========================================================
-                                RIGHT PANEL
-                ==========================================================*/}
+                <div className="brand-content">
 
-                <div className="verify-right">
+                    <h1>AI SOP Portal</h1>
 
-                    <div className="verify-card">
+                    <p>
+                        Enterprise Knowledge Platform
+                    </p>
 
-                        <div className="verify-header">
+                </div>
 
-                            <h2>
+            </div>
 
-                                Email Verification
+            {/*==============================================
+                    REGISTRATION PROGRESS
+            ==============================================*/}
 
-                            </h2>
+            <div className="registration-progress">
 
-                            <p>
+                <div className="progress-header">
 
-                                Enter the 6-digit verification code.
+                    <span>Registration Progress</span>
 
-                            </p>
+                    <span>Step 2 of 4</span>
 
-                        </div>
-                                                {/*==========================================
-                                EMAIL DISPLAY
-                        ==========================================*/}
+                </div>
 
-                        <div className="email-banner">
+                <div className="progress-bar">
 
-                            <FaEnvelope className="email-banner-icon" />
+                    <div className="progress-fill"></div>
 
-                            <span>
+                </div>
 
-                                {email}
+                <div className="progress-steps">
 
-                            </span>
+                    <div className="progress-step completed">
 
-                        </div>
+                        <div className="step-circle">
 
-                        {/*==========================================
-                                OTP INPUTS
-                        ==========================================*/}
-
-                        <div className="otp-section">
-
-                            <div className="otp-inputs">
-
-                                {otp.map((digit,index)=>(
-
-                                    <input
-
-                                        key={index}
-
-                                        ref={(element)=>
-                                            inputRefs.current[index]=element
-                                        }
-
-                                        className="otp-input"
-
-                                        type="text"
-
-                                        inputMode="numeric"
-
-                                        maxLength="1"
-
-                                        value={digit}
-
-                                        onChange={(e)=>
-                                            handleChange(
-                                                e.target.value,
-                                                index
-                                            )
-                                        }
-
-                                        onKeyDown={(e)=>
-                                            handleKeyDown(
-                                                e,
-                                                index
-                                            )
-                                        }
-
-                                        onPaste={handlePaste}
-
-                                    />
-
-                                ))}
-
-                            </div>
+                            <FaCheck />
 
                         </div>
 
-                        {/*==========================================
-                                TIMER
-                        ==========================================*/}
+                        <span>Create Account</span>
 
-                        <div className="timer-section">
+                    </div>
 
-                            {
+                    <div className="progress-step active">
 
-                                timer>0 ?
+                        <div className="step-circle">
 
-                                (
-
-                                    <p>
-
-                                        Resend available in
-
-                                        <span>
-
-                                            {" "}
-
-                                            00:
-
-                                            {String(timer).padStart(2,"0")}
-
-                                        </span>
-
-                                    </p>
-
-                                )
-
-                                :
-
-                                (
-
-                                    <button
-
-                                        type="button"
-
-                                        className="resend-btn"
-
-                                        onClick={()=>setTimer(60)}
-
-                                    >
-
-                                        Resend Verification Code
-
-                                    </button>
-
-                                )
-
-                            }
+                            2
 
                         </div>
 
-                        {/*==========================================
-                                ACTION BUTTONS
-                        ==========================================*/}
+                        <span>Email Verification</span>
 
-                        <div className="verify-actions">
+                    </div>
 
-                            <button
+                    <div className="progress-step">
 
-                                type="button"
+                        <div className="step-circle">
 
-                                className="back-btn"
-
-                                onClick={()=>
-                                    navigate("/register")
-                                }
-
-                            >
-
-                                <FaArrowLeft />
-
-                                Back
-
-                            </button>
-
-                            <button
-
-                                type="button"
-
-                                className="verify-btn"
-
-                                disabled={loading}
-
-                                onClick={handleVerify}
-
-                            >
-
-                                {
-
-                                    loading ?
-
-                                    "Verifying..."
-
-                                    :
-
-                                    <>
-
-                                        Verify Email
-
-                                        <FaArrowRight />
-
-                                    </>
-
-                                }
-
-                            </button>
+                            3
 
                         </div>
 
-                        {/*==========================================
-                                CHANGE EMAIL
-                        ==========================================*/}
+                        <span>Profile Completion</span>
 
-                        <div className="change-email">
+                    </div>
 
-                            <p>
+                    <div className="progress-step">
 
-                                Wrong email address?
+                        <div className="step-circle">
 
-                            </p>
-
-                            <button
-
-                                type="button"
-
-                                onClick={()=>
-                                    navigate("/register")
-                                }
-
-                            >
-
-                                Change Email
-
-                            </button>
+                            4
 
                         </div>
+
+                        <span>Mobile Verification</span>
 
                     </div>
 
@@ -599,8 +262,309 @@ export default function VerifyEmailOTP() {
 
             </div>
 
+            {/*==============================================
+                    INFORMATION SECTION
+            ==============================================*/}
+
+            <div className="verification-info">
+
+                <div className="info-icon">
+
+                    <FaEnvelope />
+
+                </div>
+
+                <h2>
+
+                    Email Verification
+
+                </h2>
+
+                <p>
+
+                    Verify your email address to activate your account
+                    and continue the registration process.
+
+                </p>
+
+                <div className="email-preview">
+
+                    {email}
+
+                </div>
+
+            </div>
+
+            {/*==============================================
+                    BENEFITS
+            ==============================================*/}
+
+            <div className="verification-benefits">
+
+                <div className="benefit-item">
+
+                    <FaCheckCircle />
+
+                    <span>
+
+                        Secure encrypted verification
+
+                    </span>
+
+                </div>
+
+                <div className="benefit-item">
+
+                    <FaClock />
+
+                    <span>
+
+                        Usually completed in under one minute
+
+                    </span>
+
+                </div>
+
+                <div className="benefit-item">
+
+                    <FaLock />
+
+                    <span>
+
+                        Required before profile completion
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+                {/*==================================================
+                        RIGHT PANEL
+        ==================================================*/}
+
+        <div className="verify-right">
+
+            <div className="otp-card">
+
+                {/*==========================================
+                            HEADER
+                ==========================================*/}
+
+                <div className="otp-header">
+
+                    <div className="otp-header-icon">
+
+                        <FaEnvelope />
+
+                    </div>
+
+                    <h2>Email Verification</h2>
+
+                    <p>
+
+                        We've sent a six-digit verification code to your
+                        registered email address.
+
+                    </p>
+
+                </div>
+
+                {/*==========================================
+                        EMAIL DISPLAY
+                ==========================================*/}
+
+                <div className="email-display">
+
+                    <span className="email-label">
+
+                        Verification Email
+
+                    </span>
+
+                    <span className="email-value">
+
+                        {email}
+
+                    </span>
+
+                </div>
+
+                {/*==========================================
+                            OTP
+                ==========================================*/}
+
+                <div className="otp-container">
+
+                    {otp.map((digit, index) => (
+
+                        <input
+
+                            key={index}
+
+                            ref={(element) =>
+                                (inputRefs.current[index] = element)
+                            }
+
+                            className="otp-input"
+
+                            type="text"
+
+                            inputMode="numeric"
+
+                            maxLength="1"
+
+                            value={digit}
+
+                            onChange={(e) =>
+                                handleChange(
+                                    e.target.value,
+                                    index
+                                )
+                            }
+
+                            onKeyDown={(e) =>
+                                handleKeyDown(
+                                    e,
+                                    index
+                                )
+                            }
+
+                            onPaste={handlePaste}
+
+                        />
+
+                    ))}
+
+                </div>
+
+                {/*==========================================
+                            TIMER
+                ==========================================*/}
+
+                <div className="otp-footer">
+
+                    {timer > 0 ? (
+
+                        <p>
+
+                            Resend code in
+
+                            <strong>
+
+                                {" "}
+                                00:{String(timer).padStart(2, "0")}
+
+                            </strong>
+
+                        </p>
+
+                    ) : (
+
+                        <button
+
+                            className="resend-btn"
+
+                            onClick={() => setTimer(60)}
+
+                        >
+
+                            Resend Verification Code
+
+                        </button>
+
+                    )}
+
+                </div>
+
+                {/*==========================================
+                        ACTION BUTTONS
+                ==========================================*/}
+
+                <div className="otp-actions">
+
+                    <button
+
+                        className="secondary-btn"
+
+                        onClick={() =>
+                            navigate("/register")
+                        }
+
+                    >
+
+                        <FaArrowLeft />
+
+                        Back
+
+                    </button>
+
+                    <button
+
+                        className="primary-btn"
+
+                        disabled={loading}
+
+                        onClick={handleVerify}
+
+                    >
+
+                        {
+
+                            loading ?
+
+                            "Verifying..."
+
+                            :
+
+                            <>
+
+                                Verify Email
+
+                                <FaArrowRight />
+
+                            </>
+
+                        }
+
+                    </button>
+
+                </div>
+
+                {/*==========================================
+                        CHANGE EMAIL
+                ==========================================*/}
+
+                <div className="change-email">
+
+                    <p>
+
+                        Wrong email address?
+
+                    </p>
+
+                    <button
+
+                        onClick={() =>
+                            navigate("/register")
+                        }
+
+                    >
+
+                        Change Email
+
+                    </button>
+
+                </div>
+
+            </div>
+
         </div>
 
-    );
+    </div>
 
+</div>
+
+);
 }
