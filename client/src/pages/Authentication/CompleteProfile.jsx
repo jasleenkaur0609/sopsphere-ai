@@ -250,9 +250,7 @@ export default function ProfileCompletion() {
 
 
             <p>
-              Add your professional information to personalize
-              your enterprise workspace and provide a better
-              experience across the AI SOP Portal.
+             Complete your professional profile to personalize your enterprise workspace and make the most of the AI SOP Portal. Providing details about your role, department, organization, location, and professional identity allows the platform to deliver a more relevant experience with tailored workflows, resources, and access to features aligned with your responsibilities.
             </p>
 
           </div>
