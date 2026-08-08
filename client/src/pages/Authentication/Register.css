@@ -1021,66 +1021,117 @@ body{
                     TERMS
 ==========================================================*/
 
-.terms-check{
+/* =========================================================
+   TERMS & CONDITIONS — CHECKBOX FIX
+   ========================================================= */
 
-    display:flex;
-
-    align-items:flex-start;
-
-    gap:8px;
-
-    margin-top:2px;
-
-    cursor:pointer;
-
+.terms-check {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 2px;
+    cursor: pointer;
 }
 
-.terms-check input{
+/* IMPORTANT:
+   Target ONLY the checkbox.
+   Do not let the general input styles affect it.
+*/
 
-    width:15px;
+.terms-check input[type="checkbox"] {
+    appearance: auto !important;
+    -webkit-appearance: checkbox !important;
 
-    height:15px;
+    width: 16px !important;
+    height: 16px !important;
 
-    margin-top:2px;
+    min-width: 16px;
+    min-height: 16px;
 
-    accent-color:var(--primary);
+    flex: 0 0 16px;
 
-    cursor:pointer;
+    margin: 2px 0 0 0;
 
+    padding: 0;
+
+    display: block !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    position: static !important;
+
+    accent-color: var(--primary);
+
+    cursor: pointer;
+
+    background: transparent;
+
+    border: none;
+
+    box-shadow: none;
+
+    outline: none;
 }
 
-.terms-check span{
 
-    color:var(--textLight);
+/* Checkbox focus */
 
-    font-size:11px;
-
-    line-height:1.5;
-
+.terms-check input[type="checkbox"]:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
-.terms-link{
 
-    border:none;
+/* Text beside checkbox */
 
-    background:none;
+.terms-check > span {
+    flex: 1;
+    min-width: 0;
 
-    color:var(--accent);
+    color: var(--textLight);
 
-    font-size:11px;
+    font-size: 11px;
 
-    font-weight:600;
+    line-height: 1.55;
 
-    cursor:pointer;
-
-    transition:.3s;
-
+    cursor: pointer;
 }
 
-.terms-link:hover{
 
-    color:var(--primary);
+/* Terms / Privacy buttons */
 
+.terms-check .terms-link {
+    display: inline;
+
+    width: auto;
+    height: auto;
+
+    margin: 0;
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--accent);
+
+    font-family: inherit;
+
+    font-size: inherit;
+
+    font-weight: 600;
+
+    line-height: inherit;
+
+    cursor: pointer;
+}
+
+
+.terms-check .terms-link:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
 }
 
 /*==========================================================
