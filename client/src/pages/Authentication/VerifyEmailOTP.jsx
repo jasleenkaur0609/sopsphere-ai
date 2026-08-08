@@ -193,7 +193,7 @@ export default function VerifyEmailOTP() {
 
                 </div>
 
-                <span>Create</span>
+                <span>Create Account</span>
 
               </div>
 
@@ -205,7 +205,7 @@ export default function VerifyEmailOTP() {
 
                 </div>
 
-                <span>Email</span>
+                <span>Email Verification</span>
 
               </div>
 
@@ -217,7 +217,7 @@ export default function VerifyEmailOTP() {
 
                 </div>
 
-                <span>Profile</span>
+                <span>Profile Completion</span>
 
               </div>
 
@@ -229,7 +229,7 @@ export default function VerifyEmailOTP() {
 
                 </div>
 
-                <span>Mobile</span>
+                <span>Mobile Verification</span>
 
               </div>
 
