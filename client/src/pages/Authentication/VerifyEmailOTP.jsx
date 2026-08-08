@@ -335,51 +335,28 @@ export default function VerifyEmailOTP() {
 
                     <div className="feature-list">
 
-                        <div className="feature">
+                        <div className="feature-list">
 
-                            <FaShieldAlt />
+    <div className="feature">
 
-                            <div>
+        <FaShieldAlt />
 
-                                <h5>
+        <div>
 
-                                    Secure Verification
+            <h5>Secure & Fast Verification</h5>
 
-                                </h5>
+            <p>
 
-                                <p>
+                Your email is securely verified using encrypted validation.
+                Most users complete this step in under one minute.
 
-                                    Encrypted verification to keep your
-                                    account protected.
+            </p>
 
-                                </p>
+        </div>
 
-                            </div>
+    </div>
 
-                        </div>
-
-                        <div className="feature">
-
-                            <FaClock />
-
-                            <div>
-
-                                <h5>
-
-                                    Less than 1 minute
-
-                                </h5>
-
-                                <p>
-
-                                    Most users complete this step in under
-                                    sixty seconds.
-
-                                </p>
-
-                            </div>
-
-                        </div>
+</div>
 
                     </div>
 
