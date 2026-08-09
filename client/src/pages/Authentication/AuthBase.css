@@ -1,0 +1,1250 @@
+/* =========================================================
+   AI SOP PORTAL
+   AUTHENTICATION BASE STYLES
+   =========================================================
+
+   IMPORTANT:
+   - This file ONLY styles elements inside .auth-page
+   - Do NOT add body/html/global selectors here
+   - Do NOT use generic .container/.card/.button selectors
+   - Authentication pages are isolated from Home/Dashboard
+   ========================================================= */
+
+
+/* =========================================================
+   01. AUTHENTICATION ROOT
+   ========================================================= */
+
+.auth-page {
+    --auth-bg: #120d1d;
+    --auth-bg-soft: #181123;
+
+    --auth-primary: #7c3aed;
+    --auth-primary-light: #8b5cf6;
+    --auth-primary-dark: #6d28d9;
+
+    --auth-accent: #f4b860;
+
+    --auth-success: #22c55e;
+    --auth-success-light: #4ade80;
+
+    --auth-text: #ffffff;
+    --auth-text-secondary: #d8d1df;
+    --auth-text-muted: #a9a0b3;
+    --auth-text-faint: #777080;
+
+    --auth-border: rgba(255, 255, 255, 0.075);
+    --auth-border-hover: rgba(255, 255, 255, 0.13);
+
+    --auth-surface: rgba(255, 255, 255, 0.035);
+    --auth-surface-hover: rgba(255, 255, 255, 0.055);
+
+    --auth-radius-xl: 28px;
+    --auth-radius-lg: 20px;
+    --auth-radius-md: 14px;
+    --auth-radius-sm: 10px;
+
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    background:
+        radial-gradient(
+            circle at 12% 20%,
+            rgba(124, 58, 237, 0.18),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 88% 80%,
+            rgba(139, 92, 246, 0.10),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #171024 0%,
+            #120d1d 48%,
+            #100b18 100%
+        );
+
+    color: var(--auth-text);
+
+    font-family:
+        "Poppins",
+        "Inter",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   02. AUTHENTICATION BACKGROUND GRID
+   ========================================================= */
+
+.auth-page::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -3;
+
+    pointer-events: none;
+
+    opacity: 0.24;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 44px 44px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.9),
+            transparent 92%
+        );
+}
+
+
+/* =========================================================
+   03. AUTHENTICATION GLOW
+   ========================================================= */
+
+.auth-page::after {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    right: -180px;
+    bottom: -240px;
+
+    z-index: -2;
+
+    pointer-events: none;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 58, 237, 0.13) 0%,
+            rgba(124, 58, 237, 0.04) 42%,
+            transparent 72%
+        );
+
+    filter: blur(8px);
+}
+
+
+/* =========================================================
+   04. OPTIONAL BACKGROUND BLOBS
+   ========================================================= */
+
+.auth-page .auth-blob {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    filter: blur(1px);
+
+    opacity: 0.45;
+}
+
+
+.auth-page .auth-blob-1 {
+    width: 260px;
+    height: 260px;
+
+    top: -120px;
+    left: -80px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 58, 237, 0.20),
+            transparent 70%
+        );
+}
+
+
+.auth-page .auth-blob-2 {
+    width: 320px;
+    height: 320px;
+
+    right: -150px;
+    top: 18%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139, 92, 246, 0.10),
+            transparent 70%
+        );
+}
+
+
+.auth-page .auth-blob-3 {
+    width: 240px;
+    height: 240px;
+
+    left: 35%;
+    bottom: -140px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 58, 237, 0.08),
+            transparent 70%
+        );
+}
+
+
+/* =========================================================
+   05. MAIN AUTHENTICATION CONTAINER
+   ========================================================= */
+
+.auth-page .auth-container {
+    position: relative;
+
+    width: min(
+        calc(100% - 32px),
+        1500px
+    );
+
+    height: calc(100% - 32px);
+
+    min-height: 0;
+
+    margin: 16px auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    overflow: hidden;
+
+    border-radius:
+        var(--auth-radius-xl);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.085);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.32),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.045);
+
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
+}
+
+
+/* =========================================================
+   06. COMMON LEFT PANEL
+   ========================================================= */
+
+.auth-page .auth-left {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding:
+        28px 34px;
+
+    overflow: hidden;
+
+    border-right:
+        1px solid
+        rgba(255, 255, 255, 0.065);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(124, 58, 237, 0.045),
+            rgba(255, 255, 255, 0.008)
+        );
+}
+
+
+/* =========================================================
+   07. COMMON RIGHT PANEL
+   ========================================================= */
+
+.auth-page .auth-right {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        30px 34px;
+
+    overflow: hidden;
+
+    background:
+        rgba(13, 9, 22, 0.20);
+}
+
+
+/* =========================================================
+   08. BRAND
+   ========================================================= */
+
+.auth-page .auth-brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex: 0 0 auto;
+
+    min-width: 0;
+}
+
+
+.auth-page .auth-brand-logo {
+    width: 54px;
+    height: 54px;
+
+    flex: 0 0 54px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #8b5cf6,
+            #7c3aed
+        );
+
+    color: #ffffff;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 28px
+        rgba(124, 58, 237, 0.25),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.18);
+}
+
+
+.auth-page .auth-brand-content {
+    min-width: 0;
+}
+
+
+.auth-page .auth-brand-title {
+    margin: 0;
+
+    color: var(--auth-text);
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.4px;
+}
+
+
+.auth-page .auth-brand-subtitle {
+    margin: 5px 0 0;
+
+    color: var(--auth-text-muted);
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    line-height: 1.3;
+
+    letter-spacing: 0.25px;
+}
+
+
+/* =========================================================
+   09. COMMON AUTH CARD
+   ========================================================= */
+
+.auth-page .auth-card {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 590px;
+
+    padding: 30px;
+
+    border-radius:
+        var(--auth-radius-lg);
+
+    border:
+        1px solid
+        var(--auth-border);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    box-shadow:
+        0 24px 60px
+        rgba(0, 0, 0, 0.24),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.045);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+}
+
+
+.auth-page .auth-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+
+    width: 80%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(139, 92, 246, 0.45),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   10. COMMON HEADINGS
+   ========================================================= */
+
+.auth-page .auth-heading {
+    margin: 0;
+
+    color: var(--auth-text);
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.7px;
+}
+
+
+.auth-page .auth-heading-highlight {
+    color: var(--auth-accent);
+}
+
+
+.auth-page .auth-description {
+    margin: 9px 0 0;
+
+    color: var(--auth-text-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   11. COMMON INPUT
+   ========================================================= */
+
+.auth-page .auth-input {
+    width: 100%;
+
+    min-height: 46px;
+
+    box-sizing: border-box;
+
+    padding:
+        0 14px;
+
+    border-radius:
+        var(--auth-radius-sm);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.075);
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    color:
+        var(--auth-text);
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.auth-page .auth-input::placeholder {
+    color:
+        var(--auth-text-faint);
+}
+
+
+.auth-page .auth-input:hover {
+    border-color:
+        var(--auth-border-hover);
+}
+
+
+.auth-page .auth-input:focus {
+    border-color:
+        rgba(139, 92, 246, 0.60);
+
+    background:
+        rgba(124, 58, 237, 0.045);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(124, 58, 237, 0.08);
+}
+
+
+/* =========================================================
+   12. INPUT WRAPPER
+   ========================================================= */
+
+.auth-page .auth-input-wrapper {
+    position: relative;
+
+    width: 100%;
+}
+
+
+.auth-page .auth-input-wrapper .auth-input {
+    padding-left: 43px;
+}
+
+
+.auth-page .auth-input-icon {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    width: 16px;
+    height: 16px;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        var(--auth-text-muted);
+
+    pointer-events: none;
+
+    transition:
+        color 0.25s ease;
+}
+
+
+.auth-page .auth-input-wrapper:focus-within
+.auth-input-icon {
+    color:
+        var(--auth-primary-light);
+}
+
+
+/* =========================================================
+   13. COMMON LABEL
+   ========================================================= */
+
+.auth-page .auth-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color:
+        var(--auth-text-secondary);
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+
+.auth-page .auth-label-optional {
+    margin-left: 4px;
+
+    color:
+        var(--auth-text-faint);
+
+    font-weight: 400;
+}
+
+
+/* =========================================================
+   14. FORM GROUP
+   ========================================================= */
+
+.auth-page .auth-field {
+    width: 100%;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   15. PRIMARY BUTTON
+   ========================================================= */
+
+.auth-page .auth-primary-btn {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding:
+        0 20px;
+
+    border: 0;
+
+    border-radius:
+        var(--auth-radius-sm);
+
+    outline: none;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            100deg,
+            #7c3aed,
+            #8b5cf6
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 10px 25px
+        rgba(124, 58, 237, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        opacity 0.25s ease;
+}
+
+
+.auth-page .auth-primary-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 65%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.15),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    transition:
+        left 0.65s ease;
+
+    pointer-events: none;
+}
+
+
+.auth-page .auth-primary-btn:hover:not(:disabled) {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(124, 58, 237, 0.30);
+}
+
+
+.auth-page .auth-primary-btn:hover:not(:disabled)::before {
+    left: 130%;
+}
+
+
+.auth-page .auth-primary-btn:active:not(:disabled) {
+    transform:
+        translateY(0);
+}
+
+
+.auth-page .auth-primary-btn:disabled {
+    cursor:
+        not-allowed;
+
+    opacity:
+        0.55;
+
+    box-shadow:
+        none;
+}
+
+
+/* =========================================================
+   16. SECONDARY BUTTON
+   ========================================================= */
+
+.auth-page .auth-secondary-btn {
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding:
+        0 20px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.075);
+
+    border-radius:
+        var(--auth-radius-sm);
+
+    outline: none;
+
+    cursor: pointer;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    color:
+        var(--auth-text-secondary);
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease;
+}
+
+
+.auth-page .auth-secondary-btn:hover {
+    transform:
+        translateY(-1px);
+
+    background:
+        rgba(255, 255, 255, 0.055);
+
+    border-color:
+        rgba(255, 255, 255, 0.13);
+
+    color:
+        var(--auth-text);
+}
+
+
+/* =========================================================
+   17. LINKS
+   ========================================================= */
+
+.auth-page .auth-link {
+    color:
+        var(--auth-primary-light);
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.auth-page .auth-link:hover {
+    color:
+        #a78bfa;
+}
+
+
+/* =========================================================
+   18. CHECKBOX
+   ========================================================= */
+
+.auth-page .auth-checkbox {
+    width: 16px;
+    height: 16px;
+
+    flex: 0 0 16px;
+
+    margin: 0;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+    border-radius: 4px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    cursor: pointer;
+
+    position: relative;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.auth-page .auth-checkbox:checked {
+    background:
+        var(--auth-primary);
+
+    border-color:
+        var(--auth-primary);
+
+    box-shadow:
+        0 3px 10px
+        rgba(124, 58, 237, 0.20);
+}
+
+
+.auth-page .auth-checkbox:checked::after {
+    content: "";
+
+    position: absolute;
+
+    width: 4px;
+    height: 8px;
+
+    left: 5px;
+    top: 2px;
+
+    border:
+        solid #ffffff;
+
+    border-width:
+        0 2px 2px 0;
+
+    transform:
+        rotate(45deg);
+}
+
+
+/* =========================================================
+   19. COMMON DIVIDER
+   ========================================================= */
+
+.auth-page .auth-divider {
+    width: 100%;
+
+    height: 1px;
+
+    margin:
+        20px 0;
+
+    background:
+        rgba(255, 255, 255, 0.055);
+}
+
+
+/* =========================================================
+   20. SHARED ANIMATIONS
+   ========================================================= */
+
+
+/* Page reveal */
+
+@keyframes authPageReveal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* Container reveal */
+
+@keyframes authContainerReveal {
+    from {
+        opacity: 0;
+        transform:
+            translateY(22px)
+            scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* Left panel */
+
+@keyframes authLeftReveal {
+    from {
+        opacity: 0;
+        transform:
+            translateX(-28px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* Right panel */
+
+@keyframes authRightReveal {
+    from {
+        opacity: 0;
+        transform:
+            translateX(28px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* Content reveal */
+
+@keyframes authContentReveal {
+    from {
+        opacity: 0;
+        transform:
+            translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* Icon reveal */
+
+@keyframes authIconReveal {
+    0% {
+        opacity: 0;
+        transform:
+            scale(0.75);
+    }
+
+    70% {
+        opacity: 1;
+        transform:
+            scale(1.04);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   21. BASE PAGE ANIMATION
+   ========================================================= */
+
+.auth-page {
+    animation:
+        authPageReveal
+        0.55s
+        ease-out
+        both;
+}
+
+
+.auth-page .auth-container {
+    animation:
+        authContainerReveal
+        0.7s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        both;
+}
+
+
+.auth-page .auth-left {
+    animation:
+        authLeftReveal
+        0.65s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        0.08s
+        both;
+}
+
+
+.auth-page .auth-right {
+    animation:
+        authRightReveal
+        0.65s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        0.12s
+        both;
+}
+
+
+/* =========================================================
+   22. COMMON RESPONSIVE BEHAVIOUR
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .auth-page .auth-left {
+        padding:
+            24px 26px;
+    }
+
+    .auth-page .auth-right {
+        padding:
+            24px 26px;
+    }
+
+    .auth-page .auth-card {
+        padding:
+            26px;
+    }
+
+}
+
+
+@media (max-width: 850px) {
+
+    .auth-page {
+        overflow: hidden;
+    }
+
+    .auth-page .auth-container {
+        width:
+            calc(100% - 20px);
+
+        height:
+            calc(100% - 20px);
+
+        margin:
+            10px;
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .auth-page .auth-left {
+        display: none;
+    }
+
+    .auth-page .auth-right {
+        padding:
+            20px;
+    }
+
+    .auth-page .auth-card {
+        max-width:
+            560px;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .auth-page .auth-container {
+        width:
+            calc(100% - 12px);
+
+        height:
+            calc(100% - 12px);
+
+        margin:
+            6px;
+
+        border-radius:
+            20px;
+    }
+
+    .auth-page .auth-right {
+        padding:
+            14px;
+    }
+
+    .auth-page .auth-card {
+        padding:
+            22px 18px;
+
+        border-radius:
+            16px;
+    }
+
+    .auth-page .auth-heading {
+        font-size:
+            25px;
+    }
+
+}
+
+
+/* =========================================================
+   23. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .auth-page,
+    .auth-page .auth-container,
+    .auth-page .auth-left,
+    .auth-page .auth-right {
+
+        animation:
+            none !important;
+    }
+
+    .auth-page * {
+
+        transition:
+            none !important;
+    }
+
+}
