@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import {
     FaArrowRight,
@@ -33,9 +34,178 @@ export default function Login() {
     const [loading, setLoading] = useState(false);
 
 
-    /* =====================================================
+    /* =========================================================
+       PAGE ANIMATION
+       ========================================================= */
+
+    const pageVariants = {
+        hidden: {
+            opacity: 0,
+        },
+
+        visible: {
+            opacity: 1,
+
+            transition: {
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+            },
+        },
+    };
+
+
+    /* =========================================================
+       MAIN CONTAINER ANIMATION
+       ========================================================= */
+
+    const containerVariants = {
+        hidden: {
+            opacity: 0,
+            y: 30,
+            scale: 0.98,
+        },
+
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+
+            transition: {
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+            },
+        },
+    };
+
+
+    /* =========================================================
+       LEFT PANEL ANIMATION
+       ========================================================= */
+
+    const leftVariants = {
+        hidden: {
+            opacity: 0,
+            x: -45,
+        },
+
+        visible: {
+            opacity: 1,
+            x: 0,
+
+            transition: {
+                duration: 0.75,
+                delay: 0.12,
+                ease: [0.22, 1, 0.36, 1],
+            },
+        },
+    };
+
+
+    /* =========================================================
+       RIGHT PANEL ANIMATION
+       ========================================================= */
+
+    const rightVariants = {
+        hidden: {
+            opacity: 0,
+            x: 45,
+        },
+
+        visible: {
+            opacity: 1,
+            x: 0,
+
+            transition: {
+                duration: 0.75,
+                delay: 0.18,
+                ease: [0.22, 1, 0.36, 1],
+            },
+        },
+    };
+
+
+    /* =========================================================
+       LOGIN CARD ANIMATION
+       ========================================================= */
+
+    const cardVariants = {
+        hidden: {
+            opacity: 0,
+            y: 35,
+            scale: 0.96,
+        },
+
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+
+            transition: {
+                duration: 0.75,
+                delay: 0.28,
+                ease: [0.22, 1, 0.36, 1],
+            },
+        },
+    };
+
+
+    /* =========================================================
+       CONTENT ITEM ANIMATION
+       ========================================================= */
+
+    const itemVariants = {
+        hidden: {
+            opacity: 0,
+            y: 16,
+        },
+
+        visible: {
+            opacity: 1,
+            y: 0,
+
+            transition: {
+                duration: 0.45,
+                ease: [0.22, 1, 0.36, 1],
+            },
+        },
+    };
+
+
+    /* =========================================================
+       FORM STAGGER ANIMATION
+       ========================================================= */
+
+    const formVariants = {
+        hidden: {},
+
+        visible: {
+            transition: {
+                delayChildren: 0.62,
+                staggerChildren: 0.10,
+            },
+        },
+    };
+
+
+    /* =========================================================
+       LEFT HIGHLIGHTS STAGGER
+       ========================================================= */
+
+    const highlightsVariants = {
+        hidden: {},
+
+        visible: {
+            transition: {
+                delayChildren: 0.45,
+                staggerChildren: 0.12,
+            },
+        },
+    };
+
+
+    /* =========================================================
        LOGIN
-       ===================================================== */
+       ========================================================= */
 
     const handleSubmit = async (e) => {
 
@@ -74,46 +244,117 @@ export default function Login() {
             setLoading(false);
 
         }
-
     };
 
 
     return (
 
-        <div className="auth-page auth-login">
+        <motion.div
+            className="auth-page auth-login"
+            variants={pageVariants}
+            initial="hidden"
+            animate="visible"
+        >
 
             {/* =================================================
                 BACKGROUND ELEMENTS
             ================================================= */}
 
-            <div className="auth-blob auth-blob-1"></div>
+            <motion.div
+                className="auth-blob auth-blob-1"
+                animate={{
+                    x: [0, 18, 0],
+                    y: [0, 14, 0],
+                    scale: [1, 1.06, 1],
+                }}
+                transition={{
+                    duration: 9,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
 
-            <div className="auth-blob auth-blob-2"></div>
+            <motion.div
+                className="auth-blob auth-blob-2"
+                animate={{
+                    x: [0, -18, 0],
+                    y: [0, 16, 0],
+                    scale: [1, 1.05, 1],
+                }}
+                transition={{
+                    duration: 11,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
 
-            <div className="auth-blob auth-blob-3"></div>
+            <motion.div
+                className="auth-blob auth-blob-3"
+                animate={{
+                    x: [0, 14, 0],
+                    y: [0, -18, 0],
+                    scale: [1, 1.06, 1],
+                }}
+                transition={{
+                    duration: 13,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                }}
+            />
 
 
             {/* =================================================
                 MAIN AUTH CONTAINER
             ================================================= */}
 
-            <main className="auth-container login-container">
+            <motion.main
+                className="auth-container login-container"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
 
 
                 {/* =================================================
                     LEFT — BRAND / PLATFORM INTRODUCTION
                 ================================================= */}
 
-                <section className="auth-left login-left">
+                <motion.section
+                    className="auth-left login-left"
+                    variants={leftVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
 
 
                     {/* BRAND */}
 
-                    <div className="auth-brand login-brand">
+                    <motion.div
+                        className="auth-brand login-brand"
+                        variants={itemVariants}
+                    >
 
-                        <div className="auth-brand-logo">
+                        <motion.div
+                            className="auth-brand-logo"
+                            initial={{
+                                opacity: 0,
+                                scale: 0.7,
+                                rotate: -8,
+                            }}
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                                rotate: 0,
+                            }}
+                            transition={{
+                                duration: 0.55,
+                                delay: 0.30,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
+                        >
                             AI
-                        </div>
+                        </motion.div>
+
 
                         <div className="auth-brand-content">
 
@@ -127,14 +368,20 @@ export default function Login() {
 
                         </div>
 
-                    </div>
+                    </motion.div>
 
 
                     {/* LEFT CONTENT */}
 
-                    <div className="login-intro">
+                    <motion.div
+                        className="login-intro"
+                        variants={itemVariants}
+                    >
 
-                        <div className="login-eyebrow">
+                        <motion.div
+                            className="login-eyebrow"
+                            variants={itemVariants}
+                        >
 
                             <FaRobot />
 
@@ -142,10 +389,13 @@ export default function Login() {
                                 Intelligent Enterprise Workspace
                             </span>
 
-                        </div>
+                        </motion.div>
 
 
-                        <h2 className="login-hero-title">
+                        <motion.h2
+                            className="login-hero-title"
+                            variants={itemVariants}
+                        >
 
                             Welcome back to your
 
@@ -153,27 +403,44 @@ export default function Login() {
                                 intelligent workspace.
                             </span>
 
-                        </h2>
+                        </motion.h2>
 
 
-                        <p className="login-hero-description">
+                        <motion.p
+                            className="login-hero-description"
+                            variants={itemVariants}
+                        >
 
                             Sign in to access your organization's
                             Standard Operating Procedures, AI-powered
                             knowledge tools, workflows, reports and
                             collaboration workspace.
 
-                        </p>
+                        </motion.p>
 
 
                         {/* =================================================
                             PLATFORM HIGHLIGHTS
                         ================================================= */}
 
-                        <div className="login-highlights">
+                        <motion.div
+                            className="login-highlights"
+                            variants={highlightsVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
 
 
-                            <div className="login-highlight">
+                            <motion.div
+                                className="login-highlight"
+                                variants={itemVariants}
+                                whileHover={{
+                                    x: 4,
+                                    transition: {
+                                        duration: 0.2,
+                                    },
+                                }}
+                            >
 
                                 <div className="login-highlight-icon">
                                     <FaRobot />
@@ -192,10 +459,19 @@ export default function Login() {
 
                                 </div>
 
-                            </div>
+                            </motion.div>
 
 
-                            <div className="login-highlight">
+                            <motion.div
+                                className="login-highlight"
+                                variants={itemVariants}
+                                whileHover={{
+                                    x: 4,
+                                    transition: {
+                                        duration: 0.2,
+                                    },
+                                }}
+                            >
 
                                 <div className="login-highlight-icon">
                                     <FaFileAlt />
@@ -214,10 +490,19 @@ export default function Login() {
 
                                 </div>
 
-                            </div>
+                            </motion.div>
 
 
-                            <div className="login-highlight">
+                            <motion.div
+                                className="login-highlight"
+                                variants={itemVariants}
+                                whileHover={{
+                                    x: 4,
+                                    transition: {
+                                        duration: 0.2,
+                                    },
+                                }}
+                            >
 
                                 <div className="login-highlight-icon">
                                     <FaUsers />
@@ -236,17 +521,20 @@ export default function Login() {
 
                                 </div>
 
-                            </div>
+                            </motion.div>
 
 
-                        </div>
+                        </motion.div>
 
 
                         {/* =================================================
                             SECURITY NOTE
                         ================================================= */}
 
-                        <div className="login-security-note">
+                        <motion.div
+                            className="login-security-note"
+                            variants={itemVariants}
+                        >
 
                             <FaShieldAlt />
 
@@ -263,14 +551,17 @@ export default function Login() {
 
                             </div>
 
-                        </div>
+                        </motion.div>
 
-                    </div>
+                    </motion.div>
 
 
                     {/* LEFT FOOTER */}
 
-                    <div className="login-left-footer">
+                    <motion.div
+                        className="login-left-footer"
+                        variants={itemVariants}
+                    >
 
                         <FaCheckCircle />
 
@@ -278,31 +569,67 @@ export default function Login() {
                             Secure access to your enterprise workspace
                         </span>
 
-                    </div>
+                    </motion.div>
 
 
-                </section>
-
+                </motion.section>
 
 
                 {/* =================================================
                     RIGHT — LOGIN FORM
                 ================================================= */}
 
-                <section className="auth-right login-right">
+                <motion.section
+                    className="auth-right login-right"
+                    variants={rightVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
 
 
-                    <div className="auth-card login-card">
+                    <motion.div
+                        className="auth-card login-card"
+                        variants={cardVariants}
+                        initial="hidden"
+                        animate="visible"
+                        whileHover={{
+                            y: -2,
+                            transition: {
+                                duration: 0.25,
+                                ease: "easeOut",
+                            },
+                        }}
+                    >
 
 
                         {/* =================================================
                             CARD HEADER
                         ================================================= */}
 
-                        <div className="login-card-header">
+                        <motion.div
+                            className="login-card-header"
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
 
 
-                            <div className="login-card-badge">
+                            <motion.div
+                                className="login-card-badge"
+                                initial={{
+                                    opacity: 0,
+                                    scale: 0.85,
+                                }}
+                                animate={{
+                                    opacity: 1,
+                                    scale: 1,
+                                }}
+                                transition={{
+                                    duration: 0.45,
+                                    delay: 0.50,
+                                    ease: [0.22, 1, 0.36, 1],
+                                }}
+                            >
 
                                 <FaLock />
 
@@ -310,25 +637,27 @@ export default function Login() {
                                     Secure Sign In
                                 </span>
 
-                            </div>
+                            </motion.div>
 
 
-                            <h2 className="auth-heading">
-
+                            <motion.h2
+                                className="auth-heading"
+                                variants={itemVariants}
+                            >
                                 Welcome back
+                            </motion.h2>
 
-                            </h2>
 
-
-                            <p className="auth-description">
-
+                            <motion.p
+                                className="auth-description"
+                                variants={itemVariants}
+                            >
                                 Sign in to continue to your AI SOP
                                 Management Portal.
+                            </motion.p>
 
-                            </p>
 
-
-                        </div>
+                        </motion.div>
 
 
 
@@ -336,15 +665,21 @@ export default function Login() {
                             LOGIN FORM
                         ================================================= */}
 
-                        <form
+                        <motion.form
                             className="login-form"
                             onSubmit={handleSubmit}
+                            variants={formVariants}
+                            initial="hidden"
+                            animate="visible"
                         >
 
 
                             {/* EMAIL */}
 
-                            <div className="auth-field login-field">
+                            <motion.div
+                                className="auth-field login-field"
+                                variants={itemVariants}
+                            >
 
                                 <label
                                     className="auth-label"
@@ -373,13 +708,16 @@ export default function Login() {
 
                                 </div>
 
-                            </div>
+                            </motion.div>
 
 
 
                             {/* PASSWORD */}
 
-                            <div className="auth-field login-field">
+                            <motion.div
+                                className="auth-field login-field"
+                                variants={itemVariants}
+                            >
 
                                 <label
                                     className="auth-label"
@@ -411,7 +749,7 @@ export default function Login() {
                                     />
 
 
-                                    <button
+                                    <motion.button
                                         type="button"
                                         className="login-password-toggle"
                                         onClick={() =>
@@ -424,6 +762,12 @@ export default function Login() {
                                                 ? "Hide password"
                                                 : "Show password"
                                         }
+                                        whileHover={{
+                                            scale: 1.08,
+                                        }}
+                                        whileTap={{
+                                            scale: 0.92,
+                                        }}
                                     >
 
                                         {showPassword ? (
@@ -432,11 +776,11 @@ export default function Login() {
                                             <FaEye />
                                         )}
 
-                                    </button>
+                                    </motion.button>
 
                                 </div>
 
-                            </div>
+                            </motion.div>
 
 
 
@@ -444,7 +788,10 @@ export default function Login() {
                                 LOGIN OPTIONS
                             ================================================= */}
 
-                            <div className="login-options">
+                            <motion.div
+                                className="login-options"
+                                variants={itemVariants}
+                            >
 
 
                                 <label className="login-remember">
@@ -466,7 +813,7 @@ export default function Login() {
                                 </label>
 
 
-                                <button
+                                <motion.button
                                     type="button"
                                     className="login-forgot"
                                     onClick={() =>
@@ -474,12 +821,18 @@ export default function Login() {
                                             "/forgot-password"
                                         )
                                     }
+                                    whileHover={{
+                                        x: 2,
+                                    }}
+                                    whileTap={{
+                                        scale: 0.97,
+                                    }}
                                 >
                                     Forgot password?
-                                </button>
+                                </motion.button>
 
 
-                            </div>
+                            </motion.div>
 
 
 
@@ -487,13 +840,29 @@ export default function Login() {
                                 LOGIN BUTTON
                             ================================================= */}
 
-                            <button
+                            <motion.button
                                 type="submit"
                                 className="auth-primary-btn login-submit"
                                 disabled={
                                     loading ||
                                     !email ||
                                     !password
+                                }
+                                variants={itemVariants}
+                                whileHover={
+                                    !loading && email && password
+                                        ? {
+                                            y: -2,
+                                            scale: 1.01,
+                                        }
+                                        : {}
+                                }
+                                whileTap={
+                                    !loading && email && password
+                                        ? {
+                                            scale: 0.98,
+                                        }
+                                        : {}
                                 }
                             >
 
@@ -503,7 +872,6 @@ export default function Login() {
                                         <span className="login-spinner"></span>
 
                                         Signing in...
-
                                     </>
 
                                 ) : (
@@ -511,16 +879,28 @@ export default function Login() {
                                     <>
                                         Sign In
 
-                                        <FaArrowRight />
+                                        <motion.span
+                                            animate={{
+                                                x: [0, 3, 0],
+                                            }}
+                                            transition={{
+                                                duration: 1.4,
+                                                repeat: Infinity,
+                                                repeatDelay: 1.5,
+                                                ease: "easeInOut",
+                                            }}
+                                        >
+                                            <FaArrowRight />
+                                        </motion.span>
 
                                     </>
 
                                 )}
 
-                            </button>
+                            </motion.button>
 
 
-                        </form>
+                        </motion.form>
 
 
 
@@ -528,7 +908,12 @@ export default function Login() {
                             DIVIDER
                         ================================================= */}
 
-                        <div className="login-divider">
+                        <motion.div
+                            className="login-divider"
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
 
                             <span></span>
 
@@ -538,7 +923,7 @@ export default function Login() {
 
                             <span></span>
 
-                        </div>
+                        </motion.div>
 
 
 
@@ -546,7 +931,12 @@ export default function Login() {
                             REGISTER CTA
                         ================================================= */}
 
-                        <div className="login-register">
+                        <motion.div
+                            className="login-register"
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
 
                             <div>
 
@@ -562,21 +952,39 @@ export default function Login() {
                             </div>
 
 
-                            <button
+                            <motion.button
                                 type="button"
                                 className="auth-secondary-btn login-register-btn"
                                 onClick={() =>
                                     navigate("/register")
                                 }
+                                whileHover={{
+                                    x: 3,
+                                }}
+                                whileTap={{
+                                    scale: 0.97,
+                                }}
                             >
 
                                 Create Account
 
-                                <FaArrowRight />
+                                <motion.span
+                                    animate={{
+                                        x: [0, 3, 0],
+                                    }}
+                                    transition={{
+                                        duration: 1.5,
+                                        repeat: Infinity,
+                                        repeatDelay: 2,
+                                        ease: "easeInOut",
+                                    }}
+                                >
+                                    <FaArrowRight />
+                                </motion.span>
 
-                            </button>
+                            </motion.button>
 
-                        </div>
+                        </motion.div>
 
 
 
@@ -584,7 +992,12 @@ export default function Login() {
                             SECURITY FOOTER
                         ================================================= */}
 
-                        <div className="login-card-footer">
+                        <motion.div
+                            className="login-card-footer"
+                            variants={itemVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
 
                             <FaShieldAlt />
 
@@ -592,19 +1005,19 @@ export default function Login() {
                                 Protected enterprise authentication
                             </span>
 
-                        </div>
+                        </motion.div>
 
 
-                    </div>
+                    </motion.div>
 
 
-                </section>
+                </motion.section>
 
 
-            </main>
+            </motion.main>
 
-        </div>
+
+        </motion.div>
 
     );
-
 }

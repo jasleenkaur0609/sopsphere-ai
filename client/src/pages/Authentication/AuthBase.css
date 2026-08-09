@@ -3,104 +3,136 @@
    AUTHENTICATION BASE STYLES
    =========================================================
 
-   PURPOSE
-   ---------------------------------------------------------
-   Shared styling for ALL authentication pages.
-
-   Pages can include:
+   Shared by:
    - Login
    - Register
-   - Verify Email
-   - Verify OTP
    - Forgot Password
    - Reset Password
+   - Verify Email
+   - Verify OTP
    - Complete Profile
-   - Registration Success
-   - Change Password
+   - Other authentication pages
 
-   IMPORTANT
-   ---------------------------------------------------------
+   IMPORTANT:
    1. Everything is scoped under .auth-page
-   2. No body/html selectors
-   3. No generic .container/.card/.button selectors
-   4. Authentication does NOT modify Home/Dashboard
-   5. Authentication remains viewport-contained
-   6. Common animations are defined ONLY once
+   2. Nothing here should affect Home/Dashboard
+   3. Entrance animations are handled by Framer Motion
+   4. Only subtle continuous background animations remain here
    ========================================================= */
 
 
 /* =========================================================
-   01. AUTHENTICATION ROOT
+   01. AUTH ROOT
    ========================================================= */
 
 .auth-page {
 
-    /* ---------- Theme ---------- */
+    /* ---------- AUTH COLORS ---------- */
 
-    --auth-bg: #120d1d;
-    --auth-bg-soft: #181123;
+    --auth-bg:
+        #120d1d;
 
-    --auth-primary: #7c3aed;
-    --auth-primary-light: #8b5cf6;
-    --auth-primary-dark: #6d28d9;
+    --auth-bg-soft:
+        #181123;
 
-    --auth-accent: #f4b860;
+    --auth-primary:
+        #7c3aed;
 
-    --auth-success: #22c55e;
-    --auth-success-light: #4ade80;
+    --auth-primary-light:
+        #8b5cf6;
 
-    --auth-danger: #ef4444;
-    --auth-warning: #f59e0b;
+    --auth-primary-dark:
+        #6d28d9;
 
-    --auth-text: #ffffff;
-    --auth-text-secondary: #d8d1df;
-    --auth-text-muted: #a9a0b3;
-    --auth-text-faint: #777080;
+    --auth-accent:
+        #f4b860;
 
-    --auth-border: rgba(255, 255, 255, 0.075);
-    --auth-border-hover: rgba(255, 255, 255, 0.13);
+    --auth-success:
+        #22c55e;
 
-    --auth-surface: rgba(255, 255, 255, 0.035);
-    --auth-surface-hover: rgba(255, 255, 255, 0.055);
+    --auth-success-light:
+        #4ade80;
 
-    --auth-radius-xl: 28px;
-    --auth-radius-lg: 20px;
-    --auth-radius-md: 14px;
-    --auth-radius-sm: 10px;
+    --auth-text:
+        #ffffff;
+
+    --auth-text-secondary:
+        #d8d1df;
+
+    --auth-text-muted:
+        #a9a0b3;
+
+    --auth-text-faint:
+        #777080;
+
+    --auth-border:
+        rgba(255, 255, 255, 0.075);
+
+    --auth-border-hover:
+        rgba(255, 255, 255, 0.15);
+
+    --auth-surface:
+        rgba(255, 255, 255, 0.035);
+
+    --auth-surface-hover:
+        rgba(255, 255, 255, 0.06);
+
+    --auth-radius-xl:
+        28px;
+
+    --auth-radius-lg:
+        20px;
+
+    --auth-radius-md:
+        14px;
+
+    --auth-radius-sm:
+        10px;
 
 
-    /* ---------- Layout ---------- */
+    /* ---------- ROOT LAYOUT ---------- */
 
-    position: relative;
+    position:
+        relative;
 
-    width: 100%;
+    width:
+        100%;
 
-    height: 100vh;
-    height: 100dvh;
+    height:
+        100vh;
 
-    min-height: 100vh;
-    min-height: 100dvh;
+    height:
+        100dvh;
 
-    overflow: hidden;
+    min-height:
+        100vh;
 
-    isolation: isolate;
+    min-height:
+        100dvh;
 
-    box-sizing: border-box;
+    overflow:
+        hidden;
+
+    isolation:
+        isolate;
 
 
-    /* ---------- Background ---------- */
+    /* ---------- BACKGROUND ---------- */
 
     background:
+
         radial-gradient(
             circle at 12% 20%,
-            rgba(124, 58, 237, 0.18),
+            rgba(124, 58, 237, 0.20),
             transparent 32%
         ),
+
         radial-gradient(
             circle at 88% 80%,
-            rgba(139, 92, 246, 0.10),
+            rgba(139, 92, 246, 0.12),
             transparent 30%
         ),
+
         linear-gradient(
             135deg,
             #171024 0%,
@@ -109,10 +141,11 @@
         );
 
 
-    /* ---------- Typography ---------- */
-
     color:
         var(--auth-text);
+
+
+    /* ---------- FONT ---------- */
 
     font-family:
         "Poppins",
@@ -123,48 +156,62 @@
         "Segoe UI",
         sans-serif;
 
+
     -webkit-font-smoothing:
         antialiased;
 
     -moz-osx-font-smoothing:
         grayscale;
+
+    box-sizing:
+        border-box;
 }
 
 
 /* =========================================================
-   02. BOX SIZING
+   02. GLOBAL AUTH BOX SIZING
    ========================================================= */
 
 .auth-page *,
 .auth-page *::before,
 .auth-page *::after {
-    box-sizing: border-box;
+
+    box-sizing:
+        border-box;
 }
 
 
 /* =========================================================
-   03. AUTHENTICATION BACKGROUND GRID
+   03. BACKGROUND GRID
    ========================================================= */
 
 .auth-page::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    inset: 0;
+    inset:
+        0;
 
-    z-index: -3;
+    z-index:
+        -3;
 
-    pointer-events: none;
+    pointer-events:
+        none;
 
-    opacity: 0.24;
+    opacity:
+        0.22;
 
     background-image:
+
         linear-gradient(
             rgba(255, 255, 255, 0.025) 1px,
             transparent 1px
         ),
+
         linear-gradient(
             90deg,
             rgba(255, 255, 255, 0.025) 1px,
@@ -191,120 +238,196 @@
 
 
 /* =========================================================
-   04. AUTHENTICATION BACKGROUND GLOW
+   04. BACKGROUND GLOW
    ========================================================= */
 
 .auth-page::after {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
+    position:
+        absolute;
 
-    width: 520px;
-    height: 520px;
+    width:
+        560px;
 
-    right: -180px;
-    bottom: -240px;
+    height:
+        560px;
 
-    z-index: -2;
+    right:
+        -220px;
 
-    pointer-events: none;
+    bottom:
+        -260px;
 
-    border-radius: 50%;
+    z-index:
+        -2;
+
+    pointer-events:
+        none;
+
+    border-radius:
+        50%;
 
     background:
+
         radial-gradient(
             circle,
-            rgba(124, 58, 237, 0.13) 0%,
-            rgba(124, 58, 237, 0.04) 42%,
+            rgba(124, 58, 237, 0.16) 0%,
+            rgba(124, 58, 237, 0.05) 42%,
             transparent 72%
         );
 
     filter:
         blur(8px);
+
+    /*
+       This is a continuous background effect.
+       It does NOT control page/card entrance animation.
+    */
+
+    animation:
+        authGlowFloat
+        9s
+        ease-in-out
+        infinite;
 }
 
 
 /* =========================================================
-   05. OPTIONAL BACKGROUND BLOBS
+   05. BACKGROUND BLOBS
    ========================================================= */
 
 .auth-page .auth-blob {
 
-    position: absolute;
+    position:
+        absolute;
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
-    pointer-events: none;
+    pointer-events:
+        none;
 
-    z-index: -1;
+    z-index:
+        -1;
 
     filter:
-        blur(1px);
+        blur(2px);
 
     opacity:
         0.45;
+
+    will-change:
+        transform;
 }
 
+
+/* ---------- BLOB 1 ---------- */
 
 .auth-page .auth-blob-1 {
 
-    width: 260px;
-    height: 260px;
+    width:
+        270px;
 
-    top: -120px;
-    left: -80px;
+    height:
+        270px;
+
+    top:
+        -130px;
+
+    left:
+        -90px;
 
     background:
+
         radial-gradient(
             circle,
-            rgba(124, 58, 237, 0.20),
+            rgba(124, 58, 237, 0.22),
             transparent 70%
         );
+
+    animation:
+        authBlobOne
+        9s
+        ease-in-out
+        infinite;
 }
 
+
+/* ---------- BLOB 2 ---------- */
 
 .auth-page .auth-blob-2 {
 
-    width: 320px;
-    height: 320px;
+    width:
+        340px;
 
-    right: -150px;
-    top: 18%;
+    height:
+        340px;
+
+    right:
+        -160px;
+
+    top:
+        18%;
 
     background:
+
         radial-gradient(
             circle,
-            rgba(139, 92, 246, 0.10),
+            rgba(139, 92, 246, 0.12),
             transparent 70%
         );
+
+    animation:
+        authBlobTwo
+        11s
+        ease-in-out
+        infinite;
 }
 
 
+/* ---------- BLOB 3 ---------- */
+
 .auth-page .auth-blob-3 {
 
-    width: 240px;
-    height: 240px;
+    width:
+        260px;
 
-    left: 35%;
-    bottom: -140px;
+    height:
+        260px;
+
+    left:
+        35%;
+
+    bottom:
+        -150px;
 
     background:
+
         radial-gradient(
             circle,
-            rgba(124, 58, 237, 0.08),
+            rgba(124, 58, 237, 0.09),
             transparent 70%
         );
+
+    animation:
+        authBlobThree
+        13s
+        ease-in-out
+        infinite;
 }
 
 
 /* =========================================================
-   06. MAIN AUTHENTICATION CONTAINER
+   06. MAIN AUTH CONTAINER
    ========================================================= */
 
 .auth-page .auth-container {
 
-    position: relative;
+    position:
+        relative;
 
     width:
         min(
@@ -315,7 +438,8 @@
     height:
         calc(100% - 32px);
 
-    min-height: 0;
+    min-height:
+        0;
 
     margin:
         16px auto;
@@ -330,14 +454,15 @@
     overflow:
         hidden;
 
-    border-radius:
-        var(--auth-radius-xl);
-
     border:
         1px solid
         rgba(255, 255, 255, 0.085);
 
+    border-radius:
+        var(--auth-radius-xl);
+
     background:
+
         linear-gradient(
             135deg,
             rgba(255, 255, 255, 0.045),
@@ -345,11 +470,12 @@
         );
 
     box-shadow:
+
         0 30px 80px
-        rgba(0, 0, 0, 0.32),
+        rgba(0, 0, 0, 0.34),
 
         inset 0 1px 0
-        rgba(255, 255, 255, 0.045);
+        rgba(255, 255, 255, 0.05);
 
     backdrop-filter:
         blur(24px);
@@ -360,15 +486,19 @@
 
 
 /* =========================================================
-   07. COMMON LEFT PANEL
+   07. LEFT PANEL
    ========================================================= */
 
 .auth-page .auth-left {
 
-    position: relative;
+    position:
+        relative;
 
-    min-width: 0;
-    min-height: 0;
+    min-width:
+        0;
+
+    min-height:
+        0;
 
     display:
         flex;
@@ -377,7 +507,7 @@
         column;
 
     padding:
-        28px 34px;
+        30px 36px;
 
     overflow:
         hidden;
@@ -387,24 +517,29 @@
         rgba(255, 255, 255, 0.065);
 
     background:
+
         linear-gradient(
             145deg,
-            rgba(124, 58, 237, 0.045),
+            rgba(124, 58, 237, 0.05),
             rgba(255, 255, 255, 0.008)
         );
 }
 
 
 /* =========================================================
-   08. COMMON RIGHT PANEL
+   08. RIGHT PANEL
    ========================================================= */
 
 .auth-page .auth-right {
 
-    position: relative;
+    position:
+        relative;
 
-    min-width: 0;
-    min-height: 0;
+    min-width:
+        0;
+
+    min-height:
+        0;
 
     display:
         flex;
@@ -416,7 +551,7 @@
         center;
 
     padding:
-        30px 34px;
+        30px 36px;
 
     overflow:
         hidden;
@@ -449,6 +584,8 @@
 }
 
 
+/* ---------- BRAND LOGO ---------- */
+
 .auth-page .auth-brand-logo {
 
     width:
@@ -473,6 +610,7 @@
         16px;
 
     background:
+
         linear-gradient(
             145deg,
             #8b5cf6,
@@ -489,13 +627,36 @@
         800;
 
     box-shadow:
+
         0 10px 28px
         rgba(124, 58, 237, 0.25),
 
         inset 0 1px 0
         rgba(255, 255, 255, 0.18);
+
+    transition:
+        transform 0.30s ease,
+        box-shadow 0.30s ease;
 }
 
+
+.auth-page .auth-brand-logo:hover {
+
+    transform:
+        translateY(-2px)
+        scale(1.03);
+
+    box-shadow:
+
+        0 14px 34px
+        rgba(124, 58, 237, 0.32),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.20);
+}
+
+
+/* ---------- BRAND CONTENT ---------- */
 
 .auth-page .auth-brand-content {
 
@@ -503,6 +664,8 @@
         0;
 }
 
+
+/* ---------- BRAND TITLE ---------- */
 
 .auth-page .auth-brand-title {
 
@@ -525,6 +688,8 @@
         -0.4px;
 }
 
+
+/* ---------- BRAND SUBTITLE ---------- */
 
 .auth-page .auth-brand-subtitle {
 
@@ -564,16 +729,17 @@
         590px;
 
     padding:
-        30px;
-
-    border-radius:
-        var(--auth-radius-lg);
+        32px;
 
     border:
         1px solid
         var(--auth-border);
 
+    border-radius:
+        var(--auth-radius-lg);
+
     background:
+
         linear-gradient(
             145deg,
             rgba(255, 255, 255, 0.055),
@@ -581,8 +747,9 @@
         );
 
     box-shadow:
+
         0 24px 60px
-        rgba(0, 0, 0, 0.24),
+        rgba(0, 0, 0, 0.25),
 
         inset 0 1px 0
         rgba(255, 255, 255, 0.045);
@@ -594,14 +761,17 @@
         blur(22px);
 
     transition:
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 
+/* ---------- CARD TOP ACCENT ---------- */
+
 .auth-page .auth-card::before {
 
-    content: "";
+    content:
+        "";
 
     position:
         absolute;
@@ -619,10 +789,11 @@
         1px;
 
     background:
+
         linear-gradient(
             90deg,
             transparent,
-            rgba(139, 92, 246, 0.45),
+            rgba(139, 92, 246, 0.50),
             transparent
         );
 
@@ -631,17 +802,20 @@
 }
 
 
+/* ---------- CARD HOVER ---------- */
+
 .auth-page .auth-card:hover {
 
     border-color:
-        rgba(255, 255, 255, 0.10);
+        rgba(255, 255, 255, 0.11);
 
     box-shadow:
-        0 28px 65px
+
+        0 30px 70px
         rgba(0, 0, 0, 0.30),
 
         inset 0 1px 0
-        rgba(255, 255, 255, 0.05);
+        rgba(255, 255, 255, 0.055);
 }
 
 
@@ -687,7 +861,7 @@
         var(--auth-text-secondary);
 
     font-size:
-        13px;
+        14px;
 
     line-height:
         1.65;
@@ -695,7 +869,7 @@
 
 
 /* =========================================================
-   12. COMMON INPUT
+   12. INPUT
    ========================================================= */
 
 .auth-page .auth-input {
@@ -704,7 +878,7 @@
         100%;
 
     min-height:
-        46px;
+        48px;
 
     box-sizing:
         border-box;
@@ -712,12 +886,12 @@
     padding:
         0 14px;
 
-    border-radius:
-        var(--auth-radius-sm);
-
     border:
         1px solid
         rgba(255, 255, 255, 0.075);
+
+    border-radius:
+        var(--auth-radius-sm);
 
     outline:
         none;
@@ -732,7 +906,7 @@
         inherit;
 
     font-size:
-        12px;
+        13px;
 
     transition:
         border-color 0.25s ease,
@@ -742,12 +916,19 @@
 }
 
 
+/* ---------- PLACEHOLDER ---------- */
+
 .auth-page .auth-input::placeholder {
 
     color:
         var(--auth-text-faint);
+
+    opacity:
+        1;
 }
 
+
+/* ---------- INPUT HOVER ---------- */
 
 .auth-page .auth-input:hover {
 
@@ -756,20 +937,23 @@
 }
 
 
+/* ---------- INPUT FOCUS ---------- */
+
 .auth-page .auth-input:focus {
 
+    transform:
+        translateY(-1px);
+
     border-color:
-        rgba(139, 92, 246, 0.60);
+        rgba(139, 92, 246, 0.62);
 
     background:
         rgba(124, 58, 237, 0.045);
 
     box-shadow:
-        0 0 0 3px
-        rgba(124, 58, 237, 0.08);
 
-    transform:
-        translateY(-1px);
+        0 0 0 3px
+        rgba(124, 58, 237, 0.09);
 }
 
 
@@ -787,12 +971,18 @@
 }
 
 
-.auth-page .auth-input-wrapper .auth-input {
+/* ---------- INPUT WITH ICON ---------- */
+
+.auth-page
+.auth-input-wrapper
+.auth-input {
 
     padding-left:
-        43px;
+        45px;
 }
 
+
+/* ---------- INPUT ICON ---------- */
 
 .auth-page .auth-input-icon {
 
@@ -800,16 +990,16 @@
         absolute;
 
     left:
-        14px;
+        15px;
 
     top:
         50%;
 
     width:
-        16px;
+        17px;
 
     height:
-        16px;
+        17px;
 
     transform:
         translateY(-50%);
@@ -826,7 +1016,10 @@
 }
 
 
-.auth-page .auth-input-wrapper:focus-within
+/* ---------- ICON FOCUS ---------- */
+
+.auth-page
+.auth-input-wrapper:focus-within
 .auth-input-icon {
 
     color:
@@ -839,7 +1032,7 @@
 
 
 /* =========================================================
-   14. COMMON LABEL
+   14. LABEL
    ========================================================= */
 
 .auth-page .auth-label {
@@ -848,13 +1041,13 @@
         block;
 
     margin-bottom:
-        7px;
+        8px;
 
     color:
         var(--auth-text-secondary);
 
     font-size:
-        11px;
+        12px;
 
     font-weight:
         600;
@@ -863,6 +1056,8 @@
         1.3;
 }
 
+
+/* ---------- OPTIONAL LABEL ---------- */
 
 .auth-page .auth-label-optional {
 
@@ -878,7 +1073,7 @@
 
 
 /* =========================================================
-   15. FORM GROUP
+   15. FIELD
    ========================================================= */
 
 .auth-page .auth-field {
@@ -904,7 +1099,7 @@
         100%;
 
     min-height:
-        48px;
+        50px;
 
     display:
         flex;
@@ -937,6 +1132,7 @@
         hidden;
 
     background:
+
         linear-gradient(
             100deg,
             #7c3aed,
@@ -950,7 +1146,7 @@
         inherit;
 
     font-size:
-        12px;
+        13px;
 
     font-weight:
         700;
@@ -965,6 +1161,8 @@
         opacity 0.25s ease;
 }
 
+
+/* ---------- BUTTON SHINE ---------- */
 
 .auth-page .auth-primary-btn::before {
 
@@ -987,10 +1185,11 @@
         100%;
 
     background:
+
         linear-gradient(
             90deg,
             transparent,
-            rgba(255, 255, 255, 0.15),
+            rgba(255, 255, 255, 0.18),
             transparent
         );
 
@@ -1005,23 +1204,29 @@
 }
 
 
+/* ---------- BUTTON HOVER ---------- */
+
 .auth-page .auth-primary-btn:hover:not(:disabled) {
 
     transform:
         translateY(-2px);
 
     box-shadow:
-        0 14px 30px
-        rgba(124, 58, 237, 0.30);
+
+        0 15px 32px
+        rgba(124, 58, 237, 0.32);
 }
 
 
-.auth-page .auth-primary-btn:hover:not(:disabled)::before {
+.auth-page
+.auth-primary-btn:hover:not(:disabled)::before {
 
     left:
         130%;
 }
 
+
+/* ---------- BUTTON ACTIVE ---------- */
 
 .auth-page .auth-primary-btn:active:not(:disabled) {
 
@@ -1029,6 +1234,8 @@
         translateY(0);
 }
 
+
+/* ---------- BUTTON DISABLED ---------- */
 
 .auth-page .auth-primary-btn:disabled {
 
@@ -1106,13 +1313,13 @@
 .auth-page .auth-secondary-btn:hover {
 
     transform:
-        translateY(-1px);
+        translateY(-2px);
 
     background:
         rgba(255, 255, 255, 0.055);
 
     border-color:
-        rgba(255, 255, 255, 0.13);
+        rgba(255, 255, 255, 0.14);
 
     color:
         var(--auth-text);
@@ -1120,7 +1327,7 @@
 
 
 /* =========================================================
-   18. LINKS
+   18. COMMON LINKS
    ========================================================= */
 
 .auth-page .auth-link {
@@ -1151,7 +1358,7 @@
 
 
 /* =========================================================
-   19. CHECKBOX
+   19. COMMON CHECKBOX
    ========================================================= */
 
 .auth-page .auth-checkbox {
@@ -1164,6 +1371,9 @@
 
     flex:
         0 0 16px;
+
+    position:
+        relative;
 
     margin:
         0;
@@ -1187,9 +1397,6 @@
     cursor:
         pointer;
 
-    position:
-        relative;
-
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
@@ -1200,11 +1407,11 @@
 
 .auth-page .auth-checkbox:hover {
 
-    border-color:
-        rgba(139, 92, 246, 0.50);
-
     transform:
-        scale(1.04);
+        scale(1.05);
+
+    border-color:
+        rgba(139, 92, 246, 0.45);
 }
 
 
@@ -1217,14 +1424,9 @@
         var(--auth-primary);
 
     box-shadow:
+
         0 3px 10px
         rgba(124, 58, 237, 0.20);
-
-    animation:
-        authCheckboxReveal
-        0.3s
-        ease-out
-        both;
 }
 
 
@@ -1260,7 +1462,7 @@
 
 
 /* =========================================================
-   20. COMMON DIVIDER
+   20. DIVIDER
    ========================================================= */
 
 .auth-page .auth-divider {
@@ -1280,52 +1482,7 @@
 
 
 /* =========================================================
-   21. COMMON BADGE
-   ========================================================= */
-
-.auth-page .auth-badge {
-
-    display:
-        inline-flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        7px;
-
-    padding:
-        6px 10px;
-
-    border:
-        1px solid
-        rgba(124, 58, 237, 0.16);
-
-    border-radius:
-        999px;
-
-    background:
-        rgba(124, 58, 237, 0.055);
-
-    color:
-        var(--auth-primary-light);
-
-    font-size:
-        9px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.25px;
-}
-
-
-/* =========================================================
-   22. COMMON ERROR
+   21. COMMON STATUS / ERROR
    ========================================================= */
 
 .auth-page .auth-error {
@@ -1339,35 +1496,38 @@
     gap:
         8px;
 
-    margin-top:
-        7px;
+    width:
+        100%;
+
+    padding:
+        10px 12px;
+
+    border:
+        1px solid
+        rgba(239, 68, 68, 0.20);
+
+    border-radius:
+        var(--auth-radius-sm);
+
+    background:
+        rgba(239, 68, 68, 0.055);
 
     color:
         #fca5a5;
 
     font-size:
-        10px;
+        11px;
 
     line-height:
         1.45;
 }
 
 
-.auth-page .auth-error svg {
-
-    flex:
-        0 0 auto;
-
-    margin-top:
-        2px;
-}
-
-
 /* =========================================================
-   23. COMMON SUCCESS MESSAGE
+   22. COMMON SUCCESS MESSAGE
    ========================================================= */
 
-.auth-page .auth-success {
+.auth-page .auth-success-message {
 
     display:
         flex;
@@ -1378,11 +1538,27 @@
     gap:
         8px;
 
+    width:
+        100%;
+
+    padding:
+        10px 12px;
+
+    border:
+        1px solid
+        rgba(34, 197, 94, 0.20);
+
+    border-radius:
+        var(--auth-radius-sm);
+
+    background:
+        rgba(34, 197, 94, 0.045);
+
     color:
         var(--auth-success-light);
 
     font-size:
-        10px;
+        11px;
 
     line-height:
         1.45;
@@ -1390,1142 +1566,154 @@
 
 
 /* =========================================================
-   24. COMMON BACK BUTTON
+   23. COMMON SPINNER
    ========================================================= */
 
-.auth-page .auth-back-button {
+.auth-page .auth-spinner {
 
-    display:
-        inline-flex;
+    width:
+        16px;
 
-    align-items:
-        center;
+    height:
+        16px;
 
-    gap:
-        7px;
-
-    padding:
-        0;
+    flex:
+        0 0 16px;
 
     border:
-        0;
-
-    background:
-        transparent;
-
-    color:
-        var(--auth-text-muted);
-
-    font-family:
-        inherit;
-
-    font-size:
-        10px;
-
-    font-weight:
-        600;
-
-    cursor:
-        pointer;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-.auth-page .auth-back-button:hover {
-
-    color:
-        var(--auth-text);
-
-    transform:
-        translateX(-2px);
-}
-
-
-/* =========================================================
-   25. COMMON OTP INPUT
-   ========================================================= */
-
-.auth-page .auth-otp-input {
-
-    width:
-        48px;
-
-    height:
-        52px;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.075);
-
-    border-radius:
-        var(--auth-radius-sm);
-
-    outline:
-        none;
-
-    background:
-        rgba(255, 255, 255, 0.035);
-
-    color:
-        var(--auth-text);
-
-    text-align:
-        center;
-
-    font-family:
-        inherit;
-
-    font-size:
-        20px;
-
-    font-weight:
-        700;
-
-    transition:
-        border-color 0.25s ease,
-        background 0.25s ease,
-        box-shadow 0.25s ease,
-        transform 0.25s ease;
-}
-
-
-.auth-page .auth-otp-input:hover {
-
-    border-color:
-        var(--auth-border-hover);
-}
-
-
-.auth-page .auth-otp-input:focus {
-
-    border-color:
-        rgba(139, 92, 246, 0.65);
-
-    background:
-        rgba(124, 58, 237, 0.06);
-
-    box-shadow:
-        0 0 0 3px
-        rgba(124, 58, 237, 0.08);
-
-    transform:
-        translateY(-2px);
-}
-
-
-/* =========================================================
-   26. COMMON OTP CONTAINER
-   ========================================================= */
-
-.auth-page .auth-otp-group {
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    gap:
-        10px;
-}
-
-
-/* =========================================================
-   27. COMMON PROGRESS
-   ========================================================= */
-
-.auth-page .auth-progress {
-
-    width:
-        100%;
-
-    height:
-        4px;
-
-    overflow:
-        hidden;
-
-    border-radius:
-        999px;
-
-    background:
-        rgba(255, 255, 255, 0.06);
-}
-
-
-.auth-page .auth-progress-fill {
-
-    width:
-        100%;
-
-    height:
-        100%;
-
-    transform-origin:
-        left center;
-
-    border-radius:
-        inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            var(--auth-primary-dark),
-            var(--auth-primary-light)
-        );
-}
-
-
-/* =========================================================
-   28. COMMON SUCCESS ICON
-   ========================================================= */
-
-.auth-page .auth-success-icon {
-
-    width:
-        72px;
-
-    height:
-        72px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
+        2px solid
+        rgba(255, 255, 255, 0.30);
+
+    border-top-color:
+        #ffffff;
 
     border-radius:
         50%;
 
-    background:
-        rgba(34, 197, 94, 0.10);
-
-    border:
-        1px solid
-        rgba(74, 222, 128, 0.20);
-
-    color:
-        var(--auth-success-light);
-
-    font-size:
-        28px;
+    animation:
+        authSpinner
+        0.7s
+        linear
+        infinite;
 }
 
 
 /* =========================================================
-   29. COMMON ICON BUTTON
-   ========================================================= */
+   24. BACKGROUND ANIMATIONS ONLY
+   =========================================================
 
-.auth-page .auth-icon-button {
+   IMPORTANT:
+   These are continuous decorative animations.
 
-    width:
-        34px;
+   They do NOT animate:
+   - auth page
+   - container
+   - left panel
+   - right panel
+   - card
+   - fields
+   - buttons
 
-    height:
-        34px;
-
-    display:
-        inline-flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    padding:
-        0;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.07);
-
-    border-radius:
-        9px;
-
-    background:
-        rgba(255, 255, 255, 0.025);
-
-    color:
-        var(--auth-text-muted);
-
-    cursor:
-        pointer;
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        border-color 0.25s ease,
-        color 0.25s ease;
-}
-
-
-.auth-page .auth-icon-button:hover {
-
-    transform:
-        scale(1.05);
-
-    background:
-        rgba(255, 255, 255, 0.055);
-
-    border-color:
-        var(--auth-border-hover);
-
-    color:
-        var(--auth-text);
-}
-
-
-/* =========================================================
-   30. COMMON ANIMATION KEYFRAMES
+   Those entrance animations are controlled by Framer Motion.
    ========================================================= */
 
 
-/* ---------- Page ---------- */
+/* ---------- BLOB 1 ---------- */
 
-@keyframes authPageReveal {
-
-    from {
-        opacity:
-            0;
-    }
-
-    to {
-        opacity:
-            1;
-    }
-}
-
-
-/* ---------- Main container ---------- */
-
-@keyframes authContainerReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateY(24px)
-            scale(0.985);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-/* ---------- Left panel ---------- */
-
-@keyframes authLeftReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateX(-28px);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateX(0);
-    }
-}
-
-
-/* ---------- Right panel ---------- */
-
-@keyframes authRightReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateX(28px);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateX(0);
-    }
-}
-
-
-/* ---------- Content ---------- */
-
-@keyframes authContentReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateY(16px);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-/* ---------- Content from left ---------- */
-
-@keyframes authContentLeftReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateX(-18px);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateX(0);
-    }
-}
-
-
-/* ---------- Content from right ---------- */
-
-@keyframes authContentRightReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateX(18px);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateX(0);
-    }
-}
-
-
-/* ---------- Logo ---------- */
-
-@keyframes authLogoReveal {
-
-    0% {
-        opacity:
-            0;
-
-        transform:
-            scale(0.82);
-    }
-
-    70% {
-        opacity:
-            1;
-
-        transform:
-            scale(1.05);
-    }
-
-    100% {
-        opacity:
-            1;
-
-        transform:
-            scale(1);
-    }
-}
-
-
-/* ---------- Icon ---------- */
-
-@keyframes authIconReveal {
-
-    0% {
-        opacity:
-            0;
-
-        transform:
-            scale(0.75);
-    }
-
-    70% {
-        opacity:
-            1;
-
-        transform:
-            scale(1.05);
-    }
-
-    100% {
-        opacity:
-            1;
-
-        transform:
-            scale(1);
-    }
-}
-
-
-/* ---------- Heading ---------- */
-
-@keyframes authHeadingReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateY(20px);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-/* ---------- Field ---------- */
-
-@keyframes authFieldReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateY(13px);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateY(0);
-    }
-}
-
-
-/* ---------- Button ---------- */
-
-@keyframes authButtonReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateY(14px)
-            scale(0.985);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-/* ---------- OTP ---------- */
-
-@keyframes authOtpReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            translateY(12px)
-            scale(0.94);
-    }
-
-    70% {
-        opacity:
-            1;
-
-        transform:
-            translateY(0)
-            scale(1.03);
-    }
-
-    to {
-        opacity:
-            1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-/* ---------- Checkbox ---------- */
-
-@keyframes authCheckboxReveal {
-
-    0% {
-        transform:
-            scale(0.85);
-    }
-
-    65% {
-        transform:
-            scale(1.10);
-    }
-
-    100% {
-        transform:
-            scale(1);
-    }
-}
-
-
-/* ---------- Success ---------- */
-
-@keyframes authSuccessReveal {
-
-    0% {
-        opacity:
-            0;
-
-        transform:
-            scale(0.65);
-    }
-
-    65% {
-        opacity:
-            1;
-
-        transform:
-            scale(1.08);
-    }
-
-    100% {
-        opacity:
-            1;
-
-        transform:
-            scale(1);
-    }
-}
-
-
-/* ---------- Soft glow ---------- */
-
-@keyframes authSoftGlow {
-
-    0% {
-        box-shadow:
-            0 0 0
-            rgba(124, 58, 237, 0);
-    }
-
-    50% {
-        box-shadow:
-            0 0 0 4px
-            rgba(124, 58, 237, 0.06),
-
-            0 8px 25px
-            rgba(124, 58, 237, 0.12);
-    }
-
-    100% {
-        box-shadow:
-            0 0 0
-            rgba(124, 58, 237, 0);
-    }
-}
-
-
-/* ---------- Progress ---------- */
-
-@keyframes authProgressReveal {
-
-    from {
-        transform:
-            scaleX(0);
-    }
-
-    to {
-        transform:
-            scaleX(1);
-    }
-}
-
-
-/* ---------- Blob reveal ---------- */
-
-@keyframes authBlobReveal {
-
-    from {
-        opacity:
-            0;
-
-        transform:
-            scale(0.75);
-    }
-
-    to {
-        opacity:
-            0.45;
-
-        transform:
-            scale(1);
-    }
-}
-
-
-/* ---------- Blob float ---------- */
-
-@keyframes authBlobFloatOne {
+@keyframes authBlobOne {
 
     0%,
     100% {
+
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+
+    50% {
+
+        transform:
+            translate3d(18px, 14px, 0)
+            scale(1.06);
+    }
+}
+
+
+/* ---------- BLOB 2 ---------- */
+
+@keyframes authBlobTwo {
+
+    0%,
+    100% {
+
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+
+    50% {
+
+        transform:
+            translate3d(-18px, 16px, 0)
+            scale(1.05);
+    }
+}
+
+
+/* ---------- BLOB 3 ---------- */
+
+@keyframes authBlobThree {
+
+    0%,
+    100% {
+
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+
+    50% {
+
+        transform:
+            translate3d(14px, -18px, 0)
+            scale(1.06);
+    }
+}
+
+
+/* ---------- GLOW ---------- */
+
+@keyframes authGlowFloat {
+
+    0%,
+    100% {
+
         transform:
             translate3d(0, 0, 0);
     }
 
     50% {
+
         transform:
-            translate3d(10px, -12px, 0);
+            translate3d(-20px, -18px, 0);
     }
 }
 
 
-@keyframes authBlobFloatTwo {
-
-    0%,
-    100% {
-        transform:
-            translate3d(0, 0, 0);
-    }
-
-    50% {
-        transform:
-            translate3d(-12px, 10px, 0);
-    }
-}
-
-
-/* ---------- Spinner ---------- */
+/* ---------- SPINNER ---------- */
 
 @keyframes authSpinner {
 
     to {
+
         transform:
             rotate(360deg);
     }
 }
 
 
-/* ---------- Pulse ---------- */
-
-@keyframes authPulse {
-
-    0%,
-    100% {
-        transform:
-            scale(1);
-
-        opacity:
-            1;
-    }
-
-    50% {
-        transform:
-            scale(1.04);
-
-        opacity:
-            0.85;
-    }
-}
-
-
 /* =========================================================
-   31. COMMON PAGE ANIMATION
-   ========================================================= */
-
-.auth-page {
-
-    animation:
-        authPageReveal
-        0.5s
-        ease-out
-        both;
-}
-
-
-/* =========================================================
-   32. COMMON CONTAINER ANIMATION
-   ========================================================= */
-
-.auth-page .auth-container {
-
-    animation:
-        authContainerReveal
-        0.7s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.05s
-        both;
-}
-
-
-/* =========================================================
-   33. COMMON LEFT ANIMATION
-   ========================================================= */
-
-.auth-page .auth-left {
-
-    animation:
-        authLeftReveal
-        0.7s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.12s
-        both;
-}
-
-
-/* =========================================================
-   34. COMMON RIGHT ANIMATION
-   ========================================================= */
-
-.auth-page .auth-right {
-
-    animation:
-        authRightReveal
-        0.7s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.16s
-        both;
-}
-
-
-/* =========================================================
-   35. COMMON BRAND ANIMATION
-   ========================================================= */
-
-.auth-page .auth-brand {
-
-    animation:
-        authContentReveal
-        0.6s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.35s
-        both;
-}
-
-
-.auth-page .auth-brand-logo {
-
-    animation:
-        authLogoReveal
-        0.65s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.40s
-        both;
-}
-
-
-/* =========================================================
-   36. COMMON CARD ANIMATION
-   ========================================================= */
-
-.auth-page .auth-card {
-
-    animation:
-        authContentReveal
-        0.7s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.30s
-        both;
-}
-
-
-/* =========================================================
-   37. COMMON HEADING ANIMATION
-   ========================================================= */
-
-.auth-page .auth-heading {
-
-    animation:
-        authHeadingReveal
-        0.6s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.50s
-        both;
-}
-
-
-/* =========================================================
-   38. COMMON DESCRIPTION ANIMATION
-   ========================================================= */
-
-.auth-page .auth-description {
-
-    animation:
-        authContentReveal
-        0.55s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.62s
-        both;
-}
-
-
-/* =========================================================
-   39. COMMON FORM FIELD STAGGER
-   ========================================================= */
-
-.auth-page .auth-field {
-
-    animation:
-        authFieldReveal
-        0.5s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-}
-
-
-.auth-page .auth-field:nth-child(1) {
-    animation-delay:
-        0.72s;
-}
-
-
-.auth-page .auth-field:nth-child(2) {
-    animation-delay:
-        0.80s;
-}
-
-
-.auth-page .auth-field:nth-child(3) {
-    animation-delay:
-        0.88s;
-}
-
-
-.auth-page .auth-field:nth-child(4) {
-    animation-delay:
-        0.96s;
-}
-
-
-.auth-page .auth-field:nth-child(5) {
-    animation-delay:
-        1.04s;
-}
-
-
-.auth-page .auth-field:nth-child(6) {
-    animation-delay:
-        1.12s;
-}
-
-
-/* =========================================================
-   40. COMMON PRIMARY BUTTON ANIMATION
-   ========================================================= */
-
-.auth-page .auth-primary-btn {
-
-    animation:
-        authButtonReveal
-        0.6s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        1.05s
-        both;
-}
-
-
-/* =========================================================
-   41. COMMON SUCCESS ANIMATION
-   ========================================================= */
-
-.auth-page .auth-success-icon {
-
-    animation:
-        authSuccessReveal
-        0.75s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.40s
-        both;
-}
-
-
-/* =========================================================
-   42. COMMON OTP ANIMATION
-   ========================================================= */
-
-.auth-page .auth-otp-input {
-
-    animation:
-        authOtpReveal
-        0.45s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-}
-
-
-.auth-page .auth-otp-input:nth-child(1) {
-    animation-delay:
-        0.72s;
-}
-
-
-.auth-page .auth-otp-input:nth-child(2) {
-    animation-delay:
-        0.79s;
-}
-
-
-.auth-page .auth-otp-input:nth-child(3) {
-    animation-delay:
-        0.86s;
-}
-
-
-.auth-page .auth-otp-input:nth-child(4) {
-    animation-delay:
-        0.93s;
-}
-
-
-.auth-page .auth-otp-input:nth-child(5) {
-    animation-delay:
-        1.00s;
-}
-
-
-.auth-page .auth-otp-input:nth-child(6) {
-    animation-delay:
-        1.07s;
-}
-
-
-/* =========================================================
-   43. OTP FOCUS GLOW
-   ========================================================= */
-
-.auth-page .auth-otp-input:focus {
-
-    animation:
-        authSoftGlow
-        0.7s
-        ease-out
-        both;
-}
-
-
-/* =========================================================
-   44. PROGRESS ANIMATION
-   ========================================================= */
-
-.auth-page .auth-progress-fill {
-
-    animation:
-        authProgressReveal
-        0.9s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.70s
-        both;
-}
-
-
-/* =========================================================
-   45. BACKGROUND BLOB ANIMATIONS
-   ========================================================= */
-
-.auth-page .auth-blob-1 {
-
-    animation:
-        authBlobReveal
-        0.9s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.10s
-        both,
-        authBlobFloatOne
-        8s
-        ease-in-out
-        1s
-        infinite;
-}
-
-
-.auth-page .auth-blob-2 {
-
-    animation:
-        authBlobReveal
-        0.9s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.18s
-        both,
-        authBlobFloatTwo
-        10s
-        ease-in-out
-        1.2s
-        infinite;
-}
-
-
-.auth-page .auth-blob-3 {
-
-    animation:
-        authBlobReveal
-        0.9s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        0.26s
-        both,
-        authBlobFloatOne
-        12s
-        ease-in-out
-        1.4s
-        infinite;
-}
-
-
-/* =========================================================
-   46. MOBILE / TABLET
+   25. TABLET
    ========================================================= */
 
 @media (max-width: 1100px) {
@@ -2536,22 +1724,74 @@
             24px 26px;
     }
 
+
     .auth-page .auth-right {
 
         padding:
             24px 26px;
     }
 
+
     .auth-page .auth-card {
 
         padding:
-            26px;
+            28px;
+    }
+
+
+    .auth-page .auth-brand-title {
+
+        font-size:
+            21px;
+    }
+
+
+    .auth-page .auth-heading {
+
+        font-size:
+            28px;
     }
 }
 
 
 /* =========================================================
-   47. TABLET
+   26. SMALL LAPTOP / TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .auth-page .auth-container {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(360px, 0.85fr);
+    }
+
+
+    .auth-page .auth-left {
+
+        padding:
+            24px;
+    }
+
+
+    .auth-page .auth-right {
+
+        padding:
+            20px;
+    }
+
+
+    .auth-page .auth-card {
+
+        max-width:
+            560px;
+    }
+}
+
+
+/* =========================================================
+   27. MOBILE
    ========================================================= */
 
 @media (max-width: 850px) {
@@ -2569,7 +1809,10 @@
             calc(100% - 20px);
 
         height:
-            calc(100% - 20px);
+            calc(100dvh - 20px);
+
+        min-height:
+            0;
 
         margin:
             10px;
@@ -2594,7 +1837,10 @@
         width:
             100%;
 
-        min-width:
+        height:
+            100%;
+
+        min-height:
             0;
 
         padding:
@@ -2612,23 +1858,23 @@
 
         max-width:
             560px;
+
+        max-height:
+            calc(100% - 4px);
+
+        padding:
+            26px;
     }
 }
 
 
 /* =========================================================
-   48. MOBILE
+   28. SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 520px) {
 
     .auth-page {
-
-        width:
-            100%;
-
-        height:
-            100dvh;
 
         min-height:
             100dvh;
@@ -2641,27 +1887,30 @@
             calc(100% - 12px);
 
         height:
-            calc(100% - 12px);
+            calc(100dvh - 12px);
 
         margin:
             6px;
 
         border-radius:
-            20px;
+            18px;
     }
 
 
     .auth-page .auth-right {
 
         padding:
-            12px;
+            10px;
     }
 
 
     .auth-page .auth-card {
 
+        max-width:
+            100%;
+
         padding:
-            22px 18px;
+            24px 18px;
 
         border-radius:
             16px;
@@ -2674,98 +1923,69 @@
             25px;
 
         letter-spacing:
-            -0.5px;
+            -0.4px;
     }
 
 
     .auth-page .auth-description {
 
         font-size:
-            12px;
+            13px;
+
+        line-height:
+            1.55;
     }
 
 
-    .auth-page .auth-otp-group {
+    .auth-page .auth-input {
 
-        gap:
-            6px;
-    }
-
-
-    .auth-page .auth-otp-input {
-
-        width:
-            42px;
-
-        height:
-            48px;
+        min-height:
+            46px;
 
         font-size:
-            18px;
+            13px;
+    }
+
+
+    .auth-page .auth-primary-btn {
+
+        min-height:
+            48px;
     }
 
 
     .auth-page .auth-brand-logo {
 
         width:
-            46px;
+            48px;
 
         height:
-            46px;
+            48px;
 
         flex-basis:
-            46px;
+            48px;
 
         border-radius:
-            13px;
+            14px;
     }
 }
 
 
 /* =========================================================
-   49. VERY SMALL MOBILE
+   29. VERY SHORT DESKTOP
    ========================================================= */
 
-@media (max-width: 380px) {
-
-    .auth-page .auth-card {
-
-        padding:
-            20px 15px;
-    }
-
-
-    .auth-page .auth-otp-group {
-
-        gap:
-            4px;
-    }
-
-
-    .auth-page .auth-otp-input {
-
-        width:
-            39px;
-
-        height:
-            45px;
-    }
-}
-
-
-/* =========================================================
-   50. SMALL HEIGHT DESKTOP
-   ========================================================= */
-
-@media (max-height: 700px) and (min-width: 851px) {
+@media
+    (max-height: 780px)
+    and (min-width: 851px) {
 
     .auth-page .auth-container {
 
         height:
-            calc(100% - 20px);
+            calc(100% - 24px);
 
         margin:
-            10px auto;
+            12px auto;
     }
 
 
@@ -2782,7 +2002,7 @@
     .auth-page .auth-right {
 
         padding:
-            20px 28px;
+            14px 24px;
     }
 
 
@@ -2798,20 +2018,131 @@
         font-size:
             27px;
     }
+
+
+    .auth-page .auth-description {
+
+        margin-top:
+            7px;
+    }
 }
 
 
 /* =========================================================
-   51. ACCESSIBILITY
+   30. EXTREMELY SHORT DESKTOP
+   ========================================================= */
+
+@media
+    (max-height: 650px)
+    and (min-width: 851px) {
+
+    .auth-page .auth-container {
+
+        height:
+            calc(100% - 16px);
+
+        margin:
+            8px auto;
+    }
+
+
+    .auth-page .auth-left {
+
+        padding:
+            16px 24px;
+    }
+
+
+    .auth-page .auth-right {
+
+        padding:
+            10px 20px;
+    }
+
+
+    .auth-page .auth-card {
+
+        padding:
+            18px 24px;
+    }
+
+
+    .auth-page .auth-heading {
+
+        font-size:
+            25px;
+    }
+
+
+    .auth-page .auth-description {
+
+        font-size:
+            12px;
+
+        line-height:
+            1.45;
+    }
+
+
+    .auth-page .auth-input {
+
+        min-height:
+            44px;
+    }
+
+
+    .auth-page .auth-primary-btn {
+
+        min-height:
+            46px;
+    }
+}
+
+
+/* =========================================================
+   31. TOUCH DEVICES
+   ========================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .auth-page .auth-card:hover {
+
+        border-color:
+            var(--auth-border);
+
+        box-shadow:
+
+            0 24px 60px
+            rgba(0, 0, 0, 0.25),
+
+            inset 0 1px 0
+            rgba(255, 255, 255, 0.045);
+    }
+
+
+    .auth-page .auth-primary-btn:hover:not(:disabled) {
+
+        transform:
+            none;
+
+        box-shadow:
+            0 10px 25px
+            rgba(124, 58, 237, 0.20);
+    }
+}
+
+
+/* =========================================================
+   32. ACCESSIBILITY
    ========================================================= */
 
 .auth-page button:focus-visible,
-.auth-page a:focus-visible,
-.auth-page input:focus-visible {
+.auth-page input:focus-visible,
+.auth-page a:focus-visible {
 
     outline:
         2px solid
-        rgba(167, 139, 250, 0.75);
+        rgba(167, 139, 250, 0.85);
 
     outline-offset:
         3px;
@@ -2819,20 +2150,71 @@
 
 
 /* =========================================================
-   52. REDUCED MOTION
+   33. REDUCED MOTION
+   =========================================================
+
+   Framer Motion will respect its own animation settings.
+   CSS decorative animations are disabled when the user has
+   requested reduced motion.
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
-    .auth-page,
-    .auth-page *,
-    .auth-page *::before,
-    .auth-page *::after {
+    .auth-page .auth-blob,
+    .auth-page::after {
 
         animation:
             none !important;
+    }
+
+
+    .auth-page .auth-input,
+    .auth-page .auth-primary-btn,
+    .auth-page .auth-secondary-btn,
+    .auth-page .auth-card,
+    .auth-page .auth-link {
 
         transition:
             none !important;
     }
 }
+
+
+/* =========================================================
+   34. FINAL AUTH ISOLATION
+   ========================================================= */
+
+/*
+   No generic selectors such as:
+
+       body
+       *
+       .container
+       .card
+       .button
+       input
+       h1
+       p
+
+   are used here.
+
+   Therefore this stylesheet cannot accidentally modify:
+       Home
+       Dashboard
+       Profile
+       SOP pages
+       Knowledge Assist
+       Flowscape
+       other application screens
+*/
+
+
+.auth-page {
+    contain:
+        layout style;
+}
+
+
+/* =========================================================
+   END OF AUTH BASE CSS
+   ========================================================= */
