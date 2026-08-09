@@ -1,0 +1,2132 @@
+/* ============================================================
+   AI SOP PORTAL
+   VERIFY EMAIL OTP PAGE
+   ============================================================
+
+   PURPOSE:
+   Exact dark authentication theme matching AuthBase.css.
+
+   DO NOT MODIFY AuthBase.css.
+   This file only controls VerifyEmailOTP.jsx.
+   ============================================================ */
+
+
+/* ============================================================
+   01. PAGE ROOT
+   ============================================================ */
+
+.verify-email-page {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    background:
+        radial-gradient(
+            circle at 10% 15%,
+            rgba(124, 58, 237, 0.12),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 85%,
+            rgba(139, 92, 246, 0.09),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #171024 0%,
+            #120d1d 48%,
+            #100b18 100%
+        );
+
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   02. FORCE DARK THEME
+   Prevent browser / inherited light styles
+   ============================================================ */
+
+.verify-email-page,
+.verify-email-page *,
+.verify-email-page *::before,
+.verify-email-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   03. MAIN CONTAINER
+   ============================================================ */
+
+.verify-email-page .auth-container {
+    position: relative;
+
+    width:
+        min(
+            calc(100% - 32px),
+            1500px
+        );
+
+    height:
+        calc(100% - 32px);
+
+    min-height: 0;
+
+    margin:
+        16px auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.085);
+
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    box-shadow:
+        0 30px 80px
+        rgba(0, 0, 0, 0.34),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.05);
+
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
+}
+
+
+/* ============================================================
+   04. LEFT PANEL
+   ============================================================ */
+
+.verify-email-page .auth-left {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding:
+        30px 36px;
+
+    overflow: hidden;
+
+    border-right:
+        1px solid
+        rgba(255, 255, 255, 0.065);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(124, 58, 237, 0.05),
+            rgba(255, 255, 255, 0.008)
+        );
+}
+
+
+/* ============================================================
+   05. RIGHT PANEL
+   ============================================================ */
+
+.verify-email-page .auth-right {
+    position: relative;
+
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        30px 36px;
+
+    overflow: hidden;
+
+    background:
+        rgba(13, 9, 22, 0.20);
+}
+
+
+/* ============================================================
+   06. BRAND
+   ============================================================ */
+
+.verify-email-page .auth-brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    flex: 0 0 auto;
+
+    min-width: 0;
+
+    margin-bottom: 28px;
+}
+
+
+.verify-email-page .auth-brand-logo {
+    width: 54px;
+    height: 54px;
+
+    flex: 0 0 54px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #8b5cf6,
+            #7c3aed
+        );
+
+    color: #ffffff;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 28px
+        rgba(124, 58, 237, 0.25),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.18);
+}
+
+
+.verify-email-page .auth-brand-title {
+    margin: 0;
+
+    color:
+        #ffffff;
+
+    font-size: 23px;
+
+    line-height: 1.1;
+
+    font-weight: 800;
+
+    letter-spacing: -0.4px;
+}
+
+
+.verify-email-page .auth-brand-subtitle {
+    margin:
+        5px 0 0;
+
+    color:
+        #a9a0b3;
+
+    font-size: 11px;
+
+    line-height: 1.3;
+
+    font-weight: 500;
+
+    letter-spacing: 0.25px;
+}
+
+
+/* ============================================================
+   07. REGISTRATION PROGRESS
+   ============================================================ */
+
+.verify-progress {
+    width: 100%;
+
+    margin-top: 0;
+}
+
+
+.verify-progress-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+}
+
+
+.verify-progress-header span {
+    color:
+        #a9a0b3;
+
+    font-size: 11px;
+
+    font-weight: 500;
+}
+
+
+.verify-progress-header strong {
+    color:
+        #d8d1df;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   08. PROGRESS TRACK
+   ============================================================ */
+
+.verify-progress-track {
+    position: relative;
+
+    width: 100%;
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+}
+
+
+.verify-progress-fill {
+    height: 100%;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7c3aed,
+            #8b5cf6
+        );
+
+    box-shadow:
+        0 0 14px
+        rgba(124, 58, 237, 0.35);
+}
+
+
+/* ============================================================
+   09. STEP ROW
+   ============================================================ */
+
+.verify-steps {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-top: 15px;
+}
+
+
+.verify-step {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 7px;
+
+    color:
+        #777080;
+
+    font-size: 10px;
+
+    line-height: 1.3;
+
+    font-weight: 500;
+}
+
+
+.verify-step.active {
+    color:
+        #d8d1df;
+}
+
+
+.verify-step.completed {
+    color:
+        #a9a0b3;
+}
+
+
+/* ============================================================
+   10. STEP CIRCLE
+   ============================================================ */
+
+.verify-step-circle {
+    width: 30px;
+    height: 30px;
+
+    flex: 0 0 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.09);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    color:
+        #777080;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.verify-step.completed .verify-step-circle {
+    border-color:
+        rgba(34, 197, 94, 0.30);
+
+    background:
+        rgba(34, 197, 94, 0.08);
+
+    color:
+        #4ade80;
+}
+
+
+.verify-step.active .verify-step-circle {
+    border-color:
+        rgba(139, 92, 246, 0.55);
+
+    background:
+        linear-gradient(
+            145deg,
+            #8b5cf6,
+            #7c3aed
+        );
+
+    color:
+        #ffffff;
+
+    box-shadow:
+        0 8px 22px
+        rgba(124, 58, 237, 0.25);
+}
+
+
+/* ============================================================
+   11. HERO
+   ============================================================ */
+
+.verify-hero {
+    width: 100%;
+
+    margin-top: 34px;
+}
+
+
+.verify-hero-icon {
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 17px;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.22);
+
+    border-radius: 15px;
+
+    background:
+        rgba(124, 58, 237, 0.08);
+
+    color:
+        #8b5cf6;
+
+    box-shadow:
+        0 10px 28px
+        rgba(124, 58, 237, 0.12),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.04);
+}
+
+
+/* ============================================================
+   12. HERO TITLE
+   ============================================================ */
+
+.verify-hero h1 {
+    margin: 0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        clamp(
+            36px,
+            3.2vw,
+            50px
+        );
+
+    line-height: 1.05;
+
+    letter-spacing: -1.6px;
+
+    font-weight: 800;
+}
+
+
+.verify-hero h1 span {
+    display: block;
+
+    margin-top: 5px;
+
+    color:
+        #f4b860;
+}
+
+
+/* ============================================================
+   13. HERO TEXT
+   ============================================================ */
+
+.verify-hero p {
+    max-width: 560px;
+
+    margin:
+        17px 0 0;
+
+    color:
+        #a9a0b3;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    font-weight: 400;
+}
+
+
+/* ============================================================
+   14. BENEFITS
+   ============================================================ */
+
+.verify-benefits {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    margin-top: 26px;
+}
+
+
+.verify-benefit {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding:
+        11px 13px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.055);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.025);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.verify-benefit:hover {
+    background:
+        rgba(124, 58, 237, 0.055);
+
+    border-color:
+        rgba(139, 92, 246, 0.16);
+
+    transform:
+        translateX(3px);
+}
+
+
+.verify-benefit-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.15);
+
+    border-radius: 10px;
+
+    background:
+        rgba(124, 58, 237, 0.075);
+
+    color:
+        #8b5cf6;
+}
+
+
+.verify-benefit strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color:
+        #ffffff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.verify-benefit span {
+    display: block;
+
+    color:
+        #777080;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   15. LEFT FOOTER
+   ============================================================ */
+
+.verify-left-footer {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: auto;
+
+    padding-top: 15px;
+
+    color:
+        #777080;
+
+    font-size: 9px;
+}
+
+
+.verify-left-footer svg {
+    color:
+        #22c55e;
+}
+
+
+/* ============================================================
+   16. OTP CARD
+   EXACT SAME GLASS STYLE AS AUTHBASE CARD
+   ============================================================ */
+
+.verify-email-page .verify-card {
+    position: relative;
+
+    width: 100%;
+
+    max-width: 590px;
+
+    max-height:
+        calc(100% - 4px);
+
+    padding:
+        32px;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.075);
+
+    border-radius:
+        20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.055),
+            rgba(255, 255, 255, 0.025)
+        );
+
+    box-shadow:
+        0 24px 60px
+        rgba(0, 0, 0, 0.25),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.045);
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+}
+
+
+/* ============================================================
+   CARD TOP LINE
+   ============================================================ */
+
+.verify-email-page .verify-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 10%;
+
+    width: 80%;
+
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(139, 92, 246, 0.50),
+            transparent
+        );
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   CARD GLOW
+   ============================================================ */
+
+.verify-email-page .verify-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    top: -190px;
+    right: -150px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 58, 237, 0.10),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   17. HEADER
+   ============================================================ */
+
+.verify-header {
+    position: relative;
+
+    z-index: 2;
+
+    margin-bottom: 20px;
+}
+
+
+.verify-header-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding:
+        7px 11px;
+
+    margin-bottom: 13px;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.18);
+
+    border-radius: 999px;
+
+    background:
+        rgba(124, 58, 237, 0.06);
+
+    color:
+        #8b5cf6;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   18. HEADER TITLE
+   ============================================================ */
+
+.verify-email-page .verify-card .auth-heading {
+    margin: 0;
+
+    color:
+        #ffffff;
+
+    font-size: 30px;
+
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: -0.7px;
+}
+
+
+.verify-email-page .verify-card .auth-description {
+    margin:
+        9px 0 0;
+
+    color:
+        #d8d1df;
+
+    font-size: 13px;
+
+    line-height: 1.65;
+}
+
+
+/* ============================================================
+   19. EMAIL BANNER
+   ============================================================ */
+
+.verify-email-banner {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding:
+        12px 14px;
+
+    margin-bottom: 21px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.065);
+
+    border-radius: 14px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.025);
+}
+
+
+.verify-email-banner-icon {
+    width: 37px;
+    height: 37px;
+
+    flex: 0 0 37px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.15);
+
+    border-radius: 10px;
+
+    background:
+        rgba(124, 58, 237, 0.075);
+
+    color:
+        #8b5cf6;
+}
+
+
+.verify-email-banner span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color:
+        #777080;
+
+    font-size: 9px;
+}
+
+
+.verify-email-banner strong {
+    display: block;
+
+    max-width: 100%;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color:
+        #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   20. ERROR / SUCCESS
+   ============================================================ */
+
+.verify-message {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        10px 12px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+    font-size: 10px;
+
+    line-height: 1.45;
+}
+
+
+.verify-error {
+    border:
+        1px solid
+        rgba(239, 68, 68, 0.18);
+
+    background:
+        rgba(239, 68, 68, 0.055);
+
+    color:
+        #fca5a5;
+}
+
+
+.verify-success {
+    border:
+        1px solid
+        rgba(34, 197, 94, 0.18);
+
+    background:
+        rgba(34, 197, 94, 0.055);
+
+    color:
+        #4ade80;
+}
+
+
+/* ============================================================
+   21. OTP SECTION
+   ============================================================ */
+
+.verify-otp-section {
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+}
+
+
+.verify-otp-label {
+    margin-bottom: 10px;
+
+    color:
+        #d8d1df;
+
+    font-size: 12px;
+
+    line-height: 1.3;
+
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   22. OTP BOXES
+   ============================================================ */
+
+.verify-otp-inputs {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+}
+
+
+/* ============================================================
+   23. OTP INPUT
+   ============================================================ */
+
+.verify-otp-input {
+    width: 58px;
+    height: 58px;
+
+    flex: 0 0 58px;
+
+    display: block;
+
+    padding: 0;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.075);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    color:
+        #ffffff;
+
+    caret-color:
+        #8b5cf6;
+
+    font-family:
+        "Poppins",
+        "Inter",
+        system-ui,
+        sans-serif;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    line-height: 58px;
+
+    text-align: center;
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.025);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.verify-otp-input:hover {
+    border-color:
+        rgba(255, 255, 255, 0.15);
+
+    background:
+        rgba(255, 255, 255, 0.05);
+}
+
+
+.verify-otp-input:focus {
+    transform:
+        translateY(-1px);
+
+    border-color:
+        rgba(139, 92, 246, 0.62);
+
+    background:
+        rgba(124, 58, 237, 0.045);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(124, 58, 237, 0.09);
+}
+
+
+.verify-otp-input.filled {
+    border-color:
+        rgba(139, 92, 246, 0.38);
+
+    background:
+        rgba(124, 58, 237, 0.055);
+
+    color:
+        #ffffff;
+}
+
+
+/* ============================================================
+   24. OTP HINT
+   ============================================================ */
+
+.verify-otp-hint {
+    margin:
+        10px 0 0;
+
+    color:
+        #777080;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* ============================================================
+   25. TIMER
+   ============================================================ */
+
+.verify-resend-section {
+    position: relative;
+
+    z-index: 2;
+
+    min-height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: 15px;
+}
+
+
+.verify-timer {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    color:
+        #777080;
+
+    font-size: 9px;
+}
+
+
+.verify-timer svg {
+    color:
+        #8b5cf6;
+}
+
+
+.verify-timer strong {
+    color:
+        #f4b860;
+
+    font-weight: 700;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+
+/* ============================================================
+   26. RESEND
+   ============================================================ */
+
+.verify-resend-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 34px;
+
+    padding:
+        0 13px;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.18);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(124, 58, 237, 0.055);
+
+    color:
+        #8b5cf6;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.verify-resend-button:hover:not(:disabled) {
+    transform:
+        translateY(-2px);
+
+    background:
+        rgba(124, 58, 237, 0.10);
+
+    border-color:
+        rgba(139, 92, 246, 0.35);
+
+    box-shadow:
+        0 10px 24px
+        rgba(124, 58, 237, 0.14);
+}
+
+
+.verify-resend-button:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   27. ACTIONS
+   ============================================================ */
+
+.verify-actions {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: 100%;
+
+    margin-top: 20px;
+}
+
+
+/* ============================================================
+   28. BACK BUTTON
+   ============================================================ */
+
+.verify-back-button {
+    min-width: 94px;
+    min-height: 50px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding:
+        0 17px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.075);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    color:
+        #d8d1df;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.verify-back-button:hover:not(:disabled) {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(255, 255, 255, 0.15);
+
+    background:
+        rgba(255, 255, 255, 0.055);
+
+    color:
+        #ffffff;
+}
+
+
+.verify-back-button:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+}
+
+
+/* ============================================================
+   29. VERIFY BUTTON
+   ============================================================ */
+
+.verify-email-page .verify-submit-button {
+    flex: 1;
+
+    min-width: 0;
+
+    min-height: 50px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            100deg,
+            #7c3aed,
+            #8b5cf6
+        );
+
+    color:
+        #ffffff;
+
+    box-shadow:
+        0 10px 25px
+        rgba(124, 58, 237, 0.20);
+}
+
+
+.verify-email-page
+.verify-submit-button:hover:not(:disabled) {
+    box-shadow:
+        0 15px 32px
+        rgba(124, 58, 237, 0.32);
+}
+
+
+/* ============================================================
+   30. SPINNER
+   ============================================================ */
+
+.verify-spinner {
+    width: 15px;
+    height: 15px;
+
+    flex: 0 0 15px;
+
+    border:
+        2px solid
+        rgba(255, 255, 255, 0.30);
+
+    border-top-color:
+        #ffffff;
+
+    border-radius: 50%;
+
+    animation:
+        verifySpinner
+        0.7s
+        linear
+        infinite;
+}
+
+
+@keyframes verifySpinner {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+/* ============================================================
+   31. CHANGE EMAIL
+   ============================================================ */
+
+.verify-change-email {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 5px;
+
+    margin-top: 15px;
+
+    color:
+        #777080;
+
+    font-size: 9px;
+
+    line-height: 1.5;
+}
+
+
+.verify-change-email button {
+    padding: 0;
+
+    border: 0;
+
+    outline: none;
+
+    background: transparent;
+
+    color:
+        #8b5cf6;
+
+    font-family: inherit;
+
+    font-size: inherit;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.verify-change-email button:hover {
+    color:
+        #a78bfa;
+
+    transform:
+        translateX(2px);
+}
+
+
+/* ============================================================
+   32. FOCUS
+   ============================================================ */
+
+.verify-email-page
+button:focus-visible,
+.verify-email-page
+input:focus-visible {
+    outline:
+        2px solid
+        rgba(139, 92, 246, 0.65);
+
+    outline-offset: 3px;
+}
+
+
+/* ============================================================
+   33. LAPTOP HEIGHT OPTIMIZATION
+   ============================================================ */
+
+@media
+(max-height: 800px)
+and (min-width: 851px) {
+
+    .verify-email-page .auth-left {
+        padding:
+            23px 30px;
+    }
+
+
+    .verify-email-page .auth-brand {
+        margin-bottom: 20px;
+    }
+
+
+    .verify-hero {
+        margin-top: 23px;
+    }
+
+
+    .verify-hero-icon {
+        width: 44px;
+        height: 44px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .verify-hero h1 {
+        font-size: 38px;
+    }
+
+
+    .verify-hero p {
+        margin-top: 11px;
+
+        font-size: 11px;
+
+        line-height: 1.55;
+    }
+
+
+    .verify-benefits {
+        margin-top: 17px;
+
+        gap: 6px;
+    }
+
+
+    .verify-benefit {
+        padding:
+            8px 11px;
+    }
+
+
+    .verify-benefit-icon {
+        width: 29px;
+        height: 29px;
+
+        flex-basis: 29px;
+    }
+
+
+    .verify-benefit span {
+        font-size: 8px;
+    }
+
+
+    .verify-email-page .auth-right {
+        padding:
+            20px 28px;
+    }
+
+
+    .verify-email-page .verify-card {
+        padding:
+            26px 28px 22px;
+    }
+
+
+    .verify-email-page
+    .verify-card
+    .auth-heading {
+        font-size: 27px;
+    }
+
+
+    .verify-email-banner {
+        padding:
+            10px 12px;
+
+        margin-bottom: 16px;
+    }
+
+
+    .verify-otp-input {
+        width: 52px;
+        height: 52px;
+
+        flex-basis: 52px;
+
+        line-height: 52px;
+    }
+
+
+    .verify-actions {
+        margin-top: 15px;
+    }
+
+
+    .verify-back-button,
+    .verify-email-page
+    .verify-submit-button {
+        min-height: 46px;
+    }
+}
+
+
+/* ============================================================
+   34. 1100px
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .verify-email-page .auth-left {
+        padding:
+            25px 27px;
+    }
+
+
+    .verify-email-page .auth-right {
+        padding:
+            24px 27px;
+    }
+
+
+    .verify-email-page .verify-card {
+        padding:
+            28px;
+    }
+
+
+    .verify-hero h1 {
+        font-size: 40px;
+    }
+
+
+    .verify-otp-input {
+        width: 52px;
+        height: 54px;
+
+        flex-basis: 52px;
+
+        line-height: 54px;
+    }
+}
+
+
+/* ============================================================
+   35. 950px
+   ============================================================ */
+
+@media (max-width: 950px) {
+
+    .verify-email-page .auth-container {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(340px, 0.88fr);
+    }
+
+
+    .verify-email-page .auth-left {
+        padding:
+            23px;
+    }
+
+
+    .verify-email-page .auth-right {
+        padding:
+            20px;
+    }
+
+
+    .verify-hero {
+        margin-top: 25px;
+    }
+
+
+    .verify-hero h1 {
+        font-size: 35px;
+    }
+
+
+    .verify-benefits {
+        margin-top: 19px;
+    }
+
+
+    .verify-email-page .verify-card {
+        padding:
+            25px;
+    }
+
+
+    .verify-otp-inputs {
+        gap: 7px;
+    }
+
+
+    .verify-otp-input {
+        width: 47px;
+        height: 50px;
+
+        flex-basis: 47px;
+
+        line-height: 50px;
+    }
+}
+
+
+/* ============================================================
+   36. MOBILE
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+    .verify-email-page {
+        height: auto;
+
+        min-height: 100dvh;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+
+    .verify-email-page .auth-container {
+        width:
+            calc(100% - 20px);
+
+        height: auto;
+
+        min-height:
+            calc(100dvh - 20px);
+
+        margin:
+            10px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        overflow: visible;
+    }
+
+
+    .verify-email-page .auth-left {
+        display: flex;
+
+        padding:
+            24px 24px 10px;
+
+        border-right: 0;
+
+        border-bottom:
+            1px solid
+            rgba(255, 255, 255, 0.065);
+    }
+
+
+    .verify-email-page .auth-right {
+        padding:
+            20px 24px 28px;
+
+        overflow: visible;
+    }
+
+
+    .verify-email-page .verify-card {
+        max-width: 580px;
+
+        margin:
+            0 auto;
+    }
+}
+
+
+/* ============================================================
+   37. 600px
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+    .verify-email-page .auth-container {
+        width:
+            calc(100% - 12px);
+
+        min-height:
+            calc(100dvh - 12px);
+
+        margin:
+            6px;
+
+        border-radius:
+            20px;
+    }
+
+
+    .verify-email-page .auth-left {
+        padding:
+            20px 18px 9px;
+    }
+
+
+    .verify-email-page .auth-right {
+        padding:
+            16px 18px 24px;
+    }
+
+
+    .verify-email-page .auth-brand {
+        margin-bottom: 18px;
+    }
+
+
+    .verify-steps {
+        gap: 5px;
+    }
+
+
+    .verify-step {
+        align-items: center;
+
+        text-align: center;
+
+        font-size: 8px;
+    }
+
+
+    .verify-step-circle {
+        width: 27px;
+        height: 27px;
+
+        flex-basis: 27px;
+    }
+
+
+    .verify-hero {
+        margin-top: 23px;
+    }
+
+
+    .verify-hero h1 {
+        font-size: 30px;
+    }
+
+
+    .verify-hero p {
+        font-size: 11px;
+    }
+
+
+    .verify-email-page .verify-card {
+        padding:
+            24px 18px 22px;
+
+        border-radius:
+            16px;
+    }
+
+
+    .verify-email-page
+    .verify-card
+    .auth-heading {
+        font-size: 24px;
+    }
+
+
+    .verify-otp-inputs {
+        gap: 6px;
+    }
+
+
+    .verify-otp-input {
+        width: 44px;
+        height: 48px;
+
+        flex-basis: 44px;
+
+        line-height: 48px;
+
+        font-size: 19px;
+    }
+
+
+    .verify-back-button {
+        min-width: 78px;
+
+        min-height: 46px;
+    }
+
+
+    .verify-email-page
+    .verify-submit-button {
+        min-height: 46px;
+    }
+}
+
+
+/* ============================================================
+   38. 430px
+   ============================================================ */
+
+@media (max-width: 430px) {
+
+    .verify-email-page .auth-brand-logo {
+        width: 46px;
+        height: 46px;
+
+        flex-basis: 46px;
+
+        border-radius: 13px;
+
+        font-size: 18px;
+    }
+
+
+    .verify-email-page .auth-brand-title {
+        font-size: 19px;
+    }
+
+
+    .verify-email-page .auth-brand-subtitle {
+        font-size: 9px;
+    }
+
+
+    .verify-step span {
+        display: none;
+    }
+
+
+    .verify-hero h1 {
+        font-size: 27px;
+    }
+
+
+    .verify-email-page .verify-card {
+        padding:
+            21px 14px 19px;
+    }
+
+
+    .verify-email-page
+    .verify-card
+    .auth-heading {
+        font-size: 22px;
+    }
+
+
+    .verify-otp-inputs {
+        gap: 5px;
+    }
+
+
+    .verify-otp-input {
+        width: 40px;
+        height: 44px;
+
+        flex-basis: 40px;
+
+        line-height: 44px;
+
+        font-size: 17px;
+    }
+
+
+    .verify-back-button {
+        min-width: 70px;
+
+        padding:
+            0 10px;
+
+        font-size: 9px;
+    }
+
+
+    .verify-email-page
+    .verify-submit-button {
+        font-size: 10px;
+    }
+}
+
+
+/* ============================================================
+   39. 360px
+   ============================================================ */
+
+@media (max-width: 360px) {
+
+    .verify-email-page .auth-left {
+        padding:
+            17px 14px 7px;
+    }
+
+
+    .verify-email-page .auth-right {
+        padding:
+            13px 14px 20px;
+    }
+
+
+    .verify-hero {
+        margin-top: 19px;
+    }
+
+
+    .verify-hero h1 {
+        font-size: 24px;
+    }
+
+
+    .verify-email-page .verify-card {
+        padding:
+            19px 11px 17px;
+    }
+
+
+    .verify-otp-inputs {
+        gap: 4px;
+    }
+
+
+    .verify-otp-input {
+        width: 37px;
+        height: 41px;
+
+        flex-basis: 37px;
+
+        line-height: 41px;
+
+        font-size: 16px;
+    }
+}
+
+
+/* ============================================================
+   40. REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .verify-email-page *,
+    .verify-email-page *::before,
+    .verify-email-page *::after {
+        animation:
+            none !important;
+
+        transition:
+            none !important;
+    }
+}

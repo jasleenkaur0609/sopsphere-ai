@@ -3,8 +3,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
- import VerifyEmailOTP from "../pages/Authentication/VerifyEmailOTP";
-// import CompleteProfile from "../pages/Authentication/CompleteProfile";
+import VerifyEmailOTP from "../pages/Authentication/VerifyEmailOTP";
+import CompleteProfile from "../pages/Authentication/CompleteProfile";
 // import VerifyMobileOTP from "../pages/Authentication/VerifyMobileOTP";
 
 // import ForgotPassword from "../pages/Authentication/ForgotPassword";
@@ -27,10 +27,10 @@ function AppRoutes() {
         element={<VerifyEmailOTP />}
       />
 
-       {/*<Route
+     <Route
         path="/complete-profile"
         element={<CompleteProfile />} 
-      />*/}
+      />
 
        {/*<Route
         path="/verify-mobile"

@@ -277,7 +277,7 @@ const Register = () => {
              */
 
             navigate(
-                "/verify-email-otp",
+                "/verify-email",
                 {
                     state: {
                         email:

@@ -901,7 +901,7 @@ export default function VerifyEmailOTP() {
                             variants={itemVariants}
                         >
 
-                            <Envelope
+                            <Mail
                                 size={25}
                             />
 
@@ -1080,7 +1080,7 @@ export default function VerifyEmailOTP() {
                                 variants={itemVariants}
                             >
 
-                                <Envelope
+                                <Mail
                                     size={14}
                                 />
 
@@ -1121,7 +1121,7 @@ export default function VerifyEmailOTP() {
 
                             <div className="verify-email-banner-icon">
 
-                                <Envelope
+                                <Mail
                                     size={17}
                                 />
 
