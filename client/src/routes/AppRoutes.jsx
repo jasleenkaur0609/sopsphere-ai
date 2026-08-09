@@ -2,9 +2,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home/Home";
 import Login from "../pages/Authentication/Login";
-import Register from "../pages/Authentication/Register";
-import VerifyEmailOTP from "../pages/Authentication/VerifyEmailOTP";
-import CompleteProfile from "../pages/Authentication/CompleteProfile";
+// import Register from "../pages/Authentication/Register";
+// import VerifyEmailOTP from "../pages/Authentication/VerifyEmailOTP";
+// import CompleteProfile from "../pages/Authentication/CompleteProfile";
 // import VerifyMobileOTP from "../pages/Authentication/VerifyMobileOTP";
 
 // import ForgotPassword from "../pages/Authentication/ForgotPassword";
@@ -18,9 +18,9 @@ function AppRoutes() {
 
       <Route path="/" element={<Home />} />
 
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Login />} /> 
 
-      <Route path="/register" element={<Register />} />
+      {/* <Route path="/register" element={<Register />} />
 
       <Route
         path="/verify-email"
@@ -29,8 +29,8 @@ function AppRoutes() {
 
       <Route
         path="/complete-profile"
-        element={<CompleteProfile />}
-      />
+        element={<CompleteProfile />} 
+      />*/}
 
        {/*<Route
         path="/verify-mobile"
