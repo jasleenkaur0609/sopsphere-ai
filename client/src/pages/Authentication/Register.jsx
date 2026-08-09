@@ -14,19 +14,20 @@ import {
     UserPlus,
     Loader2
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import "./AuthBase.css";
 import "./Register.css";
 
 
-const Register = ({
-    onLogin,
-    onRegistrationSuccess
-}) => {
+const Register = () => {
+
+    const navigate = useNavigate();
+
 
     /* =====================================================
        FORM STATE
-       ===================================================== */
+    ===================================================== */
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -38,19 +39,26 @@ const Register = ({
     });
 
 
-    const [showPassword, setShowPassword] = useState(false);
+    /* =====================================================
+       UI STATE
+    ===================================================== */
+
+    const [showPassword, setShowPassword] =
+        useState(false);
 
     const [showConfirmPassword, setShowConfirmPassword] =
         useState(false);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] =
+        useState(false);
 
-    const [error, setError] = useState("");
+    const [error, setError] =
+        useState("");
 
 
     /* =====================================================
-       HANDLE INPUT
-       ===================================================== */
+       HANDLE INPUT CHANGE
+    ===================================================== */
 
     const handleChange = (event) => {
 
@@ -72,6 +80,11 @@ const Register = ({
         }));
 
 
+        /*
+         * Clear previous error when
+         * the user starts correcting the form.
+         */
+
         if (error) {
             setError("");
         }
@@ -79,8 +92,8 @@ const Register = ({
 
 
     /* =====================================================
-       PASSWORD VALIDATION
-       ===================================================== */
+       PASSWORD REQUIREMENTS
+    ===================================================== */
 
     const passwordRules = {
 
@@ -98,12 +111,18 @@ const Register = ({
 
         special:
             /[^A-Za-z0-9]/.test(formData.password)
+
     };
 
 
     const passwordIsValid =
-        Object.values(passwordRules).every(Boolean);
+        Object.values(passwordRules)
+            .every(Boolean);
 
+
+    /* =====================================================
+       PASSWORD MATCH
+    ===================================================== */
 
     const passwordsMatch =
         formData.password.length > 0 &&
@@ -113,8 +132,8 @@ const Register = ({
 
 
     /* =====================================================
-       FORM VALIDATION
-       ===================================================== */
+       COMPLETE FORM VALIDATION
+    ===================================================== */
 
     const formIsValid =
         formData.firstName.trim().length > 0 &&
@@ -126,8 +145,8 @@ const Register = ({
 
 
     /* =====================================================
-       SUBMIT
-       ===================================================== */
+       SUBMIT / CREATE ACCOUNT
+    ===================================================== */
 
     const handleSubmit = async (event) => {
 
@@ -135,6 +154,10 @@ const Register = ({
 
         setError("");
 
+
+        /* -------------------------------------------------
+           FIRST NAME
+        ------------------------------------------------- */
 
         if (!formData.firstName.trim()) {
 
@@ -146,6 +169,10 @@ const Register = ({
         }
 
 
+        /* -------------------------------------------------
+           LAST NAME
+        ------------------------------------------------- */
+
         if (!formData.lastName.trim()) {
 
             setError(
@@ -155,6 +182,10 @@ const Register = ({
             return;
         }
 
+
+        /* -------------------------------------------------
+           EMAIL
+        ------------------------------------------------- */
 
         if (!formData.email.trim()) {
 
@@ -166,15 +197,23 @@ const Register = ({
         }
 
 
+        /* -------------------------------------------------
+           PASSWORD
+        ------------------------------------------------- */
+
         if (!passwordIsValid) {
 
             setError(
-                "Please create a password that meets all requirements."
+                "Please create a password that meets all the requirements."
             );
 
             return;
         }
 
+
+        /* -------------------------------------------------
+           CONFIRM PASSWORD
+        ------------------------------------------------- */
 
         if (!passwordsMatch) {
 
@@ -186,6 +225,10 @@ const Register = ({
         }
 
 
+        /* -------------------------------------------------
+           TERMS
+        ------------------------------------------------- */
+
         if (!formData.terms) {
 
             setError(
@@ -196,6 +239,10 @@ const Register = ({
         }
 
 
+        /* -------------------------------------------------
+           CREATE ACCOUNT
+        ------------------------------------------------- */
+
         try {
 
             setLoading(true);
@@ -203,31 +250,47 @@ const Register = ({
 
             /*
              * =================================================
-             * YOUR EXISTING REGISTRATION LOGIC GOES HERE
+             * TEMPORARY REGISTRATION PROCESS
              * =================================================
              *
-             * Example:
+             * This gives the UI a short loading state.
              *
-             * const result = await registerUser(formData);
-             *
-             * After successful registration:
-             *
-             * onRegistrationSuccess?.(result);
-             *
-             *
-             * IMPORTANT:
-             *
-             * Do NOT put password/confirmPassword into
-             * localStorage or console in production.
+             * Later, replace this section with your actual
+             * Firebase/backend registration API.
              */
 
+            await new Promise((resolve) => {
+                setTimeout(resolve, 800);
+            });
 
-            if (onRegistrationSuccess) {
 
-                await onRegistrationSuccess(
-                    formData
-                );
-            }
+            /*
+             * =================================================
+             * MOVE TO VERIFY EMAIL OTP
+             * =================================================
+             *
+             * We pass only the information required by the
+             * next authentication step.
+             *
+             * IMPORTANT:
+             * Password is NOT passed to the next page.
+             */
+
+            navigate(
+                "/verify-email-otp",
+                {
+                    state: {
+                        email:
+                            formData.email.trim(),
+
+                        firstName:
+                            formData.firstName.trim(),
+
+                        lastName:
+                            formData.lastName.trim()
+                    }
+                }
+            );
 
 
         } catch (registrationError) {
@@ -243,6 +306,7 @@ const Register = ({
                 "Unable to create your account. Please try again."
             );
 
+
         } finally {
 
             setLoading(false);
@@ -251,8 +315,8 @@ const Register = ({
 
 
     /* =====================================================
-       ANIMATION VARIANTS
-       ===================================================== */
+       FRAMER MOTION VARIANTS
+    ===================================================== */
 
     const containerVariants = {
 
@@ -268,6 +332,7 @@ const Register = ({
             y: 0,
 
             transition: {
+
                 duration: 0.65,
 
                 ease: [
@@ -286,7 +351,9 @@ const Register = ({
     const itemVariants = {
 
         hidden: {
+
             opacity: 0,
+
             y: 14
         },
 
@@ -297,6 +364,7 @@ const Register = ({
             y: 0,
 
             transition: {
+
                 duration: 0.5,
 
                 ease: [
@@ -350,7 +418,7 @@ const Register = ({
 
     /* =====================================================
        JSX
-       ===================================================== */
+    ===================================================== */
 
     return (
 
@@ -358,7 +426,7 @@ const Register = ({
 
 
             {/* =================================================
-                BACKGROUND BLOBS
+                AUTH BACKGROUND
             ================================================= */}
 
             <div className="auth-blob auth-blob-1" />
@@ -369,17 +437,20 @@ const Register = ({
 
 
             {/* =================================================
-                MAIN CONTAINER
+                MAIN AUTH CONTAINER
             ================================================= */}
 
             <motion.section
                 className="auth-container"
+
                 initial={{
                     opacity: 0
                 }}
+
                 animate={{
                     opacity: 1
                 }}
+
                 transition={{
                     duration: 0.5
                 }}
@@ -393,21 +464,28 @@ const Register = ({
                 <section className="auth-left">
 
 
-                    {/* BRAND */}
+                    {/* =================================================
+                        BRAND
+                    ================================================= */}
 
                     <motion.div
                         className="auth-brand"
+
                         variants={itemVariants}
+
                         initial="hidden"
+
                         animate="visible"
                     >
 
                         <motion.div
                             className="auth-brand-logo"
+
                             whileHover={{
                                 y: -2,
                                 scale: 1.03
                             }}
+
                             transition={{
                                 duration: 0.25
                             }}
@@ -432,13 +510,16 @@ const Register = ({
 
 
                     {/* =================================================
-                        REGISTER-SPECIFIC PROGRESS
+                        REGISTRATION PROGRESS
                     ================================================= */}
 
                     <motion.div
                         className="register-progress"
-                        variants={itemVariants}
+
+                        variants={containerVariants}
+
                         initial="hidden"
+
                         animate="visible"
                     >
 
@@ -459,15 +540,20 @@ const Register = ({
 
                             <motion.div
                                 className="register-progress-fill"
+
                                 initial={{
                                     width: 0
                                 }}
+
                                 animate={{
                                     width: "25%"
                                 }}
+
                                 transition={{
                                     duration: 0.9,
-                                    delay: 0.35,
+
+                                    delay: 0.3,
+
                                     ease: [
                                         0.22,
                                         1,
@@ -485,18 +571,25 @@ const Register = ({
 
                             {/* STEP 1 */}
 
-                            <div className="register-step active">
+                            <motion.div
+                                className="register-step active"
+
+                                variants={itemVariants}
+                            >
 
                                 <motion.div
                                     className="register-step-circle"
+
                                     initial={{
                                         scale: 0.7,
                                         opacity: 0
                                     }}
+
                                     animate={{
                                         scale: 1,
                                         opacity: 1
                                     }}
+
                                     transition={{
                                         delay: 0.45,
                                         duration: 0.4
@@ -509,12 +602,16 @@ const Register = ({
                                     Create Account
                                 </span>
 
-                            </div>
+                            </motion.div>
 
 
                             {/* STEP 2 */}
 
-                            <div className="register-step">
+                            <motion.div
+                                className="register-step"
+
+                                variants={itemVariants}
+                            >
 
                                 <div className="register-step-circle">
                                     2
@@ -524,12 +621,16 @@ const Register = ({
                                     Email Verification
                                 </span>
 
-                            </div>
+                            </motion.div>
 
 
                             {/* STEP 3 */}
 
-                            <div className="register-step">
+                            <motion.div
+                                className="register-step"
+
+                                variants={itemVariants}
+                            >
 
                                 <div className="register-step-circle">
                                     3
@@ -539,12 +640,16 @@ const Register = ({
                                     Profile Completion
                                 </span>
 
-                            </div>
+                            </motion.div>
 
 
                             {/* STEP 4 */}
 
-                            <div className="register-step">
+                            <motion.div
+                                className="register-step"
+
+                                variants={itemVariants}
+                            >
 
                                 <div className="register-step-circle">
                                     4
@@ -554,7 +659,7 @@ const Register = ({
                                     Mobile Verification
                                 </span>
 
-                            </div>
+                            </motion.div>
 
                         </div>
 
@@ -567,20 +672,23 @@ const Register = ({
 
                     <motion.div
                         className="register-hero"
+
                         variants={containerVariants}
+
                         initial="hidden"
+
                         animate="visible"
                     >
 
-
-                        {/* BADGE */}
-
                         <motion.div
                             className="register-security-badge"
+
                             variants={itemVariants}
                         >
 
-                            <ShieldCheck size={15} />
+                            <ShieldCheck
+                                size={15}
+                            />
 
                             <span>
                                 Secure Registration
@@ -588,8 +696,6 @@ const Register = ({
 
                         </motion.div>
 
-
-                        {/* TITLE */}
 
                         <motion.h1
                             variants={itemVariants}
@@ -603,8 +709,6 @@ const Register = ({
 
                         </motion.h1>
 
-
-                        {/* DESCRIPTION */}
 
                         <motion.p
                             variants={itemVariants}
@@ -626,8 +730,11 @@ const Register = ({
 
                     <motion.div
                         className="register-benefits"
+
                         variants={containerVariants}
+
                         initial="hidden"
+
                         animate="visible"
                     >
 
@@ -636,7 +743,9 @@ const Register = ({
 
                         <motion.div
                             className="register-benefit"
+
                             variants={itemVariants}
+
                             whileHover={{
                                 x: 4
                             }}
@@ -671,7 +780,9 @@ const Register = ({
 
                         <motion.div
                             className="register-benefit"
+
                             variants={itemVariants}
+
                             whileHover={{
                                 x: 4
                             }}
@@ -707,7 +818,9 @@ const Register = ({
 
                         <motion.div
                             className="register-benefit"
+
                             variants={itemVariants}
+
                             whileHover={{
                                 x: 4
                             }}
@@ -740,18 +853,23 @@ const Register = ({
                     </motion.div>
 
 
-                    {/* FOOTER */}
+                    {/* =================================================
+                        LEFT FOOTER
+                    ================================================= */}
 
                     <motion.div
                         className="register-left-footer"
+
                         initial={{
                             opacity: 0
                         }}
+
                         animate={{
                             opacity: 1
                         }}
+
                         transition={{
-                            delay: 0.75,
+                            delay: 0.8,
                             duration: 0.5
                         }}
                     >
@@ -782,25 +900,32 @@ const Register = ({
 
                     <motion.div
                         className="auth-card register-card"
+
                         variants={cardVariants}
+
                         initial="hidden"
+
                         animate="visible"
                     >
 
 
                         {/* =================================================
-                            CARD HEADER
+                            HEADER
                         ================================================= */}
 
                         <motion.div
                             className="register-header"
+
                             variants={containerVariants}
+
                             initial="hidden"
+
                             animate="visible"
                         >
 
                             <motion.div
                                 className="register-header-badge"
+
                                 variants={itemVariants}
                             >
 
@@ -817,6 +942,7 @@ const Register = ({
 
                             <motion.h2
                                 className="auth-heading"
+
                                 variants={itemVariants}
                             >
                                 Create Account
@@ -825,6 +951,7 @@ const Register = ({
 
                             <motion.p
                                 className="auth-description"
+
                                 variants={itemVariants}
                             >
                                 Create your account to begin the
@@ -835,23 +962,26 @@ const Register = ({
 
 
                         {/* =================================================
-                            ERROR
+                            ERROR MESSAGE
                         ================================================= */}
 
                         {error && (
 
                             <motion.div
                                 className="auth-error register-error"
+
                                 initial={{
                                     opacity: 0,
                                     height: 0,
                                     y: -5
                                 }}
+
                                 animate={{
                                     opacity: 1,
                                     height: "auto",
                                     y: 0
                                 }}
+
                                 transition={{
                                     duration: 0.25
                                 }}
@@ -872,15 +1002,19 @@ const Register = ({
 
                         <motion.form
                             className="register-form"
+
                             onSubmit={handleSubmit}
+
                             variants={containerVariants}
+
                             initial="hidden"
+
                             animate="visible"
                         >
 
 
                             {/* =================================================
-                                FIRST + LAST NAME
+                                FIRST NAME + LAST NAME
                             ================================================= */}
 
                             <div className="register-name-row">
@@ -890,11 +1024,13 @@ const Register = ({
 
                                 <motion.div
                                     className="auth-field"
+
                                     variants={itemVariants}
                                 >
 
                                     <label
                                         className="auth-label"
+
                                         htmlFor="register-first-name"
                                     >
                                         First Name
@@ -909,16 +1045,23 @@ const Register = ({
 
                                         <input
                                             id="register-first-name"
+
                                             className="auth-input"
+
                                             type="text"
+
                                             name="firstName"
+
                                             value={
                                                 formData.firstName
                                             }
+
                                             onChange={
                                                 handleChange
                                             }
+
                                             placeholder="Enter first name"
+
                                             autoComplete="given-name"
                                         />
 
@@ -931,11 +1074,13 @@ const Register = ({
 
                                 <motion.div
                                     className="auth-field"
+
                                     variants={itemVariants}
                                 >
 
                                     <label
                                         className="auth-label"
+
                                         htmlFor="register-last-name"
                                     >
                                         Last Name
@@ -950,16 +1095,23 @@ const Register = ({
 
                                         <input
                                             id="register-last-name"
+
                                             className="auth-input"
+
                                             type="text"
+
                                             name="lastName"
+
                                             value={
                                                 formData.lastName
                                             }
+
                                             onChange={
                                                 handleChange
                                             }
+
                                             placeholder="Enter last name"
+
                                             autoComplete="family-name"
                                         />
 
@@ -976,11 +1128,13 @@ const Register = ({
 
                             <motion.div
                                 className="auth-field"
+
                                 variants={itemVariants}
                             >
 
                                 <label
                                     className="auth-label"
+
                                     htmlFor="register-email"
                                 >
                                     Email Address
@@ -995,16 +1149,23 @@ const Register = ({
 
                                     <input
                                         id="register-email"
+
                                         className="auth-input"
+
                                         type="email"
+
                                         name="email"
+
                                         value={
                                             formData.email
                                         }
+
                                         onChange={
                                             handleChange
                                         }
+
                                         placeholder="Enter your email address"
+
                                         autoComplete="email"
                                     />
 
@@ -1019,11 +1180,13 @@ const Register = ({
 
                             <motion.div
                                 className="auth-field"
+
                                 variants={itemVariants}
                             >
 
                                 <label
                                     className="auth-label"
+
                                     htmlFor="register-password"
                                 >
                                     Password
@@ -1036,35 +1199,46 @@ const Register = ({
                                         className="auth-input-icon"
                                     />
 
+
                                     <input
                                         id="register-password"
+
                                         className="auth-input"
+
                                         type={
                                             showPassword
                                                 ? "text"
                                                 : "password"
                                         }
+
                                         name="password"
+
                                         value={
                                             formData.password
                                         }
+
                                         onChange={
                                             handleChange
                                         }
+
                                         placeholder="Create a strong password"
+
                                         autoComplete="new-password"
                                     />
 
 
                                     <button
                                         type="button"
+
                                         className="register-password-toggle"
+
                                         onClick={() =>
                                             setShowPassword(
                                                 (previous) =>
                                                     !previous
                                             )
                                         }
+
                                         aria-label={
                                             showPassword
                                                 ? "Hide password"
@@ -1073,9 +1247,17 @@ const Register = ({
                                     >
 
                                         {showPassword ? (
-                                            <EyeOff size={17} />
+
+                                            <EyeOff
+                                                size={17}
+                                            />
+
                                         ) : (
-                                            <Eye size={17} />
+
+                                            <Eye
+                                                size={17}
+                                            />
+
                                         )}
 
                                     </button>
@@ -1091,11 +1273,13 @@ const Register = ({
 
                             <motion.div
                                 className="auth-field"
+
                                 variants={itemVariants}
                             >
 
                                 <label
                                     className="auth-label"
+
                                     htmlFor="register-confirm-password"
                                 >
                                     Confirm Password
@@ -1108,35 +1292,46 @@ const Register = ({
                                         className="auth-input-icon"
                                     />
 
+
                                     <input
                                         id="register-confirm-password"
+
                                         className="auth-input"
+
                                         type={
                                             showConfirmPassword
                                                 ? "text"
                                                 : "password"
                                         }
+
                                         name="confirmPassword"
+
                                         value={
                                             formData.confirmPassword
                                         }
+
                                         onChange={
                                             handleChange
                                         }
+
                                         placeholder="Re-enter your password"
+
                                         autoComplete="new-password"
                                     />
 
 
                                     <button
                                         type="button"
+
                                         className="register-password-toggle"
+
                                         onClick={() =>
                                             setShowConfirmPassword(
                                                 (previous) =>
                                                     !previous
                                             )
                                         }
+
                                         aria-label={
                                             showConfirmPassword
                                                 ? "Hide password"
@@ -1145,9 +1340,17 @@ const Register = ({
                                     >
 
                                         {showConfirmPassword ? (
-                                            <EyeOff size={17} />
+
+                                            <EyeOff
+                                                size={17}
+                                            />
+
                                         ) : (
-                                            <Eye size={17} />
+
+                                            <Eye
+                                                size={17}
+                                            />
+
                                         )}
 
                                     </button>
@@ -1155,14 +1358,18 @@ const Register = ({
                                 </div>
 
 
+                                {/* PASSWORD MISMATCH */}
+
                                 {formData.confirmPassword &&
                                     !passwordsMatch && (
 
                                     <motion.small
                                         className="register-password-error"
+
                                         initial={{
                                             opacity: 0
                                         }}
+
                                         animate={{
                                             opacity: 1
                                         }}
@@ -1181,18 +1388,19 @@ const Register = ({
 
                             <motion.div
                                 className="register-password-info"
+
                                 variants={itemVariants}
                             >
 
                                 <div className="register-password-title">
-
                                     Password must contain:
-
                                 </div>
 
 
                                 <div className="register-password-rules">
 
+
+                                    {/* LENGTH */}
 
                                     <span
                                         className={
@@ -1211,6 +1419,8 @@ const Register = ({
                                     </span>
 
 
+                                    {/* UPPERCASE */}
+
                                     <span
                                         className={
                                             passwordRules.uppercase
@@ -1227,6 +1437,8 @@ const Register = ({
 
                                     </span>
 
+
+                                    {/* LOWERCASE */}
 
                                     <span
                                         className={
@@ -1245,6 +1457,8 @@ const Register = ({
                                     </span>
 
 
+                                    {/* NUMBER */}
+
                                     <span
                                         className={
                                             passwordRules.number
@@ -1261,6 +1475,8 @@ const Register = ({
 
                                     </span>
 
+
+                                    {/* SPECIAL CHARACTER */}
 
                                     <span
                                         className={
@@ -1284,21 +1500,26 @@ const Register = ({
 
 
                             {/* =================================================
-                                TERMS
+                                TERMS & CONDITIONS
                             ================================================= */}
 
                             <motion.label
                                 className="register-terms"
+
                                 variants={itemVariants}
                             >
 
                                 <input
                                     type="checkbox"
+
                                     name="terms"
+
                                     className="auth-checkbox"
+
                                     checked={
                                         formData.terms
                                     }
+
                                     onChange={
                                         handleChange
                                     }
@@ -1311,7 +1532,12 @@ const Register = ({
 
                                     <button
                                         type="button"
+
                                         className="register-terms-link"
+
+                                        onClick={(event) =>
+                                            event.preventDefault()
+                                        }
                                     >
                                         Terms & Conditions
                                     </button>
@@ -1320,7 +1546,12 @@ const Register = ({
 
                                     <button
                                         type="button"
+
                                         className="register-terms-link"
+
+                                        onClick={(event) =>
+                                            event.preventDefault()
+                                        }
                                     >
                                         Privacy Policy
                                     </button>
@@ -1331,26 +1562,33 @@ const Register = ({
 
 
                             {/* =================================================
-                                SUBMIT BUTTON
+                                CREATE ACCOUNT BUTTON
                             ================================================= */}
 
                             <motion.button
                                 type="submit"
+
                                 className="auth-primary-btn register-submit"
+
                                 disabled={
                                     !formIsValid ||
                                     loading
                                 }
+
                                 variants={itemVariants}
+
                                 whileHover={
-                                    formIsValid && !loading
+                                    formIsValid &&
+                                    !loading
                                         ? {
                                             y: -2
                                         }
                                         : {}
                                 }
+
                                 whileTap={
-                                    formIsValid && !loading
+                                    formIsValid &&
+                                    !loading
                                         ? {
                                             scale: 0.985
                                         }
@@ -1361,22 +1599,26 @@ const Register = ({
                                 {loading ? (
 
                                     <>
+
                                         <Loader2
                                             size={17}
                                             className="register-loader"
                                         />
 
                                         Creating Account...
+
                                     </>
 
                                 ) : (
 
                                     <>
+
                                         Create Account
 
                                         <ArrowRight
                                             size={17}
                                         />
+
                                     </>
 
                                 )}
@@ -1385,11 +1627,12 @@ const Register = ({
 
 
                             {/* =================================================
-                                LOGIN
+                                LOGIN LINK
                             ================================================= */}
 
                             <motion.div
                                 className="register-login"
+
                                 variants={itemVariants}
                             >
 
@@ -1400,14 +1643,20 @@ const Register = ({
 
                                 <button
                                     type="button"
+
                                     className="auth-link register-login-link"
-                                    onClick={onLogin}
+
+                                    onClick={() =>
+                                        navigate("/login")
+                                    }
                                 >
+
                                     Sign In
 
                                     <ArrowRight
                                         size={14}
                                     />
+
                                 </button>
 
                             </motion.div>
