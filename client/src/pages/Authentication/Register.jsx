@@ -1,32 +1,42 @@
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+    UserRound,
+    Mail,
+    Lock,
+    Eye,
+    EyeOff,
+    ShieldCheck,
+    Bot,
+    FileText,
+    ArrowRight,
+    CheckCircle2,
+    UserPlus,
+    Loader2
+} from "lucide-react";
+
+import "./AuthBase.css";
 import "./Register.css";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 
-import {
-    FaUser,
-    FaEnvelope,
-    FaLock,
-    FaEye,
-    FaEyeSlash,
-    FaArrowRight,
-    FaCheckCircle,
-    FaShieldAlt,
-    FaRobot,
-    FaFileAlt,
-    FaUsers,
-} from "react-icons/fa";
+const Register = ({
+    onLogin,
+    onRegistrationSuccess
+}) => {
 
+    /* =====================================================
+       FORM STATE
+       ===================================================== */
 
-export default function Register() {
+    const [formData, setFormData] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        terms: false
+    });
 
-    const navigate = useNavigate();
-
-
-    /* =========================================================
-       STATE
-    ========================================================= */
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -35,62 +45,140 @@ export default function Register() {
 
     const [loading, setLoading] = useState(false);
 
-    const [agreeTerms, setAgreeTerms] = useState(false);
+    const [error, setError] = useState("");
 
 
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-    });
+    /* =====================================================
+       HANDLE INPUT
+       ===================================================== */
 
-
-    /* =========================================================
-       FORM CHANGE
-    ========================================================= */
-
-    const handleChange = (e) => {
+    const handleChange = (event) => {
 
         const {
             name,
             value,
-        } = e.target;
+            type,
+            checked
+        } = event.target;
 
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value,
+        setFormData((previous) => ({
+            ...previous,
+
+            [name]:
+                type === "checkbox"
+                    ? checked
+                    : value
         }));
+
+
+        if (error) {
+            setError("");
+        }
     };
 
 
-    /* =========================================================
+    /* =====================================================
+       PASSWORD VALIDATION
+       ===================================================== */
+
+    const passwordRules = {
+
+        length:
+            formData.password.length >= 8,
+
+        uppercase:
+            /[A-Z]/.test(formData.password),
+
+        lowercase:
+            /[a-z]/.test(formData.password),
+
+        number:
+            /[0-9]/.test(formData.password),
+
+        special:
+            /[^A-Za-z0-9]/.test(formData.password)
+    };
+
+
+    const passwordIsValid =
+        Object.values(passwordRules).every(Boolean);
+
+
+    const passwordsMatch =
+        formData.password.length > 0 &&
+        formData.confirmPassword.length > 0 &&
+        formData.password ===
+            formData.confirmPassword;
+
+
+    /* =====================================================
+       FORM VALIDATION
+       ===================================================== */
+
+    const formIsValid =
+        formData.firstName.trim().length > 0 &&
+        formData.lastName.trim().length > 0 &&
+        formData.email.trim().length > 0 &&
+        passwordIsValid &&
+        passwordsMatch &&
+        formData.terms;
+
+
+    /* =====================================================
        SUBMIT
-    ========================================================= */
+       ===================================================== */
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (event) => {
 
-        e.preventDefault();
+        event.preventDefault();
+
+        setError("");
 
 
-        if (!agreeTerms) {
+        if (!formData.firstName.trim()) {
 
-            alert(
-                "Please accept the Terms & Conditions."
+            setError(
+                "Please enter your first name."
             );
 
             return;
         }
 
 
-        if (
-            formData.password !==
-            formData.confirmPassword
-        ) {
+        if (!formData.lastName.trim()) {
 
-            alert(
+            setError(
+                "Please enter your last name."
+            );
+
+            return;
+        }
+
+
+        if (!formData.email.trim()) {
+
+            setError(
+                "Please enter your email address."
+            );
+
+            return;
+        }
+
+
+        if (!passwordIsValid) {
+
+            setError(
+                "Please create a password that meets all requirements."
+            );
+
+            return;
+        }
+
+
+        if (!passwordsMatch) {
+
+            setError(
                 "Passwords do not match."
             );
 
@@ -98,125 +186,100 @@ export default function Register() {
         }
 
 
-        setLoading(true);
+        if (!formData.terms) {
+
+            setError(
+                "Please accept the Terms & Conditions and Privacy Policy."
+            );
+
+            return;
+        }
 
 
-        setTimeout(() => {
+        try {
+
+            setLoading(true);
+
+
+            /*
+             * =================================================
+             * YOUR EXISTING REGISTRATION LOGIC GOES HERE
+             * =================================================
+             *
+             * Example:
+             *
+             * const result = await registerUser(formData);
+             *
+             * After successful registration:
+             *
+             * onRegistrationSuccess?.(result);
+             *
+             *
+             * IMPORTANT:
+             *
+             * Do NOT put password/confirmPassword into
+             * localStorage or console in production.
+             */
+
+
+            if (onRegistrationSuccess) {
+
+                await onRegistrationSuccess(
+                    formData
+                );
+            }
+
+
+        } catch (registrationError) {
+
+            console.error(
+                "Registration failed:",
+                registrationError
+            );
+
+
+            setError(
+                registrationError?.message ||
+                "Unable to create your account. Please try again."
+            );
+
+        } finally {
 
             setLoading(false);
-
-            navigate("/verify-email");
-
-        }, 1500);
+        }
     };
 
 
-    /* =========================================================
-       FRAMER MOTION VARIANTS
-    ========================================================= */
-
-    const pageVariants = {
-
-        hidden: {
-            opacity: 0,
-        },
-
-        visible: {
-
-            opacity: 1,
-
-            transition: {
-                duration: 0.45,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        },
-    };
-
+    /* =====================================================
+       ANIMATION VARIANTS
+       ===================================================== */
 
     const containerVariants = {
 
         hidden: {
             opacity: 0,
-            y: 30,
-            scale: 0.98,
+            y: 18
         },
 
         visible: {
 
             opacity: 1,
+
             y: 0,
-            scale: 1,
 
             transition: {
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        },
-    };
+                duration: 0.65,
 
+                ease: [
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ],
 
-    const leftVariants = {
-
-        hidden: {
-            opacity: 0,
-            x: -45,
-        },
-
-        visible: {
-
-            opacity: 1,
-            x: 0,
-
-            transition: {
-                duration: 0.75,
-                delay: 0.10,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        },
-    };
-
-
-    const rightVariants = {
-
-        hidden: {
-            opacity: 0,
-            x: 45,
-        },
-
-        visible: {
-
-            opacity: 1,
-            x: 0,
-
-            transition: {
-                duration: 0.75,
-                delay: 0.16,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        },
-    };
-
-
-    const cardVariants = {
-
-        hidden: {
-            opacity: 0,
-            y: 30,
-            scale: 0.96,
-        },
-
-        visible: {
-
-            opacity: 1,
-            y: 0,
-            scale: 1,
-
-            transition: {
-                duration: 0.75,
-                delay: 0.25,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        },
+                staggerChildren: 0.08
+            }
+        }
     };
 
 
@@ -224,278 +287,219 @@ export default function Register() {
 
         hidden: {
             opacity: 0,
-            y: 15,
+            y: 14
         },
 
         visible: {
 
             opacity: 1,
+
             y: 0,
 
             transition: {
-                duration: 0.42,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        },
+                duration: 0.5,
+
+                ease: [
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ]
+            }
+        }
     };
 
 
-    const formVariants = {
-
-        hidden: {},
-
-        visible: {
-
-            transition: {
-                delayChildren: 0.58,
-                staggerChildren: 0.09,
-            },
-        },
-    };
-
-
-    const stepVariants = {
+    const cardVariants = {
 
         hidden: {
+
             opacity: 0,
-            x: -10,
+
+            y: 30,
+
+            scale: 0.975,
+
+            filter: "blur(4px)"
         },
 
         visible: {
 
             opacity: 1,
-            x: 0,
+
+            y: 0,
+
+            scale: 1,
+
+            filter: "blur(0px)",
 
             transition: {
-                duration: 0.35,
-            },
-        },
+
+                duration: 0.75,
+
+                ease: [
+                    0.22,
+                    1,
+                    0.36,
+                    1
+                ]
+            }
+        }
     };
 
 
-    /* =========================================================
-       PASSWORD REQUIREMENT
-    ========================================================= */
-
-    const passwordRules = [
-        {
-            label: "8+ characters",
-            valid: formData.password.length >= 8,
-        },
-        {
-            label: "Uppercase",
-            valid: /[A-Z]/.test(formData.password),
-        },
-        {
-            label: "Lowercase",
-            valid: /[a-z]/.test(formData.password),
-        },
-        {
-            label: "Number",
-            valid: /[0-9]/.test(formData.password),
-        },
-        {
-            label: "Special character",
-            valid: /[^A-Za-z0-9]/.test(formData.password),
-        },
-    ];
-
+    /* =====================================================
+       JSX
+       ===================================================== */
 
     return (
 
-        <motion.div
-            className="register-page"
-            variants={pageVariants}
-            initial="hidden"
-            animate="visible"
-        >
+        <main className="auth-page register-page">
 
 
             {/* =================================================
-                BACKGROUND
+                BACKGROUND BLOBS
             ================================================= */}
 
-            <div className="register-bg"></div>
+            <div className="auth-blob auth-blob-1" />
 
+            <div className="auth-blob auth-blob-2" />
 
-            <motion.div
-                className="blob blob1"
-                animate={{
-                    x: [0, 18, 0],
-                    y: [0, 14, 0],
-                    scale: [1, 1.05, 1],
-                }}
-                transition={{
-                    duration: 9,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            />
-
-
-            <motion.div
-                className="blob blob2"
-                animate={{
-                    x: [0, -16, 0],
-                    y: [0, 18, 0],
-                    scale: [1, 1.06, 1],
-                }}
-                transition={{
-                    duration: 11,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            />
-
-
-            <motion.div
-                className="blob blob3"
-                animate={{
-                    x: [0, 14, 0],
-                    y: [0, -16, 0],
-                    scale: [1, 1.05, 1],
-                }}
-                transition={{
-                    duration: 13,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            />
+            <div className="auth-blob auth-blob-3" />
 
 
             {/* =================================================
                 MAIN CONTAINER
             ================================================= */}
 
-            <motion.div
-                className="register-container"
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
+            <motion.section
+                className="auth-container"
+                initial={{
+                    opacity: 0
+                }}
+                animate={{
+                    opacity: 1
+                }}
+                transition={{
+                    duration: 0.5
+                }}
             >
 
 
                 {/* =================================================
-                    LEFT PANEL
+                    LEFT SIDE
                 ================================================= */}
 
-                <motion.div
-                    className="register-left"
-                    variants={leftVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
+                <section className="auth-left">
 
 
                     {/* BRAND */}
 
                     <motion.div
-                        className="brand"
+                        className="auth-brand"
                         variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
                     >
 
                         <motion.div
-                            className="brand-logo"
-                            initial={{
-                                opacity: 0,
-                                scale: 0.7,
-                                rotate: -8,
-                            }}
-                            animate={{
-                                opacity: 1,
-                                scale: 1,
-                                rotate: 0,
+                            className="auth-brand-logo"
+                            whileHover={{
+                                y: -2,
+                                scale: 1.03
                             }}
                             transition={{
-                                duration: 0.55,
-                                delay: 0.28,
-                                ease: [0.22, 1, 0.36, 1],
+                                duration: 0.25
                             }}
                         >
                             AI
                         </motion.div>
 
 
-                        <div className="brand-text">
+                        <div className="auth-brand-content">
 
-                            <h2>
+                            <h2 className="auth-brand-title">
                                 AI SOP Portal
                             </h2>
 
-                            <span>
+                            <p className="auth-brand-subtitle">
                                 Enterprise Knowledge Platform
-                            </span>
+                            </p>
 
                         </div>
 
                     </motion.div>
 
 
-
                     {/* =================================================
-                        STEP INDICATOR
+                        REGISTER-SPECIFIC PROGRESS
                     ================================================= */}
 
                     <motion.div
-                        className="step-indicator"
+                        className="register-progress"
                         variants={itemVariants}
+                        initial="hidden"
+                        animate="visible"
                     >
 
-                        <div className="step-header">
+                        <div className="register-progress-header">
 
-                            <span className="step-label">
+                            <span>
+                                Registration Progress
+                            </span>
+
+                            <strong>
                                 Step 1 of 4
-                            </span>
-
-                            <span className="step-percent">
-                                25%
-                            </span>
+                            </strong>
 
                         </div>
 
 
-                        <div className="step-progress">
+                        <div className="register-progress-track">
 
                             <motion.div
-                                className="step-progress-fill"
+                                className="register-progress-fill"
                                 initial={{
-                                    width: 0,
+                                    width: 0
                                 }}
                                 animate={{
-                                    width: "25%",
+                                    width: "25%"
                                 }}
                                 transition={{
-                                    duration: 0.8,
-                                    delay: 0.45,
-                                    ease: [0.22, 1, 0.36, 1],
+                                    duration: 0.9,
+                                    delay: 0.35,
+                                    ease: [
+                                        0.22,
+                                        1,
+                                        0.36,
+                                        1
+                                    ]
                                 }}
                             />
 
                         </div>
 
 
-                        <motion.div
-                            className="step-items"
-                            initial="hidden"
-                            animate="visible"
-                        >
+                        <div className="register-steps">
 
-                            <motion.div
-                                className="step-item active"
-                                variants={stepVariants}
-                            >
+
+                            {/* STEP 1 */}
+
+                            <div className="register-step active">
 
                                 <motion.div
-                                    className="step-circle"
+                                    className="register-step-circle"
                                     initial={{
                                         scale: 0.7,
+                                        opacity: 0
                                     }}
                                     animate={{
                                         scale: 1,
+                                        opacity: 1
                                     }}
                                     transition={{
-                                        duration: 0.35,
-                                        delay: 0.55,
+                                        delay: 0.45,
+                                        duration: 0.4
                                     }}
                                 >
                                     1
@@ -505,15 +509,14 @@ export default function Register() {
                                     Create Account
                                 </span>
 
-                            </motion.div>
+                            </div>
 
 
-                            <motion.div
-                                className="step-item"
-                                variants={stepVariants}
-                            >
+                            {/* STEP 2 */}
 
-                                <div className="step-circle">
+                            <div className="register-step">
+
+                                <div className="register-step-circle">
                                     2
                                 </div>
 
@@ -521,15 +524,14 @@ export default function Register() {
                                     Email Verification
                                 </span>
 
-                            </motion.div>
+                            </div>
 
 
-                            <motion.div
-                                className="step-item"
-                                variants={stepVariants}
-                            >
+                            {/* STEP 3 */}
 
-                                <div className="step-circle">
+                            <div className="register-step">
+
+                                <div className="register-step-circle">
                                     3
                                 </div>
 
@@ -537,15 +539,14 @@ export default function Register() {
                                     Profile Completion
                                 </span>
 
-                            </motion.div>
+                            </div>
 
 
-                            <motion.div
-                                className="step-item"
-                                variants={stepVariants}
-                            >
+                            {/* STEP 4 */}
 
-                                <div className="step-circle">
+                            <div className="register-step">
+
+                                <div className="register-step-circle">
                                     4
                                 </div>
 
@@ -553,12 +554,11 @@ export default function Register() {
                                     Mobile Verification
                                 </span>
 
-                            </motion.div>
+                            </div>
 
-                        </motion.div>
+                        </div>
 
                     </motion.div>
-
 
 
                     {/* =================================================
@@ -566,16 +566,21 @@ export default function Register() {
                     ================================================= */}
 
                     <motion.div
-                        className="hero-content"
-                        variants={itemVariants}
+                        className="register-hero"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
                     >
 
+
+                        {/* BADGE */}
+
                         <motion.div
-                            className="register-badge"
+                            className="register-security-badge"
                             variants={itemVariants}
                         >
 
-                            <FaCheckCircle />
+                            <ShieldCheck size={15} />
 
                             <span>
                                 Secure Registration
@@ -584,11 +589,13 @@ export default function Register() {
                         </motion.div>
 
 
+                        {/* TITLE */}
+
                         <motion.h1
                             variants={itemVariants}
                         >
 
-                            Create Your{" "}
+                            Create Your
 
                             <span>
                                 Enterprise Account
@@ -597,19 +604,20 @@ export default function Register() {
                         </motion.h1>
 
 
+                        {/* DESCRIPTION */}
+
                         <motion.p
                             variants={itemVariants}
                         >
-
-                            Securely create your enterprise account
-                            to access AI-powered SOP management,
-                            workflow automation, and team
-                            collaboration from a single platform.
-
+                            Create your secure enterprise account
+                            and unlock AI-powered SOP management,
+                            intelligent workflow automation,
+                            centralized knowledge resources,
+                            and collaborative tools designed
+                            for modern enterprise teams.
                         </motion.p>
 
                     </motion.div>
-
 
 
                     {/* =================================================
@@ -617,91 +625,140 @@ export default function Register() {
                     ================================================= */}
 
                     <motion.div
-                        className="benefits"
+                        className="register-benefits"
+                        variants={containerVariants}
                         initial="hidden"
                         animate="visible"
-                        variants={{
-                            hidden: {},
-
-                            visible: {
-                                transition: {
-                                    delayChildren: 0.55,
-                                    staggerChildren: 0.12,
-                                },
-                            },
-                        }}
                     >
 
 
+                        {/* SECURITY */}
+
                         <motion.div
-                            className="benefit-item"
+                            className="register-benefit"
                             variants={itemVariants}
                             whileHover={{
-                                x: 4,
+                                x: 4
                             }}
                         >
 
-                            <div className="benefit-icon">
-                                <FaShieldAlt />
+                            <div className="register-benefit-icon">
+
+                                <ShieldCheck
+                                    size={17}
+                                />
+
                             </div>
 
-                            <span>
-                                Enterprise Grade Security
-                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Enterprise-Grade Security
+                                </strong>
+
+                                <span>
+                                    Secure authentication and
+                                    protected enterprise information.
+                                </span>
+
+                            </div>
 
                         </motion.div>
 
 
+                        {/* AI */}
+
                         <motion.div
-                            className="benefit-item"
+                            className="register-benefit"
                             variants={itemVariants}
                             whileHover={{
-                                x: 4,
+                                x: 4
                             }}
                         >
 
-                            <div className="benefit-icon">
-                                <FaRobot />
+                            <div className="register-benefit-icon">
+
+                                <Bot
+                                    size={17}
+                                />
+
                             </div>
 
-                            <span>
-                                AI Powered SOP Management
-                            </span>
+
+                            <div>
+
+                                <strong>
+                                    AI-Powered SOP Management
+                                </strong>
+
+                                <span>
+                                    Create, manage and discover
+                                    SOP knowledge with intelligent
+                                    AI assistance.
+                                </span>
+
+                            </div>
 
                         </motion.div>
 
 
+                        {/* WORKFLOW */}
+
                         <motion.div
-                            className="benefit-item"
+                            className="register-benefit"
                             variants={itemVariants}
                             whileHover={{
-                                x: 4,
+                                x: 4
                             }}
                         >
 
-                            <div className="benefit-icon">
-                                <FaFileAlt />
+                            <div className="register-benefit-icon">
+
+                                <FileText
+                                    size={17}
+                                />
+
                             </div>
 
-                            <span>
-                                Workflow Automation
-                            </span>
+
+                            <div>
+
+                                <strong>
+                                    Intelligent Workflow Automation
+                                </strong>
+
+                                <span>
+                                    Simplify documents, approvals
+                                    and enterprise workflows.
+                                </span>
+
+                            </div>
 
                         </motion.div>
-
 
                     </motion.div>
 
 
-
-                    {/* LEFT FOOTER */}
+                    {/* FOOTER */}
 
                     <motion.div
                         className="register-left-footer"
-                        variants={itemVariants}
+                        initial={{
+                            opacity: 0
+                        }}
+                        animate={{
+                            opacity: 1
+                        }}
+                        transition={{
+                            delay: 0.75,
+                            duration: 0.5
+                        }}
                     >
 
-                        <FaCheckCircle />
+                        <CheckCircle2
+                            size={13}
+                        />
 
                         <span>
                             Secure onboarding for enterprise users
@@ -709,61 +766,47 @@ export default function Register() {
 
                     </motion.div>
 
-
-                </motion.div>
-
+                </section>
 
 
                 {/* =================================================
-                    RIGHT PANEL
+                    RIGHT SIDE
                 ================================================= */}
 
-                <motion.div
-                    className="register-right"
-                    variants={rightVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
+                <section className="auth-right">
 
+
+                    {/* =================================================
+                        REGISTER CARD
+                    ================================================= */}
 
                     <motion.div
-                        className="register-card"
+                        className="auth-card register-card"
                         variants={cardVariants}
                         initial="hidden"
                         animate="visible"
-                        whileHover={{
-                            y: -2,
-                            transition: {
-                                duration: 0.25,
-                            },
-                        }}
                     >
 
 
-                        {/* CARD HEADER */}
+                        {/* =================================================
+                            CARD HEADER
+                        ================================================= */}
 
                         <motion.div
                             className="register-header"
-                            variants={itemVariants}
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
                         >
 
                             <motion.div
                                 className="register-header-badge"
-                                initial={{
-                                    opacity: 0,
-                                    scale: 0.85,
-                                }}
-                                animate={{
-                                    opacity: 1,
-                                    scale: 1,
-                                }}
-                                transition={{
-                                    duration: 0.45,
-                                    delay: 0.48,
-                                }}
+                                variants={itemVariants}
                             >
 
-                                <FaUser />
+                                <UserPlus
+                                    size={14}
+                                />
 
                                 <span>
                                     Account Setup
@@ -772,18 +815,55 @@ export default function Register() {
                             </motion.div>
 
 
-                            <h2>
+                            <motion.h2
+                                className="auth-heading"
+                                variants={itemVariants}
+                            >
                                 Create Account
-                            </h2>
+                            </motion.h2>
 
 
-                            <p>
+                            <motion.p
+                                className="auth-description"
+                                variants={itemVariants}
+                            >
                                 Create your account to begin the
                                 secure onboarding process.
-                            </p>
+                            </motion.p>
 
                         </motion.div>
 
+
+                        {/* =================================================
+                            ERROR
+                        ================================================= */}
+
+                        {error && (
+
+                            <motion.div
+                                className="auth-error register-error"
+                                initial={{
+                                    opacity: 0,
+                                    height: 0,
+                                    y: -5
+                                }}
+                                animate={{
+                                    opacity: 1,
+                                    height: "auto",
+                                    y: 0
+                                }}
+                                transition={{
+                                    duration: 0.25
+                                }}
+                            >
+
+                                <span>
+                                    {error}
+                                </span>
+
+                            </motion.div>
+
+                        )}
 
 
                         {/* =================================================
@@ -793,111 +873,139 @@ export default function Register() {
                         <motion.form
                             className="register-form"
                             onSubmit={handleSubmit}
-                            variants={formVariants}
+                            variants={containerVariants}
                             initial="hidden"
                             animate="visible"
                         >
 
 
-                            {/* NAME ROW */}
+                            {/* =================================================
+                                FIRST + LAST NAME
+                            ================================================= */}
 
-                            <motion.div
-                                className="row"
-                                variants={itemVariants}
-                            >
+                            <div className="register-name-row">
 
 
                                 {/* FIRST NAME */}
 
-                                <div className="input-group">
+                                <motion.div
+                                    className="auth-field"
+                                    variants={itemVariants}
+                                >
 
-                                    <label htmlFor="firstName">
+                                    <label
+                                        className="auth-label"
+                                        htmlFor="register-first-name"
+                                    >
                                         First Name
                                     </label>
 
 
-                                    <div className="input-field">
+                                    <div className="auth-input-wrapper">
 
-                                        <FaUser className="input-icon" />
-
+                                        <UserRound
+                                            className="auth-input-icon"
+                                        />
 
                                         <input
-                                            id="firstName"
+                                            id="register-first-name"
+                                            className="auth-input"
                                             type="text"
                                             name="firstName"
+                                            value={
+                                                formData.firstName
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
                                             placeholder="Enter first name"
-                                            value={formData.firstName}
-                                            onChange={handleChange}
                                             autoComplete="given-name"
-                                            required
                                         />
 
                                     </div>
 
-                                </div>
-
+                                </motion.div>
 
 
                                 {/* LAST NAME */}
 
-                                <div className="input-group">
+                                <motion.div
+                                    className="auth-field"
+                                    variants={itemVariants}
+                                >
 
-                                    <label htmlFor="lastName">
+                                    <label
+                                        className="auth-label"
+                                        htmlFor="register-last-name"
+                                    >
                                         Last Name
                                     </label>
 
 
-                                    <div className="input-field">
+                                    <div className="auth-input-wrapper">
 
-                                        <FaUser className="input-icon" />
-
+                                        <UserRound
+                                            className="auth-input-icon"
+                                        />
 
                                         <input
-                                            id="lastName"
+                                            id="register-last-name"
+                                            className="auth-input"
                                             type="text"
                                             name="lastName"
+                                            value={
+                                                formData.lastName
+                                            }
+                                            onChange={
+                                                handleChange
+                                            }
                                             placeholder="Enter last name"
-                                            value={formData.lastName}
-                                            onChange={handleChange}
                                             autoComplete="family-name"
-                                            required
                                         />
 
                                     </div>
 
-                                </div>
+                                </motion.div>
+
+                            </div>
 
 
-                            </motion.div>
-
-
-
-                            {/* EMAIL */}
+                            {/* =================================================
+                                EMAIL
+                            ================================================= */}
 
                             <motion.div
-                                className="input-group"
+                                className="auth-field"
                                 variants={itemVariants}
                             >
 
-                                <label htmlFor="register-email">
+                                <label
+                                    className="auth-label"
+                                    htmlFor="register-email"
+                                >
                                     Email Address
                                 </label>
 
 
-                                <div className="input-field">
+                                <div className="auth-input-wrapper">
 
-                                    <FaEnvelope className="input-icon" />
-
+                                    <Mail
+                                        className="auth-input-icon"
+                                    />
 
                                     <input
                                         id="register-email"
+                                        className="auth-input"
                                         type="email"
                                         name="email"
+                                        value={
+                                            formData.email
+                                        }
+                                        onChange={
+                                            handleChange
+                                        }
                                         placeholder="Enter your email address"
-                                        value={formData.email}
-                                        onChange={handleChange}
                                         autoComplete="email"
-                                        required
                                     />
 
                                 </div>
@@ -905,54 +1013,58 @@ export default function Register() {
                             </motion.div>
 
 
-
-                            {/* PASSWORD */}
+                            {/* =================================================
+                                PASSWORD
+                            ================================================= */}
 
                             <motion.div
-                                className="input-group"
+                                className="auth-field"
                                 variants={itemVariants}
                             >
 
-                                <label htmlFor="register-password">
+                                <label
+                                    className="auth-label"
+                                    htmlFor="register-password"
+                                >
                                     Password
                                 </label>
 
 
-                                <div className="input-field">
+                                <div className="auth-input-wrapper">
 
-                                    <FaLock className="input-icon" />
-
+                                    <Lock
+                                        className="auth-input-icon"
+                                    />
 
                                     <input
                                         id="register-password"
+                                        className="auth-input"
                                         type={
                                             showPassword
                                                 ? "text"
                                                 : "password"
                                         }
                                         name="password"
+                                        value={
+                                            formData.password
+                                        }
+                                        onChange={
+                                            handleChange
+                                        }
                                         placeholder="Create a strong password"
-                                        value={formData.password}
-                                        onChange={handleChange}
                                         autoComplete="new-password"
-                                        required
                                     />
 
 
-                                    <motion.button
+                                    <button
                                         type="button"
-                                        className="password-toggle"
+                                        className="register-password-toggle"
                                         onClick={() =>
                                             setShowPassword(
-                                                !showPassword
+                                                (previous) =>
+                                                    !previous
                                             )
                                         }
-                                        whileHover={{
-                                            scale: 1.08,
-                                        }}
-                                        whileTap={{
-                                            scale: 0.92,
-                                        }}
                                         aria-label={
                                             showPassword
                                                 ? "Hide password"
@@ -960,68 +1072,71 @@ export default function Register() {
                                         }
                                     >
 
-                                        {showPassword
-                                            ? <FaEyeSlash />
-                                            : <FaEye />
-                                        }
+                                        {showPassword ? (
+                                            <EyeOff size={17} />
+                                        ) : (
+                                            <Eye size={17} />
+                                        )}
 
-                                    </motion.button>
+                                    </button>
 
                                 </div>
 
                             </motion.div>
 
 
-
-                            {/* CONFIRM PASSWORD */}
+                            {/* =================================================
+                                CONFIRM PASSWORD
+                            ================================================= */}
 
                             <motion.div
-                                className="input-group"
+                                className="auth-field"
                                 variants={itemVariants}
                             >
 
-                                <label htmlFor="confirm-password">
+                                <label
+                                    className="auth-label"
+                                    htmlFor="register-confirm-password"
+                                >
                                     Confirm Password
                                 </label>
 
 
-                                <div className="input-field">
+                                <div className="auth-input-wrapper">
 
-                                    <FaLock className="input-icon" />
-
+                                    <Lock
+                                        className="auth-input-icon"
+                                    />
 
                                     <input
-                                        id="confirm-password"
+                                        id="register-confirm-password"
+                                        className="auth-input"
                                         type={
                                             showConfirmPassword
                                                 ? "text"
                                                 : "password"
                                         }
                                         name="confirmPassword"
-                                        placeholder="Re-enter your password"
                                         value={
                                             formData.confirmPassword
                                         }
-                                        onChange={handleChange}
+                                        onChange={
+                                            handleChange
+                                        }
+                                        placeholder="Re-enter your password"
                                         autoComplete="new-password"
-                                        required
                                     />
 
 
-                                    <motion.button
+                                    <button
                                         type="button"
-                                        className="password-toggle"
+                                        className="register-password-toggle"
                                         onClick={() =>
                                             setShowConfirmPassword(
-                                                !showConfirmPassword
+                                                (previous) =>
+                                                    !previous
                                             )
                                         }
-                                        whileHover={{
-                                            scale: 1.08,
-                                        }}
-                                        whileTap={{
-                                            scale: 0.92,
-                                        }}
                                         aria-label={
                                             showConfirmPassword
                                                 ? "Hide password"
@@ -1029,17 +1144,35 @@ export default function Register() {
                                         }
                                     >
 
-                                        {showConfirmPassword
-                                            ? <FaEyeSlash />
-                                            : <FaEye />
-                                        }
+                                        {showConfirmPassword ? (
+                                            <EyeOff size={17} />
+                                        ) : (
+                                            <Eye size={17} />
+                                        )}
 
-                                    </motion.button>
+                                    </button>
 
                                 </div>
 
-                            </motion.div>
 
+                                {formData.confirmPassword &&
+                                    !passwordsMatch && (
+
+                                    <motion.small
+                                        className="register-password-error"
+                                        initial={{
+                                            opacity: 0
+                                        }}
+                                        animate={{
+                                            opacity: 1
+                                        }}
+                                    >
+                                        Passwords do not match.
+                                    </motion.small>
+
+                                )}
+
+                            </motion.div>
 
 
                             {/* =================================================
@@ -1047,52 +1180,107 @@ export default function Register() {
                             ================================================= */}
 
                             <motion.div
-                                className="password-info"
+                                className="register-password-info"
                                 variants={itemVariants}
                             >
 
-                                <p>
+                                <div className="register-password-title">
+
                                     Password must contain:
-                                </p>
+
+                                </div>
 
 
-                                <div className="password-rules">
+                                <div className="register-password-rules">
 
-                                    {passwordRules.map(
-                                        (rule) => (
 
-                                            <motion.span
-                                                key={rule.label}
-                                                className={
-                                                    rule.valid
-                                                        ? "valid"
-                                                        : ""
-                                                }
-                                                animate={{
-                                                    opacity:
-                                                        rule.valid
-                                                            ? 1
-                                                            : 0.65,
-                                                    x:
-                                                        rule.valid
-                                                            ? 0
-                                                            : 0,
-                                                }}
-                                            >
+                                    <span
+                                        className={
+                                            passwordRules.length
+                                                ? "valid"
+                                                : ""
+                                        }
+                                    >
 
-                                                <FaCheckCircle />
+                                        <CheckCircle2
+                                            size={10}
+                                        />
 
-                                                {rule.label}
+                                        8+ characters
 
-                                            </motion.span>
+                                    </span>
 
-                                        )
-                                    )}
+
+                                    <span
+                                        className={
+                                            passwordRules.uppercase
+                                                ? "valid"
+                                                : ""
+                                        }
+                                    >
+
+                                        <CheckCircle2
+                                            size={10}
+                                        />
+
+                                        Uppercase
+
+                                    </span>
+
+
+                                    <span
+                                        className={
+                                            passwordRules.lowercase
+                                                ? "valid"
+                                                : ""
+                                        }
+                                    >
+
+                                        <CheckCircle2
+                                            size={10}
+                                        />
+
+                                        Lowercase
+
+                                    </span>
+
+
+                                    <span
+                                        className={
+                                            passwordRules.number
+                                                ? "valid"
+                                                : ""
+                                        }
+                                    >
+
+                                        <CheckCircle2
+                                            size={10}
+                                        />
+
+                                        Number
+
+                                    </span>
+
+
+                                    <span
+                                        className={
+                                            passwordRules.special
+                                                ? "valid"
+                                                : ""
+                                        }
+                                    >
+
+                                        <CheckCircle2
+                                            size={10}
+                                        />
+
+                                        Special Character
+
+                                    </span>
 
                                 </div>
 
                             </motion.div>
-
 
 
                             {/* =================================================
@@ -1100,31 +1288,30 @@ export default function Register() {
                             ================================================= */}
 
                             <motion.label
-                                className="terms-check"
+                                className="register-terms"
                                 variants={itemVariants}
                             >
 
                                 <input
                                     type="checkbox"
-                                    checked={agreeTerms}
-                                    onChange={(e) =>
-                                        setAgreeTerms(
-                                            e.target.checked
-                                        )
+                                    name="terms"
+                                    className="auth-checkbox"
+                                    checked={
+                                        formData.terms
+                                    }
+                                    onChange={
+                                        handleChange
                                     }
                                 />
 
 
-                                <span className="custom-check"></span>
-
-
-                                <span className="terms-text">
+                                <span className="register-terms-text">
 
                                     I agree to the{" "}
 
                                     <button
                                         type="button"
-                                        className="terms-link"
+                                        className="register-terms-link"
                                     >
                                         Terms & Conditions
                                     </button>
@@ -1133,7 +1320,7 @@ export default function Register() {
 
                                     <button
                                         type="button"
-                                        className="terms-link"
+                                        className="register-terms-link"
                                     >
                                         Privacy Policy
                                     </button>
@@ -1143,28 +1330,29 @@ export default function Register() {
                             </motion.label>
 
 
-
                             {/* =================================================
-                                CREATE ACCOUNT
+                                SUBMIT BUTTON
                             ================================================= */}
 
                             <motion.button
                                 type="submit"
-                                className="register-btn"
-                                disabled={loading}
+                                className="auth-primary-btn register-submit"
+                                disabled={
+                                    !formIsValid ||
+                                    loading
+                                }
                                 variants={itemVariants}
                                 whileHover={
-                                    !loading
+                                    formIsValid && !loading
                                         ? {
-                                            y: -2,
-                                            scale: 1.01,
+                                            y: -2
                                         }
                                         : {}
                                 }
                                 whileTap={
-                                    !loading
+                                    formIsValid && !loading
                                         ? {
-                                            scale: 0.98,
+                                            scale: 0.985
                                         }
                                         : {}
                                 }
@@ -1173,7 +1361,10 @@ export default function Register() {
                                 {loading ? (
 
                                     <>
-                                        <span className="register-spinner"></span>
+                                        <Loader2
+                                            size={17}
+                                            className="register-loader"
+                                        />
 
                                         Creating Account...
                                     </>
@@ -1183,19 +1374,9 @@ export default function Register() {
                                     <>
                                         Create Account
 
-                                        <motion.span
-                                            animate={{
-                                                x: [0, 3, 0],
-                                            }}
-                                            transition={{
-                                                duration: 1.4,
-                                                repeat: Infinity,
-                                                repeatDelay: 1.5,
-                                                ease: "easeInOut",
-                                            }}
-                                        >
-                                            <FaArrowRight />
-                                        </motion.span>
+                                        <ArrowRight
+                                            size={17}
+                                        />
                                     </>
 
                                 )}
@@ -1203,55 +1384,45 @@ export default function Register() {
                             </motion.button>
 
 
-                        </motion.form>
+                            {/* =================================================
+                                LOGIN
+                            ================================================= */}
 
-
-
-                        {/* =================================================
-                            LOGIN SECTION
-                        ================================================= */}
-
-                        <motion.div
-                            className="login-section"
-                            variants={itemVariants}
-                            initial="hidden"
-                            animate="visible"
-                        >
-
-                            <p>
-                                Already have an account?
-                            </p>
-
-
-                            <motion.button
-                                type="button"
-                                className="login-link"
-                                onClick={() =>
-                                    navigate("/login")
-                                }
-                                whileHover={{
-                                    x: 3,
-                                }}
-                                whileTap={{
-                                    scale: 0.97,
-                                }}
+                            <motion.div
+                                className="register-login"
+                                variants={itemVariants}
                             >
 
-                                Sign In
+                                <span>
+                                    Already have an account?
+                                </span>
 
-                                <FaArrowRight />
 
-                            </motion.button>
+                                <button
+                                    type="button"
+                                    className="auth-link register-login-link"
+                                    onClick={onLogin}
+                                >
+                                    Sign In
 
-                        </motion.div>
+                                    <ArrowRight
+                                        size={14}
+                                    />
+                                </button>
 
+                            </motion.div>
+
+                        </motion.form>
 
                     </motion.div>
 
-                </motion.div>
+                </section>
 
-            </motion.div>
+            </motion.section>
 
-        </motion.div>
+        </main>
     );
-}
+};
+
+
+export default Register;
