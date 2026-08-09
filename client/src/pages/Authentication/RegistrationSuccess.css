@@ -1,0 +1,1998 @@
+/* ============================================================
+   REGISTRATION SUCCESS
+   AI SOP PORTAL
+   PAGE-SPECIFIC AUTHENTICATION STYLES
+   ============================================================ */
+
+
+/* ============================================================
+   01. PAGE
+   ============================================================ */
+
+.registration-success-page {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    min-height: 0;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(124, 58, 237, 0.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(244, 184, 96, 0.045),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #171024 0%,
+            #120d1d 48%,
+            #100b18 100%
+        );
+
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   02. BACKGROUND
+   ============================================================ */
+
+.registration-success-background {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -5;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   03. BACKGROUND ORBS
+   ============================================================ */
+
+.registration-success-orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    filter: blur(2px);
+
+    opacity: 0.7;
+}
+
+
+.registration-success-orb-one {
+    width: 420px;
+    height: 420px;
+
+    top: -230px;
+    left: -150px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(124, 58, 237, 0.15),
+            transparent 70%
+        );
+
+    animation:
+        registrationOrbOne
+        15s
+        ease-in-out
+        infinite;
+}
+
+
+.registration-success-orb-two {
+    width: 360px;
+    height: 360px;
+
+    right: -160px;
+    top: 25%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(139, 92, 246, 0.10),
+            transparent 70%
+        );
+
+    animation:
+        registrationOrbTwo
+        18s
+        ease-in-out
+        infinite;
+}
+
+
+.registration-success-orb-three {
+    width: 330px;
+    height: 330px;
+
+    left: 38%;
+    bottom: -220px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(244, 184, 96, 0.05),
+            transparent 70%
+        );
+
+    animation:
+        registrationOrbThree
+        20s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes registrationOrbOne {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate3d(28px, 20px, 0)
+            scale(1.07);
+    }
+}
+
+
+@keyframes registrationOrbTwo {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate3d(-25px, 22px, 0)
+            scale(1.06);
+    }
+}
+
+
+@keyframes registrationOrbThree {
+
+    0%,
+    100% {
+        transform:
+            translate3d(0, 0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate3d(20px, -22px, 0)
+            scale(1.05);
+    }
+}
+
+
+/* ============================================================
+   04. BACKGROUND GRID
+   ============================================================ */
+
+.registration-success-grid {
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.16;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        70px 70px;
+
+    mask-image:
+        radial-gradient(
+            circle at center,
+            black,
+            transparent 78%
+        );
+
+    -webkit-mask-image:
+        radial-gradient(
+            circle at center,
+            black,
+            transparent 78%
+        );
+}
+
+
+/* ============================================================
+   05. MAIN CONTAINER
+   ============================================================ */
+
+.registration-success-container {
+    position: relative;
+
+    z-index: 2;
+
+    width:
+        min(
+            calc(100% - 32px),
+            900px
+        );
+
+    height:
+        calc(100% - 32px);
+
+    min-height: 0;
+
+    margin:
+        16px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        20px;
+
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   06. BRAND
+   ============================================================ */
+
+.registration-success-brand {
+    position: absolute;
+
+    top: 22px;
+    left: 26px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    opacity: 0;
+
+    transform:
+        translateY(-10px);
+
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
+}
+
+
+.registration-success-visible
+.registration-success-brand {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.registration-success-brand-logo {
+    width: 49px;
+    height: 49px;
+
+    flex: 0 0 49px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #8b5cf6,
+            #7c3aed
+        );
+
+    color:
+        #ffffff;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 28px
+        rgba(124, 58, 237, 0.25),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.16);
+}
+
+
+.registration-success-brand-text h1 {
+    margin: 0;
+
+    color:
+        #ffffff;
+
+    font-size: 21px;
+
+    line-height: 1.1;
+
+    letter-spacing:
+        -0.3px;
+
+    font-weight: 800;
+}
+
+
+.registration-success-brand-text span {
+    display: block;
+
+    margin-top: 4px;
+
+    color:
+        #92899d;
+
+    font-size: 10px;
+
+    line-height: 1.3;
+}
+
+
+/* ============================================================
+   07. SUCCESS CARD
+   ============================================================ */
+
+.registration-success-card {
+    position: relative;
+
+    width:
+        min(
+            100%,
+            560px
+        );
+
+    max-height:
+        calc(100% - 20px);
+
+    box-sizing: border-box;
+
+    padding:
+        34px 42px 25px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.08);
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.06),
+            rgba(255, 255, 255, 0.022)
+        );
+
+    box-shadow:
+        0 30px 75px
+        rgba(0, 0, 0, 0.35),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.045);
+
+    backdrop-filter:
+        blur(25px);
+
+    -webkit-backdrop-filter:
+        blur(25px);
+
+    opacity: 0;
+
+    transform:
+        translateY(22px)
+        scale(0.97);
+
+    transition:
+        opacity 0.7s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+
+        transform 0.7s
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+
+
+.registration-success-visible
+.registration-success-card {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* ============================================================
+   08. CARD TOP LINE
+   ============================================================ */
+
+.registration-success-card-line {
+    position: absolute;
+
+    top: 0;
+    left: 10%;
+
+    width: 80%;
+    height: 2px;
+
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #8b5cf6,
+            #f4b860,
+            #8b5cf6,
+            transparent
+        );
+
+    box-shadow:
+        0 0 18px
+        rgba(139, 92, 246, 0.35);
+
+    animation:
+        registrationTopLine
+        3.5s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes registrationTopLine {
+
+    0%,
+    100% {
+        opacity: 0.55;
+
+        transform:
+            scaleX(0.82);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            scaleX(1);
+    }
+}
+
+
+/* ============================================================
+   09. SUCCESS ICON WRAPPER
+   ============================================================ */
+
+.registration-success-icon-wrapper {
+    position: relative;
+
+    width: 100px;
+    height: 100px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 15px;
+}
+
+
+/* ============================================================
+   10. SUCCESS ICON
+   ============================================================ */
+
+.registration-success-icon {
+    position: relative;
+
+    z-index: 5;
+
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.45);
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(139, 92, 246, 0.23),
+            rgba(124, 58, 237, 0.13)
+        );
+
+    color:
+        #a78bfa;
+
+    box-shadow:
+        0 0 0 7px
+        rgba(124, 58, 237, 0.035),
+
+        0 15px 35px
+        rgba(124, 58, 237, 0.20),
+
+        inset 0 1px 0
+        rgba(255, 255, 255, 0.10);
+
+    animation:
+        registrationIconPop
+        0.8s
+        cubic-bezier(
+            0.34,
+            1.56,
+            0.64,
+            1
+        )
+        0.25s
+        both;
+}
+
+
+.registration-success-icon svg {
+    animation:
+        registrationCheckDraw
+        0.8s
+        ease
+        0.75s
+        both;
+}
+
+
+@keyframes registrationIconPop {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            scale(0.45)
+            rotate(-12deg);
+    }
+
+    70% {
+        transform:
+            scale(1.08)
+            rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            rotate(0);
+    }
+}
+
+
+@keyframes registrationCheckDraw {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* ============================================================
+   11. ICON RINGS
+   ============================================================ */
+
+.registration-success-icon-ring {
+    position: absolute;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.16);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.registration-success-ring-one {
+    width: 84px;
+    height: 84px;
+
+    animation:
+        registrationRingOne
+        3s
+        ease-out
+        infinite;
+}
+
+
+.registration-success-ring-two {
+    width: 100px;
+    height: 100px;
+
+    border-color:
+        rgba(139, 92, 246, 0.08);
+
+    animation:
+        registrationRingTwo
+        3s
+        ease-out
+        0.6s
+        infinite;
+}
+
+
+@keyframes registrationRingOne {
+
+    0% {
+        opacity: 0.75;
+
+        transform:
+            scale(0.88);
+    }
+
+    70%,
+    100% {
+        opacity: 0;
+
+        transform:
+            scale(1.15);
+    }
+}
+
+
+@keyframes registrationRingTwo {
+
+    0% {
+        opacity: 0.65;
+
+        transform:
+            scale(0.82);
+    }
+
+    70%,
+    100% {
+        opacity: 0;
+
+        transform:
+            scale(1.12);
+    }
+}
+
+
+/* ============================================================
+   12. SPARKLES
+   ============================================================ */
+
+.registration-success-spark {
+    position: absolute;
+
+    z-index: 8;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color:
+        #f4b860;
+
+    opacity: 0;
+
+    animation:
+        registrationSpark
+        2.5s
+        ease-in-out
+        infinite;
+}
+
+
+.spark-one {
+    top: 5px;
+    right: 6px;
+
+    animation-delay:
+        0.7s;
+}
+
+
+.spark-two {
+    bottom: 9px;
+    left: 8px;
+
+    color:
+        #8b5cf6;
+
+    animation-delay:
+        1.3s;
+}
+
+
+@keyframes registrationSpark {
+
+    0%,
+    100% {
+        opacity: 0.15;
+
+        transform:
+            scale(0.75)
+            rotate(-10deg);
+    }
+
+    50% {
+        opacity: 1;
+
+        transform:
+            scale(1.15)
+            rotate(8deg);
+    }
+}
+
+
+/* ============================================================
+   13. BADGE
+   ============================================================ */
+
+.registration-success-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding:
+        7px 12px;
+
+    margin-bottom: 12px;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.20);
+
+    border-radius: 999px;
+
+    background:
+        rgba(124, 58, 237, 0.065);
+
+    color:
+        #a78bfa;
+
+    font-size: 10px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    opacity: 0;
+
+    transform:
+        translateY(8px);
+
+    transition:
+        opacity 0.5s ease 0.55s,
+        transform 0.5s ease 0.55s;
+}
+
+
+.registration-success-visible
+.registration-success-badge {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* ============================================================
+   14. HEADING
+   ============================================================ */
+
+.registration-success-heading {
+    opacity: 0;
+
+    transform:
+        translateY(10px);
+
+    transition:
+        opacity 0.55s ease 0.65s,
+        transform 0.55s ease 0.65s;
+}
+
+
+.registration-success-visible
+.registration-success-heading {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.registration-success-heading h2 {
+    margin: 0;
+
+    color:
+        #ffffff;
+
+    font-size: 32px;
+
+    line-height: 1.16;
+
+    letter-spacing:
+        -0.8px;
+
+    font-weight: 800;
+}
+
+
+.registration-success-heading h2 span {
+    color:
+        #f4b860;
+}
+
+
+.registration-success-heading p {
+    max-width: 440px;
+
+    margin:
+        10px auto 0;
+
+    color:
+        #a9a0b3;
+
+    font-size: 11px;
+
+    line-height: 1.65;
+
+    font-weight: 400;
+}
+
+
+/* ============================================================
+   15. EMAIL BOX
+   ============================================================ */
+
+.registration-success-email {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    box-sizing: border-box;
+
+    margin-top: 19px;
+
+    padding:
+        12px 14px;
+
+    text-align: left;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.12);
+
+    border-radius: 12px;
+
+    background:
+        rgba(124, 58, 237, 0.035);
+
+    opacity: 0;
+
+    transform:
+        translateY(10px);
+
+    transition:
+        opacity 0.55s ease 0.78s,
+        transform 0.55s ease 0.78s;
+}
+
+
+.registration-success-visible
+.registration-success-email {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.registration-success-email-icon {
+    width: 35px;
+    height: 35px;
+
+    flex: 0 0 35px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        rgba(139, 92, 246, 0.09);
+
+    color:
+        #a78bfa;
+}
+
+
+.registration-success-email-content {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.registration-success-email-content span {
+    color:
+        #81788b;
+
+    font-size: 9px;
+
+    line-height: 1.3;
+}
+
+
+.registration-success-email-content strong {
+    overflow: hidden;
+
+    color:
+        #e7e0eb;
+
+    font-size: 11px;
+
+    line-height: 1.35;
+
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   16. FEATURES
+   ============================================================ */
+
+.registration-success-features {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 12px;
+
+    opacity: 0;
+
+    transform:
+        translateY(10px);
+
+    transition:
+        opacity 0.55s ease 0.9s,
+        transform 0.55s ease 0.9s;
+}
+
+
+.registration-success-visible
+.registration-success-features {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.registration-success-feature {
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        11px;
+
+    text-align: left;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.05);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255, 255, 255, 0.018);
+
+    transition:
+        transform 0.22s ease,
+        background 0.22s ease,
+        border-color 0.22s ease;
+}
+
+
+.registration-success-feature:hover {
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(139, 92, 246, 0.14);
+
+    background:
+        rgba(124, 58, 237, 0.04);
+}
+
+
+.registration-success-feature-icon {
+    width: 31px;
+    height: 31px;
+
+    flex: 0 0 31px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        rgba(124, 58, 237, 0.075);
+
+    color:
+        #8b5cf6;
+}
+
+
+.registration-success-feature strong {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color:
+        #e8e1eb;
+
+    font-size: 9px;
+
+    line-height: 1.3;
+
+    font-weight: 700;
+}
+
+
+.registration-success-feature span {
+    display: block;
+
+    color:
+        #746c7c;
+
+    font-size: 8px;
+
+    line-height: 1.4;
+}
+
+
+/* ============================================================
+   17. DASHBOARD BUTTON
+   ============================================================ */
+
+.registration-success-dashboard-btn {
+    position: relative;
+
+    width: 100%;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-top: 17px;
+
+    padding:
+        0 18px;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(139, 92, 246, 0.35);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        linear-gradient(
+            100deg,
+            #7c3aed,
+            #8b5cf6
+        );
+
+    color:
+        #ffffff;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 28px
+        rgba(124, 58, 237, 0.22);
+
+    opacity: 0;
+
+    transform:
+        translateY(10px);
+
+    transition:
+        opacity 0.55s ease 1.02s,
+        transform 0.55s ease 1.02s,
+        box-shadow 0.22s ease,
+        filter 0.22s ease;
+}
+
+
+.registration-success-visible
+.registration-success-dashboard-btn {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.registration-success-dashboard-btn::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -90px;
+
+    width: 75px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.28),
+            transparent
+        );
+
+    transform:
+        skewX(-18deg);
+
+    animation:
+        registrationButtonShine
+        3.2s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes registrationButtonShine {
+
+    0% {
+        left: -90px;
+    }
+
+    35% {
+        left: 120%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+
+.registration-success-dashboard-btn:hover:not(:disabled) {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 17px 35px
+        rgba(124, 58, 237, 0.32);
+
+    filter:
+        brightness(1.06);
+}
+
+
+.registration-success-dashboard-btn:active:not(:disabled) {
+    transform:
+        translateY(0);
+}
+
+
+.registration-success-dashboard-btn:disabled {
+    cursor:
+        not-allowed;
+
+    opacity:
+        0.72;
+}
+
+
+/* ============================================================
+   18. LOADING STATE
+   ============================================================ */
+
+.registration-success-button-loading {
+    animation:
+        registrationButtonPulse
+        1.3s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes registrationButtonPulse {
+
+    0%,
+    100% {
+        box-shadow:
+            0 10px 25px
+            rgba(124, 58, 237, 0.20);
+    }
+
+    50% {
+        box-shadow:
+            0 14px 32px
+            rgba(124, 58, 237, 0.36);
+    }
+}
+
+
+.registration-success-spinner {
+    width: 15px;
+    height: 15px;
+
+    flex: 0 0 15px;
+
+    border:
+        2px solid
+        rgba(255, 255, 255, 0.30);
+
+    border-top-color:
+        #ffffff;
+
+    border-radius: 50%;
+
+    animation:
+        registrationSpinner
+        0.7s
+        linear
+        infinite;
+}
+
+
+@keyframes registrationSpinner {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+/* ============================================================
+   19. LOGIN BUTTON
+   ============================================================ */
+
+.registration-success-login-btn {
+    position: relative;
+
+    margin-top: 11px;
+
+    padding:
+        5px 8px;
+
+    border: 0;
+
+    outline: none;
+
+    background:
+        transparent;
+
+    color:
+        #938a9e;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        color 0.22s ease,
+        transform 0.22s ease;
+
+    opacity: 0;
+
+    transform:
+        translateY(8px);
+
+    animation:
+        none;
+}
+
+
+.registration-success-visible
+.registration-success-login-btn {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+    transition:
+        opacity 0.5s ease 1.12s,
+        transform 0.5s ease 1.12s,
+        color 0.22s ease;
+}
+
+
+.registration-success-login-btn:hover {
+    color:
+        #a78bfa;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* ============================================================
+   20. SECURITY
+   ============================================================ */
+
+.registration-success-security {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 13px;
+
+    color:
+        #6f6878;
+
+    font-size: 8px;
+
+    line-height: 1.4;
+
+    opacity: 0;
+
+    transform:
+        translateY(7px);
+
+    transition:
+        opacity 0.5s ease 1.2s,
+        transform 0.5s ease 1.2s;
+}
+
+
+.registration-success-visible
+.registration-success-security {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+.registration-success-security svg {
+    color:
+        #22c55e;
+}
+
+
+/* ============================================================
+   21. FOOTER
+   ============================================================ */
+
+.registration-success-footer {
+    position: absolute;
+
+    bottom: 7px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    color:
+        #625b69;
+
+    font-size: 8px;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.6s ease 1.3s;
+}
+
+
+.registration-success-visible
+.registration-success-footer {
+    opacity: 1;
+}
+
+
+.registration-success-footer-dot {
+    color:
+        rgba(139, 92, 246, 0.55);
+}
+
+
+/* ============================================================
+   22. FOCUS
+   ============================================================ */
+
+.registration-success-page
+button:focus-visible {
+    outline:
+        2px solid
+        rgba(139, 92, 246, 0.70);
+
+    outline-offset:
+        3px;
+}
+
+
+/* ============================================================
+   23. SHORT LAPTOP SCREENS
+   ============================================================ */
+
+@media
+(max-height: 760px)
+and (min-width: 651px) {
+
+    .registration-success-container {
+        padding:
+            10px 20px;
+    }
+
+
+    .registration-success-brand {
+        top: 14px;
+    }
+
+
+    .registration-success-brand-logo {
+        width: 43px;
+        height: 43px;
+
+        flex-basis: 43px;
+
+        font-size: 17px;
+    }
+
+
+    .registration-success-brand-text h1 {
+        font-size: 19px;
+    }
+
+
+    .registration-success-card {
+        max-width: 510px;
+
+        padding:
+            24px 34px 18px;
+    }
+
+
+    .registration-success-icon-wrapper {
+        width: 82px;
+        height: 82px;
+
+        margin-bottom: 9px;
+    }
+
+
+    .registration-success-icon {
+        width: 57px;
+        height: 57px;
+    }
+
+
+    .registration-success-heading h2 {
+        font-size: 27px;
+    }
+
+
+    .registration-success-heading p {
+        margin-top: 7px;
+
+        font-size: 10px;
+    }
+
+
+    .registration-success-email {
+        margin-top: 13px;
+
+        padding:
+            9px 11px;
+    }
+
+
+    .registration-success-features {
+        margin-top: 8px;
+    }
+
+
+    .registration-success-feature {
+        padding:
+            8px;
+    }
+
+
+    .registration-success-dashboard-btn {
+        height: 43px;
+
+        margin-top: 11px;
+    }
+
+
+    .registration-success-login-btn {
+        margin-top: 6px;
+    }
+
+
+    .registration-success-security {
+        margin-top: 7px;
+    }
+}
+
+
+/* ============================================================
+   24. TABLET
+   ============================================================ */
+
+@media (max-width: 850px) {
+
+    .registration-success-page {
+        height: 100dvh;
+
+        overflow: hidden;
+    }
+
+
+    .registration-success-container {
+        width:
+            calc(100% - 24px);
+
+        height:
+            calc(100% - 24px);
+
+        margin:
+            12px;
+
+        padding:
+            15px;
+    }
+
+
+    .registration-success-brand {
+        top: 15px;
+        left: 18px;
+    }
+
+
+    .registration-success-card {
+        width:
+            min(
+                100%,
+                550px
+            );
+    }
+}
+
+
+/* ============================================================
+   25. MOBILE
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+    .registration-success-page {
+        height: auto;
+
+        min-height: 100dvh;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+
+    .registration-success-container {
+        width:
+            calc(100% - 12px);
+
+        height: auto;
+
+        min-height:
+            calc(100dvh - 12px);
+
+        margin:
+            6px;
+
+        padding:
+            80px 10px 40px;
+
+        justify-content:
+            flex-start;
+    }
+
+
+    .registration-success-brand {
+        position: absolute;
+
+        top: 17px;
+        left: 17px;
+    }
+
+
+    .registration-success-brand-logo {
+        width: 43px;
+        height: 43px;
+
+        flex-basis: 43px;
+
+        border-radius: 12px;
+
+        font-size: 17px;
+    }
+
+
+    .registration-success-brand-text h1 {
+        font-size: 19px;
+    }
+
+
+    .registration-success-brand-text span {
+        font-size: 8px;
+    }
+
+
+    .registration-success-card {
+        width: 100%;
+
+        max-height: none;
+
+        padding:
+            28px 18px 23px;
+
+        border-radius:
+            20px;
+    }
+
+
+    .registration-success-icon-wrapper {
+        width: 88px;
+        height: 88px;
+    }
+
+
+    .registration-success-icon {
+        width: 62px;
+        height: 62px;
+    }
+
+
+    .registration-success-heading h2 {
+        font-size: 27px;
+    }
+
+
+    .registration-success-heading p {
+        font-size: 10px;
+
+        line-height: 1.6;
+    }
+
+
+    .registration-success-email {
+        margin-top: 16px;
+    }
+
+
+    .registration-success-features {
+        grid-template-columns:
+            1fr;
+
+        gap: 7px;
+    }
+
+
+    .registration-success-feature {
+        padding:
+            9px;
+    }
+
+
+    .registration-success-dashboard-btn {
+        height: 47px;
+
+        margin-top: 14px;
+
+        font-size: 10px;
+    }
+
+
+    .registration-success-login-btn {
+        font-size: 9px;
+    }
+
+
+    .registration-success-security {
+        font-size: 8px;
+    }
+
+
+    .registration-success-footer {
+        position: relative;
+
+        bottom: auto;
+
+        left: auto;
+
+        transform: none;
+
+        margin-top: 15px;
+
+        font-size: 7px;
+    }
+}
+
+
+/* ============================================================
+   26. SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 430px) {
+
+    .registration-success-container {
+        padding:
+            75px 7px 32px;
+    }
+
+
+    .registration-success-brand {
+        top: 14px;
+        left: 12px;
+    }
+
+
+    .registration-success-card {
+        padding:
+            25px 14px 21px;
+    }
+
+
+    .registration-success-icon-wrapper {
+        width: 82px;
+        height: 82px;
+    }
+
+
+    .registration-success-icon {
+        width: 58px;
+        height: 58px;
+    }
+
+
+    .registration-success-heading h2 {
+        font-size: 24px;
+    }
+
+
+    .registration-success-heading p {
+        font-size: 9px;
+    }
+
+
+    .registration-success-email-content strong {
+        font-size: 10px;
+    }
+
+
+    .registration-success-feature strong {
+        font-size: 9px;
+    }
+
+
+    .registration-success-feature span {
+        font-size: 8px;
+    }
+}
+
+
+/* ============================================================
+   27. EXTRA SMALL
+   ============================================================ */
+
+@media (max-width: 360px) {
+
+    .registration-success-container {
+        padding:
+            70px 5px 28px;
+    }
+
+
+    .registration-success-brand-text h1 {
+        font-size: 17px;
+    }
+
+
+    .registration-success-brand-text span {
+        font-size: 7px;
+    }
+
+
+    .registration-success-card {
+        padding:
+            22px 11px 18px;
+    }
+
+
+    .registration-success-heading h2 {
+        font-size: 22px;
+    }
+
+
+    .registration-success-heading p {
+        font-size: 8px;
+    }
+
+
+    .registration-success-dashboard-btn {
+        height: 44px;
+
+        font-size: 9px;
+    }
+}
+
+
+/* ============================================================
+   28. REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .registration-success-page *,
+    .registration-success-page *::before,
+    .registration-success-page *::after {
+        animation:
+            none !important;
+
+        transition:
+            none !important;
+    }
+}

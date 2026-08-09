@@ -1,59 +1,112 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import Home from "../pages/Home/Home";
+
 import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
 import VerifyEmailOTP from "../pages/Authentication/VerifyEmailOTP";
 import CompleteProfile from "../pages/Authentication/CompleteProfile";
-// import VerifyMobileOTP from "../pages/Authentication/VerifyMobileOTP";
+import RegistrationSuccess from "../pages/Authentication/RegistrationSuccess";
 
 // import ForgotPassword from "../pages/Authentication/ForgotPassword";
 // import Dashboard from "../pages/Dashboard/Dashboard";
+
 
 function AppRoutes() {
   return (
     <Routes>
 
-      {/* Public Routes */}
+      {/* =====================================================
+          PUBLIC ROUTES
+          ===================================================== */}
 
-      <Route path="/" element={<Home />} />
+      {/* Home */}
+      <Route
+        path="/"
+        element={<Home />}
+      />
 
-      <Route path="/login" element={<Login />} /> 
 
-     <Route path="/register" element={<Register />} />
+      {/* Login */}
+      <Route
+        path="/login"
+        element={<Login />}
+      />
 
-       <Route
+
+      {/* Register */}
+      <Route
+        path="/register"
+        element={<Register />}
+      />
+
+
+      {/* Email Verification */}
+      <Route
         path="/verify-email"
         element={<VerifyEmailOTP />}
       />
 
-     <Route
+
+      {/* Complete Profile */}
+      <Route
         path="/complete-profile"
-        element={<CompleteProfile />} 
+        element={<CompleteProfile />}
       />
 
-       {/*<Route
-        path="/verify-mobile"
-        element={<VerifyMobileOTP />} 
-      />*/}
 
-      {/* Uncomment when ready */}
+      {/* Registration Success */}
+      <Route
+        path="/registration-success"
+        element={<RegistrationSuccess />}
+      />
 
-      {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
 
-      {/* Private Routes */}
+      {/* =====================================================
+          PASSWORD RECOVERY
+          ===================================================== */}
 
-      {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+      {/* Uncomment when Forgot Password is ready */}
 
-      {/* Fallback */}
+      {/*
+      <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
+      />
+      */}
+
+
+      {/* =====================================================
+          PRIVATE ROUTES
+          ===================================================== */}
+
+      {/* Uncomment when Dashboard is ready */}
+
+      {/*
+      <Route
+        path="/dashboard"
+        element={<Dashboard />}
+      />
+      */}
+
+
+      {/* =====================================================
+          FALLBACK
+          ===================================================== */}
 
       <Route
         path="*"
-        element={<Navigate to="/" replace />}
+        element={
+          <Navigate
+            to="/"
+            replace
+          />
+        }
       />
 
     </Routes>
   );
 }
+
 
 export default AppRoutes;

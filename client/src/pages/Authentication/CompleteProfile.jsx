@@ -2,7 +2,8 @@ import "./AuthBase.css";
 import "./CompleteProfile.css";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import {
   FaBriefcase,
@@ -16,12 +17,219 @@ import {
   FaLock,
 } from "react-icons/fa";
 
+
+/* ============================================================
+   ANIMATION VARIANTS
+   ============================================================ */
+
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+  },
+
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const leftPanelVariants = {
+  hidden: {
+    opacity: 0,
+    x: -45,
+  },
+
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.75,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const rightPanelVariants = {
+  hidden: {
+    opacity: 0,
+    x: 45,
+  },
+
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.75,
+      delay: 0.12,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const brandVariants = {
+  hidden: {
+    opacity: 0,
+    y: -20,
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      delay: 0.15,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const progressVariants = {
+  hidden: {
+    opacity: 0,
+    y: 15,
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      delay: 0.28,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const heroVariants = {
+  hidden: {
+    opacity: 0,
+    y: 25,
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.65,
+      delay: 0.38,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const benefitContainerVariants = {
+  hidden: {
+    opacity: 0,
+  },
+
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 0.5,
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+
+const benefitVariants = {
+  hidden: {
+    opacity: 0,
+    x: -20,
+  },
+
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.45,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.96,
+    y: 25,
+  },
+
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      delay: 0.15,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const formItemVariants = {
+  hidden: {
+    opacity: 0,
+    y: 15,
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
+
+const blobAnimation = {
+  animate: {
+    x: [0, 18, -12, 0],
+    y: [0, -15, 12, 0],
+    scale: [1, 1.04, 0.97, 1],
+  },
+
+  transition: {
+    duration: 12,
+    repeat: Infinity,
+    ease: "easeInOut",
+  },
+};
+
+
 export default function CompleteProfile() {
+
   const navigate = useNavigate();
+  const location = useLocation();
+
+
+  /* =========================================================
+     EMAIL FROM PREVIOUS AUTHENTICATION PAGE
+     ========================================================= */
+
+  const registeredEmail =
+    location.state?.email ||
+    location.state?.user?.email ||
+    localStorage.getItem("registrationEmail") ||
+    "";
+
 
   /* =========================================================
      FORM STATE
-  ========================================================= */
+     ========================================================= */
 
   const [formData, setFormData] = useState({
     jobTitle: "",
@@ -32,14 +240,16 @@ export default function CompleteProfile() {
     role: "",
   });
 
+
   const [loading, setLoading] = useState(false);
 
 
   /* =========================================================
      HANDLE INPUT CHANGE
-  ========================================================= */
+     ========================================================= */
 
   const handleChange = (e) => {
+
     const { name, value } = e.target;
 
     setFormData((prev) => ({
@@ -51,10 +261,12 @@ export default function CompleteProfile() {
 
   /* =========================================================
      HANDLE SUBMIT
-  ========================================================= */
+     ========================================================= */
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
+
 
     if (
       !formData.jobTitle.trim() ||
@@ -63,100 +275,193 @@ export default function CompleteProfile() {
       !formData.location ||
       !formData.role
     ) {
+
       alert("Please complete all required fields.");
+
       return;
     }
 
+
     setLoading(true);
 
-    /*
-      Temporary onboarding transition.
 
-      Replace this with your API / Redux / Firebase
-      profile-save logic when backend integration
-      is connected.
-    */
+    const completedProfile = {
+      ...formData,
+      email: registeredEmail,
+    };
+
+
+    /* Save current onboarding information */
+
+    localStorage.setItem(
+      "completedProfile",
+      JSON.stringify(completedProfile)
+    );
+
+
+    /* Preserve registration email */
+
+    if (registeredEmail) {
+
+      localStorage.setItem(
+        "registrationEmail",
+        registeredEmail
+      );
+    }
+
+
+    /*
+     * Small delay so the loading animation can be seen
+     * before moving to the success page.
+     */
 
     setTimeout(() => {
+
       setLoading(false);
 
-      navigate("/mobile-verification");
+      navigate("/registration-success", {
+
+        replace: true,
+
+        state: {
+
+          email: registeredEmail,
+
+          user: {
+            ...completedProfile,
+          },
+
+        },
+
+      });
+
     }, 1200);
   };
 
 
   /* =========================================================
-     BACK
-  ========================================================= */
+     HANDLE BACK
+     ========================================================= */
 
   const handleBack = () => {
+
+    if (loading) {
+      return;
+    }
+
     navigate("/verify-email");
   };
 
 
   /* =========================================================
      PAGE
-  ========================================================= */
+     ========================================================= */
 
   return (
-    <main className="auth-page profile-page">
+
+    <motion.main
+      className="auth-page profile-page"
+      variants={pageVariants}
+      initial="hidden"
+      animate="visible"
+    >
+
 
       {/* =====================================================
-          BACKGROUND DECORATION
-      ===================================================== */}
+          BACKGROUND
+          ===================================================== */}
 
       <div
         className="profile-bg"
         aria-hidden="true"
       />
 
-      <div
+
+      <motion.div
         className="profile-blob profile-blob1"
         aria-hidden="true"
+        animate={blobAnimation.animate}
+        transition={blobAnimation.transition}
       />
 
-      <div
+
+      <motion.div
         className="profile-blob profile-blob2"
         aria-hidden="true"
+        animate={{
+          x: [0, -20, 15, 0],
+          y: [0, 12, -18, 0],
+          scale: [1, 0.96, 1.04, 1],
+        }}
+        transition={{
+          duration: 14,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       />
 
-      <div
+
+      <motion.div
         className="profile-blob profile-blob3"
         aria-hidden="true"
+        animate={{
+          x: [0, 12, -15, 0],
+          y: [0, -12, 15, 0],
+        }}
+        transition={{
+          duration: 16,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       />
 
 
       {/* =====================================================
           MAIN AUTH CONTAINER
-
-          auth-container / auth-left / auth-right
-          come from AuthBase.css.
-
-          profile-* classes are page-specific.
-      ===================================================== */}
+          ===================================================== */}
 
       <section className="auth-container profile-container">
 
 
         {/* ===================================================
             LEFT PANEL
-        =================================================== */}
+            =================================================== */}
 
-        <div className="auth-left profile-left">
+        <motion.div
+          className="auth-left profile-left"
+          variants={leftPanelVariants}
+          initial="hidden"
+          animate="visible"
+        >
 
 
           {/* =================================================
               BRAND
-          ================================================= */}
+              ================================================= */}
 
-          <div className="auth-brand profile-brand">
+          <motion.div
+            className="auth-brand profile-brand"
+            variants={brandVariants}
+            initial="hidden"
+            animate="visible"
+          >
 
-            <div
+            <motion.div
               className="auth-brand-logo profile-brand-logo"
               aria-hidden="true"
+              whileHover={{
+                scale: 1.08,
+                rotate: 3,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 15,
+              }}
             >
               AI
-            </div>
+            </motion.div>
+
 
             <div className="auth-brand-text profile-brand-text">
 
@@ -170,14 +475,19 @@ export default function CompleteProfile() {
 
             </div>
 
-          </div>
+          </motion.div>
 
 
           {/* =================================================
               REGISTRATION PROGRESS
-          ================================================= */}
+              ================================================= */}
 
-          <div className="profile-progress">
+          <motion.div
+            className="profile-progress"
+            variants={progressVariants}
+            initial="hidden"
+            animate="visible"
+          >
 
             <div className="profile-progress-header">
 
@@ -192,13 +502,22 @@ export default function CompleteProfile() {
             </div>
 
 
-            {/* Progress bar */}
-
             <div className="profile-progress-bar">
 
-              <div
+              <motion.div
                 className="profile-progress-fill"
                 aria-hidden="true"
+                initial={{
+                  width: "0%",
+                }}
+                animate={{
+                  width: "75%",
+                }}
+                transition={{
+                  duration: 1.2,
+                  delay: 0.5,
+                  ease: "easeOut",
+                }}
               />
 
             </div>
@@ -211,7 +530,12 @@ export default function CompleteProfile() {
 
               {/* STEP 1 */}
 
-              <div className="profile-step completed">
+              <motion.div
+                className="profile-step completed"
+                whileHover={{
+                  y: -2,
+                }}
+              >
 
                 <div className="profile-step-circle">
                   <FaCheckCircle />
@@ -221,12 +545,17 @@ export default function CompleteProfile() {
                   Create Account
                 </span>
 
-              </div>
+              </motion.div>
 
 
               {/* STEP 2 */}
 
-              <div className="profile-step completed">
+              <motion.div
+                className="profile-step completed"
+                whileHover={{
+                  y: -2,
+                }}
+              >
 
                 <div className="profile-step-circle">
                   <FaCheckCircle />
@@ -236,12 +565,22 @@ export default function CompleteProfile() {
                   Email Verification
                 </span>
 
-              </div>
+              </motion.div>
 
 
               {/* STEP 3 */}
 
-              <div className="profile-step active">
+              <motion.div
+                className="profile-step active"
+                animate={{
+                  scale: [1, 1.025, 1],
+                }}
+                transition={{
+                  duration: 2.2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
 
                 <div className="profile-step-circle">
                   3
@@ -251,46 +590,60 @@ export default function CompleteProfile() {
                   Profile Completion
                 </span>
 
-              </div>
+              </motion.div>
 
 
               {/* STEP 4 */}
 
-              <div className="profile-step">
+              <motion.div
+                className="profile-step"
+                whileHover={{
+                  y: -2,
+                }}
+              >
 
                 <div className="profile-step-circle">
                   4
                 </div>
 
                 <span>
-                  Mobile Verification
+                  Registration Complete
                 </span>
 
-              </div>
+              </motion.div>
 
             </div>
 
-          </div>
+          </motion.div>
 
 
           {/* =================================================
               HERO
-          ================================================= */}
+              ================================================= */}
 
-          <section className="profile-hero">
+          <motion.section
+            className="profile-hero"
+            variants={heroVariants}
+            initial="hidden"
+            animate="visible"
+          >
 
 
-            {/* Hero icon */}
-
-            <div
+            <motion.div
               className="profile-hero-icon"
               aria-hidden="true"
+              animate={{
+                y: [0, -5, 0],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             >
               <FaUserTie />
-            </div>
+            </motion.div>
 
-
-            {/* Heading */}
 
             <h1>
               Complete Your{" "}
@@ -299,8 +652,6 @@ export default function CompleteProfile() {
               </span>
             </h1>
 
-
-            {/* Description */}
 
             <p>
               Complete your professional profile to personalize
@@ -313,19 +664,36 @@ export default function CompleteProfile() {
               responsibilities.
             </p>
 
-          </section>
+          </motion.section>
 
 
           {/* =================================================
               BENEFITS
-          ================================================= */}
+              ================================================= */}
 
-          <div className="profile-benefits">
+          <motion.div
+            className="profile-benefits"
+            variants={benefitContainerVariants}
+            initial="hidden"
+            animate="visible"
+          >
 
 
             {/* BENEFIT 01 */}
 
-            <div className="profile-benefit">
+            <motion.div
+              className="profile-benefit"
+              variants={benefitVariants}
+              whileHover={{
+                x: 6,
+                scale: 1.01,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 250,
+                damping: 20,
+              }}
+            >
 
               <div
                 className="profile-benefit-icon"
@@ -354,12 +722,24 @@ export default function CompleteProfile() {
                 01
               </span>
 
-            </div>
+            </motion.div>
 
 
             {/* BENEFIT 02 */}
 
-            <div className="profile-benefit">
+            <motion.div
+              className="profile-benefit"
+              variants={benefitVariants}
+              whileHover={{
+                x: 6,
+                scale: 1.01,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 250,
+                damping: 20,
+              }}
+            >
 
               <div
                 className="profile-benefit-icon"
@@ -388,12 +768,24 @@ export default function CompleteProfile() {
                 02
               </span>
 
-            </div>
+            </motion.div>
 
 
             {/* BENEFIT 03 */}
 
-            <div className="profile-benefit">
+            <motion.div
+              className="profile-benefit"
+              variants={benefitVariants}
+              whileHover={{
+                x: 6,
+                scale: 1.01,
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 250,
+                damping: 20,
+              }}
+            >
 
               <div
                 className="profile-benefit-icon"
@@ -422,16 +814,30 @@ export default function CompleteProfile() {
                 03
               </span>
 
-            </div>
+            </motion.div>
 
-          </div>
+          </motion.div>
 
 
           {/* =================================================
               SECURITY NOTE
-          ================================================= */}
+              ================================================= */}
 
-          <div className="profile-security-note">
+          <motion.div
+            className="profile-security-note"
+            initial={{
+              opacity: 0,
+              y: 15,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.9,
+              duration: 0.5,
+            }}
+          >
 
             <FaLock />
 
@@ -440,35 +846,61 @@ export default function CompleteProfile() {
               with secure enterprise authentication.
             </span>
 
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
 
         {/* ===================================================
             RIGHT PANEL
-        =================================================== */}
+            =================================================== */}
 
-        <div className="auth-right profile-right">
+        <motion.div
+          className="auth-right profile-right"
+          variants={rightPanelVariants}
+          initial="hidden"
+          animate="visible"
+        >
 
 
           {/* =================================================
               PROFILE CARD
-          ================================================= */}
+              ================================================= */}
 
-          <div className="profile-card">
+          <motion.div
+            className="profile-card"
+            variants={cardVariants}
+            initial="hidden"
+            animate="visible"
+          >
 
 
             {/* =================================================
                 CARD HEADER
-            ================================================= */}
+                ================================================= */}
 
-            <div className="profile-header">
+            <motion.div
+              className="profile-header"
+              initial={{
+                opacity: 0,
+                y: 15,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.35,
+                duration: 0.5,
+              }}
+            >
 
-
-              {/* Badge */}
-
-              <div className="profile-header-badge">
+              <motion.div
+                className="profile-header-badge"
+                whileHover={{
+                  scale: 1.03,
+                }}
+              >
 
                 <FaUserTie />
 
@@ -476,7 +908,7 @@ export default function CompleteProfile() {
                   Profile Setup
                 </span>
 
-              </div>
+              </motion.div>
 
 
               <h2>
@@ -488,12 +920,12 @@ export default function CompleteProfile() {
                 profile to complete your onboarding.
               </p>
 
-            </div>
+            </motion.div>
 
 
             {/* =================================================
                 PROFILE FORM
-            ================================================= */}
+                ================================================= */}
 
             <form
               className="profile-form"
@@ -502,22 +934,41 @@ export default function CompleteProfile() {
 
 
               {/* =================================================
-                  TOP ROW
                   JOB TITLE + DEPARTMENT
-              ================================================= */}
+                  ================================================= */}
 
-              <div className="profile-form-row">
+              <motion.div
+                className="profile-form-row"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  visible: {
+                    transition: {
+                      delayChildren: 0.45,
+                      staggerChildren: 0.08,
+                    },
+                  },
+                }}
+              >
 
 
                 {/* JOB TITLE */}
 
-                <div className="profile-input-group">
+                <motion.div
+                  className="profile-input-group"
+                  variants={formItemVariants}
+                >
 
                   <label htmlFor="jobTitle">
                     Job Title
                   </label>
 
-                  <div className="profile-input-field">
+                  <motion.div
+                    className="profile-input-field"
+                    whileFocus={{
+                      scale: 1.01,
+                    }}
+                  >
 
                     <FaBriefcase
                       className="profile-input-icon"
@@ -535,14 +986,17 @@ export default function CompleteProfile() {
                       required
                     />
 
-                  </div>
+                  </motion.div>
 
-                </div>
+                </motion.div>
 
 
                 {/* DEPARTMENT */}
 
-                <div className="profile-input-group">
+                <motion.div
+                  className="profile-input-group"
+                  variants={formItemVariants}
+                >
 
                   <label htmlFor="department">
                     Department
@@ -603,16 +1057,24 @@ export default function CompleteProfile() {
 
                   </div>
 
-                </div>
+                </motion.div>
 
-              </div>
+              </motion.div>
 
 
               {/* =================================================
                   ORGANIZATION
-              ================================================= */}
+                  ================================================= */}
 
-              <div className="profile-input-group">
+              <motion.div
+                className="profile-input-group"
+                variants={formItemVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  delay: 0.62,
+                }}
+              >
 
                 <label htmlFor="organization">
                   Organization
@@ -638,19 +1100,29 @@ export default function CompleteProfile() {
 
                 </div>
 
-              </div>
+              </motion.div>
 
 
               {/* =================================================
                   EMPLOYEE ID + LOCATION
-              ================================================= */}
+                  ================================================= */}
 
-              <div className="profile-form-row">
+              <motion.div
+                className="profile-form-row"
+                initial="hidden"
+                animate="visible"
+                transition={{
+                  delay: 0.7,
+                }}
+              >
 
 
                 {/* EMPLOYEE ID */}
 
-                <div className="profile-input-group">
+                <motion.div
+                  className="profile-input-group"
+                  variants={formItemVariants}
+                >
 
                   <label htmlFor="employeeId">
 
@@ -681,12 +1153,15 @@ export default function CompleteProfile() {
 
                   </div>
 
-                </div>
+                </motion.div>
 
 
                 {/* LOCATION */}
 
-                <div className="profile-input-group">
+                <motion.div
+                  className="profile-input-group"
+                  variants={formItemVariants}
+                >
 
                   <label htmlFor="location">
                     Location
@@ -739,16 +1214,30 @@ export default function CompleteProfile() {
 
                   </div>
 
-                </div>
+                </motion.div>
 
-              </div>
+              </motion.div>
 
 
               {/* =================================================
                   ROLE
-              ================================================= */}
+                  ================================================= */}
 
-              <div className="profile-input-group">
+              <motion.div
+                className="profile-input-group"
+                initial={{
+                  opacity: 0,
+                  y: 15,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.82,
+                  duration: 0.45,
+                }}
+              >
 
                 <label htmlFor="role">
                   Role
@@ -797,23 +1286,43 @@ export default function CompleteProfile() {
 
                 </div>
 
-              </div>
+              </motion.div>
 
 
               {/* =================================================
                   ACTION BUTTONS
-              ================================================= */}
+                  ================================================= */}
 
-              <div className="profile-actions">
+              <motion.div
+                className="profile-actions"
+                initial={{
+                  opacity: 0,
+                  y: 15,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.92,
+                  duration: 0.45,
+                }}
+              >
 
 
                 {/* BACK */}
 
-                <button
+                <motion.button
                   type="button"
                   className="profile-back-btn"
                   onClick={handleBack}
                   disabled={loading}
+                  whileHover={{
+                    x: -3,
+                  }}
+                  whileTap={{
+                    scale: 0.97,
+                  }}
                 >
 
                   <FaArrowLeft />
@@ -822,45 +1331,97 @@ export default function CompleteProfile() {
                     Back
                   </span>
 
-                </button>
+                </motion.button>
 
 
                 {/* CONTINUE */}
 
-                <button
+                <motion.button
                   type="submit"
                   className="profile-continue-btn"
                   disabled={loading}
+                  whileHover={
+                    !loading
+                      ? {
+                          y: -2,
+                          scale: 1.01,
+                        }
+                      : {}
+                  }
+                  whileTap={
+                    !loading
+                      ? {
+                          scale: 0.97,
+                        }
+                      : {}
+                  }
                 >
 
                   {loading ? (
+
                     <>
-                      <span className="profile-spinner" />
+                      <motion.span
+                        className="profile-spinner"
+                        animate={{
+                          rotate: 360,
+                        }}
+                        transition={{
+                          duration: 0.8,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                      />
 
                       <span>
                         Saving...
                       </span>
                     </>
+
                   ) : (
+
                     <>
                       <span>
                         Continue
                       </span>
 
-                      <FaArrowRight />
+                      <motion.span
+                        animate={{
+                          x: [0, 4, 0],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
+                        <FaArrowRight />
+                      </motion.span>
+
                     </>
                   )}
 
-                </button>
+                </motion.button>
 
-              </div>
+              </motion.div>
 
 
               {/* =================================================
-                  CARD SECURITY NOTE
-              ================================================= */}
+                  SECURITY NOTE
+                  ================================================= */}
 
-              <div className="profile-card-security">
+              <motion.div
+                className="profile-card-security"
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                }}
+                transition={{
+                  delay: 1.05,
+                  duration: 0.5,
+                }}
+              >
 
                 <FaLock />
 
@@ -868,16 +1429,16 @@ export default function CompleteProfile() {
                   Your information is secure and encrypted
                 </span>
 
-              </div>
+              </motion.div>
 
             </form>
 
-          </div>
+          </motion.div>
 
-        </div>
+        </motion.div>
 
       </section>
 
-    </main>
+    </motion.main>
   );
 }
