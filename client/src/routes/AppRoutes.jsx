@@ -8,7 +8,8 @@ import VerifyEmailOTP from "../pages/Authentication/VerifyEmailOTP";
 import CompleteProfile from "../pages/Authentication/CompleteProfile";
 import RegistrationSuccess from "../pages/Authentication/RegistrationSuccess";
 import ForgotPassword from "../pages/Authentication/ForgotPassword";
-// import Dashboard from "../pages/Dashboard/Dashboard";
+import ResetPassword from "../pages/Authentication/ResetPassword";
+//import Dashboard from "../pages/Dashboard/Dashboard";
 
 
 function AppRoutes() {
@@ -71,6 +72,11 @@ function AppRoutes() {
       <Route
         path="/forgot-password"
         element={<ForgotPassword />}
+      />
+
+      <Route
+        path="/reset-password"
+        element={<ResetPassword />}
       />
       
 
