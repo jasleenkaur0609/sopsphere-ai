@@ -7,8 +7,7 @@ import Register from "../pages/Authentication/Register";
 import VerifyEmailOTP from "../pages/Authentication/VerifyEmailOTP";
 import CompleteProfile from "../pages/Authentication/CompleteProfile";
 import RegistrationSuccess from "../pages/Authentication/RegistrationSuccess";
-
-// import ForgotPassword from "../pages/Authentication/ForgotPassword";
+import ForgotPassword from "../pages/Authentication/ForgotPassword";
 // import Dashboard from "../pages/Dashboard/Dashboard";
 
 
@@ -68,12 +67,12 @@ function AppRoutes() {
 
       {/* Uncomment when Forgot Password is ready */}
 
-      {/*
+      
       <Route
         path="/forgot-password"
         element={<ForgotPassword />}
       />
-      */}
+      
 
 
       {/* =====================================================
