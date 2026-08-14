@@ -656,7 +656,7 @@ const Register = () => {
                                 </div>
 
                                 <span>
-                                    Mobile Verification
+                                    Registration Complete
                                 </span>
 
                             </motion.div>

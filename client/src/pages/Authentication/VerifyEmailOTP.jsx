@@ -875,7 +875,7 @@ export default function VerifyEmailOTP() {
                                 </div>
 
                                 <span>
-                                    Mobile Verification
+                                    Registration Complete
                                 </span>
 
                             </motion.div>
