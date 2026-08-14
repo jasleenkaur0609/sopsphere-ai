@@ -1,2119 +1,1951 @@
 import React, { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Activity,
-  AlertCircle,
-  ArrowRight,
-  BarChart3,
-  Bell,
-  BookOpen,
-  Bot,
-  BrainCircuit,
-  CheckCircle2,
-  ChevronDown,
-  ChevronRight,
-  Clock3,
-  CloudUpload,
-  FileSearch,
-  FileText,
-  GraduationCap,
-  HelpCircle,
-  Home,
-  LogOut,
-  Menu,
-  MessageSquareText,
-  MoreHorizontal,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Search,
-  Settings,
-  ShieldCheck,
-  Sparkles,
-  Target,
-  Upload,
-  User,
-  X,
-  Zap,
-} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-import "./Dashboard.css";
+import {
+    FaBars,
+    FaBell,
+    FaBookOpen,
+    FaBrain,
+    FaChartLine,
+    FaCheckCircle,
+    FaChevronRight,
+    FaClock,
+    FaCloudUploadAlt,
+    FaCog,
+    FaComments,
+    FaExchangeAlt,
+    FaFileAlt,
+    FaGraduationCap,
+    FaHome,
+    FaInfoCircle,
+    FaLightbulb,
+    FaLock,
+    FaQuestionCircle,
+    FaRobot,
+    FaSearch,
+    FaShieldAlt,
+    FaSignOutAlt,
+    FaTasks,
+    FaTimes,
+    FaUpload,
+    FaUser,
+    FaUsers,
+    FaMagic,
+} from "react-icons/fa";
+
+import "./dashboard.css";
 import "./EmployeeDashboard.css";
 
-const EmployeeDashboard = () => {
-  /* =========================================================
-     USER
-     ========================================================= */
 
-  const storedUser = localStorage.getItem("user");
+/* =========================================================
+   MOCK DATA
+   Replace this with API/database data later
+   ========================================================= */
 
-  const user = useMemo(() => {
-    try {
-      return storedUser
-        ? JSON.parse(storedUser)
-        : {
-            name: "Jasleen Kaur",
-            email: "jasleen@example.com",
-            role: "Employee",
-          };
-    } catch {
-      return {
-        name: "Jasleen Kaur",
-        email: "jasleen@example.com",
-        role: "Employee",
-      };
-    }
-  }, [storedUser]);
+const employeeData = {
+    name: "Jasleen Kaur",
+    role: "Employee",
+    email: "jasleen@example.com",
+};
 
-  /* =========================================================
-     STATE
-     ========================================================= */
 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [activeMenu, setActiveMenu] = useState("Dashboard");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [aiQuery, setAiQuery] = useState("");
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [showProfile, setShowProfile] = useState(false);
-  const [showQuickMenu, setShowQuickMenu] = useState(false);
-  const [showAiResponse, setShowAiResponse] = useState(false);
-  const [selectedSop, setSelectedSop] = useState(null);
-  const [selectedAction, setSelectedAction] = useState(null);
-  const [selectedRecommendation, setSelectedRecommendation] =
-    useState(null);
+/* =========================================================
+   KPI DATA
+   ========================================================= */
 
-  /* =========================================================
-     NAVIGATION
-     ========================================================= */
-
-  const navigationItems = [
+const kpiData = [
     {
-      label: "Dashboard",
-      icon: Home,
+        label: "My SOPs",
+        value: "24",
+        change: "+3 this month",
+        changeType: "positive",
+        icon: <FaBookOpen />,
+        description:
+            "Total number of SOPs currently assigned to you or available to you based on your employee access.",
     },
+
     {
-      label: "SOPs",
-      icon: BookOpen,
-      children: [
-        "All SOPs",
-        "My SOPs",
-        "Generate SOP",
-        "Drafts",
-      ],
+        label: "Actions",
+        value: "4",
+        change: "2 due today",
+        changeType: "warning",
+        icon: <FaTasks />,
+        description:
+            "Tasks, approvals, acknowledgements and other actions currently requiring your attention.",
     },
+
     {
-      label: "AI Assistant",
-      icon: Bot,
+        label: "Training",
+        value: "82%",
+        change: "+8% this month",
+        changeType: "positive",
+        icon: <FaGraduationCap />,
+        description:
+            "Your overall training completion percentage across assigned learning and certification activities.",
     },
+
     {
-      label: "Documents",
-      icon: FileText,
-      children: ["Upload", "AI Analysis"],
+        label: "Compliance",
+        value: "94%",
+        change: "+2.4%",
+        changeType: "positive",
+        icon: <FaShieldAlt />,
+        description:
+            "Your current compliance score based on SOP acknowledgements, required training and assigned compliance activities.",
     },
+
     {
-      label: "Training",
-      icon: GraduationCap,
+        label: "AI Queries",
+        value: "37",
+        change: "+12 this week",
+        changeType: "positive",
+        icon: <FaRobot />,
+        description:
+            "Number of questions you have asked the AI Knowledge Assistant during the current tracking period.",
     },
+];
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+const quickActions = [
     {
-      label: "Compliance",
-      icon: ShieldCheck,
+        title: "Generate SOP",
+        description: "Create with AI",
+        icon: <FaMagic />,
+        info:
+            "Use AI to create a structured Standard Operating Procedure from your requirements.",
     },
+
     {
-      label: "Notifications",
-      icon: Bell,
+        title: "Ask AI",
+        description: "Ask anything",
+        icon: <FaRobot />,
+        info:
+            "Ask questions about SOPs, policies, documents and enterprise knowledge.",
     },
+
     {
-      label: "My Analytics",
-      icon: BarChart3,
+        title: "Upload Document",
+        description: "Analyze file",
+        icon: <FaCloudUploadAlt />,
+        info:
+            "Upload a document for document intelligence, extraction and AI-powered analysis.",
     },
-  ];
 
-  const bottomNavigation = [
     {
-      label: "Settings",
-      icon: Settings,
+        title: "Find SOP",
+        description: "Search library",
+        icon: <FaFileAlt />,
+        info:
+            "Search the organization's SOP library and find procedures relevant to your work.",
     },
+];
+
+
+/* =========================================================
+   RECENT UPDATES
+   ========================================================= */
+
+const recentUpdates = [
     {
-      label: "Help & Support",
-      icon: HelpCircle,
+        title: "SOP v3.2 published",
+        subtitle: "Distributor Onboarding",
+        time: "2h ago",
+        type: "info",
     },
-  ];
 
-  /* =========================================================
-     KPI DATA
-     ========================================================= */
-
-  const kpis = [
     {
-      label: "My SOPs",
-      value: "24",
-      description: "Assigned & accessible",
-      icon: BookOpen,
-      trend: "+3 this month",
+        title: "New training assigned",
+        subtitle: "Data Privacy",
+        time: "5h ago",
+        type: "warning",
     },
+
     {
-      label: "Actions",
-      value: "4",
-      description: "Require your attention",
-      icon: Clock3,
-      trend: "2 due today",
+        title: "Policy updated",
+        subtitle: "Information Security",
+        time: "Yesterday",
+        type: "success",
     },
+
     {
-      label: "Training",
-      value: "82%",
-      description: "Overall completion",
-      icon: GraduationCap,
-      trend: "+8% this month",
+        title: "SOP acknowledgement completed",
+        subtitle: "Email Handling",
+        time: "Yesterday",
+        type: "success",
     },
+];
+
+
+/* =========================================================
+   RECOMMENDATIONS
+   ========================================================= */
+
+const recommendations = [
     {
-      label: "Compliance",
-      value: "94%",
-      description: "Current compliance score",
-      icon: ShieldCheck,
-      trend: "+2.4%",
+        title: "SOP Updated",
+        item: "Distributor Onboarding v3.2",
+        description:
+            "This SOP was recently updated and affects your assigned process.",
+        action: "Review Now",
+        icon: <FaFileAlt />,
+        info:
+            "AI recommendations highlight important changes and activities that may require your attention.",
     },
+
     {
-      label: "AI Queries",
-      value: "37",
-      description: "Questions asked",
-      icon: Bot,
-      trend: "+12 this week",
+        title: "Training Recommended",
+        item: "Data Privacy Certification",
+        description:
+            "Your certification expires in 14 days.",
+        action: "Start Training",
+        icon: <FaGraduationCap />,
+        info:
+            "Training recommendations are based on your assigned learning requirements and upcoming deadlines.",
     },
-  ];
+];
 
-  /* =========================================================
-     QUICK ACTIONS
-     ========================================================= */
 
-  const quickActions = [
+/* =========================================================
+   ACTIVITY
+   ========================================================= */
+
+const activityData = [
     {
-      title: "Generate SOP",
-      description: "Create with AI",
-      icon: Sparkles,
-      action: "Generate SOP",
+        label: "SOPs Created",
+        value: "8",
+        icon: <FaFileAlt />,
     },
+
     {
-      title: "Ask AI",
-      description: "Ask anything",
-      icon: Bot,
-      action: "AI Assistant",
+        label: "SOPs Viewed",
+        value: "42",
+        icon: <FaBookOpen />,
     },
+
     {
-      title: "Upload Document",
-      description: "Analyze file",
-      icon: CloudUpload,
-      action: "Upload",
+        label: "AI Questions",
+        value: "37",
+        icon: <FaComments />,
     },
+
     {
-      title: "Find SOP",
-      description: "Search library",
-      icon: FileSearch,
-      action: "All SOPs",
+        label: "Training",
+        value: "15",
+        icon: <FaGraduationCap />,
     },
-  ];
 
-  /* =========================================================
-     MY ACTIONS
-     ========================================================= */
-
-  const myActions = [
     {
-      id: 1,
-      type: "Review SOP",
-      title: "Distributor Onboarding",
-      due: "Due Today",
-      status: "urgent",
-      icon: AlertCircle,
+        label: "Documents",
+        value: "9",
+        icon: <FaFileAlt />,
     },
+];
+
+
+/* =========================================================
+   SIDEBAR ITEMS
+   ========================================================= */
+
+const sidebarItems = [
     {
-      id: 2,
-      type: "Acknowledge SOP",
-      title: "Invoice Processing",
-      due: "Due Aug 16",
-      status: "pending",
-      icon: FileText,
+        label: "Dashboard",
+        icon: <FaHome />,
+        path: "/dashboard",
     },
+
     {
-      id: 3,
-      type: "Complete Training",
-      title: "Data Privacy",
-      due: "Due Aug 18",
-      status: "pending",
-      icon: GraduationCap,
+        label: "SOPs",
+        icon: <FaBookOpen />,
+        children: [
+            "All SOPs",
+            "My SOPs",
+            "Generate SOP",
+            "Drafts",
+        ],
     },
+
     {
-      id: 4,
-      type: "Approval Completed",
-      title: "Email Handling",
-      due: "Completed",
-      status: "completed",
-      icon: CheckCircle2,
+        label: "AI Assistant",
+        icon: <FaRobot />,
+        path: "/ai-assistant",
     },
-  ];
 
-  /* =========================================================
-     SOP DATA
-     ========================================================= */
-
-  const sops = [
     {
-      id: 1,
-      title: "Distributor Onboarding",
-      version: "v3.2",
-      status: "Approved",
-      updated: "Aug 12",
-      owner: "Operations",
-      pages: "14 pages",
+        label: "Documents",
+        icon: <FaFileAlt />,
+        children: [
+            "Upload",
+            "AI Analysis",
+        ],
     },
+
     {
-      id: 2,
-      title: "Invoice Processing",
-      version: "v2.4",
-      status: "Approved",
-      updated: "Aug 10",
-      owner: "Finance",
-      pages: "9 pages",
+        label: "Training",
+        icon: <FaGraduationCap />,
+        path: "/training",
     },
+
     {
-      id: 3,
-      title: "Email Handling",
-      version: "v4.1",
-      status: "Approved",
-      updated: "Aug 08",
-      owner: "Operations",
-      pages: "11 pages",
+        label: "Compliance",
+        icon: <FaShieldAlt />,
+        path: "/compliance",
     },
+
     {
-      id: 4,
-      title: "Customer Escalation",
-      version: "v2.1",
-      status: "Pending",
-      updated: "Aug 06",
-      owner: "Customer Success",
-      pages: "8 pages",
+        label: "Notifications",
+        icon: <FaBell />,
+        path: "/notifications",
     },
-  ];
 
-  /* =========================================================
-     GENERATED SOPS
-     ========================================================= */
-
-  const generatedSops = [
     {
-      title: "Distributor Onboarding",
-      status: "Draft",
-      date: "Aug 13",
+        label: "My Analytics",
+        icon: <FaChartLine />,
+        path: "/analytics",
     },
-    {
-      title: "Invoice Processing",
-      status: "Pending Review",
-      date: "Aug 12",
-    },
-    {
-      title: "Email Handling",
-      status: "Approved",
-      date: "Aug 10",
-    },
-  ];
+];
 
-  /* =========================================================
-     TRAINING
-     ========================================================= */
 
-  const trainingCourses = [
-    {
-      title: "Data Privacy Training",
-      progress: 100,
-      status: "Completed",
-    },
-    {
-      title: "SOP Compliance",
-      progress: 75,
-      status: "In Progress",
-    },
-    {
-      title: "Process Training",
-      progress: 50,
-      status: "In Progress",
-    },
-  ];
+/* =========================================================
+   COMPONENT
+   ========================================================= */
 
-  /* =========================================================
-     RECOMMENDATIONS
-     ========================================================= */
+export default function EmployeeDashboard() {
 
-  const recommendations = [
-    {
-      id: 1,
-      icon: FileText,
-      title: "SOP Updated",
-      subtitle: "Distributor Onboarding v3.2",
-      description:
-        "This SOP was recently updated and affects your assigned process.",
-      action: "Review Now",
-    },
-    {
-      id: 2,
-      icon: GraduationCap,
-      title: "Training Recommended",
-      subtitle: "Data Privacy Certification",
-      description:
-        "Your certification expires in 14 days.",
-      action: "Start Training",
-    },
-  ];
+    const navigate = useNavigate();
 
-  /* =========================================================
-     RECENT UPDATES
-     ========================================================= */
+    const [mobileMenuOpen, setMobileMenuOpen] =
+        useState(false);
 
-  const recentUpdates = [
-    {
-      title: "SOP v3.2 published",
-      subtitle: "Distributor Onboarding",
-      time: "2h ago",
-      type: "sop",
-    },
-    {
-      title: "New training assigned",
-      subtitle: "Data Privacy",
-      time: "5h ago",
-      type: "training",
-    },
-    {
-      title: "Policy updated",
-      subtitle: "Information Security",
-      time: "Yesterday",
-      type: "policy",
-    },
-    {
-      title: "SOP approval completed",
-      subtitle: "Email Handling",
-      time: "Yesterday",
-      type: "approval",
-    },
-  ];
+    const [searchQuery, setSearchQuery] =
+        useState("");
 
-  /* =========================================================
-     ACTIVITY
-     ========================================================= */
+    const [notificationsOpen, setNotificationsOpen] =
+        useState(false);
 
-  const activityData = [
-    {
-      label: "SOPs Created",
-      value: 8,
-    },
-    {
-      label: "SOPs Viewed",
-      value: 42,
-    },
-    {
-      label: "AI Questions",
-      value: 37,
-    },
-    {
-      label: "Training",
-      value: 15,
-    },
-    {
-      label: "Documents",
-      value: 9,
-    },
-  ];
 
-  /* =========================================================
-     COMPLIANCE
-     ========================================================= */
+    /* =====================================================
+       USER
+       ===================================================== */
 
-  const complianceData = [
-    {
-      label: "SOP Acknowledgement",
-      value: 98,
-    },
-    {
-      label: "Training Compliance",
-      value: 92,
-    },
-    {
-      label: "Policy Compliance",
-      value: 95,
-    },
-    {
-      label: "Certification",
-      value: 91,
-    },
-  ];
+    const user = useMemo(() => {
 
-  /* =========================================================
-     NOTIFICATIONS
-     ========================================================= */
+        try {
 
-  const notifications = [
-    {
-      title: "SOP v3.2 published",
-      message: "Distributor Onboarding has been updated.",
-      time: "2h ago",
-    },
-    {
-      title: "Training assigned",
-      message: "Data Privacy training is now available.",
-      time: "5h ago",
-    },
-    {
-      title: "Action due today",
-      message: "Review Distributor Onboarding SOP.",
-      time: "6h ago",
-    },
-  ];
+            const storedUser =
+                localStorage.getItem("user");
 
-  /* =========================================================
-     HANDLERS
-     ========================================================= */
+            if (storedUser) {
 
-  const handleNavigation = (label) => {
-    setActiveMenu(label);
-  };
+                return {
+                    ...employeeData,
+                    ...JSON.parse(storedUser),
+                };
 
-  const handleQuickAction = (action) => {
-    setActiveMenu(action);
-    setShowQuickMenu(false);
+            }
 
-    if (action === "AI Assistant") {
-      document
-        .getElementById("employee-ai-assistant")
-        ?.scrollIntoView({
-          behavior: "smooth",
-        });
-    }
+        } catch (error) {
 
-    if (action === "Generate SOP") {
-      document
-        .getElementById("employee-ai-generator")
-        ?.scrollIntoView({
-          behavior: "smooth",
-        });
-    }
+            console.error(
+                "Unable to read user data:",
+                error
+            );
 
-    if (action === "Upload") {
-      document
-        .getElementById("employee-document-intelligence")
-        ?.scrollIntoView({
-          behavior: "smooth",
-        });
-    }
+        }
 
-    if (action === "All SOPs") {
-      document
-        .getElementById("employee-my-sops")
-        ?.scrollIntoView({
-          behavior: "smooth",
-        });
-    }
-  };
+        return employeeData;
 
-  const handleAiSearch = () => {
-    if (!aiQuery.trim()) return;
+    }, []);
 
-    setShowAiResponse(true);
-  };
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("userRole");
+    /* =====================================================
+       GREETING
+       ===================================================== */
 
-    window.location.href = "/login";
-  };
+    const greeting = useMemo(() => {
 
-  const handleGlobalSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+        const hour =
+            new Date().getHours();
 
-  /* =========================================================
-     SEARCH FILTER
-     ========================================================= */
+        if (hour < 12) {
+            return "Good Morning";
+        }
 
-  const filteredSops = sops.filter((sop) =>
-    `${sop.title} ${sop.owner} ${sop.version}`
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
-  );
+        if (hour < 17) {
+            return "Good Afternoon";
+        }
 
-  /* =========================================================
-     ANIMATION
-     ========================================================= */
+        return "Good Evening";
 
-  const pageVariants = {
-    hidden: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.45,
-        staggerChildren: 0.07,
-      },
-    },
-  };
+    }, []);
 
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      y: 14,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.35,
-        ease: "easeOut",
-      },
-    },
-  };
 
-  /* =========================================================
-     RETURN
-     ========================================================= */
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
 
-  return (
-    <div
-      className={`dashboard-page employee-dashboard-page ${
-        sidebarOpen
-          ? "dashboard-sidebar-open"
-          : "dashboard-sidebar-collapsed"
-      }`}
-    >
-      {/* =====================================================
-          SIDEBAR
-          ===================================================== */}
+    const handleNavigation = (path) => {
 
-      <AnimatePresence>
-        {sidebarOpen && (
-          <motion.aside
-            className="dashboard-sidebar"
-            initial={{
-              x: -30,
-              opacity: 0,
-            }}
-            animate={{
-              x: 0,
-              opacity: 1,
-            }}
-            exit={{
-              x: -30,
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
-          >
-            {/* BRAND */}
+        if (!path) {
+            return;
+        }
 
-            <div className="dashboard-sidebar-brand">
-              <div className="dashboard-brand-logo">
-                ◈
-              </div>
+        setMobileMenuOpen(false);
 
-              <div>
-                <strong>SOP INTELLIGENCE</strong>
-                <span>Employee Portal</span>
-              </div>
-            </div>
+        navigate(path);
 
-            {/* NAVIGATION */}
+    };
 
-            <div className="dashboard-sidebar-navigation">
-              <div className="dashboard-sidebar-section-label">
-                WORKSPACE
-              </div>
 
-              {navigationItems.map((item) => {
-                const Icon = item.icon;
-                const isActive = activeMenu === item.label;
+    /* =====================================================
+       LOGOUT
+       ===================================================== */
 
-                return (
-                  <div key={item.label}>
-                    <button
-                      type="button"
-                      className={`dashboard-sidebar-item ${
-                        isActive
-                          ? "dashboard-sidebar-item-active"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        handleNavigation(item.label)
-                      }
-                    >
-                      <Icon size={18} />
+    const handleLogout = () => {
 
-                      <span>{item.label}</span>
+        localStorage.removeItem("user");
 
-                      {item.children && (
-                        <ChevronDown
-                          size={14}
-                          className="dashboard-sidebar-chevron"
-                        />
-                      )}
-                    </button>
+        localStorage.removeItem("userRole");
 
-                    {item.children && isActive && (
-                      <motion.div
-                        className="dashboard-sidebar-submenu"
-                        initial={{
-                          opacity: 0,
-                          height: 0,
-                        }}
-                        animate={{
-                          opacity: 1,
-                          height: "auto",
-                        }}
-                      >
-                        {item.children.map((child) => (
-                          <button
-                            type="button"
-                            key={child}
-                            onClick={() =>
-                              handleNavigation(child)
-                            }
-                          >
-                            {child}
-                          </button>
-                        ))}
-                      </motion.div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
+        navigate("/login");
 
-            {/* BOTTOM NAV */}
+    };
 
-            <div className="dashboard-sidebar-bottom">
-              {bottomNavigation.map((item) => {
-                const Icon = item.icon;
 
-                return (
-                  <button
-                    type="button"
-                    className="dashboard-sidebar-item"
-                    key={item.label}
-                    onClick={() =>
-                      handleNavigation(item.label)
-                    }
-                  >
-                    <Icon size={18} />
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
-            </div>
+    /* =====================================================
+       SEARCH
+       ===================================================== */
 
-            {/* USER */}
+    const handleSearch = (e) => {
 
-            <div className="dashboard-sidebar-user">
-              <div className="dashboard-sidebar-user-avatar">
-                {user.name?.charAt(0)?.toUpperCase() || "J"}
-              </div>
+        e.preventDefault();
 
-              <div className="dashboard-sidebar-user-info">
-                <strong>{user.name}</strong>
-                <span>{user.role || "Employee"}</span>
-              </div>
+        if (!searchQuery.trim()) {
+            return;
+        }
 
-              <button
-                type="button"
-                className="employee-dashboard-logout"
-                onClick={handleLogout}
-                title="Logout"
-              >
-                <LogOut size={16} />
-              </button>
-            </div>
-          </motion.aside>
-        )}
-      </AnimatePresence>
+        console.log(
+            "Dashboard search:",
+            searchQuery
+        );
 
-      {/* =====================================================
-          MAIN
-          ===================================================== */}
+        /*
+         * Later:
+         * connect this to global SOP / AI search.
+         */
 
-      <main className="dashboard-main">
-        {/* ===================================================
-            TOP HEADER
-            =================================================== */}
+    };
 
-        <header className="dashboard-header">
-          <div className="dashboard-header-left">
-            <button
-              type="button"
-              className="dashboard-sidebar-toggle"
-              onClick={() =>
-                setSidebarOpen((previous) => !previous)
-              }
-              aria-label="Toggle sidebar"
+
+    return (
+
+        <div className="dashboard-page employee-dashboard-page">
+
+
+            {/* =================================================
+                BACKGROUND
+            ================================================= */}
+
+            <div
+                className="dashboard-background"
+                aria-hidden="true"
             >
-              {sidebarOpen ? (
-                <PanelLeftClose size={20} />
-              ) : (
-                <PanelLeftOpen size={20} />
-              )}
-            </button>
 
-            <div>
-              <span className="dashboard-header-label">
-                EMPLOYEE WORKSPACE
-              </span>
+                <div
+                    className="dashboard-background-orb dashboard-background-orb-one"
+                />
 
-              <h1>Dashboard</h1>
+                <div
+                    className="dashboard-background-orb dashboard-background-orb-two"
+                />
+
+                <div
+                    className="dashboard-background-grid"
+                />
+
             </div>
-          </div>
 
-          <div className="dashboard-header-actions">
-            {/* NOTIFICATIONS */}
 
-            <div className="dashboard-header-dropdown">
-              <button
-                type="button"
-                className="dashboard-header-icon-button"
+            {/* =================================================
+                MOBILE OVERLAY
+            ================================================= */}
+
+            <div
+                className={`dashboard-overlay ${
+                    mobileMenuOpen
+                        ? "visible"
+                        : ""
+                }`}
                 onClick={() =>
-                  setShowNotifications(
-                    (previous) => !previous
-                  )
+                    setMobileMenuOpen(false)
                 }
-              >
-                <Bell size={18} />
+            />
 
-                <span className="dashboard-notification-dot" />
-              </button>
 
-              <AnimatePresence>
-                {showNotifications && (
-                  <motion.div
-                    className="dashboard-dropdown-panel"
-                    initial={{
-                      opacity: 0,
-                      y: -8,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      y: -8,
-                    }}
-                  >
-                    <div className="dashboard-dropdown-header">
-                      <strong>Notifications</strong>
-                      <span>3 new</span>
-                    </div>
+            <div className="dashboard-layout">
 
-                    {notifications.map(
-                      (notification) => (
-                        <div
-                          className="dashboard-notification-item"
-                          key={notification.title}
-                        >
-                          <div className="dashboard-notification-icon">
-                            <Bell size={14} />
-                          </div>
 
-                          <div>
+                {/* =================================================
+                    SIDEBAR
+                ================================================= */}
+
+                <aside
+                    className={`dashboard-sidebar ${
+                        mobileMenuOpen
+                            ? "mobile-open"
+                            : ""
+                    }`}
+                >
+
+
+                    {/* BRAND */}
+
+                    <div className="dashboard-brand">
+
+                        <div className="dashboard-brand-logo">
+                            AI
+                        </div>
+
+                        <div className="dashboard-brand-content">
+
                             <strong>
-                              {notification.title}
+                                SOP Intelligence
                             </strong>
 
                             <span>
-                              {notification.message}
+                                Employee Portal
                             </span>
 
-                            <small>
-                              {notification.time}
-                            </small>
-                          </div>
-                        </div>
-                      )
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* PROFILE */}
-
-            <div className="dashboard-header-dropdown">
-              <button
-                type="button"
-                className="dashboard-profile-button"
-                onClick={() =>
-                  setShowProfile(
-                    (previous) => !previous
-                  )
-                }
-              >
-                <div className="dashboard-profile-avatar">
-                  {user.name?.charAt(0)?.toUpperCase() ||
-                    "J"}
-                </div>
-
-                <div>
-                  <strong>{user.name}</strong>
-                  <span>{user.role || "Employee"}</span>
-                </div>
-
-                <ChevronDown size={14} />
-              </button>
-
-              <AnimatePresence>
-                {showProfile && (
-                  <motion.div
-                    className="dashboard-dropdown-panel dashboard-profile-dropdown"
-                    initial={{
-                      opacity: 0,
-                      y: -8,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      y: -8,
-                    }}
-                  >
-                    <div className="dashboard-profile-dropdown-user">
-                      <div className="dashboard-profile-avatar large">
-                        {user.name
-                          ?.charAt(0)
-                          ?.toUpperCase() || "J"}
-                      </div>
-
-                      <div>
-                        <strong>{user.name}</strong>
-                        <span>{user.email}</span>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleNavigation("Profile")
-                      }
-                    >
-                      <User size={15} />
-                      Profile
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() =>
-                        handleNavigation("Settings")
-                      }
-                    >
-                      <Settings size={15} />
-                      Settings
-                    </button>
-
-                    <button
-                      type="button"
-                      className="dashboard-dropdown-danger"
-                      onClick={handleLogout}
-                    >
-                      <LogOut size={15} />
-                      Sign Out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
-        </header>
-
-        {/* ===================================================
-            CONTENT
-            =================================================== */}
-
-        <motion.div
-          className="dashboard-content employee-dashboard-content"
-          variants={pageVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* =================================================
-              WELCOME
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-welcome dashboard-card"
-            variants={itemVariants}
-          >
-            <div className="employee-dashboard-welcome-content">
-              <div>
-                <span className="employee-dashboard-eyebrow">
-                  PERSONALIZED WORKSPACE
-                </span>
-
-                <h2>
-                  Good Morning,{" "}
-                  <span>
-                    {user.name?.split(" ")[0] ||
-                      "Jasleen"}
-                  </span>{" "}
-                  👋
-                </h2>
-
-                <p>
-                  Here's your personalized SOP &
-                  compliance overview. Stay informed,
-                  complete your actions, and get instant
-                  answers with AI.
-                </p>
-              </div>
-
-              <div className="employee-dashboard-welcome-icon">
-                <BrainCircuit size={34} />
-              </div>
-            </div>
-          </motion.section>
-
-          {/* =================================================
-              GLOBAL SEARCH
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-search-section"
-            variants={itemVariants}
-          >
-            <div className="employee-dashboard-global-search">
-              <Search size={18} />
-
-              <input
-                type="text"
-                placeholder="Search SOPs, documents, policies or ask AI..."
-                value={searchQuery}
-                onChange={handleGlobalSearch}
-              />
-
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => setSearchQuery("")}
-                >
-                  <X size={16} />
-                </button>
-              )}
-
-              <kbd>⌘ K</kbd>
-            </div>
-          </motion.section>
-
-          {/* =================================================
-              QUICK ACTIONS
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-quick-section"
-            variants={itemVariants}
-          >
-            <div className="dashboard-section-heading">
-              <div>
-                <span>GET STARTED</span>
-                <h3>Quick Actions</h3>
-              </div>
-            </div>
-
-            <div className="employee-dashboard-quick-grid">
-              {quickActions.map((action) => {
-                const Icon = action.icon;
-
-                return (
-                  <motion.button
-                    type="button"
-                    className="employee-dashboard-quick-card"
-                    key={action.title}
-                    whileHover={{
-                      y: -3,
-                    }}
-                    whileTap={{
-                      scale: 0.98,
-                    }}
-                    onClick={() =>
-                      handleQuickAction(action.action)
-                    }
-                  >
-                    <div className="employee-dashboard-quick-icon">
-                      <Icon size={19} />
-                    </div>
-
-                    <div>
-                      <strong>{action.title}</strong>
-                      <span>{action.description}</span>
-                    </div>
-
-                    <ArrowRight size={16} />
-                  </motion.button>
-                );
-              })}
-            </div>
-          </motion.section>
-
-          {/* =================================================
-              KPI
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-kpi-grid"
-            variants={itemVariants}
-          >
-            {kpis.map((kpi) => {
-              const Icon = kpi.icon;
-
-              return (
-                <motion.div
-                  className="dashboard-stat-card employee-dashboard-stat-card"
-                  key={kpi.label}
-                  whileHover={{
-                    y: -3,
-                  }}
-                >
-                  <div className="dashboard-stat-card-top">
-                    <div className="dashboard-stat-icon">
-                      <Icon size={19} />
-                    </div>
-
-                    <span className="dashboard-stat-trend">
-                      {kpi.trend}
-                    </span>
-                  </div>
-
-                  <strong className="dashboard-stat-value">
-                    {kpi.value}
-                  </strong>
-
-                  <span className="dashboard-stat-label">
-                    {kpi.label}
-                  </span>
-
-                  <small className="dashboard-stat-description">
-                    {kpi.description}
-                  </small>
-                </motion.div>
-              );
-            })}
-          </motion.section>
-
-          {/* =================================================
-              AI ASSISTANT + MY ACTIONS
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-two-column"
-            variants={itemVariants}
-          >
-            {/* AI ASSISTANT */}
-
-            <div
-              id="employee-ai-assistant"
-              className="dashboard-card employee-dashboard-ai-card"
-            >
-              <div className="dashboard-card-heading">
-                <div className="dashboard-card-heading-icon ai">
-                  <Bot size={19} />
-                </div>
-
-                <div>
-                  <span>INTELLIGENT KNOWLEDGE</span>
-                  <h3>AI Knowledge Assistant</h3>
-                </div>
-
-                <Sparkles
-                  size={17}
-                  className="dashboard-card-heading-spark"
-                />
-              </div>
-
-              <p className="employee-dashboard-ai-description">
-                Ask questions about your company's SOPs,
-                policies and processes.
-              </p>
-
-              <div className="employee-dashboard-ai-input">
-                <input
-                  type="text"
-                  placeholder="What would you like to know?"
-                  value={aiQuery}
-                  onChange={(event) =>
-                    setAiQuery(event.target.value)
-                  }
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter") {
-                      handleAiSearch();
-                    }
-                  }}
-                />
-
-                <button
-                  type="button"
-                  onClick={handleAiSearch}
-                >
-                  <Search size={17} />
-                </button>
-              </div>
-
-              <div className="employee-dashboard-suggestions">
-                <span>Suggested</span>
-
-                {[
-                  "Explain an SOP",
-                  "Find a Process",
-                  "Compare SOPs",
-                  "Show Escalation Matrix",
-                ].map((suggestion) => (
-                  <button
-                    type="button"
-                    key={suggestion}
-                    onClick={() => {
-                      setAiQuery(suggestion);
-                      setShowAiResponse(true);
-                    }}
-                  >
-                    {suggestion}
-                  </button>
-                ))}
-              </div>
-
-              <AnimatePresence>
-                {showAiResponse && (
-                  <motion.div
-                    className="employee-dashboard-ai-response"
-                    initial={{
-                      opacity: 0,
-                      height: 0,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      height: "auto",
-                    }}
-                    exit={{
-                      opacity: 0,
-                      height: 0,
-                    }}
-                  >
-                    <div className="employee-dashboard-ai-response-icon">
-                      <Bot size={16} />
-                    </div>
-
-                    <div>
-                      <strong>AI Preview</strong>
-
-                      <p>
-                        Based on the available enterprise
-                        knowledge, I would retrieve the
-                        relevant SOPs and provide a
-                        step-by-step answer here.
-                      </p>
-
-                      <small>
-                        Mock response — backend integration
-                        pending.
-                      </small>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* MY ACTIONS */}
-
-            <div className="dashboard-card">
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>YOUR WORK</span>
-                  <h3>My Actions</h3>
-                </div>
-
-                <button
-                  type="button"
-                  className="dashboard-text-button"
-                  onClick={() =>
-                    setActiveMenu("My Actions")
-                  }
-                >
-                  View All
-                  <ArrowRight size={14} />
-                </button>
-              </div>
-
-              <div className="employee-dashboard-actions-list">
-                {myActions.map((action) => {
-                  const Icon = action.icon;
-
-                  return (
-                    <motion.button
-                      type="button"
-                      className="employee-dashboard-action-item"
-                      key={action.id}
-                      whileHover={{
-                        x: 2,
-                      }}
-                      onClick={() =>
-                        setSelectedAction(action)
-                      }
-                    >
-                      <div
-                        className={`employee-dashboard-action-icon ${action.status}`}
-                      >
-                        <Icon size={16} />
-                      </div>
-
-                      <div>
-                        <span>{action.type}</span>
-                        <strong>{action.title}</strong>
-                      </div>
-
-                      <small className={action.status}>
-                        {action.due}
-                      </small>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.section>
-
-          {/* =================================================
-              MY SOPS
-              ================================================= */}
-
-          <motion.section
-            id="employee-my-sops"
-            className="dashboard-card"
-            variants={itemVariants}
-          >
-            <div className="dashboard-card-heading simple">
-              <div>
-                <span>KNOWLEDGE LIBRARY</span>
-                <h3>My SOPs</h3>
-              </div>
-
-              <button
-                type="button"
-                className="dashboard-text-button"
-                onClick={() =>
-                  setActiveMenu("My SOPs")
-                }
-              >
-                View All
-                <ArrowRight size={14} />
-              </button>
-            </div>
-
-            <div className="employee-dashboard-sop-grid">
-              {filteredSops.map((sop) => (
-                <motion.div
-                  className="employee-dashboard-sop-card"
-                  key={sop.id}
-                  whileHover={{
-                    y: -3,
-                  }}
-                >
-                  <div className="employee-dashboard-sop-top">
-                    <div className="employee-dashboard-sop-file">
-                      <FileText size={18} />
-                    </div>
-
-                    <button
-                      type="button"
-                      className="employee-dashboard-more-button"
-                    >
-                      <MoreHorizontal size={17} />
-                    </button>
-                  </div>
-
-                  <h4>{sop.title}</h4>
-
-                  <div className="employee-dashboard-sop-meta">
-                    <span>{sop.version}</span>
-                    <span>•</span>
-                    <span
-                      className={`dashboard-status ${
-                        sop.status === "Approved"
-                          ? "success"
-                          : "warning"
-                      }`}
-                    >
-                      {sop.status}
-                    </span>
-                  </div>
-
-                  <div className="employee-dashboard-sop-details">
-                    <span>Updated {sop.updated}</span>
-                    <span>{sop.owner}</span>
-                    <span>{sop.pages}</span>
-                  </div>
-
-                  <button
-                    type="button"
-                    className="employee-dashboard-sop-view"
-                    onClick={() => setSelectedSop(sop)}
-                  >
-                    View SOP
-                    <ArrowRight size={14} />
-                  </button>
-                </motion.div>
-              ))}
-            </div>
-
-            {filteredSops.length === 0 && (
-              <div className="employee-dashboard-empty">
-                <Search size={24} />
-                <strong>No SOPs found</strong>
-                <span>
-                  Try searching with another keyword.
-                </span>
-              </div>
-            )}
-          </motion.section>
-
-          {/* =================================================
-              AI GENERATOR + DOCUMENT INTELLIGENCE
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-two-column"
-            variants={itemVariants}
-          >
-            {/* AI GENERATOR */}
-
-            <div
-              id="employee-ai-generator"
-              className="dashboard-card"
-            >
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>CREATE WITH AI</span>
-                  <h3>AI SOP Generation</h3>
-                </div>
-
-                <Sparkles size={18} />
-              </div>
-
-              <p className="employee-dashboard-card-description">
-                Turn your process knowledge into a
-                structured SOP.
-              </p>
-
-              <button
-                type="button"
-                className="employee-dashboard-primary-button"
-                onClick={() =>
-                  setActiveMenu("Generate SOP")
-                }
-              >
-                <Sparkles size={16} />
-                Start New SOP
-                <ArrowRight size={15} />
-              </button>
-
-              <div className="employee-dashboard-generated-list">
-                <div className="employee-dashboard-subheading">
-                  Recently Generated
-                </div>
-
-                {generatedSops.map((sop) => (
-                  <div
-                    className="employee-dashboard-generated-item"
-                    key={sop.title}
-                  >
-                    <div>
-                      <FileText size={15} />
-
-                      <div>
-                        <strong>{sop.title}</strong>
-                        <span>{sop.date}</span>
-                      </div>
-                    </div>
-
-                    <span className="employee-dashboard-generated-status">
-                      {sop.status}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* DOCUMENT INTELLIGENCE */}
-
-            <div
-              id="employee-document-intelligence"
-              className="dashboard-card"
-            >
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>AI DOCUMENT PROCESSING</span>
-                  <h3>Document Intelligence</h3>
-                </div>
-
-                <FileSearch size={18} />
-              </div>
-
-              <p className="employee-dashboard-card-description">
-                Upload a document and let AI analyze it.
-              </p>
-
-              <button
-                type="button"
-                className="employee-dashboard-upload-area"
-                onClick={() =>
-                  setActiveMenu("Upload")
-                }
-              >
-                <div>
-                  <Upload size={23} />
-                </div>
-
-                <strong>Upload a document</strong>
-
-                <span>
-                  Drag & Drop or click to upload
-                </span>
-
-                <small>PDF • DOCX • XLSX</small>
-              </button>
-
-              <div className="employee-dashboard-ai-tools">
-                <span>OCR</span>
-                <span>Summarize</span>
-                <span>Extract Steps</span>
-                <span>Classify</span>
-                <span>Detect Issues</span>
-              </div>
-            </div>
-          </motion.section>
-
-          {/* =================================================
-              SOP COMPARISON + TRAINING
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-two-column"
-            variants={itemVariants}
-          >
-            {/* COMPARISON */}
-
-            <div className="dashboard-card">
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>VERSION CONTROL</span>
-                  <h3>Compare SOP Versions</h3>
-                </div>
-
-                <FileSearch size={18} />
-              </div>
-
-              <p className="employee-dashboard-card-description">
-                Compare two SOP versions and identify
-                changes with AI.
-              </p>
-
-              <div className="employee-dashboard-comparison">
-                <button type="button">
-                  SOP v2.0
-                  <ChevronDown size={14} />
-                </button>
-
-                <ArrowRight size={17} />
-
-                <button type="button">
-                  SOP v3.0
-                  <ChevronDown size={14} />
-                </button>
-              </div>
-
-              <button
-                type="button"
-                className="employee-dashboard-primary-button"
-                onClick={() =>
-                  setActiveMenu("Compare SOPs")
-                }
-              >
-                <FileSearch size={16} />
-                Compare Versions
-              </button>
-
-              <div className="employee-dashboard-comparison-legend">
-                <span className="added">
-                  <i /> Added
-                </span>
-
-                <span className="removed">
-                  <i /> Removed
-                </span>
-
-                <span className="modified">
-                  <i /> Modified
-                </span>
-              </div>
-            </div>
-
-            {/* TRAINING */}
-
-            <div className="dashboard-card">
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>LEARNING CENTER</span>
-                  <h3>Training & Learning</h3>
-                </div>
-
-                <button
-                  type="button"
-                  className="dashboard-text-button"
-                  onClick={() =>
-                    setActiveMenu("Training")
-                  }
-                >
-                  View All
-                  <ArrowRight size={14} />
-                </button>
-              </div>
-
-              <div className="employee-dashboard-training-list">
-                {trainingCourses.map((course) => (
-                  <div
-                    className="employee-dashboard-training-item"
-                    key={course.title}
-                  >
-                    <div className="employee-dashboard-training-header">
-                      <div>
-                        <strong>{course.title}</strong>
-                        <span>{course.status}</span>
-                      </div>
-
-                      <b>{course.progress}%</b>
-                    </div>
-
-                    <div className="employee-dashboard-progress">
-                      <span
-                        style={{
-                          width: `${course.progress}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="employee-dashboard-training-footer">
-                <span>2 courses pending</span>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setActiveMenu("Training")
-                  }
-                >
-                  Continue Learning
-                  <ArrowRight size={14} />
-                </button>
-              </div>
-            </div>
-          </motion.section>
-
-          {/* =================================================
-              COMPLIANCE + RECOMMENDATIONS
-              ================================================= */}
-
-          <motion.section
-            className="employee-dashboard-two-column"
-            variants={itemVariants}
-          >
-            {/* COMPLIANCE */}
-
-            <div className="dashboard-card employee-dashboard-compliance-card">
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>YOUR STATUS</span>
-                  <h3>Compliance</h3>
-                </div>
-
-                <ShieldCheck size={18} />
-              </div>
-
-              <div className="employee-dashboard-compliance-score">
-                <div className="employee-dashboard-score-circle">
-                  <strong>94%</strong>
-                  <span>Compliance</span>
-                </div>
-
-                <div className="employee-dashboard-compliance-bars">
-                  {complianceData.map((item) => (
-                    <div
-                      className="employee-dashboard-compliance-item"
-                      key={item.label}
-                    >
-                      <div>
-                        <span>{item.label}</span>
-                        <b>{item.value}%</b>
-                      </div>
-
-                      <div className="employee-dashboard-progress">
-                        <span
-                          style={{
-                            width: `${item.value}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <button
-                type="button"
-                className="employee-dashboard-secondary-button"
-                onClick={() =>
-                  setActiveMenu(
-                    "Compliance Details"
-                  )
-                }
-              >
-                View Compliance Details
-                <ArrowRight size={14} />
-              </button>
-            </div>
-
-            {/* RECOMMENDATIONS */}
-
-            <div className="dashboard-card">
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>PERSONALIZED INSIGHTS</span>
-                  <h3>AI Recommendations</h3>
-                </div>
-
-                <Sparkles size={18} />
-              </div>
-
-              <div className="employee-dashboard-recommendations">
-                {recommendations.map(
-                  (recommendation) => {
-                    const Icon = recommendation.icon;
-
-                    return (
-                      <motion.button
-                        type="button"
-                        className="employee-dashboard-recommendation"
-                        key={recommendation.id}
-                        whileHover={{
-                          y: -2,
-                        }}
-                        onClick={() =>
-                          setSelectedRecommendation(
-                            recommendation
-                          )
-                        }
-                      >
-                        <div className="employee-dashboard-recommendation-icon">
-                          <Icon size={18} />
                         </div>
 
-                        <div>
-                          <span>
-                            {recommendation.title}
-                          </span>
+                        <button
+                            type="button"
+                            className="employee-sidebar-close"
+                            onClick={() =>
+                                setMobileMenuOpen(false)
+                            }
+                            aria-label="Close menu"
+                        >
+                            <FaTimes />
+                        </button>
 
-                          <strong>
-                            {recommendation.subtitle}
-                          </strong>
+                    </div>
 
-                          <p>
-                            {recommendation.description}
-                          </p>
 
-                          <b>
-                            {recommendation.action}
-                            <ArrowRight size={13} />
-                          </b>
+                    {/* NAVIGATION */}
+
+                    <nav className="dashboard-nav">
+
+
+                        <div className="dashboard-nav-label">
+                            WORKSPACE
                         </div>
-                      </motion.button>
-                    );
-                  }
-                )}
-              </div>
-            </div>
-          </motion.section>
 
-          {/* =================================================
-              RECENT UPDATES + MY ACTIVITY
-              ================================================= */}
 
-          <motion.section
-            className="employee-dashboard-two-column"
-            variants={itemVariants}
-          >
-            {/* RECENT UPDATES */}
+                        {sidebarItems.map(
+                            (item, index) => (
 
-            <div className="dashboard-card">
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>WHAT'S NEW</span>
-                  <h3>Recent Updates</h3>
-                </div>
+                                <div
+                                    key={item.label}
+                                    className="employee-nav-group"
+                                >
 
-                <Bell size={18} />
-              </div>
+                                    <button
+                                        type="button"
+                                        className={`dashboard-nav-item ${
+                                            index === 0
+                                                ? "active"
+                                                : ""
+                                        }`}
+                                        onClick={() => {
 
-              <div className="employee-dashboard-updates">
-                {recentUpdates.map((update) => (
-                  <div
-                    className="employee-dashboard-update"
-                    key={`${update.title}-${update.time}`}
-                  >
-                    <div className="employee-dashboard-update-dot" />
+                                            if (
+                                                item.path
+                                            ) {
+                                                handleNavigation(
+                                                    item.path
+                                                );
+                                            }
 
-                    <div>
-                      <strong>{update.title}</strong>
-                      <span>{update.subtitle}</span>
+                                        }}
+                                    >
+
+                                        <span className="dashboard-nav-icon">
+                                            {item.icon}
+                                        </span>
+
+                                        <span className="dashboard-nav-text">
+                                            {item.label}
+                                        </span>
+
+                                        {item.children && (
+                                            <span className="employee-nav-arrow">
+                                                <FaChevronRight />
+                                            </span>
+                                        )}
+
+                                    </button>
+
+
+                                    {item.children && (
+
+                                        <div className="employee-nav-submenu">
+
+                                            {item.children.map(
+                                                (child) => (
+
+                                                    <button
+                                                        key={child}
+                                                        type="button"
+                                                        className="employee-nav-subitem"
+                                                        onClick={() =>
+                                                            console.log(
+                                                                child
+                                                            )
+                                                        }
+                                                    >
+                                                        {child}
+                                                    </button>
+
+                                                )
+                                            )}
+
+                                        </div>
+
+                                    )}
+
+                                </div>
+
+                            )
+                        )}
+
+                    </nav>
+
+
+                    {/* SIDEBAR FOOTER */}
+
+                    <div className="dashboard-sidebar-footer">
+
+                        <button
+                            type="button"
+                            className="dashboard-nav-item"
+                            onClick={() =>
+                                console.log(
+                                    "Settings"
+                                )
+                            }
+                        >
+
+                            <span className="dashboard-nav-icon">
+                                <FaCog />
+                            </span>
+
+                            <span className="dashboard-nav-text">
+                                Settings
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            className="dashboard-nav-item"
+                            onClick={() =>
+                                console.log(
+                                    "Help"
+                                )
+                            }
+                        >
+
+                            <span className="dashboard-nav-icon">
+                                <FaQuestionCircle />
+                            </span>
+
+                            <span className="dashboard-nav-text">
+                                Help & Support
+                            </span>
+
+                        </button>
+
+
+                        {/* USER */}
+
+                        <div className="dashboard-user">
+
+                            <div className="dashboard-user-avatar">
+                                {user.name
+                                    ?.charAt(0)
+                                    ?.toUpperCase() || "U"}
+                            </div>
+
+                            <div className="dashboard-user-info">
+
+                                <span className="dashboard-user-name">
+                                    {user.name}
+                                </span>
+
+                                <span className="dashboard-user-role">
+                                    {user.role}
+                                </span>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                className="employee-logout-button"
+                                onClick={
+                                    handleLogout
+                                }
+                                title="Sign out"
+                                aria-label="Sign out"
+                            >
+                                <FaSignOutAlt />
+                            </button>
+
+                        </div>
+
                     </div>
 
-                    <time>{update.time}</time>
-                  </div>
-                ))}
-              </div>
-            </div>
+                </aside>
 
-            {/* ACTIVITY */}
 
-            <div className="dashboard-card">
-              <div className="dashboard-card-heading simple">
-                <div>
-                  <span>YOUR ACTIVITY</span>
-                  <h3>My Activity</h3>
-                </div>
+                {/* =================================================
+                    MAIN
+                ================================================= */}
 
-                <Activity size={18} />
-              </div>
+                <main className="dashboard-main">
 
-              <div className="employee-dashboard-activity-chart">
-                {activityData.map((item) => (
-                  <div
-                    className="employee-dashboard-chart-column"
-                    key={item.label}
-                  >
-                    <div className="employee-dashboard-chart-value">
-                      {item.value}
+
+                    {/* =================================================
+                        HEADER
+                    ================================================= */}
+
+                    <header className="dashboard-header">
+
+
+                        <div className="dashboard-header-left">
+
+
+                            <button
+                                type="button"
+                                className="dashboard-mobile-menu"
+                                onClick={() =>
+                                    setMobileMenuOpen(
+                                        true
+                                    )
+                                }
+                                aria-label="Open menu"
+                            >
+                                <FaBars />
+                            </button>
+
+
+                            <div className="dashboard-page-title">
+
+                                <span className="employee-header-eyebrow">
+                                    EMPLOYEE WORKSPACE
+                                </span>
+
+                                <h1>
+                                    Dashboard
+                                </h1>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* HEADER ACTIONS */}
+
+                        <div className="dashboard-header-actions">
+
+
+                            <div className="employee-notification-wrapper">
+
+                                <button
+                                    type="button"
+                                    className="dashboard-header-action"
+                                    onClick={() =>
+                                        setNotificationsOpen(
+                                            !notificationsOpen
+                                        )
+                                    }
+                                    title="Notifications"
+                                    aria-label="Notifications"
+                                >
+
+                                    <FaBell />
+
+                                    <span className="dashboard-notification-dot" />
+
+                                </button>
+
+
+                                {notificationsOpen && (
+
+                                    <div className="employee-notification-panel">
+
+                                        <div className="employee-notification-header">
+
+                                            <strong>
+                                                Notifications
+                                            </strong>
+
+                                            <span>
+                                                4 new
+                                            </span>
+
+                                        </div>
+
+
+                                        {recentUpdates
+                                            .slice(0, 3)
+                                            .map(
+                                                (
+                                                    notification
+                                                ) => (
+
+                                                    <div
+                                                        key={
+                                                            notification.title
+                                                        }
+                                                        className="employee-notification-item"
+                                                    >
+
+                                                        <span className="employee-notification-icon">
+                                                            <FaBell />
+                                                        </span>
+
+                                                        <div>
+
+                                                            <strong>
+                                                                {
+                                                                    notification.title
+                                                                }
+                                                            </strong>
+
+                                                            <span>
+                                                                {
+                                                                    notification.time
+                                                                }
+                                                            </span>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                )
+                                            )}
+
+                                    </div>
+
+                                )}
+
+                            </div>
+
+
+                            {/* PROFILE */}
+
+                            <button
+                                type="button"
+                                className="employee-header-profile"
+                                onClick={() =>
+                                    console.log(
+                                        "Profile"
+                                    )
+                                }
+                            >
+
+                                <span className="employee-header-avatar">
+                                    {user.name
+                                        ?.charAt(0)
+                                        ?.toUpperCase() ||
+                                        "U"}
+                                </span>
+
+                                <span className="employee-header-profile-info">
+
+                                    <strong>
+                                        {user.name}
+                                    </strong>
+
+                                    <small>
+                                        {user.role}
+                                    </small>
+
+                                </span>
+
+                                <span>
+                                    <FaChevronRight />
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </header>
+
+
+                    {/* =================================================
+                        CONTENT
+                    ================================================= */}
+
+                    <div className="dashboard-content">
+
+
+                        {/* =================================================
+                            WELCOME
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+                            <div className="employee-welcome-card dashboard-card">
+
+
+                                <div className="employee-welcome-content">
+
+                                    <span className="employee-section-eyebrow">
+                                        PERSONALIZED WORKSPACE
+                                    </span>
+
+                                    <h2>
+
+                                        {greeting},{" "}
+
+                                        <span>
+                                            {user.name}
+                                        </span>
+
+                                        <span className="employee-wave">
+                                            👋
+                                        </span>
+
+                                    </h2>
+
+                                    <p>
+                                        Here's your personalized
+                                        SOP and compliance overview.
+                                        Stay informed, complete your
+                                        actions, and get instant
+                                        answers with AI.
+                                    </p>
+
+                                </div>
+
+
+                                <div
+                                    className="employee-welcome-icon"
+                                    title="Your AI-powered enterprise workspace"
+                                >
+                                    <FaBrain />
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        {/* =================================================
+                            SEARCH
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+                            <form
+                                className="employee-search-wrapper"
+                                onSubmit={
+                                    handleSearch
+                                }
+                            >
+
+                                <div className="dashboard-search">
+
+                                    <FaSearch className="employee-search-icon" />
+
+                                    <input
+                                        type="text"
+                                        value={
+                                            searchQuery
+                                        }
+                                        onChange={(e) =>
+                                            setSearchQuery(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Search SOPs, documents, policies or ask AI..."
+                                        aria-label="Search SOPs, documents, policies or ask AI"
+                                    />
+
+                                    <span className="employee-search-shortcut">
+                                        ⌘ K
+                                    </span>
+
+                                </div>
+
+                            </form>
+
+                        </section>
+
+
+                        {/* =================================================
+                            QUICK ACTIONS
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+
+                            <div className="dashboard-section-header">
+
+                                <div className="dashboard-section-heading">
+
+                                    <span className="employee-section-eyebrow">
+                                        GET STARTED
+                                    </span>
+
+                                    <h2>
+                                        Quick Actions
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div className="employee-quick-actions-grid">
+
+                                {quickActions.map(
+                                    (action) => (
+
+                                        <button
+                                            type="button"
+                                            key={
+                                                action.title
+                                            }
+                                            className="employee-quick-action dashboard-card"
+                                            title={
+                                                action.info
+                                            }
+                                            onClick={() =>
+                                                console.log(
+                                                    action.title
+                                                )
+                                            }
+                                        >
+
+                                            <span className="employee-action-icon">
+                                                {
+                                                    action.icon
+                                                }
+                                            </span>
+
+                                            <span className="employee-action-content">
+
+                                                <strong>
+                                                    {
+                                                        action.title
+                                                    }
+                                                </strong>
+
+                                                <small>
+                                                    {
+                                                        action.description
+                                                    }
+                                                </small>
+
+                                            </span>
+
+                                            <span className="employee-info-icon">
+                                                <FaInfoCircle />
+                                            </span>
+
+                                            <FaChevronRight className="employee-action-arrow" />
+
+                                        </button>
+
+                                    )
+                                )}
+
+                            </div>
+
+                        </section>
+
+
+                        {/* =================================================
+                            KPI
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+
+                            <div className="dashboard-stats-grid">
+
+                                {kpiData.map(
+                                    (kpi) => (
+
+                                        <div
+                                            key={
+                                                kpi.label
+                                            }
+                                            className="dashboard-card dashboard-stat-card employee-kpi-card"
+                                            title={
+                                                kpi.description
+                                            }
+                                        >
+
+                                            <div className="dashboard-stat-header">
+
+                                                <div className="dashboard-stat-icon">
+                                                    {
+                                                        kpi.icon
+                                                    }
+                                                </div>
+
+                                                <span
+                                                    className="employee-kpi-info"
+                                                    title={
+                                                        kpi.description
+                                                    }
+                                                >
+                                                    <FaInfoCircle />
+                                                </span>
+
+                                            </div>
+
+                                            <div className="dashboard-stat-label">
+                                                {
+                                                    kpi.label
+                                                }
+                                            </div>
+
+                                            <div className="dashboard-stat-value">
+                                                {
+                                                    kpi.value
+                                                }
+                                            </div>
+
+                                            <div
+                                                className={`dashboard-stat-change ${kpi.changeType}`}
+                                            >
+
+                                                {
+                                                    kpi.change
+                                                }
+
+                                            </div>
+
+                                        </div>
+
+                                    )
+                                )}
+
+                            </div>
+
+                        </section>
+
+
+                        {/* =================================================
+                            AI ASSISTANT + MY ACTIONS
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+
+                            <div className="dashboard-grid">
+
+
+                                {/* AI ASSISTANT */}
+
+                                <div className="dashboard-grid-two-third">
+
+                                    <div
+                                        className="dashboard-card employee-ai-card"
+                                        title="AI Knowledge Assistant helps you search and understand enterprise knowledge using natural language."
+                                    >
+
+                                        <div className="employee-card-header">
+
+                                            <div>
+
+                                                <span className="employee-section-eyebrow">
+                                                    INTELLIGENT KNOWLEDGE
+                                                </span>
+
+                                                <h2>
+                                                    <FaRobot />
+                                                    AI Knowledge Assistant
+                                                </h2>
+
+                                            </div>
+
+                                            <span
+                                                className="employee-info-icon large"
+                                                title="Ask questions about SOPs, policies, documents and enterprise knowledge."
+                                            >
+                                                <FaInfoCircle />
+                                            </span>
+
+                                        </div>
+
+
+                                        <div className="employee-ai-content">
+
+                                            <div className="employee-ai-icon">
+                                                <FaBrain />
+                                            </div>
+
+                                            <div>
+
+                                                <h3>
+                                                    Ask anything about your workplace knowledge
+                                                </h3>
+
+                                                <p>
+                                                    Search SOPs,
+                                                    understand
+                                                    policies,
+                                                    summarize
+                                                    documents and
+                                                    get intelligent
+                                                    answers from
+                                                    your enterprise
+                                                    knowledge base.
+                                                </p>
+
+                                                <button
+                                                    type="button"
+                                                    className="dashboard-button dashboard-button-primary"
+                                                    onClick={() =>
+                                                        handleNavigation(
+                                                            "/ai-assistant"
+                                                        )
+                                                    }
+                                                >
+
+                                                    Ask AI
+
+                                                    <FaChevronRight />
+
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                {/* MY ACTIONS */}
+
+                                <div className="dashboard-grid-half">
+
+                                    <div
+                                        className="dashboard-card employee-actions-card"
+                                        title="Shows tasks and activities that currently require your attention."
+                                    >
+
+                                        <div className="employee-card-header">
+
+                                            <div>
+
+                                                <span className="employee-section-eyebrow">
+                                                    YOUR WORK
+                                                </span>
+
+                                                <h2>
+                                                    My Actions
+                                                </h2>
+
+                                            </div>
+
+                                            <span
+                                                className="employee-info-icon large"
+                                                title="Tasks, acknowledgements, approvals and activities assigned to you."
+                                            >
+                                                <FaInfoCircle />
+                                            </span>
+
+                                        </div>
+
+
+                                        <div className="employee-action-list">
+
+
+                                            <div className="employee-action-row">
+
+                                                <span className="employee-action-status warning">
+                                                    <FaClock />
+                                                </span>
+
+                                                <div>
+
+                                                    <strong>
+                                                        Review updated SOP
+                                                    </strong>
+
+                                                    <small>
+                                                        Due today
+                                                    </small>
+
+                                                </div>
+
+                                                <FaChevronRight />
+
+                                            </div>
+
+
+                                            <div className="employee-action-row">
+
+                                                <span className="employee-action-status info">
+                                                    <FaGraduationCap />
+                                                </span>
+
+                                                <div>
+
+                                                    <strong>
+                                                        Complete training
+                                                    </strong>
+
+                                                    <small>
+                                                        2 days remaining
+                                                    </small>
+
+                                                </div>
+
+                                                <FaChevronRight />
+
+                                            </div>
+
+
+                                            <div className="employee-action-row">
+
+                                                <span className="employee-action-status success">
+                                                    <FaCheckCircle />
+                                                </span>
+
+                                                <div>
+
+                                                    <strong>
+                                                        SOP acknowledgement
+                                                    </strong>
+
+                                                    <small>
+                                                        Completed
+                                                    </small>
+
+                                                </div>
+
+                                                <FaChevronRight />
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <button
+                                            type="button"
+                                            className="employee-view-all"
+                                            onClick={() =>
+                                                console.log(
+                                                    "View all actions"
+                                                )
+                                            }
+                                        >
+                                            View All
+                                            <FaChevronRight />
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        {/* =================================================
+                            MY SOPs + FEATURES
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+
+                            <div className="dashboard-section-header">
+
+                                <div className="dashboard-section-heading">
+
+                                    <span className="employee-section-eyebrow">
+                                        KNOWLEDGE & PRODUCTIVITY
+                                    </span>
+
+                                    <h2>
+                                        My Workspace
+                                    </h2>
+
+                                </div>
+
+                            </div>
+
+
+                            <div className="employee-feature-grid">
+
+
+                                {/* MY SOPs */}
+
+                                <div
+                                    className="dashboard-card employee-feature-card"
+                                    title="View SOPs assigned to you or available through your employee permissions."
+                                >
+
+                                    <div className="employee-feature-icon">
+                                        <FaBookOpen />
+                                    </div>
+
+                                    <div className="employee-feature-title">
+
+                                        <h3>
+                                            My SOPs
+                                        </h3>
+
+                                        <span
+                                            className="employee-info-icon"
+                                        >
+                                            <FaInfoCircle />
+                                        </span>
+
+                                    </div>
+
+                                    <p>
+                                        View assigned and
+                                        accessible standard
+                                        operating procedures.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="employee-feature-link"
+                                    >
+                                        View SOPs
+                                        <FaChevronRight />
+                                    </button>
+
+                                </div>
+
+
+                                {/* GENERATOR */}
+
+                                <div
+                                    className="dashboard-card employee-feature-card"
+                                    title="Generate structured SOP drafts using AI."
+                                >
+
+                                    <div className="employee-feature-icon">
+                                        <FaMagic />
+                                    </div>
+
+                                    <div className="employee-feature-title">
+
+                                        <h3>
+                                            AI SOP Generator
+                                        </h3>
+
+                                        <span
+                                            className="employee-info-icon"
+                                        >
+                                            <FaInfoCircle />
+                                        </span>
+
+                                    </div>
+
+                                    <p>
+                                        Create structured SOP
+                                        drafts faster using
+                                        AI-powered generation.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="employee-feature-link"
+                                    >
+                                        Generate
+                                        <FaChevronRight />
+                                    </button>
+
+                                </div>
+
+
+                                {/* DOCUMENT INTELLIGENCE */}
+
+                                <div
+                                    className="dashboard-card employee-feature-card"
+                                    title="Upload documents and use AI to extract, analyze and understand their content."
+                                >
+
+                                    <div className="employee-feature-icon">
+                                        <FaFileAlt />
+                                    </div>
+
+                                    <div className="employee-feature-title">
+
+                                        <h3>
+                                            Document Intelligence
+                                        </h3>
+
+                                        <span
+                                            className="employee-info-icon"
+                                        >
+                                            <FaInfoCircle />
+                                        </span>
+
+                                    </div>
+
+                                    <p>
+                                        Analyze documents,
+                                        extract information
+                                        and understand
+                                        uploaded files.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="employee-feature-link"
+                                    >
+                                        Analyze
+                                        <FaChevronRight />
+                                    </button>
+
+                                </div>
+
+
+                                {/* COMPARISON */}
+
+                                <div
+                                    className="dashboard-card employee-feature-card"
+                                    title="Compare SOP versions or documents to identify important differences."
+                                >
+
+                                    <div className="employee-feature-icon">
+                                        <FaExchangeAlt />
+                                    </div>
+
+                                    <div className="employee-feature-title">
+
+                                        <h3>
+                                            SOP Comparison
+                                        </h3>
+
+                                        <span
+                                            className="employee-info-icon"
+                                        >
+                                            <FaInfoCircle />
+                                        </span>
+
+                                    </div>
+
+                                    <p>
+                                        Compare documents
+                                        and SOP versions
+                                        to identify changes.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="employee-feature-link"
+                                    >
+                                        Compare
+                                        <FaChevronRight />
+                                    </button>
+
+                                </div>
+
+
+                                {/* TRAINING */}
+
+                                <div
+                                    className="dashboard-card employee-feature-card"
+                                    title="Track your assigned training, completion and certification status."
+                                >
+
+                                    <div className="employee-feature-icon">
+                                        <FaGraduationCap />
+                                    </div>
+
+                                    <div className="employee-feature-title">
+
+                                        <h3>
+                                            Training
+                                        </h3>
+
+                                        <span
+                                            className="employee-info-icon"
+                                        >
+                                            <FaInfoCircle />
+                                        </span>
+
+                                    </div>
+
+                                    <p>
+                                        Track training,
+                                        certifications and
+                                        upcoming learning
+                                        requirements.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="employee-feature-link"
+                                    >
+                                        View Training
+                                        <FaChevronRight />
+                                    </button>
+
+                                </div>
+
+
+                                {/* COMPLIANCE */}
+
+                                <div
+                                    className="dashboard-card employee-feature-card"
+                                    title="Monitor your compliance score, required acknowledgements and compliance activities."
+                                >
+
+                                    <div className="employee-feature-icon">
+                                        <FaShieldAlt />
+                                    </div>
+
+                                    <div className="employee-feature-title">
+
+                                        <h3>
+                                            Compliance
+                                        </h3>
+
+                                        <span
+                                            className="employee-info-icon"
+                                        >
+                                            <FaInfoCircle />
+                                        </span>
+
+                                    </div>
+
+                                    <p>
+                                        Monitor your
+                                        compliance score
+                                        and required
+                                        activities.
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        className="employee-feature-link"
+                                    >
+                                        View Compliance
+                                        <FaChevronRight />
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        {/* =================================================
+                            RECOMMENDATIONS + RECENT UPDATES
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+
+                            <div className="dashboard-grid">
+
+
+                                {/* RECOMMENDATIONS */}
+
+                                <div className="dashboard-grid-half">
+
+                                    <div className="dashboard-card employee-recommendations-card">
+
+                                        <div className="employee-card-header">
+
+                                            <div>
+
+                                                <span className="employee-section-eyebrow">
+                                                    AI INSIGHTS
+                                                </span>
+
+                                                <h2>
+                                                    <FaLightbulb />
+                                                    Recommended for You
+                                                </h2>
+
+                                            </div>
+
+                                            <span
+                                                className="employee-info-icon large"
+                                                title="AI-generated recommendations based on your assigned work, SOP changes and learning requirements."
+                                            >
+                                                <FaInfoCircle />
+                                            </span>
+
+                                        </div>
+
+
+                                        <div className="employee-recommendation-list">
+
+                                            {recommendations.map(
+                                                (
+                                                    recommendation
+                                                ) => (
+
+                                                    <div
+                                                        key={
+                                                            recommendation.title
+                                                        }
+                                                        className="employee-recommendation"
+                                                    >
+
+                                                        <div className="employee-recommendation-icon">
+                                                            {
+                                                                recommendation.icon
+                                                            }
+                                                        </div>
+
+                                                        <div className="employee-recommendation-content">
+
+                                                            <span>
+                                                                {
+                                                                    recommendation.title
+                                                                }
+                                                            </span>
+
+                                                            <strong>
+                                                                {
+                                                                    recommendation.item
+                                                                }
+                                                            </strong>
+
+                                                            <p>
+                                                                {
+                                                                    recommendation.description
+                                                                }
+                                                            </p>
+
+                                                            <button
+                                                                type="button"
+                                                                className="employee-feature-link"
+                                                            >
+                                                                {
+                                                                    recommendation.action
+                                                                }
+                                                                <FaChevronRight />
+                                                            </button>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                )
+                                            )}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                {/* RECENT UPDATES */}
+
+                                <div className="dashboard-grid-half">
+
+                                    <div className="dashboard-card employee-updates-card">
+
+                                        <div className="employee-card-header">
+
+                                            <div>
+
+                                                <span className="employee-section-eyebrow">
+                                                    ACTIVITY
+                                                </span>
+
+                                                <h2>
+                                                    Recent Updates
+                                                </h2>
+
+                                            </div>
+
+                                            <span
+                                                className="employee-info-icon large"
+                                                title="Recent changes and events relevant to your workspace."
+                                            >
+                                                <FaInfoCircle />
+                                            </span>
+
+                                        </div>
+
+
+                                        <div className="employee-updates-list">
+
+                                            {recentUpdates.map(
+                                                (
+                                                    update
+                                                ) => (
+
+                                                    <div
+                                                        key={
+                                                            update.title
+                                                        }
+                                                        className="employee-update-row"
+                                                    >
+
+                                                        <span
+                                                            className={`employee-update-dot ${update.type}`}
+                                                        />
+
+                                                        <div>
+
+                                                            <strong>
+                                                                {
+                                                                    update.title
+                                                                }
+                                                            </strong>
+
+                                                            <span>
+                                                                {
+                                                                    update.subtitle
+                                                                }
+                                                            </span>
+
+                                                        </div>
+
+                                                        <small>
+                                                            {
+                                                                update.time
+                                                            }
+                                                        </small>
+
+                                                    </div>
+
+                                                )
+                                            )}
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        {/* =================================================
+                            MY ACTIVITY
+                        ================================================= */}
+
+                        <section className="dashboard-section">
+
+
+                            <div className="dashboard-card employee-activity-card">
+
+
+                                <div className="employee-card-header">
+
+                                    <div>
+
+                                        <span className="employee-section-eyebrow">
+                                            YOUR ACTIVITY
+                                        </span>
+
+                                        <h2>
+                                            My Activity
+                                        </h2>
+
+                                    </div>
+
+                                    <span
+                                        className="employee-info-icon large"
+                                        title="Summary of your activity across SOPs, AI, training and documents."
+                                    >
+                                        <FaInfoCircle />
+                                    </span>
+
+                                </div>
+
+
+                                <div className="employee-activity-grid">
+
+                                    {activityData.map(
+                                        (activity) => (
+
+                                            <div
+                                                key={
+                                                    activity.label
+                                                }
+                                                className="employee-activity-item"
+                                                title={`Shows your activity for ${activity.label}.`}
+                                            >
+
+                                                <span className="employee-activity-icon">
+                                                    {
+                                                        activity.icon
+                                                    }
+                                                </span>
+
+                                                <strong>
+                                                    {
+                                                        activity.value
+                                                    }
+                                                </strong>
+
+                                                <span>
+                                                    {
+                                                        activity.label
+                                                    }
+                                                </span>
+
+                                                <FaInfoCircle className="employee-activity-info" />
+
+                                            </div>
+
+                                        )
+                                    )}
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        {/* =================================================
+                            SECURITY FOOTER
+                        ================================================= */}
+
+                        <div className="employee-dashboard-security">
+
+                            <FaLock />
+
+                            <span>
+                                Your employee workspace is protected
+                                by role-based enterprise access.
+                            </span>
+
+                        </div>
+
+
                     </div>
 
-                    <div className="employee-dashboard-chart-track">
-                      <motion.div
-                        className="employee-dashboard-chart-bar"
-                        initial={{
-                          height: 0,
-                        }}
-                        animate={{
-                          height: `${Math.min(
-                            item.value * 2,
-                            100
-                          )}%`,
-                        }}
-                        transition={{
-                          duration: 0.7,
-                          ease: "easeOut",
-                        }}
-                      />
-                    </div>
+                </main>
 
-                    <span>{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.section>
-
-          {/* =================================================
-              FOOTER
-              ================================================= */}
-
-          <motion.footer
-            className="employee-dashboard-footer"
-            variants={itemVariants}
-          >
-            <div>
-              <strong>SOP Intelligence</strong>
-              <span>
-                Employee Knowledge & Compliance Portal
-              </span>
             </div>
 
-            <span>
-              © 2026 Enterprise Knowledge Platform
-            </span>
-          </motion.footer>
-        </motion.div>
-      </main>
-
-      {/* =====================================================
-          MOBILE MENU
-          ===================================================== */}
-
-      {!sidebarOpen && (
-        <button
-          type="button"
-          className="employee-dashboard-mobile-menu"
-          onClick={() => setSidebarOpen(true)}
-          aria-label="Open navigation"
-        >
-          <Menu size={20} />
-        </button>
-      )}
-
-      {/* =====================================================
-          SOP MODAL
-          ===================================================== */}
-
-      <AnimatePresence>
-        {selectedSop && (
-          <motion.div
-            className="employee-dashboard-modal-overlay"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            onClick={() => setSelectedSop(null)}
-          >
-            <motion.div
-              className="employee-dashboard-modal"
-              initial={{
-                opacity: 0,
-                scale: 0.96,
-                y: 12,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: 0,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.96,
-                y: 12,
-              }}
-              onClick={(event) =>
-                event.stopPropagation()
-              }
-            >
-              <button
-                type="button"
-                className="employee-dashboard-modal-close"
-                onClick={() => setSelectedSop(null)}
-              >
-                <X size={18} />
-              </button>
-
-              <div className="employee-dashboard-modal-icon">
-                <FileText size={22} />
-              </div>
-
-              <span className="employee-dashboard-modal-label">
-                SOP DOCUMENT
-              </span>
-
-              <h3>{selectedSop.title}</h3>
-
-              <p>
-                {selectedSop.version} •{" "}
-                {selectedSop.status}
-              </p>
-
-              <div className="employee-dashboard-modal-details">
-                <span>
-                  Updated {selectedSop.updated}
-                </span>
-
-                <span>
-                  Owner: {selectedSop.owner}
-                </span>
-
-                <span>{selectedSop.pages}</span>
-              </div>
-
-              <button
-                type="button"
-                className="employee-dashboard-primary-button"
-                onClick={() => setSelectedSop(null)}
-              >
-                Open SOP
-                <ArrowRight size={15} />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* =====================================================
-          ACTION MODAL
-          ===================================================== */}
-
-      <AnimatePresence>
-        {selectedAction && (
-          <motion.div
-            className="employee-dashboard-modal-overlay"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            onClick={() => setSelectedAction(null)}
-          >
-            <motion.div
-              className="employee-dashboard-modal"
-              initial={{
-                opacity: 0,
-                scale: 0.96,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.96,
-              }}
-              onClick={(event) =>
-                event.stopPropagation()
-              }
-            >
-              <button
-                type="button"
-                className="employee-dashboard-modal-close"
-                onClick={() => setSelectedAction(null)}
-              >
-                <X size={18} />
-              </button>
-
-              <div className="employee-dashboard-modal-icon">
-                <CheckCircle2 size={22} />
-              </div>
-
-              <span className="employee-dashboard-modal-label">
-                ACTION
-              </span>
-
-              <h3>{selectedAction.type}</h3>
-
-              <p>{selectedAction.title}</p>
-
-              <div className="employee-dashboard-modal-details">
-                <span>
-                  Status: {selectedAction.status}
-                </span>
-
-                <span>
-                  {selectedAction.due}
-                </span>
-              </div>
-
-              <button
-                type="button"
-                className="employee-dashboard-primary-button"
-                onClick={() => setSelectedAction(null)}
-              >
-                Continue
-                <ArrowRight size={15} />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* =====================================================
-          RECOMMENDATION MODAL
-          ===================================================== */}
-
-      <AnimatePresence>
-        {selectedRecommendation && (
-          <motion.div
-            className="employee-dashboard-modal-overlay"
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            onClick={() =>
-              setSelectedRecommendation(null)
-            }
-          >
-            <motion.div
-              className="employee-dashboard-modal"
-              initial={{
-                opacity: 0,
-                scale: 0.96,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.96,
-              }}
-              onClick={(event) =>
-                event.stopPropagation()
-              }
-            >
-              <button
-                type="button"
-                className="employee-dashboard-modal-close"
-                onClick={() =>
-                  setSelectedRecommendation(null)
-                }
-              >
-                <X size={18} />
-              </button>
-
-              <div className="employee-dashboard-modal-icon">
-                <Sparkles size={22} />
-              </div>
-
-              <span className="employee-dashboard-modal-label">
-                AI RECOMMENDATION
-              </span>
-
-              <h3>
-                {selectedRecommendation.title}
-              </h3>
-
-              <p>
-                {selectedRecommendation.description}
-              </p>
-
-              <button
-                type="button"
-                className="employee-dashboard-primary-button"
-                onClick={() =>
-                  setSelectedRecommendation(null)
-                }
-              >
-                {selectedRecommendation.action}
-                <ArrowRight size={15} />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
-export default EmployeeDashboard;
+        </div>
+    );
+}
