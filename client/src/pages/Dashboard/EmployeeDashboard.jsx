@@ -1,1951 +1,825 @@
-import React, { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React from "react";
 import {
-    FaBars,
-    FaBell,
-    FaBookOpen,
-    FaBrain,
-    FaChartLine,
-    FaCheckCircle,
-    FaChevronRight,
-    FaClock,
-    FaCloudUploadAlt,
-    FaCog,
-    FaComments,
-    FaExchangeAlt,
-    FaFileAlt,
-    FaGraduationCap,
-    FaHome,
-    FaInfoCircle,
-    FaLightbulb,
-    FaLock,
-    FaQuestionCircle,
-    FaRobot,
-    FaSearch,
-    FaShieldAlt,
-    FaSignOutAlt,
-    FaTasks,
-    FaTimes,
-    FaUpload,
-    FaUser,
-    FaUsers,
-    FaMagic,
+  FaMagic,
+  FaRobot,
+  FaCloudUploadAlt,
+  FaFileAlt,
+  FaBookOpen,
+  FaTasks,
+  FaGraduationCap,
+  FaShieldAlt,
+  FaBell,
+  FaChartBar,
+  FaCog,
+  FaQuestionCircle,
+  FaSearch,
+  FaInfoCircle,
+  FaArrowRight,
+  FaChevronRight,
+  FaChevronDown,
+  FaSignOutAlt,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaClock,
+  FaFileAlt as FaDocument,
 } from "react-icons/fa";
 
-import "./dashboard.css";
 import "./EmployeeDashboard.css";
 
+const EmployeeDashboard = () => {
+  /* =========================================================
+     USER
+     ========================================================= */
 
-/* =========================================================
-   MOCK DATA
-   Replace this with API/database data later
-   ========================================================= */
+  const storedUser = localStorage.getItem("user");
 
-const employeeData = {
+  let user = {
     name: "Jasleen Kaur",
-    role: "Employee",
     email: "jasleen@example.com",
-};
+    role: "Employee",
+  };
 
+  try {
+    if (storedUser) {
+      user = {
+        ...user,
+        ...JSON.parse(storedUser),
+      };
+    }
+  } catch (error) {
+    console.error("Unable to read user information", error);
+  }
 
-/* =========================================================
-   KPI DATA
-   ========================================================= */
+  const firstName = user.name
+    ? user.name.split(" ")[0]
+    : "Employee";
 
-const kpiData = [
+  /* =========================================================
+     DATA
+     ========================================================= */
+
+  const quickActions = [
     {
-        label: "My SOPs",
-        value: "24",
-        change: "+3 this month",
-        changeType: "positive",
-        icon: <FaBookOpen />,
-        description:
-            "Total number of SOPs currently assigned to you or available to you based on your employee access.",
+      title: "Generate SOP",
+      description: "Create with AI",
+      icon: <FaMagic />,
+      tooltip:
+        "Generate a new Standard Operating Procedure using AI assistance.",
     },
-
     {
-        label: "Actions",
-        value: "4",
-        change: "2 due today",
-        changeType: "warning",
-        icon: <FaTasks />,
-        description:
-            "Tasks, approvals, acknowledgements and other actions currently requiring your attention.",
+      title: "Ask AI",
+      description: "Ask anything",
+      icon: <FaRobot />,
+      tooltip:
+        "Ask the AI assistant questions about SOPs, policies and company knowledge.",
     },
-
     {
-        label: "Training",
-        value: "82%",
-        change: "+8% this month",
-        changeType: "positive",
-        icon: <FaGraduationCap />,
-        description:
-            "Your overall training completion percentage across assigned learning and certification activities.",
+      title: "Upload Document",
+      description: "Analyze file",
+      icon: <FaCloudUploadAlt />,
+      tooltip:
+        "Upload a document and use AI to analyze and understand its contents.",
     },
-
     {
-        label: "Compliance",
-        value: "94%",
-        change: "+2.4%",
-        changeType: "positive",
-        icon: <FaShieldAlt />,
-        description:
-            "Your current compliance score based on SOP acknowledgements, required training and assigned compliance activities.",
+      title: "Find SOP",
+      description: "Search library",
+      icon: <FaDocument />,
+      tooltip:
+        "Search and access SOPs available in the organization's knowledge library.",
     },
+  ];
 
+  const kpis = [
     {
-        label: "AI Queries",
-        value: "37",
-        change: "+12 this week",
-        changeType: "positive",
-        icon: <FaRobot />,
-        description:
-            "Number of questions you have asked the AI Knowledge Assistant during the current tracking period.",
+      title: "My SOPs",
+      value: "24",
+      change: "+3 this month",
+      icon: <FaBookOpen />,
+      description: "Assigned & accessible",
+      tooltip:
+        "Total number of SOPs currently assigned to you or available for your role.",
+      positive: true,
     },
-];
-
-
-/* =========================================================
-   QUICK ACTIONS
-   ========================================================= */
-
-const quickActions = [
     {
-        title: "Generate SOP",
-        description: "Create with AI",
-        icon: <FaMagic />,
-        info:
-            "Use AI to create a structured Standard Operating Procedure from your requirements.",
+      title: "Actions",
+      value: "4",
+      change: "2 due today",
+      icon: <FaTasks />,
+      description: "Require your attention",
+      tooltip:
+        "Tasks and actions currently assigned to you that may require your attention.",
+      positive: false,
     },
-
     {
-        title: "Ask AI",
-        description: "Ask anything",
-        icon: <FaRobot />,
-        info:
-            "Ask questions about SOPs, policies, documents and enterprise knowledge.",
+      title: "Training",
+      value: "82%",
+      change: "+8% this month",
+      icon: <FaGraduationCap />,
+      description: "Overall completion",
+      tooltip:
+        "Your overall completion percentage for assigned training programs.",
+      positive: true,
     },
-
     {
-        title: "Upload Document",
-        description: "Analyze file",
-        icon: <FaCloudUploadAlt />,
-        info:
-            "Upload a document for document intelligence, extraction and AI-powered analysis.",
+      title: "Compliance",
+      value: "94%",
+      change: "+2.4%",
+      icon: <FaShieldAlt />,
+      description: "Current compliance score",
+      tooltip:
+        "Your current compliance score based on required SOPs, training and actions.",
+      positive: true,
     },
-
     {
-        title: "Find SOP",
-        description: "Search library",
-        icon: <FaFileAlt />,
-        info:
-            "Search the organization's SOP library and find procedures relevant to your work.",
+      title: "AI Queries",
+      value: "37",
+      change: "+12 this week",
+      icon: <FaRobot />,
+      description: "Questions asked",
+      tooltip:
+        "Number of questions you have asked the AI Knowledge Assistant.",
+      positive: true,
     },
-];
+  ];
 
-
-/* =========================================================
-   RECENT UPDATES
-   ========================================================= */
-
-const recentUpdates = [
+  const recentActions = [
     {
-        title: "SOP v3.2 published",
-        subtitle: "Distributor Onboarding",
-        time: "2h ago",
-        type: "info",
+      icon: <FaCheckCircle />,
+      title: "SOP Review Completed",
+      description: "Information Security Policy",
+      time: "Today",
     },
-
     {
-        title: "New training assigned",
-        subtitle: "Data Privacy",
-        time: "5h ago",
-        type: "warning",
+      icon: <FaClock />,
+      title: "Training Due",
+      description: "Data Privacy & Security",
+      time: "Tomorrow",
     },
-
     {
-        title: "Policy updated",
-        subtitle: "Information Security",
-        time: "Yesterday",
-        type: "success",
+      icon: <FaDocument />,
+      title: "Document Uploaded",
+      description: "Process Guidelines.pdf",
+      time: "2 days ago",
     },
+  ];
 
-    {
-        title: "SOP acknowledgement completed",
-        subtitle: "Email Handling",
-        time: "Yesterday",
-        type: "success",
-    },
-];
+  /* =========================================================
+     HELPERS
+     ========================================================= */
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
 
-/* =========================================================
-   RECOMMENDATIONS
-   ========================================================= */
+    if (hour < 12) return "Good Morning";
+    if (hour < 17) return "Good Afternoon";
 
-const recommendations = [
-    {
-        title: "SOP Updated",
-        item: "Distributor Onboarding v3.2",
-        description:
-            "This SOP was recently updated and affects your assigned process.",
-        action: "Review Now",
-        icon: <FaFileAlt />,
-        info:
-            "AI recommendations highlight important changes and activities that may require your attention.",
-    },
+    return "Good Evening";
+  };
 
-    {
-        title: "Training Recommended",
-        item: "Data Privacy Certification",
-        description:
-            "Your certification expires in 14 days.",
-        action: "Start Training",
-        icon: <FaGraduationCap />,
-        info:
-            "Training recommendations are based on your assigned learning requirements and upcoming deadlines.",
-    },
-];
+  const handleQuickAction = (title) => {
+    console.log(`${title} clicked`);
+  };
 
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("userRole");
 
-/* =========================================================
-   ACTIVITY
-   ========================================================= */
+    window.location.href = "/login";
+  };
 
-const activityData = [
-    {
-        label: "SOPs Created",
-        value: "8",
-        icon: <FaFileAlt />,
-    },
+  /* =========================================================
+     JSX
+     ========================================================= */
 
-    {
-        label: "SOPs Viewed",
-        value: "42",
-        icon: <FaBookOpen />,
-    },
+  return (
+    <div className="employee-dashboard-page">
 
-    {
-        label: "AI Questions",
-        value: "37",
-        icon: <FaComments />,
-    },
+      {/* =====================================================
+          SIDEBAR
+          ===================================================== */}
 
-    {
-        label: "Training",
-        value: "15",
-        icon: <FaGraduationCap />,
-    },
+      <aside className="employee-sidebar">
 
-    {
-        label: "Documents",
-        value: "9",
-        icon: <FaFileAlt />,
-    },
-];
+        {/* Logo */}
+        <div className="employee-sidebar-brand">
 
+          <div className="employee-brand-icon">
+            AI
+          </div>
 
-/* =========================================================
-   SIDEBAR ITEMS
-   ========================================================= */
-
-const sidebarItems = [
-    {
-        label: "Dashboard",
-        icon: <FaHome />,
-        path: "/dashboard",
-    },
-
-    {
-        label: "SOPs",
-        icon: <FaBookOpen />,
-        children: [
-            "All SOPs",
-            "My SOPs",
-            "Generate SOP",
-            "Drafts",
-        ],
-    },
-
-    {
-        label: "AI Assistant",
-        icon: <FaRobot />,
-        path: "/ai-assistant",
-    },
-
-    {
-        label: "Documents",
-        icon: <FaFileAlt />,
-        children: [
-            "Upload",
-            "AI Analysis",
-        ],
-    },
-
-    {
-        label: "Training",
-        icon: <FaGraduationCap />,
-        path: "/training",
-    },
-
-    {
-        label: "Compliance",
-        icon: <FaShieldAlt />,
-        path: "/compliance",
-    },
-
-    {
-        label: "Notifications",
-        icon: <FaBell />,
-        path: "/notifications",
-    },
-
-    {
-        label: "My Analytics",
-        icon: <FaChartLine />,
-        path: "/analytics",
-    },
-];
-
-
-/* =========================================================
-   COMPONENT
-   ========================================================= */
-
-export default function EmployeeDashboard() {
-
-    const navigate = useNavigate();
-
-    const [mobileMenuOpen, setMobileMenuOpen] =
-        useState(false);
-
-    const [searchQuery, setSearchQuery] =
-        useState("");
-
-    const [notificationsOpen, setNotificationsOpen] =
-        useState(false);
-
-
-    /* =====================================================
-       USER
-       ===================================================== */
-
-    const user = useMemo(() => {
-
-        try {
-
-            const storedUser =
-                localStorage.getItem("user");
-
-            if (storedUser) {
-
-                return {
-                    ...employeeData,
-                    ...JSON.parse(storedUser),
-                };
-
-            }
-
-        } catch (error) {
-
-            console.error(
-                "Unable to read user data:",
-                error
-            );
-
-        }
-
-        return employeeData;
-
-    }, []);
-
-
-    /* =====================================================
-       GREETING
-       ===================================================== */
-
-    const greeting = useMemo(() => {
-
-        const hour =
-            new Date().getHours();
-
-        if (hour < 12) {
-            return "Good Morning";
-        }
-
-        if (hour < 17) {
-            return "Good Afternoon";
-        }
-
-        return "Good Evening";
-
-    }, []);
-
-
-    /* =====================================================
-       NAVIGATION
-       ===================================================== */
-
-    const handleNavigation = (path) => {
-
-        if (!path) {
-            return;
-        }
-
-        setMobileMenuOpen(false);
-
-        navigate(path);
-
-    };
-
-
-    /* =====================================================
-       LOGOUT
-       ===================================================== */
-
-    const handleLogout = () => {
-
-        localStorage.removeItem("user");
-
-        localStorage.removeItem("userRole");
-
-        navigate("/login");
-
-    };
-
-
-    /* =====================================================
-       SEARCH
-       ===================================================== */
-
-    const handleSearch = (e) => {
-
-        e.preventDefault();
-
-        if (!searchQuery.trim()) {
-            return;
-        }
-
-        console.log(
-            "Dashboard search:",
-            searchQuery
-        );
-
-        /*
-         * Later:
-         * connect this to global SOP / AI search.
-         */
-
-    };
-
-
-    return (
-
-        <div className="dashboard-page employee-dashboard-page">
-
-
-            {/* =================================================
-                BACKGROUND
-            ================================================= */}
-
-            <div
-                className="dashboard-background"
-                aria-hidden="true"
-            >
-
-                <div
-                    className="dashboard-background-orb dashboard-background-orb-one"
-                />
-
-                <div
-                    className="dashboard-background-orb dashboard-background-orb-two"
-                />
-
-                <div
-                    className="dashboard-background-grid"
-                />
-
-            </div>
-
-
-            {/* =================================================
-                MOBILE OVERLAY
-            ================================================= */}
-
-            <div
-                className={`dashboard-overlay ${
-                    mobileMenuOpen
-                        ? "visible"
-                        : ""
-                }`}
-                onClick={() =>
-                    setMobileMenuOpen(false)
-                }
-            />
-
-
-            <div className="dashboard-layout">
-
-
-                {/* =================================================
-                    SIDEBAR
-                ================================================= */}
-
-                <aside
-                    className={`dashboard-sidebar ${
-                        mobileMenuOpen
-                            ? "mobile-open"
-                            : ""
-                    }`}
-                >
-
-
-                    {/* BRAND */}
-
-                    <div className="dashboard-brand">
-
-                        <div className="dashboard-brand-logo">
-                            AI
-                        </div>
-
-                        <div className="dashboard-brand-content">
-
-                            <strong>
-                                SOP Intelligence
-                            </strong>
-
-                            <span>
-                                Employee Portal
-                            </span>
-
-                        </div>
-
-                        <button
-                            type="button"
-                            className="employee-sidebar-close"
-                            onClick={() =>
-                                setMobileMenuOpen(false)
-                            }
-                            aria-label="Close menu"
-                        >
-                            <FaTimes />
-                        </button>
-
-                    </div>
-
-
-                    {/* NAVIGATION */}
-
-                    <nav className="dashboard-nav">
-
-
-                        <div className="dashboard-nav-label">
-                            WORKSPACE
-                        </div>
-
-
-                        {sidebarItems.map(
-                            (item, index) => (
-
-                                <div
-                                    key={item.label}
-                                    className="employee-nav-group"
-                                >
-
-                                    <button
-                                        type="button"
-                                        className={`dashboard-nav-item ${
-                                            index === 0
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-
-                                            if (
-                                                item.path
-                                            ) {
-                                                handleNavigation(
-                                                    item.path
-                                                );
-                                            }
-
-                                        }}
-                                    >
-
-                                        <span className="dashboard-nav-icon">
-                                            {item.icon}
-                                        </span>
-
-                                        <span className="dashboard-nav-text">
-                                            {item.label}
-                                        </span>
-
-                                        {item.children && (
-                                            <span className="employee-nav-arrow">
-                                                <FaChevronRight />
-                                            </span>
-                                        )}
-
-                                    </button>
-
-
-                                    {item.children && (
-
-                                        <div className="employee-nav-submenu">
-
-                                            {item.children.map(
-                                                (child) => (
-
-                                                    <button
-                                                        key={child}
-                                                        type="button"
-                                                        className="employee-nav-subitem"
-                                                        onClick={() =>
-                                                            console.log(
-                                                                child
-                                                            )
-                                                        }
-                                                    >
-                                                        {child}
-                                                    </button>
-
-                                                )
-                                            )}
-
-                                        </div>
-
-                                    )}
-
-                                </div>
-
-                            )
-                        )}
-
-                    </nav>
-
-
-                    {/* SIDEBAR FOOTER */}
-
-                    <div className="dashboard-sidebar-footer">
-
-                        <button
-                            type="button"
-                            className="dashboard-nav-item"
-                            onClick={() =>
-                                console.log(
-                                    "Settings"
-                                )
-                            }
-                        >
-
-                            <span className="dashboard-nav-icon">
-                                <FaCog />
-                            </span>
-
-                            <span className="dashboard-nav-text">
-                                Settings
-                            </span>
-
-                        </button>
-
-
-                        <button
-                            type="button"
-                            className="dashboard-nav-item"
-                            onClick={() =>
-                                console.log(
-                                    "Help"
-                                )
-                            }
-                        >
-
-                            <span className="dashboard-nav-icon">
-                                <FaQuestionCircle />
-                            </span>
-
-                            <span className="dashboard-nav-text">
-                                Help & Support
-                            </span>
-
-                        </button>
-
-
-                        {/* USER */}
-
-                        <div className="dashboard-user">
-
-                            <div className="dashboard-user-avatar">
-                                {user.name
-                                    ?.charAt(0)
-                                    ?.toUpperCase() || "U"}
-                            </div>
-
-                            <div className="dashboard-user-info">
-
-                                <span className="dashboard-user-name">
-                                    {user.name}
-                                </span>
-
-                                <span className="dashboard-user-role">
-                                    {user.role}
-                                </span>
-
-                            </div>
-
-                            <button
-                                type="button"
-                                className="employee-logout-button"
-                                onClick={
-                                    handleLogout
-                                }
-                                title="Sign out"
-                                aria-label="Sign out"
-                            >
-                                <FaSignOutAlt />
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </aside>
-
-
-                {/* =================================================
-                    MAIN
-                ================================================= */}
-
-                <main className="dashboard-main">
-
-
-                    {/* =================================================
-                        HEADER
-                    ================================================= */}
-
-                    <header className="dashboard-header">
-
-
-                        <div className="dashboard-header-left">
-
-
-                            <button
-                                type="button"
-                                className="dashboard-mobile-menu"
-                                onClick={() =>
-                                    setMobileMenuOpen(
-                                        true
-                                    )
-                                }
-                                aria-label="Open menu"
-                            >
-                                <FaBars />
-                            </button>
-
-
-                            <div className="dashboard-page-title">
-
-                                <span className="employee-header-eyebrow">
-                                    EMPLOYEE WORKSPACE
-                                </span>
-
-                                <h1>
-                                    Dashboard
-                                </h1>
-
-                            </div>
-
-                        </div>
-
-
-                        {/* HEADER ACTIONS */}
-
-                        <div className="dashboard-header-actions">
-
-
-                            <div className="employee-notification-wrapper">
-
-                                <button
-                                    type="button"
-                                    className="dashboard-header-action"
-                                    onClick={() =>
-                                        setNotificationsOpen(
-                                            !notificationsOpen
-                                        )
-                                    }
-                                    title="Notifications"
-                                    aria-label="Notifications"
-                                >
-
-                                    <FaBell />
-
-                                    <span className="dashboard-notification-dot" />
-
-                                </button>
-
-
-                                {notificationsOpen && (
-
-                                    <div className="employee-notification-panel">
-
-                                        <div className="employee-notification-header">
-
-                                            <strong>
-                                                Notifications
-                                            </strong>
-
-                                            <span>
-                                                4 new
-                                            </span>
-
-                                        </div>
-
-
-                                        {recentUpdates
-                                            .slice(0, 3)
-                                            .map(
-                                                (
-                                                    notification
-                                                ) => (
-
-                                                    <div
-                                                        key={
-                                                            notification.title
-                                                        }
-                                                        className="employee-notification-item"
-                                                    >
-
-                                                        <span className="employee-notification-icon">
-                                                            <FaBell />
-                                                        </span>
-
-                                                        <div>
-
-                                                            <strong>
-                                                                {
-                                                                    notification.title
-                                                                }
-                                                            </strong>
-
-                                                            <span>
-                                                                {
-                                                                    notification.time
-                                                                }
-                                                            </span>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                )
-                                            )}
-
-                                    </div>
-
-                                )}
-
-                            </div>
-
-
-                            {/* PROFILE */}
-
-                            <button
-                                type="button"
-                                className="employee-header-profile"
-                                onClick={() =>
-                                    console.log(
-                                        "Profile"
-                                    )
-                                }
-                            >
-
-                                <span className="employee-header-avatar">
-                                    {user.name
-                                        ?.charAt(0)
-                                        ?.toUpperCase() ||
-                                        "U"}
-                                </span>
-
-                                <span className="employee-header-profile-info">
-
-                                    <strong>
-                                        {user.name}
-                                    </strong>
-
-                                    <small>
-                                        {user.role}
-                                    </small>
-
-                                </span>
-
-                                <span>
-                                    <FaChevronRight />
-                                </span>
-
-                            </button>
-
-                        </div>
-
-                    </header>
-
-
-                    {/* =================================================
-                        CONTENT
-                    ================================================= */}
-
-                    <div className="dashboard-content">
-
-
-                        {/* =================================================
-                            WELCOME
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-                            <div className="employee-welcome-card dashboard-card">
-
-
-                                <div className="employee-welcome-content">
-
-                                    <span className="employee-section-eyebrow">
-                                        PERSONALIZED WORKSPACE
-                                    </span>
-
-                                    <h2>
-
-                                        {greeting},{" "}
-
-                                        <span>
-                                            {user.name}
-                                        </span>
-
-                                        <span className="employee-wave">
-                                            👋
-                                        </span>
-
-                                    </h2>
-
-                                    <p>
-                                        Here's your personalized
-                                        SOP and compliance overview.
-                                        Stay informed, complete your
-                                        actions, and get instant
-                                        answers with AI.
-                                    </p>
-
-                                </div>
-
-
-                                <div
-                                    className="employee-welcome-icon"
-                                    title="Your AI-powered enterprise workspace"
-                                >
-                                    <FaBrain />
-                                </div>
-
-                            </div>
-
-                        </section>
-
-
-                        {/* =================================================
-                            SEARCH
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-                            <form
-                                className="employee-search-wrapper"
-                                onSubmit={
-                                    handleSearch
-                                }
-                            >
-
-                                <div className="dashboard-search">
-
-                                    <FaSearch className="employee-search-icon" />
-
-                                    <input
-                                        type="text"
-                                        value={
-                                            searchQuery
-                                        }
-                                        onChange={(e) =>
-                                            setSearchQuery(
-                                                e.target.value
-                                            )
-                                        }
-                                        placeholder="Search SOPs, documents, policies or ask AI..."
-                                        aria-label="Search SOPs, documents, policies or ask AI"
-                                    />
-
-                                    <span className="employee-search-shortcut">
-                                        ⌘ K
-                                    </span>
-
-                                </div>
-
-                            </form>
-
-                        </section>
-
-
-                        {/* =================================================
-                            QUICK ACTIONS
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-
-                            <div className="dashboard-section-header">
-
-                                <div className="dashboard-section-heading">
-
-                                    <span className="employee-section-eyebrow">
-                                        GET STARTED
-                                    </span>
-
-                                    <h2>
-                                        Quick Actions
-                                    </h2>
-
-                                </div>
-
-                            </div>
-
-
-                            <div className="employee-quick-actions-grid">
-
-                                {quickActions.map(
-                                    (action) => (
-
-                                        <button
-                                            type="button"
-                                            key={
-                                                action.title
-                                            }
-                                            className="employee-quick-action dashboard-card"
-                                            title={
-                                                action.info
-                                            }
-                                            onClick={() =>
-                                                console.log(
-                                                    action.title
-                                                )
-                                            }
-                                        >
-
-                                            <span className="employee-action-icon">
-                                                {
-                                                    action.icon
-                                                }
-                                            </span>
-
-                                            <span className="employee-action-content">
-
-                                                <strong>
-                                                    {
-                                                        action.title
-                                                    }
-                                                </strong>
-
-                                                <small>
-                                                    {
-                                                        action.description
-                                                    }
-                                                </small>
-
-                                            </span>
-
-                                            <span className="employee-info-icon">
-                                                <FaInfoCircle />
-                                            </span>
-
-                                            <FaChevronRight className="employee-action-arrow" />
-
-                                        </button>
-
-                                    )
-                                )}
-
-                            </div>
-
-                        </section>
-
-
-                        {/* =================================================
-                            KPI
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-
-                            <div className="dashboard-stats-grid">
-
-                                {kpiData.map(
-                                    (kpi) => (
-
-                                        <div
-                                            key={
-                                                kpi.label
-                                            }
-                                            className="dashboard-card dashboard-stat-card employee-kpi-card"
-                                            title={
-                                                kpi.description
-                                            }
-                                        >
-
-                                            <div className="dashboard-stat-header">
-
-                                                <div className="dashboard-stat-icon">
-                                                    {
-                                                        kpi.icon
-                                                    }
-                                                </div>
-
-                                                <span
-                                                    className="employee-kpi-info"
-                                                    title={
-                                                        kpi.description
-                                                    }
-                                                >
-                                                    <FaInfoCircle />
-                                                </span>
-
-                                            </div>
-
-                                            <div className="dashboard-stat-label">
-                                                {
-                                                    kpi.label
-                                                }
-                                            </div>
-
-                                            <div className="dashboard-stat-value">
-                                                {
-                                                    kpi.value
-                                                }
-                                            </div>
-
-                                            <div
-                                                className={`dashboard-stat-change ${kpi.changeType}`}
-                                            >
-
-                                                {
-                                                    kpi.change
-                                                }
-
-                                            </div>
-
-                                        </div>
-
-                                    )
-                                )}
-
-                            </div>
-
-                        </section>
-
-
-                        {/* =================================================
-                            AI ASSISTANT + MY ACTIONS
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-
-                            <div className="dashboard-grid">
-
-
-                                {/* AI ASSISTANT */}
-
-                                <div className="dashboard-grid-two-third">
-
-                                    <div
-                                        className="dashboard-card employee-ai-card"
-                                        title="AI Knowledge Assistant helps you search and understand enterprise knowledge using natural language."
-                                    >
-
-                                        <div className="employee-card-header">
-
-                                            <div>
-
-                                                <span className="employee-section-eyebrow">
-                                                    INTELLIGENT KNOWLEDGE
-                                                </span>
-
-                                                <h2>
-                                                    <FaRobot />
-                                                    AI Knowledge Assistant
-                                                </h2>
-
-                                            </div>
-
-                                            <span
-                                                className="employee-info-icon large"
-                                                title="Ask questions about SOPs, policies, documents and enterprise knowledge."
-                                            >
-                                                <FaInfoCircle />
-                                            </span>
-
-                                        </div>
-
-
-                                        <div className="employee-ai-content">
-
-                                            <div className="employee-ai-icon">
-                                                <FaBrain />
-                                            </div>
-
-                                            <div>
-
-                                                <h3>
-                                                    Ask anything about your workplace knowledge
-                                                </h3>
-
-                                                <p>
-                                                    Search SOPs,
-                                                    understand
-                                                    policies,
-                                                    summarize
-                                                    documents and
-                                                    get intelligent
-                                                    answers from
-                                                    your enterprise
-                                                    knowledge base.
-                                                </p>
-
-                                                <button
-                                                    type="button"
-                                                    className="dashboard-button dashboard-button-primary"
-                                                    onClick={() =>
-                                                        handleNavigation(
-                                                            "/ai-assistant"
-                                                        )
-                                                    }
-                                                >
-
-                                                    Ask AI
-
-                                                    <FaChevronRight />
-
-                                                </button>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-                                {/* MY ACTIONS */}
-
-                                <div className="dashboard-grid-half">
-
-                                    <div
-                                        className="dashboard-card employee-actions-card"
-                                        title="Shows tasks and activities that currently require your attention."
-                                    >
-
-                                        <div className="employee-card-header">
-
-                                            <div>
-
-                                                <span className="employee-section-eyebrow">
-                                                    YOUR WORK
-                                                </span>
-
-                                                <h2>
-                                                    My Actions
-                                                </h2>
-
-                                            </div>
-
-                                            <span
-                                                className="employee-info-icon large"
-                                                title="Tasks, acknowledgements, approvals and activities assigned to you."
-                                            >
-                                                <FaInfoCircle />
-                                            </span>
-
-                                        </div>
-
-
-                                        <div className="employee-action-list">
-
-
-                                            <div className="employee-action-row">
-
-                                                <span className="employee-action-status warning">
-                                                    <FaClock />
-                                                </span>
-
-                                                <div>
-
-                                                    <strong>
-                                                        Review updated SOP
-                                                    </strong>
-
-                                                    <small>
-                                                        Due today
-                                                    </small>
-
-                                                </div>
-
-                                                <FaChevronRight />
-
-                                            </div>
-
-
-                                            <div className="employee-action-row">
-
-                                                <span className="employee-action-status info">
-                                                    <FaGraduationCap />
-                                                </span>
-
-                                                <div>
-
-                                                    <strong>
-                                                        Complete training
-                                                    </strong>
-
-                                                    <small>
-                                                        2 days remaining
-                                                    </small>
-
-                                                </div>
-
-                                                <FaChevronRight />
-
-                                            </div>
-
-
-                                            <div className="employee-action-row">
-
-                                                <span className="employee-action-status success">
-                                                    <FaCheckCircle />
-                                                </span>
-
-                                                <div>
-
-                                                    <strong>
-                                                        SOP acknowledgement
-                                                    </strong>
-
-                                                    <small>
-                                                        Completed
-                                                    </small>
-
-                                                </div>
-
-                                                <FaChevronRight />
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <button
-                                            type="button"
-                                            className="employee-view-all"
-                                            onClick={() =>
-                                                console.log(
-                                                    "View all actions"
-                                                )
-                                            }
-                                        >
-                                            View All
-                                            <FaChevronRight />
-                                        </button>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </section>
-
-
-                        {/* =================================================
-                            MY SOPs + FEATURES
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-
-                            <div className="dashboard-section-header">
-
-                                <div className="dashboard-section-heading">
-
-                                    <span className="employee-section-eyebrow">
-                                        KNOWLEDGE & PRODUCTIVITY
-                                    </span>
-
-                                    <h2>
-                                        My Workspace
-                                    </h2>
-
-                                </div>
-
-                            </div>
-
-
-                            <div className="employee-feature-grid">
-
-
-                                {/* MY SOPs */}
-
-                                <div
-                                    className="dashboard-card employee-feature-card"
-                                    title="View SOPs assigned to you or available through your employee permissions."
-                                >
-
-                                    <div className="employee-feature-icon">
-                                        <FaBookOpen />
-                                    </div>
-
-                                    <div className="employee-feature-title">
-
-                                        <h3>
-                                            My SOPs
-                                        </h3>
-
-                                        <span
-                                            className="employee-info-icon"
-                                        >
-                                            <FaInfoCircle />
-                                        </span>
-
-                                    </div>
-
-                                    <p>
-                                        View assigned and
-                                        accessible standard
-                                        operating procedures.
-                                    </p>
-
-                                    <button
-                                        type="button"
-                                        className="employee-feature-link"
-                                    >
-                                        View SOPs
-                                        <FaChevronRight />
-                                    </button>
-
-                                </div>
-
-
-                                {/* GENERATOR */}
-
-                                <div
-                                    className="dashboard-card employee-feature-card"
-                                    title="Generate structured SOP drafts using AI."
-                                >
-
-                                    <div className="employee-feature-icon">
-                                        <FaMagic />
-                                    </div>
-
-                                    <div className="employee-feature-title">
-
-                                        <h3>
-                                            AI SOP Generator
-                                        </h3>
-
-                                        <span
-                                            className="employee-info-icon"
-                                        >
-                                            <FaInfoCircle />
-                                        </span>
-
-                                    </div>
-
-                                    <p>
-                                        Create structured SOP
-                                        drafts faster using
-                                        AI-powered generation.
-                                    </p>
-
-                                    <button
-                                        type="button"
-                                        className="employee-feature-link"
-                                    >
-                                        Generate
-                                        <FaChevronRight />
-                                    </button>
-
-                                </div>
-
-
-                                {/* DOCUMENT INTELLIGENCE */}
-
-                                <div
-                                    className="dashboard-card employee-feature-card"
-                                    title="Upload documents and use AI to extract, analyze and understand their content."
-                                >
-
-                                    <div className="employee-feature-icon">
-                                        <FaFileAlt />
-                                    </div>
-
-                                    <div className="employee-feature-title">
-
-                                        <h3>
-                                            Document Intelligence
-                                        </h3>
-
-                                        <span
-                                            className="employee-info-icon"
-                                        >
-                                            <FaInfoCircle />
-                                        </span>
-
-                                    </div>
-
-                                    <p>
-                                        Analyze documents,
-                                        extract information
-                                        and understand
-                                        uploaded files.
-                                    </p>
-
-                                    <button
-                                        type="button"
-                                        className="employee-feature-link"
-                                    >
-                                        Analyze
-                                        <FaChevronRight />
-                                    </button>
-
-                                </div>
-
-
-                                {/* COMPARISON */}
-
-                                <div
-                                    className="dashboard-card employee-feature-card"
-                                    title="Compare SOP versions or documents to identify important differences."
-                                >
-
-                                    <div className="employee-feature-icon">
-                                        <FaExchangeAlt />
-                                    </div>
-
-                                    <div className="employee-feature-title">
-
-                                        <h3>
-                                            SOP Comparison
-                                        </h3>
-
-                                        <span
-                                            className="employee-info-icon"
-                                        >
-                                            <FaInfoCircle />
-                                        </span>
-
-                                    </div>
-
-                                    <p>
-                                        Compare documents
-                                        and SOP versions
-                                        to identify changes.
-                                    </p>
-
-                                    <button
-                                        type="button"
-                                        className="employee-feature-link"
-                                    >
-                                        Compare
-                                        <FaChevronRight />
-                                    </button>
-
-                                </div>
-
-
-                                {/* TRAINING */}
-
-                                <div
-                                    className="dashboard-card employee-feature-card"
-                                    title="Track your assigned training, completion and certification status."
-                                >
-
-                                    <div className="employee-feature-icon">
-                                        <FaGraduationCap />
-                                    </div>
-
-                                    <div className="employee-feature-title">
-
-                                        <h3>
-                                            Training
-                                        </h3>
-
-                                        <span
-                                            className="employee-info-icon"
-                                        >
-                                            <FaInfoCircle />
-                                        </span>
-
-                                    </div>
-
-                                    <p>
-                                        Track training,
-                                        certifications and
-                                        upcoming learning
-                                        requirements.
-                                    </p>
-
-                                    <button
-                                        type="button"
-                                        className="employee-feature-link"
-                                    >
-                                        View Training
-                                        <FaChevronRight />
-                                    </button>
-
-                                </div>
-
-
-                                {/* COMPLIANCE */}
-
-                                <div
-                                    className="dashboard-card employee-feature-card"
-                                    title="Monitor your compliance score, required acknowledgements and compliance activities."
-                                >
-
-                                    <div className="employee-feature-icon">
-                                        <FaShieldAlt />
-                                    </div>
-
-                                    <div className="employee-feature-title">
-
-                                        <h3>
-                                            Compliance
-                                        </h3>
-
-                                        <span
-                                            className="employee-info-icon"
-                                        >
-                                            <FaInfoCircle />
-                                        </span>
-
-                                    </div>
-
-                                    <p>
-                                        Monitor your
-                                        compliance score
-                                        and required
-                                        activities.
-                                    </p>
-
-                                    <button
-                                        type="button"
-                                        className="employee-feature-link"
-                                    >
-                                        View Compliance
-                                        <FaChevronRight />
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </section>
-
-
-                        {/* =================================================
-                            RECOMMENDATIONS + RECENT UPDATES
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-
-                            <div className="dashboard-grid">
-
-
-                                {/* RECOMMENDATIONS */}
-
-                                <div className="dashboard-grid-half">
-
-                                    <div className="dashboard-card employee-recommendations-card">
-
-                                        <div className="employee-card-header">
-
-                                            <div>
-
-                                                <span className="employee-section-eyebrow">
-                                                    AI INSIGHTS
-                                                </span>
-
-                                                <h2>
-                                                    <FaLightbulb />
-                                                    Recommended for You
-                                                </h2>
-
-                                            </div>
-
-                                            <span
-                                                className="employee-info-icon large"
-                                                title="AI-generated recommendations based on your assigned work, SOP changes and learning requirements."
-                                            >
-                                                <FaInfoCircle />
-                                            </span>
-
-                                        </div>
-
-
-                                        <div className="employee-recommendation-list">
-
-                                            {recommendations.map(
-                                                (
-                                                    recommendation
-                                                ) => (
-
-                                                    <div
-                                                        key={
-                                                            recommendation.title
-                                                        }
-                                                        className="employee-recommendation"
-                                                    >
-
-                                                        <div className="employee-recommendation-icon">
-                                                            {
-                                                                recommendation.icon
-                                                            }
-                                                        </div>
-
-                                                        <div className="employee-recommendation-content">
-
-                                                            <span>
-                                                                {
-                                                                    recommendation.title
-                                                                }
-                                                            </span>
-
-                                                            <strong>
-                                                                {
-                                                                    recommendation.item
-                                                                }
-                                                            </strong>
-
-                                                            <p>
-                                                                {
-                                                                    recommendation.description
-                                                                }
-                                                            </p>
-
-                                                            <button
-                                                                type="button"
-                                                                className="employee-feature-link"
-                                                            >
-                                                                {
-                                                                    recommendation.action
-                                                                }
-                                                                <FaChevronRight />
-                                                            </button>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                )
-                                            )}
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-
-                                {/* RECENT UPDATES */}
-
-                                <div className="dashboard-grid-half">
-
-                                    <div className="dashboard-card employee-updates-card">
-
-                                        <div className="employee-card-header">
-
-                                            <div>
-
-                                                <span className="employee-section-eyebrow">
-                                                    ACTIVITY
-                                                </span>
-
-                                                <h2>
-                                                    Recent Updates
-                                                </h2>
-
-                                            </div>
-
-                                            <span
-                                                className="employee-info-icon large"
-                                                title="Recent changes and events relevant to your workspace."
-                                            >
-                                                <FaInfoCircle />
-                                            </span>
-
-                                        </div>
-
-
-                                        <div className="employee-updates-list">
-
-                                            {recentUpdates.map(
-                                                (
-                                                    update
-                                                ) => (
-
-                                                    <div
-                                                        key={
-                                                            update.title
-                                                        }
-                                                        className="employee-update-row"
-                                                    >
-
-                                                        <span
-                                                            className={`employee-update-dot ${update.type}`}
-                                                        />
-
-                                                        <div>
-
-                                                            <strong>
-                                                                {
-                                                                    update.title
-                                                                }
-                                                            </strong>
-
-                                                            <span>
-                                                                {
-                                                                    update.subtitle
-                                                                }
-                                                            </span>
-
-                                                        </div>
-
-                                                        <small>
-                                                            {
-                                                                update.time
-                                                            }
-                                                        </small>
-
-                                                    </div>
-
-                                                )
-                                            )}
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </section>
-
-
-                        {/* =================================================
-                            MY ACTIVITY
-                        ================================================= */}
-
-                        <section className="dashboard-section">
-
-
-                            <div className="dashboard-card employee-activity-card">
-
-
-                                <div className="employee-card-header">
-
-                                    <div>
-
-                                        <span className="employee-section-eyebrow">
-                                            YOUR ACTIVITY
-                                        </span>
-
-                                        <h2>
-                                            My Activity
-                                        </h2>
-
-                                    </div>
-
-                                    <span
-                                        className="employee-info-icon large"
-                                        title="Summary of your activity across SOPs, AI, training and documents."
-                                    >
-                                        <FaInfoCircle />
-                                    </span>
-
-                                </div>
-
-
-                                <div className="employee-activity-grid">
-
-                                    {activityData.map(
-                                        (activity) => (
-
-                                            <div
-                                                key={
-                                                    activity.label
-                                                }
-                                                className="employee-activity-item"
-                                                title={`Shows your activity for ${activity.label}.`}
-                                            >
-
-                                                <span className="employee-activity-icon">
-                                                    {
-                                                        activity.icon
-                                                    }
-                                                </span>
-
-                                                <strong>
-                                                    {
-                                                        activity.value
-                                                    }
-                                                </strong>
-
-                                                <span>
-                                                    {
-                                                        activity.label
-                                                    }
-                                                </span>
-
-                                                <FaInfoCircle className="employee-activity-info" />
-
-                                            </div>
-
-                                        )
-                                    )}
-
-                                </div>
-
-                            </div>
-
-                        </section>
-
-
-                        {/* =================================================
-                            SECURITY FOOTER
-                        ================================================= */}
-
-                        <div className="employee-dashboard-security">
-
-                            <FaLock />
-
-                            <span>
-                                Your employee workspace is protected
-                                by role-based enterprise access.
-                            </span>
-
-                        </div>
-
-
-                    </div>
-
-                </main>
-
-            </div>
+          <div className="employee-brand-text">
+            <h2>SOP Intelligence</h2>
+            <span>Employee Portal</span>
+          </div>
 
         </div>
-    );
-}
+
+
+        {/* Navigation */}
+        <nav className="employee-sidebar-navigation">
+
+          <div className="employee-navigation-label">
+            WORKSPACE
+          </div>
+
+
+          <button className="employee-nav-item active">
+            <span className="employee-nav-icon">
+              <FaBookOpen />
+            </span>
+
+            <span>Dashboard</span>
+          </button>
+
+
+          <button className="employee-nav-item">
+            <span className="employee-nav-icon">
+              <FaBookOpen />
+            </span>
+
+            <span>SOPs</span>
+
+            <FaChevronRight className="employee-nav-arrow" />
+          </button>
+
+
+          <div className="employee-sub-navigation">
+
+            <button>All SOPs</button>
+            <button>My SOPs</button>
+            <button>Generate SOP</button>
+            <button>Drafts</button>
+
+          </div>
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaRobot />
+            </span>
+
+            <span>AI Assistant</span>
+
+          </button>
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaFileAlt />
+            </span>
+
+            <span>Documents</span>
+
+            <FaChevronRight className="employee-nav-arrow" />
+
+          </button>
+
+
+          <div className="employee-sub-navigation">
+
+            <button>Upload</button>
+            <button>AI Analysis</button>
+
+          </div>
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaGraduationCap />
+            </span>
+
+            <span>Training</span>
+
+          </button>
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaShieldAlt />
+            </span>
+
+            <span>Compliance</span>
+
+          </button>
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaBell />
+            </span>
+
+            <span>Notifications</span>
+
+          </button>
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaChartBar />
+            </span>
+
+            <span>My Analytics</span>
+
+          </button>
+
+
+          <div className="employee-sidebar-divider" />
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaCog />
+            </span>
+
+            <span>Settings</span>
+
+          </button>
+
+
+          <button className="employee-nav-item">
+
+            <span className="employee-nav-icon">
+              <FaQuestionCircle />
+            </span>
+
+            <span>Help & Support</span>
+
+          </button>
+
+        </nav>
+
+
+        {/* Sidebar User */}
+        <div className="employee-sidebar-user">
+
+          <div className="employee-user-avatar">
+            {firstName.charAt(0).toUpperCase()}
+          </div>
+
+          <div className="employee-user-details">
+
+            <strong>{user.name}</strong>
+
+            <span>Employee</span>
+
+          </div>
+
+          <button
+            className="employee-logout-button"
+            onClick={handleLogout}
+            title="Sign out"
+          >
+            <FaSignOutAlt />
+          </button>
+
+        </div>
+
+      </aside>
+
+
+      {/* =====================================================
+          MAIN
+          ===================================================== */}
+
+      <main className="employee-dashboard-main">
+
+
+        {/* ===================================================
+            TOP BAR
+            =================================================== */}
+
+        <header className="employee-topbar">
+
+          <div className="employee-topbar-left">
+
+            <div className="employee-topbar-icon">
+              <FaBookOpen />
+            </div>
+
+            <div>
+
+              <span className="employee-workspace-label">
+                EMPLOYEE WORKSPACE
+              </span>
+
+              <h1>Dashboard</h1>
+
+            </div>
+
+          </div>
+
+
+          <div className="employee-topbar-right">
+
+            <button
+              className="employee-notification-button"
+              title="Notifications"
+            >
+
+              <FaBell />
+
+              <span className="employee-notification-dot" />
+
+            </button>
+
+
+            <button className="employee-profile-button">
+
+              <span className="employee-profile-avatar">
+                {firstName.charAt(0).toUpperCase()}
+              </span>
+
+              <span className="employee-profile-details">
+
+                <strong>{user.name}</strong>
+
+                <small>user</small>
+
+              </span>
+
+              <FaChevronDown />
+
+            </button>
+
+          </div>
+
+        </header>
+
+
+        {/* ===================================================
+            PAGE CONTENT
+            =================================================== */}
+
+        <div className="employee-dashboard-content-wrapper">
+
+
+          {/* =================================================
+              WELCOME CARD
+              ================================================= */}
+
+          <section className="employee-welcome-card">
+
+            <div className="employee-welcome-content">
+
+              <span className="employee-section-eyebrow">
+                PERSONALIZED WORKSPACE
+              </span>
+
+              <h2>
+                {getGreeting()},{" "}
+                <span>{user.name || "Employee"}</span>{" "}
+                <span className="employee-wave">👋</span>
+              </h2>
+
+              <p>
+                Here's your personalized SOP and compliance overview.
+                Stay informed, complete your actions, and get instant
+                answers with AI.
+              </p>
+
+            </div>
+
+
+            <div className="employee-welcome-decoration">
+
+              <FaRobot />
+
+            </div>
+
+          </section>
+
+
+          {/* =================================================
+              SEARCH
+              ================================================= */}
+
+          <div className="employee-search-wrapper">
+
+            <FaSearch className="employee-search-icon" />
+
+            <input
+              type="text"
+              placeholder="Search SOPs, documents, policies or ask AI..."
+            />
+
+            <span className="employee-search-shortcut">
+              ⌘ K
+            </span>
+
+          </div>
+
+
+          {/* =================================================
+              QUICK ACTIONS
+              ================================================= */}
+
+          <section className="employee-section">
+
+            <div className="employee-section-heading">
+
+              <div>
+
+                <span className="employee-section-eyebrow">
+                  GET STARTED
+                </span>
+
+                <h3>Quick Actions</h3>
+
+              </div>
+
+            </div>
+
+
+            <div className="employee-quick-actions">
+
+              {quickActions.map((action) => (
+
+                <button
+                  key={action.title}
+                  className="employee-quick-action-card"
+                  onClick={() => handleQuickAction(action.title)}
+                >
+
+                  <div className="employee-quick-action-icon">
+                    {action.icon}
+                  </div>
+
+
+                  <div className="employee-quick-action-content">
+
+                    <strong>
+                      {action.title}
+                    </strong>
+
+                    <span>
+                      {action.description}
+                    </span>
+
+                  </div>
+
+
+                  <div className="employee-card-info">
+
+                    <FaInfoCircle />
+
+                    <span>
+                      {action.tooltip}
+                    </span>
+
+                  </div>
+
+
+                  <FaArrowRight className="employee-action-arrow" />
+
+                </button>
+
+              ))}
+
+            </div>
+
+          </section>
+
+
+          {/* =================================================
+              KPI CARDS
+              ================================================= */}
+
+          <section className="employee-kpi-grid">
+
+            {kpis.map((kpi) => (
+
+              <article
+                className="employee-kpi-card"
+                key={kpi.title}
+              >
+
+                <div className="employee-kpi-top">
+
+                  <div className="employee-kpi-icon">
+                    {kpi.icon}
+                  </div>
+
+
+                  <div className="employee-card-info">
+
+                    <FaInfoCircle />
+
+                    <span>
+                      {kpi.tooltip}
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <p className="employee-kpi-label">
+                  {kpi.title}
+                </p>
+
+
+                <h3 className="employee-kpi-value">
+                  {kpi.value}
+                </h3>
+
+
+                <div className="employee-kpi-bottom">
+
+                  <span
+                    className={
+                      kpi.positive
+                        ? "employee-kpi-change positive"
+                        : "employee-kpi-change warning"
+                    }
+                  >
+                    {kpi.change}
+                  </span>
+
+                  <span className="employee-kpi-description">
+                    {kpi.description}
+                  </span>
+
+                </div>
+
+
+                <div className="employee-kpi-decoration" />
+
+              </article>
+
+            ))}
+
+          </section>
+
+
+          {/* =================================================
+              LOWER CONTENT
+              ================================================= */}
+
+          <section className="employee-lower-grid">
+
+
+            {/* AI ASSISTANT */}
+
+            <div className="employee-large-card">
+
+              <div className="employee-large-card-header">
+
+                <div className="employee-large-card-title">
+
+                  <div className="employee-large-card-icon">
+                    <FaRobot />
+                  </div>
+
+                  <div>
+
+                    <span className="employee-section-eyebrow">
+                      INTELLIGENT KNOWLEDGE
+                    </span>
+
+                    <h3>
+                      AI Knowledge Assistant
+                    </h3>
+
+                  </div>
+
+                </div>
+
+
+                <div className="employee-card-info">
+
+                  <FaInfoCircle />
+
+                  <span>
+                    Use the AI assistant to ask questions about
+                    SOPs, policies, documents and enterprise
+                    knowledge.
+                  </span>
+
+                </div>
+
+              </div>
+
+
+              <div className="employee-ai-body">
+
+                <p>
+                  Get instant answers from your organization's
+                  knowledge base.
+                </p>
+
+                <button className="employee-primary-button">
+
+                  <FaRobot />
+
+                  Ask AI
+
+                  <FaArrowRight />
+
+                </button>
+
+              </div>
+
+            </div>
+
+
+            {/* MY ACTIONS */}
+
+            <div className="employee-large-card">
+
+              <div className="employee-large-card-header">
+
+                <div>
+
+                  <span className="employee-section-eyebrow">
+                    YOUR WORK
+                  </span>
+
+                  <h3>
+                    My Actions
+                  </h3>
+
+                </div>
+
+
+                <button className="employee-view-all">
+                  View All
+                  <FaArrowRight />
+                </button>
+
+              </div>
+
+
+              <div className="employee-actions-list">
+
+                {recentActions.map((action) => (
+
+                  <div
+                    className="employee-recent-action"
+                    key={action.title}
+                  >
+
+                    <div className="employee-recent-action-icon">
+                      {action.icon}
+                    </div>
+
+                    <div className="employee-recent-action-content">
+
+                      <strong>
+                        {action.title}
+                      </strong>
+
+                      <span>
+                        {action.description}
+                      </span>
+
+                    </div>
+
+                    <small>
+                      {action.time}
+                    </small>
+
+                  </div>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          {/* =================================================
+              FOOTER
+              ================================================= */}
+
+          <footer className="employee-dashboard-footer">
+
+            <span>
+              <FaShieldAlt />
+              Secure enterprise workspace
+            </span>
+
+            <span>
+              <FaCalendarAlt />
+              Last updated today
+            </span>
+
+          </footer>
+
+        </div>
+
+      </main>
+
+    </div>
+  );
+};
+
+export default EmployeeDashboard;
