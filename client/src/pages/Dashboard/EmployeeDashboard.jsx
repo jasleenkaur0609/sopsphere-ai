@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 import {
+  FaBars,
+  FaTimes,
   FaHome,
   FaBook,
   FaRobot,
@@ -12,84 +13,54 @@ import {
   FaChartBar,
   FaCog,
   FaQuestionCircle,
-  FaSignOutAlt,
   FaChevronDown,
   FaChevronRight,
-  FaSearch,
-  FaMagic,
-  FaCloudUploadAlt,
-  FaFilePdf,
-  FaTasks,
-  FaClock,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaInfoCircle,
   FaArrowRight,
-  FaPlus,
-  FaComments,
-  FaTimes,
-  FaBars,
-  FaUserCircle,
-  FaEye,
+  FaSearch,
+  FaCloudUploadAlt,
+  FaTasks,
+  FaCheckCircle,
+  FaClock,
+  FaInfoCircle,
   FaCalendarAlt,
-  FaClipboardCheck,
-  FaChartLine,
-  FaFileSignature,
-  FaHistory,
-  FaExternalLinkAlt,
+  FaFilePdf,
+  FaFileWord,
+  FaFileExcel,
+  FaMagic,
+  FaExchangeAlt,
   FaLightbulb,
-  FaQuestion,
+  FaHistory,
+  FaUser,
+  FaSignOutAlt,
+  FaEnvelope,
+  FaExclamationTriangle,
+  FaCheck,
+  FaTimesCircle,
+  FaChartLine,
+  FaLock,
+  FaExternalLinkAlt,
 } from "react-icons/fa";
+
+import { motion, AnimatePresence } from "framer-motion";
 
 import "./EmployeeDashboard.css";
 
 
 /* =========================================================
-   SAMPLE DATA
-   Replace with API / Redux / backend data later
-========================================================= */
+   MOCK USER
+   ========================================================= */
 
-const sampleUser = {
+const defaultUser = {
   id: "TEST001",
   name: "Jasleen Kaur",
   email: "jasleen@example.com",
   role: "Employee",
 };
 
-const quickActions = [
-  {
-    id: "generate",
-    title: "Generate SOP",
-    subtitle: "Create with AI",
-    icon: FaMagic,
-    description:
-      "Generate a new Standard Operating Procedure using AI assistance.",
-  },
-  {
-    id: "ask-ai",
-    title: "Ask AI",
-    subtitle: "Ask anything",
-    icon: FaRobot,
-    description:
-      "Ask questions about SOPs, policies, procedures, documents and compliance.",
-  },
-  {
-    id: "upload",
-    title: "Upload Document",
-    subtitle: "Analyze file",
-    icon: FaCloudUploadAlt,
-    description:
-      "Upload a document for AI-powered analysis, extraction and classification.",
-  },
-  {
-    id: "find-sop",
-    title: "Find SOP",
-    subtitle: "Search library",
-    icon: FaFileAlt,
-    description:
-      "Search and access SOPs available in the enterprise knowledge library.",
-  },
-];
+
+/* =========================================================
+   MOCK KPI DATA
+   ========================================================= */
 
 const kpis = [
   {
@@ -102,6 +73,7 @@ const kpis = [
       "Number of SOPs currently assigned to you or available to you.",
     type: "positive",
   },
+
   {
     id: "actions",
     title: "Actions",
@@ -112,6 +84,7 @@ const kpis = [
       "Tasks and actions currently requiring your attention.",
     type: "warning",
   },
+
   {
     id: "training",
     title: "Training",
@@ -122,6 +95,7 @@ const kpis = [
       "Your overall training completion percentage.",
     type: "positive",
   },
+
   {
     id: "compliance",
     title: "Compliance",
@@ -132,6 +106,7 @@ const kpis = [
       "Your current compliance score based on assigned requirements.",
     type: "positive",
   },
+
   {
     id: "queries",
     title: "AI Queries",
@@ -144,6 +119,54 @@ const kpis = [
   },
 ];
 
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+const quickActions = [
+  {
+    id: "generate",
+    title: "Generate SOP",
+    subtitle: "Create with AI",
+    icon: FaMagic,
+    description:
+      "Create a structured SOP from your process knowledge using AI.",
+  },
+
+  {
+    id: "ask-ai",
+    title: "Ask AI",
+    subtitle: "Ask anything",
+    icon: FaRobot,
+    description:
+      "Ask questions about SOPs, policies, procedures, documents and compliance.",
+  },
+
+  {
+    id: "upload",
+    title: "Upload Document",
+    subtitle: "Analyze file",
+    icon: FaCloudUploadAlt,
+    description:
+      "Upload a document for AI-powered analysis, extraction and classification.",
+  },
+
+  {
+    id: "find-sop",
+    title: "Find SOP",
+    subtitle: "Search library",
+    icon: FaFileAlt,
+    description:
+      "Search and access SOPs available in the enterprise knowledge library.",
+  },
+];
+
+
+/* =========================================================
+   MY ACTIONS
+   ========================================================= */
+
 const myActions = [
   {
     id: 1,
@@ -153,6 +176,7 @@ const myActions = [
     status: "Due Today",
     priority: "High",
   },
+
   {
     id: 2,
     title: "Complete Compliance Training",
@@ -161,6 +185,7 @@ const myActions = [
     status: "Pending",
     priority: "Medium",
   },
+
   {
     id: 3,
     title: "Acknowledge Updated HR Policy",
@@ -169,6 +194,7 @@ const myActions = [
     status: "Pending",
     priority: "Medium",
   },
+
   {
     id: 4,
     title: "Review Process Change",
@@ -179,6 +205,58 @@ const myActions = [
   },
 ];
 
+
+/* =========================================================
+   MY SOPS
+   ========================================================= */
+
+const mySOPs = [
+  {
+    id: 1,
+    title: "Distributor Onboarding",
+    version: "v3.2",
+    status: "Approved",
+    updated: "12 Aug 2026",
+    owner: "Operations",
+    pages: 14,
+  },
+
+  {
+    id: 2,
+    title: "Invoice Processing",
+    version: "v2.4",
+    status: "Approved",
+    updated: "10 Aug 2026",
+    owner: "Finance",
+    pages: 11,
+  },
+
+  {
+    id: 3,
+    title: "Email Handling",
+    version: "v4.1",
+    status: "Approved",
+    updated: "08 Aug 2026",
+    owner: "Customer Operations",
+    pages: 9,
+  },
+
+  {
+    id: 4,
+    title: "Customer Escalation",
+    version: "v2.1",
+    status: "Under Review",
+    updated: "06 Aug 2026",
+    owner: "Customer Experience",
+    pages: 16,
+  },
+];
+
+
+/* =========================================================
+   TRAINING
+   ========================================================= */
+
 const upcomingTraining = [
   {
     id: 1,
@@ -186,12 +264,14 @@ const upcomingTraining = [
     date: "20 Aug 2026",
     progress: 75,
   },
+
   {
     id: 2,
     title: "Workplace Compliance",
     date: "27 Aug 2026",
     progress: 45,
   },
+
   {
     id: 3,
     title: "Data Privacy Essentials",
@@ -200,132 +280,330 @@ const upcomingTraining = [
   },
 ];
 
-const recentSops = [
-  {
-    id: 1,
-    title: "Information Security SOP",
-    version: "v3.2",
-    status: "Approved",
-    viewed: "2 hours ago",
-  },
-  {
-    id: 2,
-    title: "Employee Leave Process",
-    version: "v2.1",
-    status: "Approved",
-    viewed: "Yesterday",
-  },
-  {
-    id: 3,
-    title: "Incident Management SOP",
-    version: "v1.4",
-    status: "Updated",
-    viewed: "2 days ago",
-  },
-];
 
-const notifications = [
+/* =========================================================
+   GENERATED SOPs
+   ========================================================= */
+
+const generatedSOPs = [
   {
     id: 1,
-    title: "SOP requires your review",
-    message: "Data Security SOP has been updated.",
-    time: "10 min ago",
-    unread: true,
-    type: "sop",
+    title: "Distributor Onboarding",
+    status: "Draft",
+    date: "13 Aug 2026",
   },
+
   {
     id: 2,
-    title: "Training reminder",
-    message: "Your compliance training is due tomorrow.",
-    time: "1 hour ago",
-    unread: true,
-    type: "training",
+    title: "Invoice Processing",
+    status: "Pending Review",
+    date: "12 Aug 2026",
   },
+
   {
     id: 3,
-    title: "Compliance update",
-    message: "Your compliance score increased by 2.4%.",
-    time: "Yesterday",
-    unread: false,
-    type: "compliance",
+    title: "Email Handling",
+    status: "Approved",
+    date: "10 Aug 2026",
   },
 ];
 
 
 /* =========================================================
-   COMPONENT
-========================================================= */
+   NOTIFICATIONS
+   ========================================================= */
+
+const initialNotifications = [
+  {
+    id: 1,
+    title: "SOP Assigned",
+    message:
+      "A new SOP has been assigned to you for review.",
+    time: "10 minutes ago",
+    type: "sop",
+    unread: true,
+  },
+
+  {
+    id: 2,
+    title: "Training Reminder",
+    message:
+      "Your mandatory compliance training is due soon.",
+    time: "1 hour ago",
+    type: "training",
+    unread: true,
+  },
+
+  {
+    id: 3,
+    title: "SOP Approved",
+    message:
+      "Your submitted SOP has been approved.",
+    time: "Yesterday",
+    type: "sop",
+    unread: false,
+  },
+
+  {
+    id: 4,
+    title: "Compliance Update",
+    message:
+      "Your compliance status has been updated.",
+    time: "2 days ago",
+    type: "compliance",
+    unread: false,
+  },
+
+  {
+    id: 5,
+    title: "New Document Available",
+    message:
+      "A new process document is available in the knowledge library.",
+    time: "3 days ago",
+    type: "document",
+    unread: false,
+  },
+];
+
+
+/* =========================================================
+   RECENT ACTIVITY
+   ========================================================= */
+
+const recentActivity = [
+  {
+    id: 1,
+    title: "Completed Data Privacy Training",
+    time: "Today, 10:42 AM",
+    icon: FaGraduationCap,
+  },
+
+  {
+    id: 2,
+    title: "Viewed Distributor Onboarding SOP",
+    time: "Yesterday, 4:20 PM",
+    icon: FaBook,
+  },
+
+  {
+    id: 3,
+    title: "Asked AI about escalation process",
+    time: "Yesterday, 1:35 PM",
+    icon: FaRobot,
+  },
+
+  {
+    id: 4,
+    title: "Uploaded Invoice Processing document",
+    time: "12 Aug 2026",
+    icon: FaFileAlt,
+  },
+];
+
+
+/* =========================================================
+   AI RECOMMENDATIONS
+   ========================================================= */
+
+const recommendations = [
+  {
+    id: 1,
+    title: "Review Data Security SOP",
+    description:
+      "This SOP was recently updated and requires your acknowledgement.",
+    icon: FaShieldAlt,
+  },
+
+  {
+    id: 2,
+    title: "Complete Data Privacy Training",
+    description:
+      "Your current training progress is below the recommended completion level.",
+    icon: FaGraduationCap,
+  },
+
+  {
+    id: 3,
+    title: "Review Process Changes",
+    description:
+      "AI detected recent changes in one of your frequently used processes.",
+    icon: FaLightbulb,
+  },
+];
+
+
+/* =========================================================
+   SIDEBAR MENU
+   ========================================================= */
+
+const sidebarMenu = [
+  {
+    id: "Dashboard",
+    label: "Dashboard",
+    icon: FaHome,
+  },
+
+  {
+    id: "SOPs",
+    label: "SOPs",
+    icon: FaBook,
+    children: [
+      {
+        id: "All SOPs",
+        label: "All SOPs",
+      },
+
+      {
+        id: "My SOPs",
+        label: "My SOPs",
+      },
+
+      {
+        id: "Generate SOP",
+        label: "Generate SOP",
+      },
+
+      {
+        id: "Drafts",
+        label: "Drafts",
+      },
+    ],
+  },
+
+  {
+    id: "AI Assistant",
+    label: "AI Assistant",
+    icon: FaRobot,
+  },
+
+  {
+    id: "Documents",
+    label: "Documents",
+    icon: FaFileAlt,
+    children: [
+      {
+        id: "Upload Documents",
+        label: "Upload",
+      },
+
+      {
+        id: "AI Analysis",
+        label: "AI Analysis",
+      },
+    ],
+  },
+
+  {
+    id: "Training",
+    label: "Training",
+    icon: FaGraduationCap,
+  },
+
+  {
+    id: "Compliance",
+    label: "Compliance",
+    icon: FaShieldAlt,
+  },
+
+  {
+    id: "Notifications",
+    label: "Notifications",
+    icon: FaBell,
+  },
+
+  {
+    id: "My Analytics",
+    label: "My Analytics",
+    icon: FaChartBar,
+  },
+];
+
+
+/* =========================================================
+   EMPLOYEE DASHBOARD
+   ========================================================= */
 
 const EmployeeDashboard = () => {
 
-  /* -------------------------------------------------------
+  /* =======================================================
      USER
-  ------------------------------------------------------- */
+  ======================================================= */
 
-  const storedUser = localStorage.getItem("user");
+  const storedUser = useMemo(() => {
 
-  const user = storedUser
-    ? JSON.parse(storedUser)
-    : sampleUser;
+    try {
+
+      const savedUser =
+        localStorage.getItem("user");
+
+      return savedUser
+        ? JSON.parse(savedUser)
+        : defaultUser;
+
+    } catch {
+
+      return defaultUser;
+
+    }
+
+  }, []);
 
 
-  /* -------------------------------------------------------
+  const user = storedUser || defaultUser;
+
+
+  /* =======================================================
      STATE
-  ------------------------------------------------------- */
+  ======================================================= */
 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
-  const [profileOpen, setProfileOpen] = useState(false);
-
-  const [notificationOpen, setNotificationOpen] =
-    useState(false);
-
-  const [searchQuery, setSearchQuery] =
-    useState("");
+  const [sidebarOpen, setSidebarOpen] =
+    useState(true);
 
   const [activeSection, setActiveSection] =
     useState("Dashboard");
 
-  const [openMenus, setOpenMenus] = useState({
-    sops: false,
-    documents: false,
-  });
+  const [openMenus, setOpenMenus] =
+    useState({
+      SOPs: true,
+      Documents: true,
+    });
 
-  const [showAllActions, setShowAllActions] =
+  const [profileOpen, setProfileOpen] =
     useState(false);
 
-  const [showAllSops, setShowAllSops] =
+  const [notifications, setNotifications] =
+    useState(initialNotifications);
+
+  const [searchValue, setSearchValue] =
+    useState("");
+
+  const [aiQuestion, setAIQuestion] =
+    useState("");
+
+  const [selectedSOP1, setSelectedSOP1] =
+    useState("SOP v2.0");
+
+  const [selectedSOP2, setSelectedSOP2] =
+    useState("SOP v3.0");
+
+  const [showAIResponse, setShowAIResponse] =
     useState(false);
 
 
-  /* -------------------------------------------------------
-     GREETING
-  ------------------------------------------------------- */
+  /* =======================================================
+     UNREAD NOTIFICATIONS
+  ======================================================= */
 
-  const getGreeting = () => {
-
-    const hour = new Date().getHours();
-
-    if (hour < 12) return "Good Morning";
-
-    if (hour < 17) return "Good Afternoon";
-
-    return "Good Evening";
-  };
+  const unreadNotifications =
+    notifications.filter(
+      (notification) =>
+        notification.unread
+    ).length;
 
 
-  /* -------------------------------------------------------
-     SIDEBAR MENU
-  ------------------------------------------------------- */
-
-  const toggleMenu = (menu) => {
-
-    setOpenMenus((previous) => ({
-      ...previous,
-      [menu]: !previous[menu],
-    }));
-  };
-
+  /* =======================================================
+     NAVIGATION
+  ======================================================= */
 
   const handleNavigation = (section) => {
 
@@ -333,549 +611,376 @@ const EmployeeDashboard = () => {
 
     setProfileOpen(false);
 
-    setNotificationOpen(false);
+  };
+
+
+  /* =======================================================
+     SIDEBAR DROPDOWN
+  ======================================================= */
+
+  const toggleMenu = (menuId) => {
+
+    setOpenMenus((previous) => ({
+      ...previous,
+      [menuId]:
+        !previous[menuId],
+    }));
 
   };
 
 
-  /* -------------------------------------------------------
+  /* =======================================================
+     LOGOUT
+  ======================================================= */
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("user");
+    localStorage.removeItem("userRole");
+
+    window.location.href = "/login";
+
+  };
+
+
+  /* =======================================================
+     NOTIFICATION CLICK
+  ======================================================= */
+
+  const handleNotificationClick = (
+    notificationId
+  ) => {
+
+    setNotifications((previous) =>
+      previous.map((notification) =>
+        notification.id === notificationId
+          ? {
+              ...notification,
+              unread: false,
+            }
+          : notification
+      )
+    );
+
+  };
+
+
+  /* =======================================================
+     SEARCH
+  ======================================================= */
+
+  const handleSearch = (event) => {
+
+    event.preventDefault();
+
+    if (!searchValue.trim()) {
+      return;
+    }
+
+    setActiveSection("My SOPs");
+
+  };
+
+
+  /* =======================================================
+     AI SEARCH
+  ======================================================= */
+
+  const handleAIQuestion = () => {
+
+    if (!aiQuestion.trim()) {
+      return;
+    }
+
+    setShowAIResponse(true);
+
+  };
+
+
+  /* =======================================================
      QUICK ACTION
-  ------------------------------------------------------- */
+  ======================================================= */
 
   const handleQuickAction = (actionId) => {
 
     switch (actionId) {
 
       case "generate":
-        handleNavigation("Generate SOP");
+        setActiveSection("Generate SOP");
         break;
 
       case "ask-ai":
-        handleNavigation("AI Assistant");
+        setActiveSection("AI Assistant");
         break;
 
       case "upload":
-        handleNavigation("Upload Document");
+        setActiveSection("Upload Documents");
         break;
 
       case "find-sop":
-        handleNavigation("All SOPs");
+        setActiveSection("My SOPs");
         break;
 
       default:
-        break;
+        setActiveSection("Dashboard");
+
     }
-  };
-
-
-  /* -------------------------------------------------------
-     SEARCH
-  ------------------------------------------------------- */
-
-  const filteredSops = useMemo(() => {
-
-    if (!searchQuery.trim()) {
-      return recentSops;
-    }
-
-    return recentSops.filter((sop) =>
-      sop.title
-        .toLowerCase()
-        .includes(searchQuery.toLowerCase())
-    );
-
-  }, [searchQuery]);
-
-
-  /* -------------------------------------------------------
-     LOGOUT
-  ------------------------------------------------------- */
-
-  const handleLogout = () => {
-
-    localStorage.removeItem("user");
-
-    localStorage.removeItem("userRole");
-
-    window.location.href = "/login";
-  };
-
-
-  /* -------------------------------------------------------
-     CLOSE OVERLAYS
-  ------------------------------------------------------- */
-
-  const closePanels = () => {
-
-    setProfileOpen(false);
-
-    setNotificationOpen(false);
 
   };
 
 
   /* =======================================================
-     RENDER
+     GREETING
   ======================================================= */
 
-  return (
+  const getGreeting = () => {
 
-    <div
-      className={`employee-dashboard ${
-        sidebarOpen ? "sidebar-expanded" : "sidebar-collapsed"
+    const hour =
+      new Date().getHours();
+
+    if (hour < 12) {
+      return "Good Morning";
+    }
+
+    if (hour < 18) {
+      return "Good Afternoon";
+    }
+
+    return "Good Evening";
+
+  };
+
+
+  /* =======================================================
+     SIDEBAR
+  ======================================================= */
+
+  const renderSidebar = () => (
+
+    <aside
+      className={`employee-sidebar ${
+        sidebarOpen
+          ? ""
+          : "collapsed"
       }`}
     >
 
-      {/* =================================================
-          SIDEBAR
-      ================================================= */}
+      {/* BRAND */}
 
-      <aside className="employee-sidebar">
+      <div className="sidebar-brand">
 
-        {/* BRAND */}
-        <div className="sidebar-brand">
-
-          <div className="brand-logo">
-            AI
-          </div>
-
-          {sidebarOpen && (
-
-            <div className="brand-content">
-
-              <h2>
-                SOP Intelligence
-              </h2>
-
-              <span>
-                Employee Portal
-              </span>
-
-            </div>
-
-          )}
-
-          <button
-            className="sidebar-toggle"
-            onClick={() =>
-              setSidebarOpen(!sidebarOpen)
-            }
-            title={
-              sidebarOpen
-                ? "Collapse sidebar"
-                : "Expand sidebar"
-            }
-          >
-
-            {sidebarOpen ? (
-              <FaTimes />
-            ) : (
-              <FaBars />
-            )}
-
-          </button>
-
+        <div className="sidebar-brand-mark">
+          <FaBook />
         </div>
 
-
-        {/* WORKSPACE */}
         {sidebarOpen && (
-          <div className="sidebar-section-title">
-            WORKSPACE
+          <div className="sidebar-brand-text">
+
+            <strong>
+              SOP INTELLIGENCE
+            </strong>
+
+            <span>
+              Employee Portal
+            </span>
+
           </div>
         )}
 
-
-        {/* DASHBOARD */}
-        <button
-          className={`sidebar-item ${
-            activeSection === "Dashboard"
-              ? "active"
-              : ""
-          }`}
-          onClick={() =>
-            handleNavigation("Dashboard")
-          }
-          title="Dashboard"
-        >
-
-          <FaHome />
-
-          {sidebarOpen && (
-            <span>
-              Dashboard
-            </span>
-          )}
-
-        </button>
+      </div>
 
 
-        {/* =================================================
-            SOP DROPDOWN
-        ================================================= */}
+      {/* SIDEBAR NAVIGATION */}
 
-        <div className="sidebar-dropdown">
+      <nav className="sidebar-navigation">
 
-          <button
-            className={`sidebar-item ${
-              activeSection.includes("SOP")
-                ? "active-parent"
-                : ""
-            }`}
-            onClick={() =>
-              toggleMenu("sops")
-            }
-            title="SOPs"
-          >
+        {sidebarMenu.map((item) => {
 
-            <FaBook />
+          const Icon =
+            item.icon;
 
-            {sidebarOpen && (
-              <>
+          const hasChildren =
+            Array.isArray(
+              item.children
+            );
 
-                <span>
-                  SOPs
-                </span>
+          const isOpen =
+            openMenus[item.id];
 
-                <FaChevronDown
-                  className={`dropdown-arrow ${
-                    openMenus.sops
-                      ? "rotated"
-                      : ""
-                  }`}
-                />
+          const isActive =
+            activeSection ===
+              item.id ||
+            item.children?.some(
+              (child) =>
+                child.id ===
+                activeSection
+            );
 
-              </>
-            )}
+          return (
 
-          </button>
+            <div
+              className="sidebar-menu-group"
+              key={item.id}
+            >
 
+              <button
+                type="button"
+                className={`sidebar-item ${
+                  isActive
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() => {
 
-          <AnimatePresence>
+                  if (hasChildren) {
 
-            {sidebarOpen && openMenus.sops && (
+                    if (
+                      !sidebarOpen
+                    ) {
 
-              <motion.div
-                className="sidebar-submenu"
-                initial={{
-                  height: 0,
-                  opacity: 0,
+                      setSidebarOpen(
+                        true
+                      );
+
+                    }
+
+                    toggleMenu(
+                      item.id
+                    );
+
+                  } else {
+
+                    handleNavigation(
+                      item.id
+                    );
+
+                  }
+
                 }}
-                animate={{
-                  height: "auto",
-                  opacity: 1,
-                }}
-                exit={{
-                  height: 0,
-                  opacity: 0,
-                }}
+                title={
+                  !sidebarOpen
+                    ? item.label
+                    : ""
+                }
               >
 
-                <button
-                  onClick={() =>
-                    handleNavigation("All SOPs")
-                  }
-                  className={
-                    activeSection === "All SOPs"
-                      ? "submenu-active"
-                      : ""
-                  }
-                >
-                  <FaFileAlt />
-                  All SOPs
-                </button>
+                <div className="sidebar-item-icon-wrapper">
+
+                  <Icon />
+
+                  {item.id ===
+                    "Notifications" &&
+                    unreadNotifications >
+                      0 && (
+                      <span className="sidebar-notification-dot" />
+                    )}
+
+                </div>
 
 
-                <button
-                  onClick={() =>
-                    handleNavigation("My SOPs")
-                  }
-                  className={
-                    activeSection === "My SOPs"
-                      ? "submenu-active"
-                      : ""
-                  }
-                >
-                  <FaBook />
-                  My SOPs
-                </button>
+                {sidebarOpen && (
+                  <span className="sidebar-item-label">
+                    {item.label}
+                  </span>
+                )}
 
 
-                <button
-                  onClick={() =>
-                    handleNavigation("Generate SOP")
-                  }
-                  className={
-                    activeSection === "Generate SOP"
-                      ? "submenu-active"
-                      : ""
-                  }
-                >
-                  <FaMagic />
-                  Generate SOP
-                </button>
+                {sidebarOpen &&
+                  hasChildren && (
+
+                    <FaChevronDown
+                      className={`sidebar-chevron ${
+                        isOpen
+                          ? "open"
+                          : ""
+                      }`}
+                    />
+
+                  )}
+
+              </button>
 
 
-                <button
-                  onClick={() =>
-                    handleNavigation("Drafts")
-                  }
-                  className={
-                    activeSection === "Drafts"
-                      ? "submenu-active"
-                      : ""
-                  }
-                >
-                  <FaFileSignature />
-                  Drafts
-                </button>
+              {/* CHILDREN */}
 
-              </motion.div>
+              {sidebarOpen &&
+                hasChildren &&
+                isOpen && (
 
-            )}
+                  <div className="sidebar-submenu">
 
-          </AnimatePresence>
+                    {item.children.map(
+                      (child) => (
 
-        </div>
+                        <button
+                          type="button"
+                          className={`sidebar-submenu-item ${
+                            activeSection ===
+                            child.id
+                              ? "active"
+                              : ""
+                          }`}
+                          key={
+                            child.id
+                          }
+                          onClick={() =>
+                            handleNavigation(
+                              child.id
+                            )
+                          }
+                        >
 
+                          <span className="sidebar-submenu-dot" />
 
-        {/* AI ASSISTANT */}
-        <button
-          className={`sidebar-item ${
-            activeSection === "AI Assistant"
-              ? "active"
-              : ""
-          }`}
-          onClick={() =>
-            handleNavigation("AI Assistant")
-          }
-          title="AI Assistant"
-        >
+                          <span>
+                            {child.label}
+                          </span>
 
-          <FaRobot />
+                        </button>
 
-          {sidebarOpen && (
-            <span>
-              AI Assistant
-            </span>
-          )}
-
-        </button>
-
-
-        {/* =================================================
-            DOCUMENTS DROPDOWN
-        ================================================= */}
-
-        <div className="sidebar-dropdown">
-
-          <button
-            className={`sidebar-item ${
-              activeSection.includes("Document")
-                ? "active-parent"
-                : ""
-            }`}
-            onClick={() =>
-              toggleMenu("documents")
-            }
-            title="Documents"
-          >
-
-            <FaFileAlt />
-
-            {sidebarOpen && (
-              <>
-
-                <span>
-                  Documents
-                </span>
-
-                <FaChevronDown
-                  className={`dropdown-arrow ${
-                    openMenus.documents
-                      ? "rotated"
-                      : ""
-                  }`}
-                />
-
-              </>
-            )}
-
-          </button>
-
-
-          <AnimatePresence>
-
-            {sidebarOpen &&
-              openMenus.documents && (
-
-                <motion.div
-                  className="sidebar-submenu"
-                  initial={{
-                    height: 0,
-                    opacity: 0,
-                  }}
-                  animate={{
-                    height: "auto",
-                    opacity: 1,
-                  }}
-                  exit={{
-                    height: 0,
-                    opacity: 0,
-                  }}
-                >
-
-                  <button
-                    onClick={() =>
-                      handleNavigation(
-                        "All Documents"
                       )
-                    }
-                  >
-                    <FaFileAlt />
-                    All Documents
-                  </button>
+                    )}
+
+                  </div>
+
+                )}
+
+            </div>
+
+          );
+
+        })}
+
+      </nav>
 
 
-                  <button
-                    onClick={() =>
-                      handleNavigation(
-                        "Upload Document"
-                      )
-                    }
-                  >
-                    <FaCloudUploadAlt />
-                    Upload & Analyze
-                  </button>
+      {/* SIDEBAR BOTTOM */}
 
-                </motion.div>
+      <div className="sidebar-bottom">
 
-              )}
-
-          </AnimatePresence>
-
-        </div>
-
-
-        {/* TRAINING */}
         <button
+          type="button"
           className={`sidebar-item ${
-            activeSection === "Training"
+            activeSection ===
+            "Settings"
               ? "active"
               : ""
           }`}
           onClick={() =>
-            handleNavigation("Training")
+            handleNavigation(
+              "Settings"
+            )
           }
-          title="Training"
-        >
-
-          <FaGraduationCap />
-
-          {sidebarOpen && (
-            <span>
-              Training
-            </span>
-          )}
-
-        </button>
-
-
-        {/* COMPLIANCE */}
-        <button
-          className={`sidebar-item ${
-            activeSection === "Compliance"
-              ? "active"
+          title={
+            !sidebarOpen
+              ? "Settings"
               : ""
-          }`}
-          onClick={() =>
-            handleNavigation("Compliance")
           }
-          title="Compliance"
         >
 
-          <FaShieldAlt />
-
-          {sidebarOpen && (
-            <span>
-              Compliance
-            </span>
-          )}
-
-        </button>
-
-
-        {/* NOTIFICATIONS */}
-        <button
-          className={`sidebar-item ${
-            activeSection === "Notifications"
-              ? "active"
-              : ""
-          }`}
-          onClick={() =>
-            handleNavigation("Notifications")
-          }
-          title="Notifications"
-        >
-
-          <div className="sidebar-icon-with-badge">
-
-            <FaBell />
-
-            <span className="sidebar-notification-dot" />
-
+          <div className="sidebar-item-icon-wrapper">
+            <FaCog />
           </div>
-
-          {sidebarOpen && (
-            <span>
-              Notifications
-            </span>
-          )}
-
-        </button>
-
-
-        {/* ANALYTICS */}
-        <button
-          className={`sidebar-item ${
-            activeSection === "My Analytics"
-              ? "active"
-              : ""
-          }`}
-          onClick={() =>
-            handleNavigation("My Analytics")
-          }
-          title="My Analytics"
-        >
-
-          <FaChartBar />
-
-          {sidebarOpen && (
-            <span>
-              My Analytics
-            </span>
-          )}
-
-        </button>
-
-
-        <div className="sidebar-divider" />
-
-
-        {/* SETTINGS */}
-        <button
-          className={`sidebar-item ${
-            activeSection === "Settings"
-              ? "active"
-              : ""
-          }`}
-          onClick={() =>
-            handleNavigation("Settings")
-          }
-          title="Settings"
-        >
-
-          <FaCog />
 
           {sidebarOpen && (
             <span>
@@ -886,20 +991,29 @@ const EmployeeDashboard = () => {
         </button>
 
 
-        {/* HELP */}
         <button
+          type="button"
           className={`sidebar-item ${
-            activeSection === "Help & Support"
+            activeSection ===
+            "Help & Support"
               ? "active"
               : ""
           }`}
           onClick={() =>
-            handleNavigation("Help & Support")
+            handleNavigation(
+              "Help & Support"
+            )
           }
-          title="Help & Support"
+          title={
+            !sidebarOpen
+              ? "Help & Support"
+              : ""
+          }
         >
 
-          <FaQuestionCircle />
+          <div className="sidebar-item-icon-wrapper">
+            <FaQuestionCircle />
+          </div>
 
           {sidebarOpen && (
             <span>
@@ -910,687 +1024,1582 @@ const EmployeeDashboard = () => {
         </button>
 
 
-        {/* =================================================
-            SIDEBAR USER
-        ================================================= */}
+        {/* USER */}
 
-        <div className="sidebar-user">
+        {sidebarOpen && (
 
-          <div className="sidebar-user-avatar">
-            {user.name?.charAt(0)?.toUpperCase()}
-          </div>
+          <div className="sidebar-user-card">
 
-          {sidebarOpen && (
+            <div className="sidebar-user-avatar">
 
-            <div className="sidebar-user-info">
+              {user?.name
+                ?.charAt(0)
+                ?.toUpperCase() ||
+                "U"}
+
+            </div>
+
+            <div className="sidebar-user-details">
 
               <strong>
-                {user.name}
+                {user?.name ||
+                  "Employee"}
               </strong>
 
               <span>
-                {user.role || "Employee"}
+                {user?.role ||
+                  "Employee"}
               </span>
 
             </div>
 
+          </div>
+
+        )}
+
+      </div>
+
+    </aside>
+
+  );
+
+
+  /* =======================================================
+     HEADER
+  ======================================================= */
+
+  const renderHeader = () => (
+
+    <header className="employee-header">
+
+      <div className="header-left">
+
+        <button
+          type="button"
+          className="sidebar-toggle-button"
+          onClick={() =>
+            setSidebarOpen(
+              !sidebarOpen
+            )
+          }
+          title={
+            sidebarOpen
+              ? "Collapse sidebar"
+              : "Expand sidebar"
+          }
+        >
+
+          {sidebarOpen ? (
+            <FaTimes />
+          ) : (
+            <FaBars />
           )}
 
-          {sidebarOpen && (
+        </button>
 
-            <button
-              className="sidebar-logout"
-              onClick={handleLogout}
-              title="Sign out"
+
+        <div className="header-title">
+
+          <span>
+            EMPLOYEE WORKSPACE
+          </span>
+
+          <h1>
+            {activeSection}
+          </h1>
+
+        </div>
+
+      </div>
+
+
+      {/* HEADER RIGHT */}
+
+      <div className="header-actions">
+
+        {/* PROFILE ONLY — NO TOP NOTIFICATION */}
+
+        <div className="header-profile-wrapper">
+
+          <button
+            type="button"
+            className="header-profile-button"
+            onClick={() => {
+
+              setProfileOpen(
+                !profileOpen
+              );
+
+            }}
+          >
+
+            <div className="header-profile-avatar">
+
+              {user?.name
+                ?.charAt(0)
+                ?.toUpperCase() ||
+                "U"}
+
+            </div>
+
+
+            <div className="header-profile-info">
+
+              <strong>
+                {user?.name ||
+                  "Employee"}
+              </strong>
+
+              <span>
+                {user?.role ||
+                  "Employee"}
+              </span>
+
+            </div>
+
+
+            <FaChevronDown
+              className={`profile-chevron ${
+                profileOpen
+                  ? "open"
+                  : ""
+              }`}
+            />
+
+          </button>
+
+
+          {/* PROFILE DROPDOWN */}
+
+          <AnimatePresence>
+
+            {profileOpen && (
+
+              <motion.div
+                className="profile-dropdown"
+                initial={{
+                  opacity: 0,
+                  y: -8,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                  y: -8,
+                }}
+              >
+
+                <div className="profile-dropdown-user">
+
+                  <div className="profile-large-avatar">
+
+                    {user?.name
+                      ?.charAt(0)
+                      ?.toUpperCase() ||
+                      "U"}
+
+                  </div>
+
+
+                  <div>
+
+                    <strong>
+                      {user?.name ||
+                        "Employee"}
+                    </strong>
+
+                    <span>
+                      {user?.email ||
+                        "employee@example.com"}
+                    </span>
+
+                  </div>
+
+                </div>
+
+
+                <div className="profile-divider" />
+
+
+                <button
+                  type="button"
+                  className="profile-menu-item"
+                  onClick={() =>
+                    handleNavigation(
+                      "My Profile"
+                    )
+                  }
+                >
+
+                  <FaUser />
+
+                  <span>
+                    My Profile
+                  </span>
+
+                </button>
+
+
+                <button
+                  type="button"
+                  className="profile-menu-item"
+                  onClick={() =>
+                    handleNavigation(
+                      "Settings"
+                    )
+                  }
+                >
+
+                  <FaCog />
+
+                  <span>
+                    Settings
+                  </span>
+
+                </button>
+
+
+                <div className="profile-divider" />
+
+
+                <button
+                  type="button"
+                  className="profile-menu-item logout"
+                  onClick={
+                    handleLogout
+                  }
+                >
+
+                  <FaSignOutAlt />
+
+                  <span>
+                    Sign Out
+                  </span>
+
+                </button>
+
+              </motion.div>
+
+            )}
+
+          </AnimatePresence>
+
+        </div>
+
+      </div>
+
+    </header>
+
+  );
+
+
+  /* =======================================================
+     KPI CARDS
+  ======================================================= */
+
+  const renderKPIs = () => (
+
+    <div className="kpi-grid">
+
+      {kpis.map((kpi) => {
+
+        const Icon =
+          kpi.icon;
+
+        return (
+
+          <motion.div
+            className="kpi-card"
+            key={kpi.id}
+            whileHover={{
+              y: -4,
+            }}
+          >
+
+            <div className="kpi-top">
+
+              <div className="kpi-icon">
+                <Icon />
+              </div>
+
+
+              <div
+                className="info-tooltip-wrapper"
+                title={kpi.description}
+              >
+
+                <FaInfoCircle />
+
+                <div className="info-tooltip">
+                  {kpi.description}
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div className="kpi-title">
+              {kpi.title}
+            </div>
+
+
+            <div className="kpi-value">
+              {kpi.value}
+            </div>
+
+
+            <div
+              className={`kpi-change ${
+                kpi.type
+              }`}
             >
-              <FaSignOutAlt />
-            </button>
+              {kpi.change}
+            </div>
 
+          </motion.div>
+
+        );
+
+      })}
+
+    </div>
+
+  );
+
+
+  /* =======================================================
+     QUICK ACTIONS
+  ======================================================= */
+
+  const renderQuickActions = () => (
+
+    <section className="quick-actions-section">
+
+      <div className="section-heading">
+
+        <div>
+
+          <span>
+            QUICK ACTIONS
+          </span>
+
+          <h2>
+            Get Things Done Faster
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div className="quick-actions-grid">
+
+        {quickActions.map(
+          (action) => {
+
+            const Icon =
+              action.icon;
+
+            return (
+
+              <button
+                type="button"
+                className="quick-action-card"
+                key={action.id}
+                onClick={() =>
+                  handleQuickAction(
+                    action.id
+                  )
+                }
+              >
+
+                <div className="quick-action-icon">
+                  <Icon />
+                </div>
+
+
+                <div className="quick-action-content">
+
+                  <strong>
+                    {action.title}
+                  </strong>
+
+                  <span>
+                    {action.subtitle}
+                  </span>
+
+                </div>
+
+
+                <FaArrowRight className="quick-action-arrow" />
+
+              </button>
+
+            );
+
+          }
+        )}
+
+      </div>
+
+    </section>
+
+  );
+
+
+  /* =======================================================
+     AI ASSISTANT
+  ======================================================= */
+
+  const renderAIAssistant = () => (
+
+    <section className="dashboard-two-column">
+
+      <div className="dashboard-panel ai-panel">
+
+        <div className="panel-title-row">
+
+          <div className="panel-title">
+
+            <div className="panel-icon">
+              <FaRobot />
+            </div>
+
+            <div>
+
+              <span>
+                KNOWLEDGE ASSISTANT
+              </span>
+
+              <h2>
+                AI Knowledge Assistant
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            className="info-tooltip-wrapper"
+            title="Ask questions about company SOPs, policies, procedures and documents."
+          >
+
+            <FaInfoCircle />
+
+            <div className="info-tooltip">
+              Ask questions about SOPs,
+              policies and processes.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <p className="panel-description">
+          Ask questions about your company's
+          SOPs, policies and processes.
+        </p>
+
+
+        <div className="ai-search-box">
+
+          <input
+            type="text"
+            placeholder="How do I process a distributor request?"
+            value={aiQuestion}
+            onChange={(event) =>
+              setAIQuestion(
+                event.target.value
+              )
+            }
+            onKeyDown={(event) => {
+
+              if (
+                event.key ===
+                "Enter"
+              ) {
+                handleAIQuestion();
+              }
+
+            }}
+          />
+
+
+          <button
+            type="button"
+            onClick={
+              handleAIQuestion
+            }
+            title="Ask AI"
+          >
+
+            <FaSearch />
+
+          </button>
+
+        </div>
+
+
+        <div className="suggested-questions">
+
+          <span>
+            Suggested
+          </span>
+
+          <button
+            type="button"
+            onClick={() =>
+              setAIQuestion(
+                "Explain an SOP"
+              )
+            }
+          >
+            Explain an SOP
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              setAIQuestion(
+                "Find a process"
+              )
+            }
+          >
+            Find a Process
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              setAIQuestion(
+                "Compare SOPs"
+              )
+            }
+          >
+            Compare SOPs
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              setAIQuestion(
+                "Show escalation matrix"
+              )
+            }
+          >
+            Escalation Matrix
+          </button>
+
+        </div>
+
+
+        {showAIResponse && (
+
+          <div className="ai-response">
+
+            <div className="ai-response-icon">
+              <FaRobot />
+            </div>
+
+            <div>
+
+              <strong>
+                AI Preview Response
+              </strong>
+
+              <p>
+                Based on the available SOP
+                knowledge, the requested
+                process would normally be
+                retrieved and summarized here.
+                Backend integration will provide
+                the live answer.
+              </p>
+
+            </div>
+
+          </div>
+
+        )}
+
+      </div>
+
+
+      {/* MY ACTIONS */}
+
+      <section className="dashboard-panel actions-panel">
+
+        <div className="panel-title-row">
+
+          <div className="panel-title">
+
+            <div className="panel-icon">
+              <FaTasks />
+            </div>
+
+            <div>
+
+              <span>
+                ATTENTION REQUIRED
+              </span>
+
+              <h2>
+                My Actions
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            className="panel-link-button"
+            onClick={() =>
+              handleNavigation(
+                "Actions"
+              )
+            }
+          >
+
+            View All
+
+            <FaArrowRight />
+
+          </button>
+
+        </div>
+
+
+        <div className="actions-list">
+
+          {myActions.map(
+            (action) => (
+
+              <div
+                className="action-item"
+                key={action.id}
+              >
+
+                <div
+                  className={`priority-indicator ${
+                    action.priority
+                      .toLowerCase()
+                  }`}
+                />
+
+                <div className="action-content">
+
+                  <strong>
+                    {action.title}
+                  </strong>
+
+                  <span>
+                    {action.category}
+                  </span>
+
+                </div>
+
+
+                <div className="action-due">
+
+                  <small>
+                    {action.due}
+                  </small>
+
+                  <span
+                    className={`action-status ${
+                      action.status
+                        .toLowerCase()
+                        .replace(
+                          /\s/g,
+                          "-"
+                        )
+                    }`}
+                  >
+                    {action.status}
+                  </span>
+
+                </div>
+
+              </div>
+
+            )
           )}
 
         </div>
 
-      </aside>
+      </section>
+
+    </section>
+
+  );
 
 
-      {/* =================================================
-          MAIN AREA
-      ================================================= */}
+  /* =======================================================
+     MY SOPS
+  ======================================================= */
 
-      <main className="employee-main">
+  const renderMySOPs = () => (
 
-        {/* =================================================
-            TOP HEADER
-        ================================================= */}
+    <section className="dashboard-panel">
 
-        <header className="employee-header">
+      <div className="panel-title-row">
 
-          <div className="header-title">
+        <div className="panel-title">
 
-            <div className="header-eyebrow">
-              EMPLOYEE WORKSPACE
+          <div className="panel-icon">
+            <FaBook />
+          </div>
+
+          <div>
+
+            <span>
+              KNOWLEDGE LIBRARY
+            </span>
+
+            <h2>
+              My SOPs
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          className="panel-link-button"
+          onClick={() =>
+            handleNavigation(
+              "My SOPs"
+            )
+          }
+        >
+
+          View All
+
+          <FaArrowRight />
+
+        </button>
+
+      </div>
+
+
+      <div className="sop-grid">
+
+        {mySOPs.map(
+          (sop) => (
+
+            <div
+              className="sop-card"
+              key={sop.id}
+            >
+
+              <div className="sop-card-top">
+
+                <div className="sop-file-icon">
+                  <FaFileAlt />
+                </div>
+
+                <button
+                  type="button"
+                  className="sop-more-button"
+                  title="More options"
+                >
+                  •••
+                </button>
+
+              </div>
+
+
+              <h3>
+                {sop.title}
+              </h3>
+
+
+              <div className="sop-meta">
+
+                <span>
+                  {sop.version}
+                </span>
+
+                <span>
+                  {sop.status}
+                </span>
+
+              </div>
+
+
+              <div className="sop-details">
+
+                <span>
+                  Updated:{" "}
+                  {sop.updated}
+                </span>
+
+                <span>
+                  Owner: {sop.owner}
+                </span>
+
+                <span>
+                  {sop.pages} pages
+                </span>
+
+              </div>
+
+
+              <button
+                type="button"
+                className="secondary-action-button"
+                onClick={() =>
+                  handleNavigation(
+                    "My SOPs"
+                  )
+                }
+              >
+
+                View SOP
+
+                <FaArrowRight />
+
+              </button>
+
             </div>
 
-            <h1>
-              {activeSection}
-            </h1>
+          )
+        )}
+
+      </div>
+
+    </section>
+
+  );
+
+
+  /* =======================================================
+     AI SOP GENERATOR
+  ======================================================= */
+
+  const renderSOPGenerator = () => (
+
+    <section className="dashboard-two-column">
+
+      <div className="dashboard-panel generator-panel">
+
+        <div className="panel-title-row">
+
+          <div className="panel-title">
+
+            <div className="panel-icon">
+              <FaMagic />
+            </div>
+
+            <div>
+
+              <span>
+                AI AUTOMATION
+              </span>
+
+              <h2>
+                AI SOP Generator
+              </h2>
+
+            </div>
 
           </div>
 
 
-          <div className="header-actions">
+          <div
+            className="info-tooltip-wrapper"
+            title="Generate structured SOP drafts using AI."
+          >
 
-            {/* NOTIFICATION */}
-            <div className="header-dropdown-wrapper">
+            <FaInfoCircle />
 
-              <button
-                className="header-icon-button"
-                onClick={() => {
-
-                  setNotificationOpen(
-                    !notificationOpen
-                  );
-
-                  setProfileOpen(false);
-
-                }}
-                title="Notifications"
-              >
-
-                <FaBell />
-
-                <span className="notification-badge">
-                  2
-                </span>
-
-              </button>
-
-
-              <AnimatePresence>
-
-                {notificationOpen && (
-
-                  <motion.div
-                    className="notification-panel"
-                    initial={{
-                      opacity: 0,
-                      y: -10,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      y: -10,
-                    }}
-                  >
-
-                    <div className="panel-header">
-
-                      <strong>
-                        Notifications
-                      </strong>
-
-                      <span>
-                        2 unread
-                      </span>
-
-                    </div>
-
-
-                    {notifications.map(
-                      (notification) => (
-
-                        <div
-                          className={`notification-item ${
-                            notification.unread
-                              ? "unread"
-                              : ""
-                          }`}
-                          key={
-                            notification.id
-                          }
-                        >
-
-                          <div className="notification-icon">
-                            {notification.type ===
-                              "training" ? (
-                              <FaGraduationCap />
-                            ) : notification.type ===
-                              "compliance" ? (
-                              <FaShieldAlt />
-                            ) : (
-                              <FaBook />
-                            )}
-                          </div>
-
-
-                          <div>
-
-                            <strong>
-                              {
-                                notification.title
-                              }
-                            </strong>
-
-                            <p>
-                              {
-                                notification.message
-                              }
-                            </p>
-
-                            <small>
-                              {
-                                notification.time
-                              }
-                            </small>
-
-                          </div>
-
-                        </div>
-
-                      )
-                    )}
-
-                  </motion.div>
-
-                )}
-
-              </AnimatePresence>
-
+            <div className="info-tooltip">
+              Turn process knowledge into
+              structured SOP documents.
             </div>
 
+          </div>
 
-            {/* PROFILE */}
-            <div className="header-profile-wrapper">
+        </div>
 
-              <button
-                className="header-profile"
-                onClick={() => {
 
-                  setProfileOpen(
-                    !profileOpen
-                  );
+        <p className="panel-description">
+          Turn your process knowledge into
+          a structured SOP using AI.
+        </p>
 
-                  setNotificationOpen(false);
 
-                }}
+        <button
+          type="button"
+          className="primary-action-button"
+          onClick={() =>
+            handleNavigation(
+              "Generate SOP"
+            )
+          }
+        >
+
+          <FaMagic />
+
+          Start New SOP
+
+        </button>
+
+
+        <div className="generated-sop-list">
+
+          <h3>
+            Recently Generated
+          </h3>
+
+          {generatedSOPs.map(
+            (sop) => (
+
+              <div
+                className="generated-sop-item"
+                key={sop.id}
               >
 
-                <div className="header-avatar">
-                  {user.name
-                    ?.charAt(0)
-                    ?.toUpperCase()}
-                </div>
-
-                <div className="header-user-details">
+                <div>
 
                   <strong>
-                    {user.name}
+                    {sop.title}
                   </strong>
 
                   <span>
-                    {user.role || "Employee"}
+                    {sop.status}
                   </span>
 
                 </div>
 
-                <FaChevronDown
-                  className={
-                    profileOpen
-                      ? "profile-arrow rotated"
-                      : "profile-arrow"
-                  }
-                />
+                <small>
+                  {sop.date}
+                </small>
 
-              </button>
+              </div>
 
+            )
+          )}
 
-              <AnimatePresence>
+        </div>
 
-                {profileOpen && (
-
-                  <motion.div
-                    className="profile-dropdown"
-                    initial={{
-                      opacity: 0,
-                      y: -8,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    exit={{
-                      opacity: 0,
-                      y: -8,
-                    }}
-                  >
-
-                    <div className="profile-dropdown-header">
-
-                      <div className="profile-large-avatar">
-                        {user.name
-                          ?.charAt(0)
-                          ?.toUpperCase()}
-                      </div>
-
-                      <div>
-
-                        <strong>
-                          {user.name}
-                        </strong>
-
-                        <span>
-                          {user.email}
-                        </span>
-
-                      </div>
-
-                    </div>
+      </div>
 
 
-                    <button
-                      onClick={() =>
-                        handleNavigation(
-                          "Settings"
-                        )
-                      }
-                    >
-                      <FaCog />
-                      Account Settings
-                    </button>
+      {/* DOCUMENT INTELLIGENCE */}
 
+      <div className="dashboard-panel document-panel">
 
-                    <button
-                      onClick={() =>
-                        handleNavigation(
-                          "My Analytics"
-                        )
-                      }
-                    >
-                      <FaChartBar />
-                      My Activity
-                    </button>
+        <div className="panel-title-row">
 
+          <div className="panel-title">
 
-                    <button
-                      className="profile-logout"
-                      onClick={handleLogout}
-                    >
-                      <FaSignOutAlt />
-                      Sign Out
-                    </button>
+            <div className="panel-icon">
+              <FaFileAlt />
+            </div>
 
-                  </motion.div>
+            <div>
 
-                )}
+              <span>
+                DOCUMENT INTELLIGENCE
+              </span>
 
-              </AnimatePresence>
+              <h2>
+                AI Document Analysis
+              </h2>
 
             </div>
 
           </div>
 
-        </header>
+
+          <div
+            className="info-tooltip-wrapper"
+            title="Upload documents for OCR, classification, summarization and extraction."
+          >
+
+            <FaInfoCircle />
+
+            <div className="info-tooltip">
+              AI-powered document analysis.
+            </div>
+
+          </div>
+
+        </div>
 
 
-        {/* =================================================
-            DASHBOARD CONTENT
-        ================================================= */}
+        <div className="document-upload-box">
 
-        {activeSection === "Dashboard" && (
+          <FaCloudUploadAlt />
 
-          <div className="employee-content">
+          <strong>
+            Upload a Document
+          </strong>
 
-            {/* =================================================
-                WELCOME CARD
-            ================================================= */}
+          <span>
+            PDF • DOCX • XLSX
+          </span>
 
-            <motion.section
-              className="welcome-card"
-              initial={{
-                opacity: 0,
-                y: 15,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-            >
+          <button
+            type="button"
+            className="secondary-action-button"
+            onClick={() =>
+              handleNavigation(
+                "Upload Documents"
+              )
+            }
+          >
 
-              <div className="welcome-content">
+            Upload Document
 
-                <div className="welcome-eyebrow">
-                  PERSONALIZED WORKSPACE
-                </div>
+            <FaArrowRight />
 
-                <h2>
-                  {getGreeting()},{" "}
-                  <span>
-                    {user.name}
-                  </span>{" "}
-                  👋
-                </h2>
+          </button>
 
-                <p>
-                  Here's your personalized SOP
-                  and compliance overview. Stay
-                  informed, complete your actions,
-                  and get instant answers with AI.
-                </p>
-
-              </div>
+        </div>
 
 
-              <div className="welcome-decoration">
+        <div className="document-capabilities">
 
-                <FaRobot />
+          <span>
+            OCR
+          </span>
 
-              </div>
+          <span>
+            Summarize
+          </span>
 
-            </motion.section>
+          <span>
+            Extract Steps
+          </span>
+
+          <span>
+            Classify
+          </span>
+
+          <span>
+            Detect Issues
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  );
 
 
-            {/* =================================================
-                SEARCH
-            ================================================= */}
+  /* =======================================================
+     SOP COMPARISON
+  ======================================================= */
 
-            <section className="dashboard-search">
+  const renderSOPComparison = () => (
 
-              <FaSearch />
+    <section className="dashboard-panel comparison-panel">
 
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(event) =>
-                  setSearchQuery(
-                    event.target.value
-                  )
-                }
-                placeholder="Search SOPs, documents, policies or ask AI..."
-              />
+      <div className="panel-title-row">
 
-              <span className="search-shortcut">
-                ⌘ K
+        <div className="panel-title">
+
+          <div className="panel-icon">
+            <FaExchangeAlt />
+          </div>
+
+          <div>
+
+            <span>
+              VERSION CONTROL
+            </span>
+
+            <h2>
+              SOP Comparison
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div
+          className="info-tooltip-wrapper"
+          title="Compare two SOP versions and identify changes."
+        >
+
+          <FaInfoCircle />
+
+          <div className="info-tooltip">
+            Identify added, removed and
+            modified content between SOP versions.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <p className="panel-description">
+        Compare two SOP versions and let AI
+        identify the differences.
+      </p>
+
+
+      <div className="comparison-controls">
+
+        <select
+          value={selectedSOP1}
+          onChange={(event) =>
+            setSelectedSOP1(
+              event.target.value
+            )
+          }
+        >
+
+          <option>
+            SOP v2.0
+          </option>
+
+          <option>
+            SOP v2.5
+          </option>
+
+          <option>
+            SOP v3.0
+          </option>
+
+        </select>
+
+
+        <FaExchangeAlt />
+
+
+        <select
+          value={selectedSOP2}
+          onChange={(event) =>
+            setSelectedSOP2(
+              event.target.value
+            )
+          }
+        >
+
+          <option>
+            SOP v3.0
+          </option>
+
+          <option>
+            SOP v3.1
+          </option>
+
+          <option>
+            SOP v3.2
+          </option>
+
+        </select>
+
+
+        <button
+          type="button"
+          className="primary-action-button"
+          onClick={() =>
+            setActiveSection(
+              "SOP Comparison"
+            )
+          }
+        >
+
+          <FaExchangeAlt />
+
+          Compare
+
+        </button>
+
+      </div>
+
+
+      <div className="comparison-legend">
+
+        <span className="added">
+          <FaCheck />
+          Added
+        </span>
+
+        <span className="removed">
+          <FaTimesCircle />
+          Removed
+        </span>
+
+        <span className="modified">
+          <FaExclamationTriangle />
+          Modified
+        </span>
+
+      </div>
+
+    </section>
+
+  );
+
+
+  /* =======================================================
+     TRAINING + COMPLIANCE
+  ======================================================= */
+
+  const renderTrainingCompliance = () => (
+
+    <div className="dashboard-two-column">
+
+      {/* TRAINING */}
+
+      <section className="dashboard-panel">
+
+        <div className="panel-title-row">
+
+          <div className="panel-title">
+
+            <div className="panel-icon">
+              <FaGraduationCap />
+            </div>
+
+            <div>
+
+              <span>
+                DEVELOPMENT
               </span>
 
-            </section>
+              <h2>
+                Upcoming Training
+              </h2>
+
+            </div>
+
+          </div>
 
 
-            {/* =================================================
-                QUICK ACTIONS
-            ================================================= */}
+          <div
+            className="info-tooltip-wrapper"
+            title="Training assigned to you and your current completion progress."
+          >
 
-            <section className="dashboard-section">
+            <FaInfoCircle />
 
-              <div className="section-heading">
+            <div className="info-tooltip">
+              Track assigned training
+              and completion progress.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div className="training-list">
+
+          {upcomingTraining.map(
+            (training) => (
+
+              <div
+                className="training-item"
+                key={training.id}
+              >
+
+                <div className="training-icon">
+                  <FaGraduationCap />
+                </div>
+
+
+                <div className="training-details">
+
+                  <strong>
+                    {training.title}
+                  </strong>
+
+                  <span>
+
+                    <FaCalendarAlt />
+
+                    {training.date}
+
+                  </span>
+
+
+                  <div className="progress-bar">
+
+                    <div
+                      className="progress-fill"
+                      style={{
+                        width: `${training.progress}%`,
+                      }}
+                    />
+
+                  </div>
+
+                </div>
+
+
+                <strong className="training-percentage">
+                  {training.progress}%
+                </strong>
+
+              </div>
+
+            )
+          )}
+
+        </div>
+
+
+        <button
+          type="button"
+          className="panel-footer-button"
+          onClick={() =>
+            handleNavigation(
+              "Training"
+            )
+          }
+        >
+
+          View Training
+
+          <FaArrowRight />
+
+        </button>
+
+      </section>
+
+
+      {/* COMPLIANCE */}
+
+      <section className="dashboard-panel compliance-panel">
+
+        <div className="panel-title-row">
+
+          <div className="panel-title">
+
+            <div className="panel-icon">
+              <FaShieldAlt />
+            </div>
+
+            <div>
+
+              <span>
+                RISK & GOVERNANCE
+              </span>
+
+              <h2>
+                Compliance Overview
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div
+            className="info-tooltip-wrapper"
+            title="Overview of your current compliance status."
+          >
+
+            <FaInfoCircle />
+
+            <div className="info-tooltip">
+              Current compliance score
+              and outstanding requirements.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div className="compliance-score">
+
+          <div className="compliance-circle">
+
+            <span>
+              94%
+            </span>
+
+            <small>
+              Score
+            </small>
+
+          </div>
+
+
+          <div className="compliance-summary">
+
+            <strong>
+              Good Standing
+            </strong>
+
+            <p>
+              You are currently meeting
+              most compliance requirements.
+            </p>
+
+            <div className="compliance-progress">
+
+              <div
+                style={{
+                  width: "94%",
+                }}
+              />
+
+            </div>
+
+            <span>
+              94 of 100 requirements completed
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div className="compliance-items">
+
+          <div>
+            <FaCheckCircle />
+            Mandatory SOP acknowledgement
+          </div>
+
+          <div>
+            <FaCheckCircle />
+            Security training
+          </div>
+
+          <div>
+            <FaClock />
+            1 requirement due soon
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          className="panel-footer-button"
+          onClick={() =>
+            handleNavigation(
+              "Compliance"
+            )
+          }
+        >
+
+          View Compliance
+
+          <FaArrowRight />
+
+        </button>
+
+      </section>
+
+    </div>
+
+  );
+
+
+  /* =======================================================
+     AI RECOMMENDATIONS
+  ======================================================= */
+
+  const renderRecommendations = () => (
+
+    <section className="dashboard-panel">
+
+      <div className="panel-title-row">
+
+        <div className="panel-title">
+
+          <div className="panel-icon">
+            <FaLightbulb />
+          </div>
+
+          <div>
+
+            <span>
+              INTELLIGENT INSIGHTS
+            </span>
+
+            <h2>
+              AI Recommendations
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div
+          className="info-tooltip-wrapper"
+          title="AI-generated recommendations based on your activity and assigned requirements."
+        >
+
+          <FaInfoCircle />
+
+          <div className="info-tooltip">
+            Personalized recommendations
+            based on your workspace activity.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div className="recommendation-grid">
+
+        {recommendations.map(
+          (recommendation) => {
+
+            const Icon =
+              recommendation.icon;
+
+            return (
+
+              <div
+                className="recommendation-card"
+                key={
+                  recommendation.id
+                }
+              >
+
+                <div className="recommendation-icon">
+                  <Icon />
+                </div>
+
 
                 <div>
 
-                  <span>
-                    GET STARTED
-                  </span>
-
-                  <h2>
-                    Quick Actions
-                  </h2>
-
-                </div>
-
-              </div>
-
-
-              <div className="quick-actions-grid">
-
-                {quickActions.map((action) => {
-
-                  const Icon = action.icon;
-
-                  return (
-
-                    <motion.button
-                      key={action.id}
-                      className="quick-action-card"
-                      onClick={() =>
-                        handleQuickAction(
-                          action.id
-                        )
-                      }
-                      whileHover={{
-                        y: -3,
-                      }}
-                      whileTap={{
-                        scale: 0.98,
-                      }}
-                    >
-
-                      <div className="quick-action-icon">
-                        <Icon />
-                      </div>
-
-
-                      <div className="quick-action-content">
-
-                        <strong>
-                          {action.title}
-                        </strong>
-
-                        <span>
-                          {action.subtitle}
-                        </span>
-
-                      </div>
-
-
-                      <div
-                        className="info-tooltip-wrapper"
-                        title={
-                          action.description
-                        }
-                      >
-
-                        <FaInfoCircle />
-
-                        <div className="info-tooltip">
-                          {action.description}
-                        </div>
-
-                      </div>
-
-
-                      <FaArrowRight className="quick-action-arrow" />
-
-                    </motion.button>
-
-                  );
-
-                })}
-
-              </div>
-
-            </section>
-
-
-            {/* =================================================
-                KPI CARDS
-            ================================================= */}
-
-            <section className="kpi-grid">
-
-              {kpis.map((kpi) => {
-
-                const Icon = kpi.icon;
-
-                return (
-
-                  <motion.div
-                    className="kpi-card"
-                    key={kpi.id}
-                    whileHover={{
-                      y: -3,
-                    }}
-                  >
-
-                    <div className="kpi-top">
-
-                      <div className="kpi-icon">
-                        <Icon />
-                      </div>
-
-
-                      <div
-                        className="info-tooltip-wrapper"
-                        title={kpi.description}
-                      >
-
-                        <FaInfoCircle />
-
-                        <div className="info-tooltip">
-                          {kpi.description}
-                        </div>
-
-                      </div>
-
-                    </div>
-
-
-                    <div className="kpi-label">
-                      {kpi.title}
-                    </div>
-
-                    <div className="kpi-value">
-                      {kpi.value}
-                    </div>
-
-                    <div
-                      className={`kpi-change ${kpi.type}`}
-                    >
-                      {kpi.change}
-                    </div>
-
-
-                    <div className="kpi-decoration" />
-
-                  </motion.div>
-
-                );
-
-              })}
-
-            </section>
-
-
-            {/* =================================================
-                LOWER DASHBOARD GRID
-            ================================================= */}
-
-            <div className="dashboard-two-column">
-
-
-              {/* =================================================
-                  AI KNOWLEDGE ASSISTANT
-              ================================================= */}
-
-              <section className="dashboard-panel ai-panel">
-
-                <div className="panel-title-row">
-
-                  <div className="panel-title">
-
-                    <div className="panel-icon ai">
-                      <FaRobot />
-                    </div>
-
-                    <div>
-
-                      <span>
-                        INTELLIGENT KNOWLEDGE
-                      </span>
-
-                      <h2>
-                        AI Knowledge Assistant
-                      </h2>
-
-                    </div>
-
-                  </div>
-
-
-                  <div
-                    className="info-tooltip-wrapper"
-                    title="Use AI to ask questions about SOPs, policies, documents and procedures."
-                  >
-
-                    <FaInfoCircle />
-
-                    <div className="info-tooltip">
-                      Ask questions about your
-                      organization's knowledge base.
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div className="ai-content">
-
-                  <div className="ai-message">
-
-                    <div className="ai-avatar">
-                      <FaRobot />
-                    </div>
-
-                    <div>
-
-                      <strong>
-                        How can I help you?
-                      </strong>
-
-                      <p>
-                        Ask me about SOPs,
-                        policies, compliance,
-                        training or procedures.
-                      </p>
-
-                    </div>
-
-                  </div>
-
-
-                  <div className="ai-suggestions">
-
-                    <button>
-                      <FaQuestion />
-                      Explain an SOP
-                    </button>
-
-                    <button>
-                      <FaShieldAlt />
-                      Check compliance
-                    </button>
-
-                    <button>
-                      <FaGraduationCap />
-                      Find training
-                    </button>
-
-                  </div>
+                  <strong>
+                    {recommendation.title}
+                  </strong>
+
+                  <p>
+                    {recommendation.description}
+                  </p>
 
 
                   <button
-                    className="ai-start-button"
+                    type="button"
                     onClick={() =>
                       handleNavigation(
-                        "AI Assistant"
+                        "My Analytics"
                       )
                     }
                   >
 
-                    <FaComments />
-
-                    Ask AI a question
+                    Review
 
                     <FaArrowRight />
 
@@ -1598,791 +2607,1175 @@ const EmployeeDashboard = () => {
 
                 </div>
 
-              </section>
-
-
-              {/* =================================================
-                  MY ACTIONS
-              ================================================= */}
-
-              <section className="dashboard-panel">
-
-                <div className="panel-title-row">
-
-                  <div className="panel-title">
-
-                    <div className="panel-icon">
-                      <FaTasks />
-                    </div>
-
-                    <div>
-
-                      <span>
-                        YOUR WORK
-                      </span>
-
-                      <h2>
-                        My Actions
-                      </h2>
-
-                    </div>
-
-                  </div>
-
-
-                  <button
-                    className="view-all-button"
-                    onClick={() =>
-                      setShowAllActions(
-                        !showAllActions
-                      )
-                    }
-                  >
-
-                    {showAllActions
-                      ? "Show Less"
-                      : "View All"}
-
-                    <FaArrowRight />
-
-                  </button>
-
-                </div>
-
-
-                <div className="actions-list">
-
-                  {(showAllActions
-                    ? myActions
-                    : myActions.slice(0, 3)
-                  ).map((action) => (
-
-                    <div
-                      className="action-item"
-                      key={action.id}
-                    >
-
-                      <div className="action-status-icon">
-
-                        {action.priority ===
-                        "High" ? (
-                          <FaExclamationTriangle />
-                        ) : (
-                          <FaClipboardCheck />
-                        )}
-
-                      </div>
-
-
-                      <div className="action-details">
-
-                        <strong>
-                          {action.title}
-                        </strong>
-
-                        <span>
-                          {action.category}
-                        </span>
-
-                      </div>
-
-
-                      <div className="action-due">
-
-                        <FaClock />
-
-                        <span>
-                          {action.due}
-                        </span>
-
-                      </div>
-
-
-                      <div
-                        className={`priority-badge ${action.priority.toLowerCase()}`}
-                      >
-                        {action.priority}
-                      </div>
-
-
-                      <div
-                        className="info-tooltip-wrapper"
-                        title="Action information"
-                      >
-
-                        <FaInfoCircle />
-
-                        <div className="info-tooltip">
-                          {action.status}. Priority:
-                          {" "}
-                          {action.priority}.
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  ))}
-
-                </div>
-
-              </section>
-
-            </div>
-
-
-            {/* =================================================
-                TRAINING + COMPLIANCE
-            ================================================= */}
-
-            <div className="dashboard-two-column">
-
-
-              {/* TRAINING */}
-              <section className="dashboard-panel">
-
-                <div className="panel-title-row">
-
-                  <div className="panel-title">
-
-                    <div className="panel-icon">
-                      <FaGraduationCap />
-                    </div>
-
-                    <div>
-
-                      <span>
-                        DEVELOPMENT
-                      </span>
-
-                      <h2>
-                        Upcoming Training
-                      </h2>
-
-                    </div>
-
-                  </div>
-
-
-                  <div
-                    className="info-tooltip-wrapper"
-                    title="Training assigned to you and your current completion progress."
-                  >
-
-                    <FaInfoCircle />
-
-                    <div className="info-tooltip">
-                      Track assigned training and
-                      completion progress.
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div className="training-list">
-
-                  {upcomingTraining.map(
-                    (training) => (
-
-                      <div
-                        className="training-item"
-                        key={training.id}
-                      >
-
-                        <div className="training-icon">
-                          <FaGraduationCap />
-                        </div>
-
-
-                        <div className="training-details">
-
-                          <strong>
-                            {training.title}
-                          </strong>
-
-                          <span>
-                            <FaCalendarAlt />
-                            {training.date}
-                          </span>
-
-
-                          <div className="progress-bar">
-
-                            <div
-                              className="progress-fill"
-                              style={{
-                                width: `${training.progress}%`,
-                              }}
-                            />
-
-                          </div>
-
-                        </div>
-
-
-                        <strong className="training-percentage">
-                          {training.progress}%
-                        </strong>
-
-                      </div>
-
-                    )
-                  )}
-
-                </div>
-
-
-                <button
-                  className="panel-footer-button"
-                  onClick={() =>
-                    handleNavigation(
-                      "Training"
-                    )
-                  }
-                >
-
-                  View Training
-
-                  <FaArrowRight />
-
-                </button>
-
-              </section>
-
-
-              {/* COMPLIANCE */}
-              <section className="dashboard-panel compliance-panel">
-
-                <div className="panel-title-row">
-
-                  <div className="panel-title">
-
-                    <div className="panel-icon">
-                      <FaShieldAlt />
-                    </div>
-
-                    <div>
-
-                      <span>
-                        RISK & GOVERNANCE
-                      </span>
-
-                      <h2>
-                        Compliance Overview
-                      </h2>
-
-                    </div>
-
-                  </div>
-
-
-                  <div
-                    className="info-tooltip-wrapper"
-                    title="Overview of your current compliance status."
-                  >
-
-                    <FaInfoCircle />
-
-                    <div className="info-tooltip">
-                      Your current compliance
-                      score and outstanding
-                      requirements.
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div className="compliance-score">
-
-                  <div className="score-circle">
-
-                    <strong>
-                      94%
-                    </strong>
-
-                    <span>
-                      Compliant
-                    </span>
-
-                  </div>
-
-
-                  <div className="compliance-details">
-
-                    <div>
-                      <FaCheckCircle />
-                      SOP Acknowledgements
-                      <strong>
-                        100%
-                      </strong>
-                    </div>
-
-                    <div>
-                      <FaCheckCircle />
-                      Required Training
-                      <strong>
-                        88%
-                      </strong>
-                    </div>
-
-                    <div>
-                      <FaExclamationTriangle />
-                      Pending Actions
-                      <strong>
-                        2
-                      </strong>
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <button
-                  className="panel-footer-button"
-                  onClick={() =>
-                    handleNavigation(
-                      "Compliance"
-                    )
-                  }
-                >
-
-                  View Compliance
-
-                  <FaArrowRight />
-
-                </button>
-
-              </section>
-
-            </div>
-
-
-            {/* =================================================
-                RECENT SOP ACTIVITY
-            ================================================= */}
-
-            <section className="dashboard-panel recent-sop-panel">
-
-              <div className="panel-title-row">
-
-                <div className="panel-title">
-
-                  <div className="panel-icon">
-                    <FaHistory />
-                  </div>
-
-                  <div>
-
-                    <span>
-                      KNOWLEDGE ACTIVITY
-                    </span>
-
-                    <h2>
-                      Recent SOP Activity
-                    </h2>
-
-                  </div>
-
-                </div>
-
-
-                <button
-                  className="view-all-button"
-                  onClick={() =>
-                    setShowAllSops(
-                      !showAllSops
-                    )
-                  }
-                >
-
-                  {showAllSops
-                    ? "Show Less"
-                    : "View All"}
-
-                  <FaArrowRight />
-
-                </button>
-
               </div>
 
+            );
 
-              <div className="recent-sop-table">
+          }
+        )}
 
-                <div className="sop-table-header">
+      </div>
 
-                  <span>
-                    SOP
-                  </span>
+    </section>
 
-                  <span>
-                    VERSION
-                  </span>
+  );
 
-                  <span>
-                    STATUS
-                  </span>
 
-                  <span>
-                    LAST VIEWED
-                  </span>
+  /* =======================================================
+     RECENT ACTIVITY
+  ======================================================= */
 
-                  <span>
-                    ACTION
-                  </span>
+  const renderRecentActivity = () => (
 
+    <section className="dashboard-panel">
+
+      <div className="panel-title-row">
+
+        <div className="panel-title">
+
+          <div className="panel-icon">
+            <FaHistory />
+          </div>
+
+          <div>
+
+            <span>
+              WORKSPACE ACTIVITY
+            </span>
+
+            <h2>
+              Recent Updates
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div
+          className="info-tooltip-wrapper"
+          title="Your recent activity across SOPs, training and AI."
+        >
+
+          <FaInfoCircle />
+
+          <div className="info-tooltip">
+            Recent actions performed
+            in your employee workspace.
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div className="activity-list">
+
+        {recentActivity.map(
+          (activity) => {
+
+            const Icon =
+              activity.icon;
+
+            return (
+
+              <div
+                className="activity-item"
+                key={activity.id}
+              >
+
+                <div className="activity-icon">
+                  <Icon />
                 </div>
 
-
-                {(showAllSops
-                  ? filteredSops
-                  : filteredSops.slice(0, 3)
-                ).map((sop) => (
-
-                  <div
-                    className="sop-table-row"
-                    key={sop.id}
-                  >
-
-                    <div className="sop-name">
-
-                      <div className="sop-file-icon">
-                        <FaFilePdf />
-                      </div>
-
-                      <strong>
-                        {sop.title}
-                      </strong>
-
-                    </div>
-
-
-                    <span>
-                      {sop.version}
-                    </span>
-
-
-                    <span
-                      className={`sop-status ${
-                        sop.status.toLowerCase()
-                      }`}
-                    >
-
-                      <FaCheckCircle />
-
-                      {sop.status}
-
-                    </span>
-
-
-                    <span>
-                      {sop.viewed}
-                    </span>
-
-
-                    <button
-                      className="sop-view-button"
-                      title="Open SOP"
-                      onClick={() =>
-                        handleNavigation(
-                          "All SOPs"
-                        )
-                      }
-                    >
-
-                      <FaEye />
-
-                    </button>
-
-                  </div>
-
-                ))}
-
-
-                {filteredSops.length === 0 && (
-
-                  <div className="no-results">
-
-                    <FaSearch />
-
-                    <p>
-                      No SOPs found for "
-                      {searchQuery}"
-                    </p>
-
-                  </div>
-
-                )}
-
-              </div>
-
-            </section>
-
-
-            {/* =================================================
-                QUICK LINKS
-            ================================================= */}
-
-            <section className="dashboard-section">
-
-              <div className="section-heading">
 
                 <div>
 
-                  <span>
-                    EXPLORE
-                  </span>
+                  <strong>
+                    {activity.title}
+                  </strong>
 
-                  <h2>
-                    Your Workspace
-                  </h2>
+                  <span>
+                    {activity.time}
+                  </span>
 
                 </div>
 
               </div>
 
+            );
 
-              <div className="workspace-links">
+          }
+        )}
+
+      </div>
+
+    </section>
+
+  );
+
+
+  /* =======================================================
+     NOTIFICATIONS PAGE
+  ======================================================= */
+
+  const renderNotifications = () => (
+
+    <motion.div
+      className="employee-notifications-page"
+      initial={{
+        opacity: 0,
+        y: 10,
+      }}
+      animate={{
+        opacity: 1,
+        y: 0,
+      }}
+    >
+
+      <div className="section-heading">
+
+        <div>
+
+          <span>
+            ACTIVITY CENTER
+          </span>
+
+          <h2>
+            Notifications
+          </h2>
+
+          <p>
+            Stay updated with your SOPs,
+            training, compliance and workspace activity.
+          </p>
+
+        </div>
+
+
+        <div className="notification-summary">
+
+          <span className="notification-summary-number">
+            {unreadNotifications}
+          </span>
+
+          <span>
+            Unread
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div className="employee-notifications-card">
+
+        {notifications.length > 0 ? (
+
+          notifications.map(
+            (notification) => {
+
+              let NotificationIcon =
+                FaBell;
+
+              if (
+                notification.type ===
+                "training"
+              ) {
+                NotificationIcon =
+                  FaGraduationCap;
+              }
+
+              if (
+                notification.type ===
+                "compliance"
+              ) {
+                NotificationIcon =
+                  FaShieldAlt;
+              }
+
+              if (
+                notification.type ===
+                "document"
+              ) {
+                NotificationIcon =
+                  FaFileAlt;
+              }
+
+              return (
 
                 <button
+                  type="button"
+                  key={
+                    notification.id
+                  }
+                  className={`employee-full-notification ${
+                    notification.unread
+                      ? "unread"
+                      : ""
+                  }`}
                   onClick={() =>
-                    handleNavigation(
-                      "My Analytics"
+                    handleNotificationClick(
+                      notification.id
                     )
                   }
                 >
 
-                  <div>
-                    <FaChartLine />
+                  <div className="employee-full-notification-icon">
+
+                    <NotificationIcon />
+
                   </div>
 
-                  <span>
-                    My Analytics
-                  </span>
 
-                  <FaArrowRight />
+                  <div className="employee-full-notification-content">
+
+                    <div className="employee-full-notification-top">
+
+                      <strong>
+                        {
+                          notification.title
+                        }
+                      </strong>
+
+                      {notification.unread && (
+
+                        <span className="notification-unread-label">
+                          NEW
+                        </span>
+
+                      )}
+
+                    </div>
+
+
+                    <p>
+                      {
+                        notification.message
+                      }
+                    </p>
+
+
+                    <small>
+                      {
+                        notification.time
+                      }
+                    </small>
+
+                  </div>
+
+
+                  <FaChevronRight />
 
                 </button>
 
+              );
 
-                <button
-                  onClick={() =>
-                    handleNavigation(
-                      "Notifications"
-                    )
-                  }
-                >
+            }
+          )
 
-                  <div>
-                    <FaBell />
-                  </div>
+        ) : (
 
-                  <span>
-                    Notifications
-                  </span>
+          <div className="employee-no-notifications">
 
-                  <FaArrowRight />
+            <FaBell />
 
-                </button>
+            <h3>
+              You're all caught up
+            </h3>
+
+            <p>
+              You don't have any new notifications.
+            </p>
+
+          </div>
+
+        )}
+
+      </div>
+
+    </motion.div>
+
+  );
 
 
-                <button
-                  onClick={() =>
-                    handleNavigation(
-                      "Documents"
-                    )
-                  }
-                >
+  /* =======================================================
+     SEARCH / MY SOPs PAGE
+  ======================================================= */
 
-                  <div>
+  const renderSOPLibrary = () => {
+
+    const filteredSOPs =
+      mySOPs.filter(
+        (sop) =>
+          sop.title
+            .toLowerCase()
+            .includes(
+              searchValue
+                .toLowerCase()
+            )
+      );
+
+    return (
+
+      <motion.div
+        className="dashboard-section-page"
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+        }}
+      >
+
+        <div className="section-heading">
+
+          <div>
+
+            <span>
+              SOP LIBRARY
+            </span>
+
+            <h2>
+              My SOPs
+            </h2>
+
+            <p>
+              Search and access SOPs available
+              to you.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <form
+          className="global-search-form"
+          onSubmit={
+            handleSearch
+          }
+        >
+
+          <FaSearch />
+
+          <input
+            type="text"
+            placeholder="Search SOPs..."
+            value={searchValue}
+            onChange={(event) =>
+              setSearchValue(
+                event.target.value
+              )
+            }
+          />
+
+          <button
+            type="submit"
+            className="primary-action-button"
+          >
+            Search
+          </button>
+
+        </form>
+
+
+        <div className="sop-grid">
+
+          {filteredSOPs.map(
+            (sop) => (
+
+              <div
+                className="sop-card"
+                key={sop.id}
+              >
+
+                <div className="sop-card-top">
+
+                  <div className="sop-file-icon">
                     <FaFileAlt />
                   </div>
 
+                </div>
+
+                <h3>
+                  {sop.title}
+                </h3>
+
+                <div className="sop-meta">
+
                   <span>
-                    Document Library
+                    {sop.version}
                   </span>
 
-                  <FaArrowRight />
+                  <span>
+                    {sop.status}
+                  </span>
 
-                </button>
+                </div>
 
+                <div className="sop-details">
+
+                  <span>
+                    Updated: {sop.updated}
+                  </span>
+
+                  <span>
+                    Owner: {sop.owner}
+                  </span>
+
+                  <span>
+                    {sop.pages} pages
+                  </span>
+
+                </div>
 
                 <button
-                  onClick={() =>
-                    handleNavigation(
-                      "Help & Support"
-                    )
-                  }
+                  type="button"
+                  className="secondary-action-button"
                 >
-
-                  <div>
-                    <FaQuestionCircle />
-                  </div>
-
-                  <span>
-                    Help & Support
-                  </span>
-
-                  <FaArrowRight />
-
+                  Open SOP
+                  <FaExternalLinkAlt />
                 </button>
 
               </div>
 
-            </section>
+            )
+          )}
+
+        </div>
+
+      </motion.div>
+
+    );
+
+  };
 
 
-            {/* =================================================
-                FOOTER
-            ================================================= */}
+  /* =======================================================
+     AI ASSISTANT PAGE
+  ======================================================= */
 
-            <footer className="employee-dashboard-footer">
+  const renderAIAssistantPage = () => (
 
-              <div>
+    <motion.div
+      className="dashboard-section-page"
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+    >
 
-                <FaShieldAlt />
+      {renderAIAssistant()}
 
-                <span>
-                  Protected enterprise workspace
-                </span>
+    </motion.div>
+
+  );
+
+
+  /* =======================================================
+     TRAINING PAGE
+  ======================================================= */
+
+  const renderTrainingPage = () => (
+
+    <motion.div
+      className="dashboard-section-page"
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+    >
+
+      <div className="section-heading">
+
+        <div>
+
+          <span>
+            LEARNING CENTER
+          </span>
+
+          <h2>
+            My Training
+          </h2>
+
+          <p>
+            Track your learning progress
+            and upcoming courses.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div className="training-page-grid">
+
+        {upcomingTraining.map(
+          (training) => (
+
+            <div
+              className="training-page-card"
+              key={training.id}
+            >
+
+              <div className="training-icon">
+                <FaGraduationCap />
+              </div>
+
+              <h3>
+                {training.title}
+              </h3>
+
+              <span>
+                <FaCalendarAlt />
+                {training.date}
+              </span>
+
+
+              <div className="progress-bar">
+
+                <div
+                  className="progress-fill"
+                  style={{
+                    width: `${training.progress}%`,
+                  }}
+                />
 
               </div>
 
-              <span>
-                SOP Intelligence Portal
-              </span>
 
-            </footer>
-
-          </div>
-
-        )}
+              <strong>
+                {training.progress}%
+                Complete
+              </strong>
 
 
-        {/* =================================================
-            PLACEHOLDER FOR OTHER SECTIONS
-        ================================================= */}
-
-        {activeSection !== "Dashboard" && (
-
-          <div className="section-placeholder">
-
-            <div className="placeholder-icon">
-
-              {activeSection === "AI Assistant" && (
-                <FaRobot />
-              )}
-
-              {activeSection.includes("SOP") && (
-                <FaBook />
-              )}
-
-              {activeSection.includes(
-                "Document"
-              ) && <FaFileAlt />}
-
-              {activeSection === "Training" && (
-                <FaGraduationCap />
-              )}
-
-              {activeSection ===
-                "Compliance" && (
-                <FaShieldAlt />
-              )}
-
-              {activeSection ===
-                "Notifications" && (
-                <FaBell />
-              )}
-
-              {activeSection ===
-                "My Analytics" && (
-                <FaChartBar />
-              )}
-
-              {activeSection ===
-                "Settings" && <FaCog />}
-
-              {activeSection ===
-                "Help & Support" && (
-                <FaQuestionCircle />
-              )}
-
-              {activeSection ===
-                "Generate SOP" && (
-                <FaMagic />
-              )}
-
-              {activeSection ===
-                "Upload Document" && (
-                <FaCloudUploadAlt />
-              )}
+              <button
+                type="button"
+                className="primary-action-button"
+              >
+                Continue Learning
+                <FaArrowRight />
+              </button>
 
             </div>
 
+          )
+        )}
 
+      </div>
+
+    </motion.div>
+
+  );
+
+
+  /* =======================================================
+     COMPLIANCE PAGE
+  ======================================================= */
+
+  const renderCompliancePage = () => (
+
+    <motion.div
+      className="dashboard-section-page"
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+    >
+
+      <div className="section-heading">
+
+        <div>
+
+          <span>
+            RISK & GOVERNANCE
+          </span>
+
+          <h2>
+            Compliance
+          </h2>
+
+          <p>
+            Monitor your compliance
+            requirements and status.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div className="compliance-page-card">
+
+        <div className="compliance-score-large">
+
+          <strong>
+            94%
+          </strong>
+
+          <span>
+            Overall Compliance
+          </span>
+
+        </div>
+
+
+        <div className="compliance-page-items">
+
+          <div>
+            <FaCheckCircle />
             <span>
-              {activeSection.toUpperCase()}
+              SOP Acknowledgements
             </span>
+            <strong>
+              100%
+            </strong>
+          </div>
+
+          <div>
+            <FaCheckCircle />
+            <span>
+              Mandatory Training
+            </span>
+            <strong>
+              82%
+            </strong>
+          </div>
+
+          <div>
+            <FaCheckCircle />
+            <span>
+              Policy Compliance
+            </span>
+            <strong>
+              96%
+            </strong>
+          </div>
+
+          <div>
+            <FaClock />
+            <span>
+              Pending Requirements
+            </span>
+            <strong>
+              1
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </motion.div>
+
+  );
 
 
-            <h2>
-              {activeSection}
-            </h2>
+  /* =======================================================
+     ANALYTICS PAGE
+  ======================================================= */
 
+  const renderAnalyticsPage = () => (
+
+    <motion.div
+      className="dashboard-section-page"
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+      }}
+    >
+
+      <div className="section-heading">
+
+        <div>
+
+          <span>
+            PERFORMANCE INSIGHTS
+          </span>
+
+          <h2>
+            My Analytics
+          </h2>
+
+          <p>
+            Understand your SOP, training,
+            compliance and AI activity.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div className="analytics-grid">
+
+        <div className="analytics-card">
+
+          <FaBook />
+
+          <span>
+            SOP Engagement
+          </span>
+
+          <strong>
+            86%
+          </strong>
+
+          <small>
+            +9% this month
+          </small>
+
+        </div>
+
+
+        <div className="analytics-card">
+
+          <FaRobot />
+
+          <span>
+            AI Usage
+          </span>
+
+          <strong>
+            37
+          </strong>
+
+          <small>
+            Queries this month
+          </small>
+
+        </div>
+
+
+        <div className="analytics-card">
+
+          <FaGraduationCap />
+
+          <span>
+            Training
+          </span>
+
+          <strong>
+            82%
+          </strong>
+
+          <small>
+            Overall completion
+          </small>
+
+        </div>
+
+
+        <div className="analytics-card">
+
+          <FaChartLine />
+
+          <span>
+            Compliance
+          </span>
+
+          <strong>
+            94%
+          </strong>
+
+          <small>
+            +2.4% improvement
+          </small>
+
+        </div>
+
+      </div>
+
+    </motion.div>
+
+  );
+
+
+  /* =======================================================
+     SIMPLE PLACEHOLDER PAGES
+  ======================================================= */
+
+  const renderSimplePage = (
+    title,
+    eyebrow,
+    description,
+    icon
+  ) => {
+
+    const Icon =
+      icon || FaFileAlt;
+
+    return (
+
+      <motion.div
+        className="dashboard-section-page simple-page"
+        initial={{
+          opacity: 0,
+          y: 10,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+      >
+
+        <div className="simple-page-icon">
+          <Icon />
+        </div>
+
+        <span>
+          {eyebrow}
+        </span>
+
+        <h2>
+          {title}
+        </h2>
+
+        <p>
+          {description}
+        </p>
+
+
+        <div className="mock-backend-notice">
+
+          <FaInfoCircle />
+
+          <div>
+
+            <strong>
+              UI Preview Mode
+            </strong>
 
             <p>
-              This workspace is ready for
-              integration with the backend.
-              The dashboard navigation is
-              already configured for this
-              section.
+              Backend integration is not
+              connected yet. This area is
+              currently using mock data and
+              is ready for API integration.
             </p>
-
-
-            <button
-              onClick={() =>
-                handleNavigation(
-                  "Dashboard"
-                )
-              }
-            >
-
-              <FaArrowRight />
-
-              Back to Dashboard
-
-            </button>
 
           </div>
 
-        )}
+        </div>
 
-      </main>
+      </motion.div>
+
+    );
+
+  };
 
 
-      {/* =================================================
-          CLICK OUTSIDE OVERLAY
-      ================================================= */}
+  /* =======================================================
+     DASHBOARD HOME
+  ======================================================= */
 
-      {(profileOpen ||
-        notificationOpen) && (
+  const renderDashboardHome = () => (
 
-        <div
-          className="dashboard-overlay"
-          onClick={closePanels}
+    <>
+
+      {/* WELCOME */}
+
+      <section className="welcome-section">
+
+        <div>
+
+          <span className="welcome-eyebrow">
+            YOUR WORKSPACE
+          </span>
+
+          <h1>
+            {getGreeting()}, {" "}
+            {user?.name ||
+              "Jasleen"} 👋
+          </h1>
+
+          <p>
+            Here's your personalized
+            SOP & compliance overview.
+          </p>
+
+        </div>
+
+
+        <div className="welcome-status">
+
+          <div className="status-dot" />
+
+          <span>
+            Workspace Active
+          </span>
+
+        </div>
+
+      </section>
+
+
+      {/* GLOBAL SEARCH */}
+
+      <form
+        className="global-search-form"
+        onSubmit={
+          handleSearch
+        }
+      >
+
+        <FaSearch />
+
+        <input
+          type="text"
+          placeholder="Search SOPs, documents, policies or ask AI..."
+          value={searchValue}
+          onChange={(event) =>
+            setSearchValue(
+              event.target.value
+            )
+          }
         />
 
-      )}
+        <button
+          type="submit"
+          className="primary-action-button"
+        >
+          Search
+        </button>
+
+      </form>
+
+
+      {/* QUICK ACTIONS */}
+
+      {renderQuickActions()}
+
+
+      {/* KPIs */}
+
+      {renderKPIs()}
+
+
+      {/* AI + ACTIONS */}
+
+      {renderAIAssistant()}
+
+
+      {/* MY SOPS */}
+
+      {renderMySOPs()}
+
+
+      {/* GENERATOR + DOCUMENT */}
+
+      {renderSOPGenerator()}
+
+
+      {/* COMPARISON */}
+
+      {renderSOPComparison()}
+
+
+      {/* TRAINING + COMPLIANCE */}
+
+      {renderTrainingCompliance()}
+
+
+      {/* AI RECOMMENDATIONS */}
+
+      {renderRecommendations()}
+
+
+      {/* RECENT ACTIVITY */}
+
+      {renderRecentActivity()}
+
+    </>
+
+  );
+
+
+  /* =======================================================
+     ACTIVE CONTENT
+  ======================================================= */
+
+  const renderContent = () => {
+
+    switch (
+      activeSection
+    ) {
+
+      case "Dashboard":
+        return renderDashboardHome();
+
+
+      case "Notifications":
+        return renderNotifications();
+
+
+      case "My SOPs":
+      case "All SOPs":
+        return renderSOPLibrary();
+
+
+      case "AI Assistant":
+        return renderAIAssistantPage();
+
+
+      case "Training":
+        return renderTrainingPage();
+
+
+      case "Compliance":
+        return renderCompliancePage();
+
+
+      case "My Analytics":
+        return renderAnalyticsPage();
+
+
+      case "Generate SOP":
+        return renderSimplePage(
+          "AI SOP Generator",
+          "AI AUTOMATION",
+          "Create structured SOP drafts using AI-powered process generation.",
+          FaMagic
+        );
+
+
+      case "Drafts":
+        return renderSimplePage(
+          "SOP Drafts",
+          "DOCUMENT WORKSPACE",
+          "Review, edit and manage your SOP drafts before submission.",
+          FaFileAlt
+        );
+
+
+      case "Upload Documents":
+        return renderSimplePage(
+          "Upload Documents",
+          "DOCUMENT INTELLIGENCE",
+          "Upload PDF, DOCX or XLSX documents for AI-powered analysis.",
+          FaCloudUploadAlt
+        );
+
+
+      case "AI Analysis":
+        return renderSimplePage(
+          "AI Document Analysis",
+          "AI DOCUMENT INTELLIGENCE",
+          "Analyze uploaded documents using OCR, summarization, classification and extraction.",
+          FaRobot
+        );
+
+
+      case "SOP Comparison":
+        return renderSimplePage(
+          "SOP Comparison",
+          "VERSION CONTROL",
+          `Compare ${selectedSOP1} and ${selectedSOP2} to identify changes.`,
+          FaExchangeAlt
+        );
+
+
+      case "Actions":
+        return renderSimplePage(
+          "My Actions",
+          "ATTENTION REQUIRED",
+          "View and manage tasks, acknowledgements, reviews and pending actions.",
+          FaTasks
+        );
+
+
+      case "My Profile":
+        return renderSimplePage(
+          "My Profile",
+          "ACCOUNT",
+          "View and manage your employee profile information.",
+          FaUser
+        );
+
+
+      case "Settings":
+        return renderSimplePage(
+          "Settings",
+          "PREFERENCES",
+          "Manage your account preferences and workspace settings.",
+          FaCog
+        );
+
+
+      case "Help & Support":
+        return renderSimplePage(
+          "Help & Support",
+          "SUPPORT CENTER",
+          "Find help, documentation and support resources for the employee portal.",
+          FaQuestionCircle
+        );
+
+
+      case "SOPs":
+        return renderSOPLibrary();
+
+
+      case "Documents":
+        return renderSimplePage(
+          "Documents",
+          "DOCUMENT LIBRARY",
+          "Manage your uploaded documents and AI analysis.",
+          FaFileAlt
+        );
+
+
+      default:
+        return renderDashboardHome();
+
+    }
+
+  };
+
+
+  /* =======================================================
+     FINAL RETURN
+  ======================================================= */
+
+  return (
+
+    <div
+      className={`employee-dashboard ${
+        sidebarOpen
+          ? "sidebar-expanded"
+          : "sidebar-collapsed"
+      }`}
+    >
+
+      {renderSidebar()}
+
+
+      <main className="employee-main">
+
+        {renderHeader()}
+
+
+        <div className="employee-dashboard-content">
+
+          {renderContent()}
+
+        </div>
+
+      </main>
 
     </div>
 
   );
 
 };
+
 
 export default EmployeeDashboard;
