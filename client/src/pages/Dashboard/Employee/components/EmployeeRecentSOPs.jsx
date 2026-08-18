@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  BookOpen,
-  Clock3,
-  FileCheck2,
-  MoreHorizontal,
   ArrowRight,
-  Eye,
-  Download,
+  BookOpen,
+  CheckCircle2,
+  Clock3,
+  FileText,
+  MoreHorizontal,
+  Star,
 } from "lucide-react";
 
 import "./EmployeeRecentSOPs.css";
@@ -14,54 +14,70 @@ import "./EmployeeRecentSOPs.css";
 const EmployeeRecentSOPs = ({ onNavigate }) => {
   const recentSOPs = [
     {
-      id: "sop-001",
+      id: 1,
       title: "Customer Onboarding Process",
       category: "Operations",
-      status: "Completed",
-      statusClass: "completed",
-      updated: "Updated 2 hours ago",
+      version: "v3.2",
+      status: "Approved",
+      updated: "Updated today",
       progress: 100,
+      starred: true,
     },
     {
-      id: "sop-002",
+      id: 2,
       title: "Invoice Processing Guidelines",
       category: "Finance",
-      status: "In Progress",
-      statusClass: "progress",
+      version: "v2.4",
+      status: "In Review",
       updated: "Updated yesterday",
-      progress: 68,
+      progress: 75,
+      starred: false,
     },
     {
-      id: "sop-003",
+      id: 3,
       title: "Employee Data Management",
       category: "Human Resources",
-      status: "Pending Review",
-      statusClass: "review",
+      version: "v1.8",
+      status: "Approved",
       updated: "Updated 2 days ago",
-      progress: 82,
+      progress: 100,
+      starred: true,
     },
     {
-      id: "sop-004",
-      title: "Information Security Procedure",
+      id: 4,
+      title: "Document Submission Procedure",
       category: "Compliance",
-      status: "In Progress",
-      statusClass: "progress",
-      updated: "Updated 3 days ago",
+      version: "v2.1",
+      status: "Draft",
+      updated: "Updated 4 days ago",
       progress: 45,
+      starred: false,
     },
   ];
 
-  const handleOpenLibrary = () => {
+  const getStatusClass = (status) => {
+    switch (status) {
+      case "Approved":
+        return "employee-recent-sop-status-approved";
+
+      case "In Review":
+        return "employee-recent-sop-status-review";
+
+      case "Draft":
+        return "employee-recent-sop-status-draft";
+
+      default:
+        return "";
+    }
+  };
+
+  const handleViewAll = () => {
     if (typeof onNavigate === "function") {
       onNavigate("/dashboard/sop-library");
     }
   };
 
-  const handleOpenSOP = (sop) => {
-    /*
-     * The detailed SOP route can be connected later
-     * when the SOP detail page is implemented.
-     */
+  const handleSOPClick = () => {
     if (typeof onNavigate === "function") {
       onNavigate("/dashboard/my-sops");
     }
@@ -74,30 +90,41 @@ const EmployeeRecentSOPs = ({ onNavigate }) => {
     >
       {/* =====================================================
           HEADER
-      ===================================================== */}
+          ===================================================== */}
 
       <div className="employee-recent-sops-header">
         <div className="employee-recent-sops-heading">
-          <span className="employee-recent-sops-eyebrow">
-            SOP Activity
-          </span>
+          <div className="employee-recent-sops-title-row">
+            <span className="employee-recent-sops-icon">
+              <BookOpen
+                size={17}
+                strokeWidth={1.9}
+              />
+            </span>
 
-          <h2 id="employee-recent-sops-title">
-            Recent SOPs
-          </h2>
+            <div>
+              <span className="employee-recent-sops-eyebrow">
+                Knowledge Workspace
+              </span>
+
+              <h2 id="employee-recent-sops-title">
+                Recent SOPs
+              </h2>
+            </div>
+          </div>
 
           <p>
-            Recently accessed and assigned standard operating
-            procedures.
+            Quickly access SOPs you recently viewed, edited,
+            or submitted.
           </p>
         </div>
 
         <button
           type="button"
           className="employee-recent-sops-view-all"
-          onClick={handleOpenLibrary}
+          onClick={handleViewAll}
         >
-          <span>View All</span>
+          <span>View Library</span>
 
           <ArrowRight
             size={16}
@@ -107,163 +134,151 @@ const EmployeeRecentSOPs = ({ onNavigate }) => {
       </div>
 
       {/* =====================================================
-          SOP LIST
-      ===================================================== */}
+          SOP CARD
+          ===================================================== */}
 
       <div className="employee-recent-sops-card">
         <div className="employee-recent-sops-list">
           {recentSOPs.map((sop) => (
-            <article
+            <button
+              type="button"
               className="employee-recent-sop-item"
               key={sop.id}
+              onClick={handleSOPClick}
             >
               {/* =================================================
-                  SOP ICON
-              ================================================= */}
+                  DOCUMENT ICON
+                  ================================================= */}
 
-              <div className="employee-recent-sop-icon">
-                <BookOpen
-                  size={20}
-                  strokeWidth={1.9}
+              <span className="employee-recent-sop-document-icon">
+                <FileText
+                  size={18}
+                  strokeWidth={1.8}
                 />
-              </div>
+              </span>
 
               {/* =================================================
-                  SOP INFORMATION
-              ================================================= */}
+                  CONTENT
+                  ================================================= */}
 
-              <div className="employee-recent-sop-info">
-                <button
-                  type="button"
-                  className="employee-recent-sop-title"
-                  onClick={() => handleOpenSOP(sop)}
-                >
-                  {sop.title}
-                </button>
-
-                <div className="employee-recent-sop-meta">
-                  <span>
-                    {sop.category}
+              <span className="employee-recent-sop-content">
+                <span className="employee-recent-sop-title-row">
+                  <span className="employee-recent-sop-title">
+                    {sop.title}
                   </span>
+
+                  {sop.starred && (
+                    <Star
+                      className="employee-recent-sop-star"
+                      size={13}
+                      strokeWidth={1.8}
+                    />
+                  )}
+                </span>
+
+                <span className="employee-recent-sop-meta">
+                  <span>{sop.category}</span>
 
                   <span className="employee-recent-sop-meta-dot">
                     •
                   </span>
 
-                  <span>
-                    {sop.updated}
-                  </span>
-                </div>
-              </div>
+                  <span>{sop.version}</span>
 
-              {/* =================================================
-                  PROGRESS
-              ================================================= */}
-
-              <div className="employee-recent-sop-progress">
-                <div className="employee-recent-sop-progress-top">
-                  <span>
-                    Progress
+                  <span className="employee-recent-sop-meta-dot">
+                    •
                   </span>
 
-                  <strong>
+                  <span>{sop.updated}</span>
+                </span>
+
+                <span className="employee-recent-sop-progress">
+                  <span className="employee-recent-sop-progress-track">
+                    <span
+                      className="employee-recent-sop-progress-fill"
+                      style={{
+                        width: `${sop.progress}%`,
+                      }}
+                    />
+                  </span>
+
+                  <span className="employee-recent-sop-progress-value">
                     {sop.progress}%
-                  </strong>
-                </div>
-
-                <div className="employee-recent-sop-progress-track">
-                  <div
-                    className="employee-recent-sop-progress-fill"
-                    style={{
-                      width: `${sop.progress}%`,
-                    }}
-                  />
-                </div>
-              </div>
+                  </span>
+                </span>
+              </span>
 
               {/* =================================================
                   STATUS
-              ================================================= */}
+                  ================================================= */}
 
-              <div
-                className={`employee-recent-sop-status employee-recent-sop-status-${sop.statusClass}`}
+              <span
+                className={`employee-recent-sop-status ${getStatusClass(
+                  sop.status
+                )}`}
               >
-                {sop.statusClass === "completed" && (
-                  <FileCheck2
-                    size={13}
+                {sop.status === "Approved" && (
+                  <CheckCircle2
+                    size={12}
                     strokeWidth={2}
                   />
                 )}
 
-                {sop.statusClass === "progress" && (
+                {sop.status === "In Review" && (
                   <Clock3
-                    size={13}
+                    size={12}
                     strokeWidth={2}
                   />
                 )}
 
-                {sop.statusClass === "review" && (
-                  <Eye
-                    size={13}
-                    strokeWidth={2}
-                  />
-                )}
-
-                <span>
-                  {sop.status}
-                </span>
-              </div>
+                <span>{sop.status}</span>
+              </span>
 
               {/* =================================================
-                  ACTIONS
-              ================================================= */}
+                  ACTION
+                  ================================================= */}
 
-              <div className="employee-recent-sop-actions">
-                <button
-                  type="button"
-                  className="employee-recent-sop-action-btn"
-                  title="Open SOP"
-                  aria-label={`Open ${sop.title}`}
-                  onClick={() => handleOpenSOP(sop)}
-                >
-                  <Eye
-                    size={16}
-                    strokeWidth={1.9}
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className="employee-recent-sop-action-btn"
-                  title="Download SOP"
-                  aria-label={`Download ${sop.title}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                  }}
-                >
-                  <Download
-                    size={16}
-                    strokeWidth={1.9}
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className="employee-recent-sop-action-btn"
-                  title="More options"
-                  aria-label={`More options for ${sop.title}`}
-                  onClick={(event) => {
-                    event.stopPropagation();
-                  }}
-                >
-                  <MoreHorizontal
-                    size={17}
-                    strokeWidth={1.9}
-                  />
-                </button>
-              </div>
-            </article>
+              <span
+                className="employee-recent-sop-action"
+                aria-hidden="true"
+              >
+                <MoreHorizontal
+                  size={17}
+                  strokeWidth={1.8}
+                />
+              </span>
+            </button>
           ))}
+        </div>
+
+        {/* =====================================================
+            FOOTER
+            ===================================================== */}
+
+        <div className="employee-recent-sops-footer">
+          <div className="employee-recent-sops-footer-summary">
+            <FileText
+              size={14}
+              strokeWidth={1.9}
+            />
+
+            <span>
+              Showing <strong>{recentSOPs.length}</strong> recently
+              accessed SOPs
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleViewAll}
+          >
+            Browse all SOPs
+
+            <ArrowRight
+              size={14}
+              strokeWidth={2}
+            />
+          </button>
         </div>
       </div>
     </section>
