@@ -1,0 +1,548 @@
+/* =========================================================
+   EMPLOYEE KPI SECTION
+   AI SOP PORTAL
+   ========================================================= */
+
+.employee-kpi-section {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   KPI GRID
+   ========================================================= */
+
+.employee-kpi-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   KPI CARD
+   ========================================================= */
+
+.employee-kpi-card {
+  position: relative;
+
+  min-width: 0;
+  min-height: 205px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.055) 0%,
+      rgba(255, 255, 255, 0.025) 100%
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.075);
+
+  border-radius: 16px;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.16);
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.employee-kpi-card:hover {
+  transform: translateY(-3px);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.075) 0%,
+      rgba(255, 255, 255, 0.035) 100%
+    );
+
+  border-color: rgba(139, 92, 246, 0.28);
+
+  box-shadow:
+    0 16px 38px rgba(0, 0, 0, 0.24),
+    0 0 25px rgba(124, 58, 237, 0.06);
+}
+
+
+/* =========================================================
+   CARD TOP
+   ========================================================= */
+
+.employee-kpi-card-top {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   KPI ICON
+   ========================================================= */
+
+.employee-kpi-icon {
+  width: 46px;
+  height: 46px;
+
+  flex: 0 0 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.employee-kpi-card:hover .employee-kpi-icon {
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   PURPLE ICON
+   ========================================================= */
+
+.employee-kpi-purple {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.25),
+      rgba(109, 40, 217, 0.12)
+    );
+
+  border: 1px solid rgba(139, 92, 246, 0.25);
+
+  color: #a78bfa;
+
+  box-shadow:
+    0 8px 20px rgba(124, 58, 237, 0.08);
+}
+
+
+/* =========================================================
+   GREEN ICON
+   ========================================================= */
+
+.employee-kpi-green {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34, 197, 94, 0.18),
+      rgba(34, 197, 94, 0.07)
+    );
+
+  border: 1px solid rgba(74, 222, 128, 0.2);
+
+  color: #4ade80;
+
+  box-shadow:
+    0 8px 20px rgba(34, 197, 94, 0.06);
+}
+
+
+/* =========================================================
+   GOLD ICON
+   ========================================================= */
+
+.employee-kpi-gold {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(244, 184, 96, 0.18),
+      rgba(244, 184, 96, 0.06)
+    );
+
+  border: 1px solid rgba(244, 184, 96, 0.22);
+
+  color: #f4b860;
+
+  box-shadow:
+    0 8px 20px rgba(244, 184, 96, 0.06);
+}
+
+
+/* =========================================================
+   THREE-DOT MENU
+   ========================================================= */
+
+.employee-kpi-card-menu {
+  position: relative;
+  z-index: 2;
+
+  color: #777080;
+
+  font-size: 15px;
+  font-weight: 800;
+
+  line-height: 1;
+
+  letter-spacing: 2px;
+
+  cursor: default;
+
+  transition: color 0.2s ease;
+}
+
+.employee-kpi-card:hover .employee-kpi-card-menu {
+  color: #a9a0b3;
+}
+
+
+/* =========================================================
+   KPI CONTENT
+   ========================================================= */
+
+.employee-kpi-content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  margin-top: 18px;
+}
+
+
+/* =========================================================
+   KPI TITLE
+   ========================================================= */
+
+.employee-kpi-title {
+  display: block;
+
+  color: #a9a0b3;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  line-height: 1.35;
+
+  letter-spacing: 0.1px;
+}
+
+
+/* =========================================================
+   KPI VALUE
+   ========================================================= */
+
+.employee-kpi-value {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #ffffff;
+
+  font-size: 32px;
+  font-weight: 750;
+
+  line-height: 1.15;
+
+  letter-spacing: -0.7px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   KPI DESCRIPTION
+   ========================================================= */
+
+.employee-kpi-description {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #777080;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  line-height: 1.4;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   TREND
+   ========================================================= */
+
+.employee-kpi-trend {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: auto;
+  padding-top: 16px;
+
+  min-width: 0;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  line-height: 1.3;
+}
+
+.employee-kpi-trend strong {
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.employee-kpi-trend > span:last-child {
+  color: #777080;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TREND ICON
+   ========================================================= */
+
+.employee-kpi-trend-icon {
+  width: 20px;
+  height: 20px;
+
+  flex: 0 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+}
+
+
+/* =========================================================
+   POSITIVE TREND
+   ========================================================= */
+
+.employee-kpi-trend-positive {
+  color: #4ade80;
+}
+
+.employee-kpi-trend-positive
+  .employee-kpi-trend-icon {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+
+/* =========================================================
+   NEGATIVE / ATTENTION TREND
+   ========================================================= */
+
+.employee-kpi-trend-negative {
+  color: #f4b860;
+}
+
+.employee-kpi-trend-negative
+  .employee-kpi-trend-icon {
+  background: rgba(244, 184, 96, 0.1);
+}
+
+
+/* =========================================================
+   DECORATIVE GLOW
+   ========================================================= */
+
+.employee-kpi-card-glow {
+  position: absolute;
+
+  right: -45px;
+  bottom: -55px;
+
+  width: 140px;
+  height: 140px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(124, 58, 237, 0.12) 0%,
+      rgba(124, 58, 237, 0.035) 42%,
+      transparent 72%
+    );
+
+  pointer-events: none;
+
+  opacity: 0.75;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.employee-kpi-card:hover .employee-kpi-card-glow {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1150px) {
+  .employee-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-kpi-card {
+    min-height: 195px;
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .employee-kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+  }
+
+  .employee-kpi-card {
+    min-height: 185px;
+
+    padding: 18px;
+  }
+
+  .employee-kpi-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-basis: 42px;
+  }
+
+  .employee-kpi-value {
+    font-size: 28px;
+  }
+
+  .employee-kpi-title {
+    font-size: 12px;
+  }
+
+  .employee-kpi-description {
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 520px) {
+  .employee-kpi-grid {
+    grid-template-columns: 1fr;
+
+    gap: 12px;
+  }
+
+  .employee-kpi-card {
+    min-height: 175px;
+
+    padding: 18px;
+  }
+
+  .employee-kpi-content {
+    margin-top: 15px;
+  }
+
+  .employee-kpi-value {
+    font-size: 30px;
+  }
+
+  .employee-kpi-description {
+    white-space: normal;
+  }
+
+  .employee-kpi-trend {
+    padding-top: 14px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 360px) {
+  .employee-kpi-card {
+    padding: 16px;
+  }
+
+  .employee-kpi-value {
+    font-size: 27px;
+  }
+
+  .employee-kpi-icon {
+    width: 40px;
+    height: 40px;
+
+    flex-basis: 40px;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-kpi-card,
+  .employee-kpi-icon,
+  .employee-kpi-card-glow {
+    transition: none;
+  }
+}
