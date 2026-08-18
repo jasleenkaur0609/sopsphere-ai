@@ -3,21 +3,21 @@ import React, { useState } from "react";
 import "./EmployeeDashboard.css";
 
 import EmployeeSidebar from "./components/EmployeeSidebar";
-// import EmployeeHeader from "./components/EmployeeHeader";
-// import EmployeeKPI from "./components/EmployeeKPI";
-// import EmployeeQuickActions from "./components/EmployeeQuickActions";
-// import EmployeeFeatureCards from "./components/EmployeeFeatureCards";
-// import EmployeeRecentSOPs from "./components/EmployeeRecentSOPs";
-// import EmployeeRecentActivity from "./components/EmployeeRecentActivity";
-// import EmployeeLearning from "./components/EmployeeLearning";
-// import EmployeeCompliance from "./components/EmployeeCompliance";
-// import EmployeeRecommendations from "./components/EmployeeRecommendations";
-// import EmployeeTeamUpdates from "./components/EmployeeTeamUpdates";
-// import EmployeeNotifications from "./components/EmployeeNotifications";
-// import EmployeeAIChat from "./components/EmployeeAIChat";
-// import EmployeeAIPromotion from "./components/EmployeeAIPromotion";
-// import EmployeeActions from "./components/EmployeeActions";
-// import EmployeeProfileMenu from "./components/EmployeeProfileMenu";
+import EmployeeHeader from "./components/EmployeeHeader";
+import EmployeeKPI from "./components/EmployeeKPI";
+import EmployeeQuickActions from "./components/EmployeeQuickActions";
+import EmployeeFeatureCards from "./components/EmployeeFeatureCards";
+import EmployeeRecentSOPs from "./components/EmployeeRecentSOPs";
+import EmployeeRecentActivity from "./components/EmployeeRecentActivity";
+import EmployeeLearning from "./components/EmployeeLearning";
+import EmployeeCompliance from "./components/EmployeeCompliance";
+import EmployeeRecommendations from "./components/EmployeeRecommendations";
+import EmployeeTeamUpdates from "./components/EmployeeTeamUpdates";
+import EmployeeNotifications from "./components/EmployeeNotifications";
+import EmployeeAIChat from "./components/EmployeeAIChat";
+import EmployeeAIPromotion from "./components/EmployeeAIPromotion";
+import EmployeeActions from "./components/EmployeeActions";
+import EmployeeProfileMenu from "./components/EmployeeProfileMenu";
 
 const EmployeeDashboard = ({ profile }) => {
   /*
