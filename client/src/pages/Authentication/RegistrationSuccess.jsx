@@ -12,7 +12,6 @@ import {
 import "./AuthBase.css";
 import "./RegistrationSuccess.css";
 
-
 const RegistrationSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,19 +20,61 @@ const RegistrationSuccess = () => {
   const [isRedirecting, setIsRedirecting] = useState(false);
 
   /*
-   * Email can be passed from the previous authentication page:
+   * ============================================================
+   * REGISTRATION DATA
+   * ============================================================
    *
-   * navigate("/registration-success", {
-   *   state: { email: userEmail }
-   * });
+   * CompleteProfile sends:
    *
-   * If it isn't available, the page still works normally.
+   * state: {
+   *   email,
+   *   user: {
+   *     jobTitle,
+   *     department,
+   *     organization,
+   *     employeeId,
+   *     location,
+   *     role,
+   *     email
+   *   },
+   *   profile: {
+   *     jobTitle,
+   *     department,
+   *     organization,
+   *     employeeId,
+   *     location,
+   *     role,
+   *     email
+   *   }
+   * }
+   *
+   * We preserve all of this information and pass it forward
+   * when the user clicks "Go to Dashboard".
    */
+
   const registeredEmail =
     location.state?.email ||
     location.state?.user?.email ||
+    location.state?.profile?.email ||
     "your registered email address";
 
+  /*
+   * Profile coming from CompleteProfile.
+   *
+   * We check both `profile` and `user` because CompleteProfile
+   * currently sends both.
+   */
+
+  const profile =
+    location.state?.profile ||
+    location.state?.user ||
+    null;
+
+  /*
+   * ============================================================
+   * PAGE ANIMATION
+   * ============================================================
+   */
 
   useEffect(() => {
     const timer = requestAnimationFrame(() => {
@@ -43,26 +84,75 @@ const RegistrationSuccess = () => {
     return () => cancelAnimationFrame(timer);
   }, []);
 
+  /*
+   * ============================================================
+   * GO TO DASHBOARD
+   * ============================================================
+   */
 
   const handleDashboard = () => {
-    if (isRedirecting) return;
+    if (isRedirecting) {
+      return;
+    }
+
+    /*
+     * Do not allow the dashboard to open if profile information
+     * was not successfully received from Complete Profile.
+     *
+     * The user can still return to Sign In.
+     */
+
+    if (!profile || !profile.role) {
+      alert(
+        "Your profile information is incomplete. Please sign in again to continue."
+      );
+
+      navigate("/login");
+
+      return;
+    }
 
     setIsRedirecting(true);
 
     /*
-     * Small delay allows the button animation to be visible
-     * before navigating to the dashboard.
+     * Small delay allows the button loading animation to
+     * remain visible before navigating.
      */
+
     setTimeout(() => {
-      navigate("/dashboard");
+      navigate("/dashboard", {
+        replace: true,
+
+        state: {
+          profile: {
+            ...profile,
+          },
+
+          user: {
+            ...profile,
+          },
+
+          email: registeredEmail,
+        },
+      });
     }, 450);
   };
 
+  /*
+   * ============================================================
+   * RETURN TO LOGIN
+   * ============================================================
+   */
 
   const handleLogin = () => {
     navigate("/login");
   };
 
+  /*
+   * ============================================================
+   * UI
+   * ============================================================
+   */
 
   return (
     <div
@@ -70,13 +160,11 @@ const RegistrationSuccess = () => {
         isVisible ? "registration-success-visible" : ""
       }`}
     >
-
       {/* =====================================================
           BACKGROUND
           ===================================================== */}
 
       <div className="registration-success-background">
-
         <div className="registration-success-orb registration-success-orb-one" />
 
         <div className="registration-success-orb registration-success-orb-two" />
@@ -84,66 +172,54 @@ const RegistrationSuccess = () => {
         <div className="registration-success-orb registration-success-orb-three" />
 
         <div className="registration-success-grid" />
-
       </div>
-
 
       {/* =====================================================
           MAIN CONTAINER
           ===================================================== */}
 
       <main className="registration-success-container">
-
         {/* ===================================================
             BRAND
             =================================================== */}
 
         <div className="registration-success-brand">
-
           <div className="registration-success-brand-logo">
             AI
           </div>
 
           <div className="registration-success-brand-text">
-
             <h1>AI SOP Portal</h1>
 
             <span>
               Enterprise Knowledge Platform
             </span>
-
           </div>
-
         </div>
-
 
         {/* ===================================================
             SUCCESS CARD
             =================================================== */}
 
         <section className="registration-success-card">
-
           {/* Top animated accent */}
-          <div className="registration-success-card-line" />
 
+          <div className="registration-success-card-line" />
 
           {/* =================================================
               SUCCESS ICON
               ================================================= */}
 
           <div className="registration-success-icon-wrapper">
-
             <div className="registration-success-icon-ring registration-success-ring-one" />
 
             <div className="registration-success-icon-ring registration-success-ring-two" />
 
             <div className="registration-success-icon">
-
               <CheckCircle2
                 size={58}
                 strokeWidth={1.8}
               />
-
             </div>
 
             <div className="registration-success-spark spark-one">
@@ -153,31 +229,28 @@ const RegistrationSuccess = () => {
             <div className="registration-success-spark spark-two">
               <Sparkles size={11} />
             </div>
-
           </div>
-
 
           {/* =================================================
               BADGE
               ================================================= */}
 
           <div className="registration-success-badge">
-
-            <Check size={14} strokeWidth={3} />
+            <Check
+              size={14}
+              strokeWidth={3}
+            />
 
             <span>
               Registration Complete
             </span>
-
           </div>
-
 
           {/* =================================================
               HEADING
               ================================================= */}
 
           <div className="registration-success-heading">
-
             <h2>
               Your Account
               <span> Is Ready!</span>
@@ -188,27 +261,21 @@ const RegistrationSuccess = () => {
               account has been successfully created and is
               ready to use.
             </p>
-
           </div>
-
 
           {/* =================================================
               EMAIL CONFIRMATION
               ================================================= */}
 
           <div className="registration-success-email">
-
             <div className="registration-success-email-icon">
-
               <CheckCircle2
                 size={18}
                 strokeWidth={2}
               />
-
             </div>
 
             <div className="registration-success-email-content">
-
               <span>
                 Account registered with
               </span>
@@ -216,20 +283,15 @@ const RegistrationSuccess = () => {
               <strong>
                 {registeredEmail}
               </strong>
-
             </div>
-
           </div>
-
 
           {/* =================================================
               FEATURES
               ================================================= */}
 
           <div className="registration-success-features">
-
             <div className="registration-success-feature">
-
               <div className="registration-success-feature-icon">
                 <ShieldCheck
                   size={18}
@@ -246,12 +308,9 @@ const RegistrationSuccess = () => {
                   Your enterprise account is protected.
                 </span>
               </div>
-
             </div>
 
-
             <div className="registration-success-feature">
-
               <div className="registration-success-feature-icon">
                 <LayoutDashboard
                   size={18}
@@ -268,11 +327,8 @@ const RegistrationSuccess = () => {
                   Access your personalized workspace.
                 </span>
               </div>
-
             </div>
-
           </div>
-
 
           {/* =================================================
               PRIMARY ACTION
@@ -288,7 +344,6 @@ const RegistrationSuccess = () => {
             onClick={handleDashboard}
             disabled={isRedirecting}
           >
-
             {isRedirecting ? (
               <>
                 <span className="registration-success-spinner" />
@@ -314,9 +369,7 @@ const RegistrationSuccess = () => {
                 />
               </>
             )}
-
           </button>
-
 
           {/* =================================================
               SECONDARY ACTION
@@ -330,13 +383,11 @@ const RegistrationSuccess = () => {
             Return to Sign In
           </button>
 
-
           {/* =================================================
               SECURITY FOOTER
               ================================================= */}
 
           <div className="registration-success-security">
-
             <ShieldCheck
               size={14}
               strokeWidth={2}
@@ -345,18 +396,14 @@ const RegistrationSuccess = () => {
             <span>
               Protected enterprise authentication
             </span>
-
           </div>
-
         </section>
-
 
         {/* ===================================================
             FOOTER
             =================================================== */}
 
         <footer className="registration-success-footer">
-
           <span>
             AI SOP Portal
           </span>
@@ -368,14 +415,10 @@ const RegistrationSuccess = () => {
           <span>
             Secure Enterprise Platform
           </span>
-
         </footer>
-
       </main>
-
     </div>
   );
 };
-
 
 export default RegistrationSuccess;
