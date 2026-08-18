@@ -23,8 +23,8 @@ import {
 
 const Sidebar = ({
   role = "Employee",
-  collapsed,
-  mobileOpen,
+  collapsed = false,
+  mobileOpen = false,
   onToggle,
   onMobileClose,
 }) => {
@@ -111,14 +111,28 @@ const Sidebar = ({
     if (item.hasChildren) {
       setSopOpen((previous) => !previous);
 
-      if (!collapsed) {
-        navigate(item.path);
+      /*
+       * When expanded, also navigate to the main
+       * SOP Library page.
+       */
+      navigate(item.path);
+
+      if (onMobileClose) {
+        onMobileClose();
       }
 
       return;
     }
 
     navigate(item.path);
+
+    if (onMobileClose) {
+      onMobileClose();
+    }
+  };
+
+  const handleSubNavigation = (path) => {
+    navigate(path);
 
     if (onMobileClose) {
       onMobileClose();
@@ -135,10 +149,12 @@ const Sidebar = ({
 
   return (
     <>
+      {/* Mobile overlay */}
       {mobileOpen && (
         <div
           className="sidebar-mobile-overlay"
           onClick={onMobileClose}
+          aria-hidden="true"
         />
       )}
 
@@ -147,6 +163,9 @@ const Sidebar = ({
           collapsed ? "collapsed" : ""
         } ${mobileOpen ? "mobile-open" : ""}`}
       >
+        {/* =========================
+            SIDEBAR HEADER
+        ========================== */}
         <div className="sidebar-header">
           <div className="sidebar-brand">
             <div className="sidebar-brand-icon">
@@ -164,6 +183,7 @@ const Sidebar = ({
             </div>
           </div>
 
+          {/* Collapse / Expand */}
           <button
             type="button"
             className="sidebar-collapse-btn"
@@ -182,6 +202,9 @@ const Sidebar = ({
           </button>
         </div>
 
+        {/* =========================
+            MAIN NAVIGATION
+        ========================== */}
         <nav className="sidebar-navigation">
           <div className="sidebar-section-title">
             Workspace
@@ -189,13 +212,14 @@ const Sidebar = ({
 
           {navigationItems.map((item) => (
             <React.Fragment key={item.label}>
+              {/* Main navigation item */}
               <button
                 type="button"
                 className={`sidebar-nav-item ${
                   isActive(item.path) ? "active" : ""
                 }`}
                 onClick={() => handleNavigation(item)}
-                title={collapsed ? item.label : ""}
+                title={collapsed ? item.label : undefined}
               >
                 <span className="sidebar-nav-icon">
                   {item.icon}
@@ -213,60 +237,81 @@ const Sidebar = ({
 
                 {item.hasChildren && !collapsed && (
                   <span
-                    className="sidebar-nav-arrow"
-                    style={{
-                      transform: sopOpen
-                        ? "rotate(180deg)"
-                        : "rotate(0deg)",
-                    }}
+                    className={`sidebar-nav-arrow ${
+                      sopOpen ? "open" : ""
+                    }`}
                   >
                     <FaChevronDown />
                   </span>
                 )}
               </button>
 
+              {/* =========================
+                  SOP SUBMENU
+              ========================== */}
               {item.hasChildren &&
                 sopOpen &&
                 !collapsed && (
                   <div className="sidebar-submenu">
                     <button
                       type="button"
+                      className={
+                        location.pathname ===
+                        "/dashboard/sop-library"
+                          ? "active"
+                          : ""
+                      }
                       onClick={() =>
-                        navigate(
+                        handleSubNavigation(
                           "/dashboard/sop-library"
                         )
                       }
                     >
-                      All SOPs
+                      <span>All SOPs</span>
                     </button>
 
                     <button
                       type="button"
+                      className={
+                        location.pathname ===
+                        "/dashboard/my-sops"
+                          ? "active"
+                          : ""
+                      }
                       onClick={() =>
-                        navigate(
+                        handleSubNavigation(
                           "/dashboard/my-sops"
                         )
                       }
                     >
-                      My SOPs
+                      <span>My SOPs</span>
                     </button>
 
                     <button
                       type="button"
+                      className={
+                        location.pathname ===
+                        "/dashboard/generate-sop"
+                          ? "active"
+                          : ""
+                      }
                       onClick={() =>
-                        navigate(
+                        handleSubNavigation(
                           "/dashboard/generate-sop"
                         )
                       }
                     >
-                      Generate SOP
+                      <span>Generate SOP</span>
                     </button>
                   </div>
                 )}
             </React.Fragment>
-          )}
+          ))}
         </nav>
 
+        {/* =========================
+            SIDEBAR FOOTER
+        ========================== */}
         <div className="sidebar-footer">
           {footerItems.map((item) => (
             <button
@@ -282,7 +327,7 @@ const Sidebar = ({
                   onMobileClose();
                 }
               }}
-              title={collapsed ? item.label : ""}
+              title={collapsed ? item.label : undefined}
             >
               <span className="sidebar-nav-icon">
                 {item.icon}
@@ -294,13 +339,16 @@ const Sidebar = ({
             </button>
           ))}
 
+          {/* Give Feedback */}
           <button
             type="button"
             className="sidebar-nav-item"
             onClick={() =>
-              alert("Feedback form will be connected here.")
+              alert(
+                "Feedback form will be connected here."
+              )
             }
-            title={collapsed ? "Give Feedback" : ""}
+            title={collapsed ? "Give Feedback" : undefined}
           >
             <span className="sidebar-nav-icon">
               <FaCommentDots />
@@ -311,6 +359,9 @@ const Sidebar = ({
             </span>
           </button>
 
+          {/* =========================
+              USER PROFILE
+          ========================== */}
           <div className="sidebar-user">
             <div className="sidebar-user-avatar">
               JK
