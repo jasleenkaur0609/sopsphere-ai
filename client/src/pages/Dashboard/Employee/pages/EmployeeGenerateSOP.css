@@ -1,0 +1,1278 @@
+/* =========================================================
+   EMPLOYEE GENERATE SOP
+   AI SOP PORTAL
+   ========================================================= */
+
+.employee-generate-sop-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: 24px 28px 30px;
+
+  box-sizing: border-box;
+
+  color: #e7e1eb;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.employee-generate-sop-header {
+  margin-bottom: 20px;
+}
+
+.employee-generate-sop-title-wrapper {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+}
+
+.employee-generate-sop-title-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.18),
+      rgba(139, 92, 246, 0.05)
+    );
+
+  color: #a78bfa;
+
+  font-size: 15px;
+}
+
+.employee-generate-sop-eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #706875;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.05px;
+
+  line-height: 1.2;
+}
+
+.employee-generate-sop-title-wrapper h1 {
+  margin: 0;
+
+  color: #eee9f0;
+
+  font-size: 24px;
+  font-weight: 720;
+
+  letter-spacing: -0.5px;
+
+  line-height: 1.2;
+}
+
+.employee-generate-sop-title-wrapper p {
+  margin: 6px 0 0;
+
+  color: #746d7a;
+
+  font-size: 9px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   STEPPER
+   ========================================================= */
+
+.employee-generate-sop-stepper {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  margin-bottom: 18px;
+
+  padding: 12px 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.015);
+
+  box-sizing: border-box;
+}
+
+.employee-generate-sop-step {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #5f5865;
+
+  font-size: 7px;
+  font-weight: 550;
+
+  white-space: nowrap;
+
+  transition:
+    color 0.2s ease;
+}
+
+.employee-generate-sop-step-number {
+  width: 23px;
+  height: 23px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #625b68;
+
+  font-size: 7px;
+  font-weight: 650;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.employee-generate-sop-step-active {
+  color: #b2a3bd;
+}
+
+.employee-generate-sop-step-active
+  .employee-generate-sop-step-number {
+  border-color: rgba(139, 92, 246, 0.3);
+
+  background: rgba(124, 58, 237, 0.12);
+
+  color: #b39be8;
+}
+
+.employee-generate-sop-step-completed {
+  color: #877d8d;
+}
+
+.employee-generate-sop-step-completed
+  .employee-generate-sop-step-number {
+  border-color: rgba(139, 92, 246, 0.22);
+
+  background: rgba(124, 58, 237, 0.08);
+
+  color: #9b7de8;
+}
+
+.employee-generate-sop-step-line {
+  flex: 1;
+
+  height: 1px;
+
+  margin: 0 13px;
+
+  background: rgba(255, 255, 255, 0.055);
+
+  transition:
+    background 0.2s ease;
+}
+
+.employee-generate-sop-step-line-completed {
+  background: rgba(139, 92, 246, 0.25);
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.employee-generate-sop-content {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    245px;
+
+  align-items: start;
+
+  gap: 14px;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   FORM CARD
+   ========================================================= */
+
+.employee-generate-sop-form-card {
+  min-width: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 10px;
+
+  background: #151319;
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.employee-generate-sop-form-section {
+  padding: 20px;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.employee-generate-sop-section-header {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 11px;
+
+  margin-bottom: 21px;
+
+  padding-bottom: 15px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.employee-generate-sop-section-icon {
+  width: 34px;
+  height: 34px;
+
+  flex: 0 0 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #9179b0;
+
+  font-size: 12px;
+}
+
+.employee-generate-sop-section-header h2 {
+  margin: 0;
+
+  color: #cfc8d3;
+
+  font-size: 12px;
+  font-weight: 650;
+
+  line-height: 1.35;
+}
+
+.employee-generate-sop-section-header p {
+  margin: 4px 0 0;
+
+  color: #625b68;
+
+  font-size: 7px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.employee-generate-sop-form-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 16px 13px;
+}
+
+.employee-generate-sop-field {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.employee-generate-sop-field-full {
+  grid-column: 1 / -1;
+}
+
+.employee-generate-sop-field label {
+  color: #817987;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  line-height: 1.3;
+}
+
+.employee-generate-sop-field label span {
+  margin-left: 3px;
+
+  color: #9071ba;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.employee-generate-sop-input-wrapper {
+  position: relative;
+
+  width: 100%;
+}
+
+.employee-generate-sop-input-wrapper > svg {
+  position: absolute;
+
+  top: 50%;
+  left: 10px;
+
+  color: #5e5665;
+
+  font-size: 8px;
+
+  transform: translateY(-50%);
+
+  pointer-events: none;
+}
+
+.employee-generate-sop-field input,
+.employee-generate-sop-field select,
+.employee-generate-sop-field textarea {
+  width: 100%;
+
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #111015;
+
+  color: #c2bac7;
+
+  font-family: inherit;
+
+  font-size: 8px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.employee-generate-sop-field input,
+.employee-generate-sop-field select {
+  height: 36px;
+
+  padding: 0 10px;
+}
+
+.employee-generate-sop-input-wrapper input {
+  padding-left: 28px;
+}
+
+.employee-generate-sop-field textarea {
+  min-height: 95px;
+
+  padding: 10px;
+
+  resize: vertical;
+
+  line-height: 1.6;
+}
+
+.employee-generate-sop-field input::placeholder,
+.employee-generate-sop-field textarea::placeholder {
+  color: #4f4855;
+}
+
+.employee-generate-sop-field input:focus,
+.employee-generate-sop-field select:focus,
+.employee-generate-sop-field textarea:focus {
+  border-color: rgba(139, 92, 246, 0.32);
+
+  background: #131117;
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.055);
+}
+
+
+/* =========================================================
+   SELECT WRAPPER
+   ========================================================= */
+
+.employee-generate-sop-select-wrapper {
+  position: relative;
+}
+
+.employee-generate-sop-select-wrapper > svg {
+  position: absolute;
+
+  top: 50%;
+  left: 10px;
+
+  color: #5e5665;
+
+  font-size: 8px;
+
+  transform: translateY(-50%);
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+.employee-generate-sop-select-wrapper select {
+  padding-left: 28px;
+
+  appearance: auto;
+}
+
+
+/* =========================================================
+   AI INFORMATION
+   ========================================================= */
+
+.employee-generate-sop-ai-info {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin-bottom: 18px;
+
+  padding: 12px;
+
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.065),
+      rgba(255, 255, 255, 0.012)
+    );
+
+  color: #8c7b9c;
+}
+
+.employee-generate-sop-ai-info > svg {
+  flex: 0 0 auto;
+
+  margin-top: 2px;
+
+  font-size: 11px;
+}
+
+.employee-generate-sop-ai-info strong {
+  display: block;
+
+  color: #9f91aa;
+
+  font-size: 7.5px;
+  font-weight: 650;
+}
+
+.employee-generate-sop-ai-info p {
+  margin: 4px 0 0;
+
+  color: #625b68;
+
+  font-size: 6.8px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   GENERATION SUMMARY
+   ========================================================= */
+
+.employee-generate-sop-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 7px;
+
+  padding: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.employee-generate-sop-summary > div {
+  min-width: 0;
+
+  padding: 8px;
+
+  border: 1px solid rgba(255, 255, 255, 0.035);
+  border-radius: 6px;
+
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.employee-generate-sop-summary span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #59515f;
+
+  font-size: 5.8px;
+
+  text-transform: uppercase;
+}
+
+.employee-generate-sop-summary strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #817786;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.employee-generate-sop-sidebar {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  min-width: 0;
+}
+
+.employee-generate-sop-help-card {
+  padding: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+}
+
+.employee-generate-sop-help-icon {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.08);
+
+  color: #947ab1;
+
+  font-size: 11px;
+}
+
+.employee-generate-sop-help-card h3 {
+  margin: 0;
+
+  color: #b6adb9;
+
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.employee-generate-sop-help-card > p {
+  margin: 6px 0 13px;
+
+  color: #655e6b;
+
+  font-size: 6.8px;
+
+  line-height: 1.6;
+}
+
+.employee-generate-sop-help-points {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  padding-top: 11px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.employee-generate-sop-help-points div {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.employee-generate-sop-help-points svg {
+  flex: 0 0 auto;
+
+  color: #80719a;
+
+  font-size: 7px;
+}
+
+.employee-generate-sop-help-points span {
+  color: #706875;
+
+  font-size: 6.5px;
+}
+
+
+/* =========================================================
+   SECURITY / TIP CARD
+   ========================================================= */
+
+.employee-generate-sop-security-card {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 9px;
+
+  padding: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.employee-generate-sop-security-card > svg {
+  flex: 0 0 auto;
+
+  margin-top: 2px;
+
+  color: #827391;
+
+  font-size: 9px;
+}
+
+.employee-generate-sop-security-card strong {
+  display: block;
+
+  color: #817786;
+
+  font-size: 6.8px;
+  font-weight: 650;
+}
+
+.employee-generate-sop-security-card span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #5b5461;
+
+  font-size: 6px;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   FOOTER ACTIONS
+   ========================================================= */
+
+.employee-generate-sop-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 14px;
+
+  padding: 12px 0 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.045);
+}
+
+.employee-generate-sop-action-right {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.employee-generate-sop-back-button,
+.employee-generate-sop-next-button,
+.employee-generate-sop-generate-button {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.employee-generate-sop-back-button {
+  padding: 0 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  background: rgba(255, 255, 255, 0.018);
+
+  color: #706876;
+}
+
+.employee-generate-sop-back-button:hover:not(:disabled) {
+  border-color: rgba(139, 92, 246, 0.18);
+
+  background: rgba(124, 58, 237, 0.05);
+
+  color: #9a8ca6;
+}
+
+.employee-generate-sop-back-button:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   CONTINUE BUTTON
+   ========================================================= */
+
+.employee-generate-sop-next-button {
+  min-width: 95px;
+
+  padding: 0 12px;
+
+  border: 1px solid rgba(139, 92, 246, 0.22);
+
+  background: rgba(124, 58, 237, 0.1);
+
+  color: #aa99ba;
+}
+
+.employee-generate-sop-next-button:hover:not(:disabled) {
+  border-color: rgba(139, 92, 246, 0.34);
+
+  background: rgba(124, 58, 237, 0.15);
+
+  color: #c4b5fd;
+}
+
+.employee-generate-sop-next-button:disabled {
+  opacity: 0.32;
+
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   GENERATE BUTTON
+   ========================================================= */
+
+.employee-generate-sop-generate-button {
+  min-width: 130px;
+
+  padding: 0 13px;
+
+  border: 1px solid rgba(139, 92, 246, 0.26);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.3),
+      rgba(124, 58, 237, 0.16)
+    );
+
+  color: #c2b4d0;
+
+  box-shadow:
+    0 7px 18px rgba(76, 29, 149, 0.1);
+}
+
+.employee-generate-sop-generate-button:hover:not(:disabled) {
+  border-color: rgba(139, 92, 246, 0.4);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.38),
+      rgba(124, 58, 237, 0.22)
+    );
+
+  color: #ddd2e5;
+}
+
+.employee-generate-sop-generate-button:disabled {
+  opacity: 0.65;
+
+  cursor: wait;
+}
+
+
+/* =========================================================
+   SPINNER
+   ========================================================= */
+
+.employee-generate-sop-spinner {
+  width: 10px;
+  height: 10px;
+
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #b39be8;
+
+  border-radius: 50%;
+
+  animation:
+    employee-generate-sop-spin
+    0.75s linear infinite;
+}
+
+@keyframes employee-generate-sop-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   GENERATED SUCCESS STATE
+   ========================================================= */
+
+.employee-generate-sop-generated {
+  width: min(620px, 100%);
+
+  margin: 40px auto;
+
+  padding: 35px;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 12px;
+
+  background: #151319;
+
+  text-align: center;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.employee-generate-sop-generated-icon {
+  width: 54px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 14px;
+
+  border: 1px solid rgba(34, 197, 94, 0.16);
+  border-radius: 50%;
+
+  background: rgba(34, 197, 94, 0.06);
+
+  color: #7eaa8b;
+
+  font-size: 17px;
+}
+
+.employee-generate-sop-generated .employee-generate-sop-eyebrow {
+  margin-bottom: 7px;
+}
+
+.employee-generate-sop-generated h1 {
+  margin: 0;
+
+  color: #ddd7e0;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.employee-generate-sop-generated > p {
+  max-width: 460px;
+
+  margin: 8px auto 22px;
+
+  color: #6c6472;
+
+  font-size: 8px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   GENERATED SOP CARD
+   ========================================================= */
+
+.employee-generate-sop-generated-card {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  margin-bottom: 20px;
+
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.015);
+
+  text-align: left;
+}
+
+.employee-generate-sop-generated-card-icon {
+  width: 35px;
+  height: 35px;
+
+  flex: 0 0 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.08);
+
+  color: #9179b0;
+
+  font-size: 12px;
+}
+
+.employee-generate-sop-generated-card strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #aaa1ad;
+
+  font-size: 8px;
+  font-weight: 650;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.employee-generate-sop-generated-card span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #5e5764;
+
+  font-size: 6.5px;
+}
+
+
+/* =========================================================
+   GENERATED ACTIONS
+   ========================================================= */
+
+.employee-generate-sop-generated-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+}
+
+.employee-generate-sop-primary-action,
+.employee-generate-sop-secondary-action {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 0 12px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.employee-generate-sop-primary-action {
+  border: 1px solid rgba(139, 92, 246, 0.24);
+
+  background: rgba(124, 58, 237, 0.1);
+
+  color: #ad9cbd;
+}
+
+.employee-generate-sop-primary-action:hover {
+  background: rgba(124, 58, 237, 0.15);
+
+  color: #c4b5fd;
+}
+
+.employee-generate-sop-secondary-action {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  background: rgba(255, 255, 255, 0.018);
+
+  color: #716a78;
+}
+
+.employee-generate-sop-secondary-action:hover {
+  border-color: rgba(139, 92, 246, 0.16);
+
+  background: rgba(124, 58, 237, 0.04);
+
+  color: #988a9f;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .employee-generate-sop-content {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-generate-sop-sidebar {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 760px) {
+  .employee-generate-sop-page {
+    padding: 19px 16px 26px;
+  }
+
+  .employee-generate-sop-stepper {
+    overflow-x: auto;
+
+    scrollbar-width: none;
+  }
+
+  .employee-generate-sop-stepper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .employee-generate-sop-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-generate-sop-field-full {
+    grid-column: auto;
+  }
+
+  .employee-generate-sop-sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 560px) {
+  .employee-generate-sop-page {
+    padding: 16px 12px 24px;
+  }
+
+  .employee-generate-sop-title-wrapper h1 {
+    font-size: 20px;
+  }
+
+  .employee-generate-sop-title-wrapper p {
+    font-size: 8px;
+  }
+
+  .employee-generate-sop-stepper {
+    padding: 10px;
+  }
+
+  .employee-generate-sop-step span {
+    display: none;
+  }
+
+  .employee-generate-sop-step-line {
+    margin: 0 8px;
+  }
+
+  .employee-generate-sop-form-section {
+    padding: 15px;
+  }
+
+  .employee-generate-sop-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-generate-sop-actions {
+    align-items: stretch;
+
+    gap: 8px;
+  }
+
+  .employee-generate-sop-back-button {
+    min-width: 72px;
+  }
+
+  .employee-generate-sop-action-right {
+    flex: 1;
+  }
+
+  .employee-generate-sop-next-button,
+  .employee-generate-sop-generate-button {
+    width: 100%;
+  }
+
+  .employee-generate-sop-generated {
+    margin: 25px auto;
+
+    padding: 23px 16px;
+  }
+
+  .employee-generate-sop-generated-actions {
+    flex-direction: column;
+  }
+
+  .employee-generate-sop-primary-action,
+  .employee-generate-sop-secondary-action {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .employee-generate-sop-title-icon {
+    width: 36px;
+    height: 36px;
+
+    flex-basis: 36px;
+  }
+
+  .employee-generate-sop-title-wrapper h1 {
+    font-size: 18px;
+  }
+
+  .employee-generate-sop-section-header {
+    gap: 8px;
+  }
+
+  .employee-generate-sop-section-icon {
+    width: 30px;
+    height: 30px;
+
+    flex-basis: 30px;
+  }
+
+  .employee-generate-sop-form-section {
+    padding: 13px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-generate-sop-spinner {
+    animation: none;
+  }
+
+  .employee-generate-sop-step-number,
+  .employee-generate-sop-step,
+  .employee-generate-sop-field input,
+  .employee-generate-sop-field select,
+  .employee-generate-sop-field textarea,
+  .employee-generate-sop-back-button,
+  .employee-generate-sop-next-button,
+  .employee-generate-sop-generate-button {
+    transition: none;
+  }
+}
