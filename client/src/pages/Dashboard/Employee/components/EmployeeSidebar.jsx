@@ -4,10 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaBook,
-  FaFileAlt,
-  FaMagic,
-  FaRobot,
   FaFolderOpen,
+  FaRobot,
   FaGraduationCap,
   FaShieldAlt,
   FaTasks,
@@ -56,6 +54,10 @@ const EmployeeSidebar = ({
    * ============================================================
    * NAVIGATION ITEMS
    * ============================================================
+   *
+   * SOP Library is now a parent menu.
+   *
+   * Its child pages are handled separately below.
    */
 
   const navigationItems = [
@@ -70,18 +72,6 @@ const EmployeeSidebar = ({
       icon: <FaBook />,
       path: "/dashboard/sop-library",
       hasChildren: true,
-    },
-
-    {
-      label: "My SOPs",
-      icon: <FaFileAlt />,
-      path: "/dashboard/my-sops",
-    },
-
-    {
-      label: "Generate SOP",
-      icon: <FaMagic />,
-      path: "/dashboard/generate-sop",
     },
 
     {
@@ -129,6 +119,12 @@ const EmployeeSidebar = ({
     },
   ];
 
+  /*
+   * ============================================================
+   * FOOTER ITEMS
+   * ============================================================
+   */
+
   const footerItems = [
     {
       label: "Settings",
@@ -154,31 +150,43 @@ const EmployeeSidebar = ({
       return location.pathname === "/dashboard";
     }
 
-    return location.pathname === path ||
-      location.pathname.startsWith(`${path}/`);
+    return (
+      location.pathname === path ||
+      location.pathname.startsWith(`${path}/`)
+    );
   };
 
   /*
    * ============================================================
-   * OPEN SOP SUBMENU AUTOMATICALLY
+   * CHECK SOP SECTION
+   * ============================================================
+   *
+   * If the employee is already inside any SOP-related page,
+   * automatically keep the dropdown open.
+   */
+
+  const isSopSectionActive =
+    location.pathname.startsWith(
+      "/dashboard/sop-library"
+    ) ||
+    location.pathname.startsWith(
+      "/dashboard/my-sops"
+    ) ||
+    location.pathname.startsWith(
+      "/dashboard/generate-sop"
+    );
+
+  /*
+   * ============================================================
+   * OPEN SOP DROPDOWN AUTOMATICALLY
    * ============================================================
    */
 
   useEffect(() => {
-    if (
-      location.pathname.startsWith(
-        "/dashboard/sop-library"
-      ) ||
-      location.pathname.startsWith(
-        "/dashboard/my-sops"
-      ) ||
-      location.pathname.startsWith(
-        "/dashboard/generate-sop"
-      )
-    ) {
+    if (isSopSectionActive) {
       setSopOpen(true);
     }
-  }, [location.pathname]);
+  }, [location.pathname, isSopSectionActive]);
 
   /*
    * ============================================================
@@ -188,19 +196,25 @@ const EmployeeSidebar = ({
 
   const handleNavigation = (item) => {
     /*
-     * SOP Library is both a navigation item
-     * and a submenu trigger.
+     * SOP Library:
+     *
+     * Clicking the parent toggles the dropdown.
+     *
+     * We do NOT automatically navigate here because
+     * the user may only want to expand/collapse it.
      */
 
     if (item.hasChildren) {
-      setSopOpen((previous) => !previous);
+      if (!collapsed) {
+        setSopOpen((previous) => !previous);
+      }
 
       /*
-       * If sidebar is expanded, also navigate
-       * to the main SOP Library page.
+       * If the sidebar is collapsed, clicking SOP Library
+       * opens the main SOP Library page.
        */
 
-      if (!collapsed) {
+      if (collapsed) {
         navigate(item.path);
 
         if (onMobileClose) {
@@ -211,6 +225,10 @@ const EmployeeSidebar = ({
       return;
     }
 
+    /*
+     * Normal navigation item.
+     */
+
     navigate(item.path);
 
     if (onMobileClose) {
@@ -220,7 +238,7 @@ const EmployeeSidebar = ({
 
   /*
    * ============================================================
-   * SUBMENU NAVIGATION
+   * SOP SUBMENU NAVIGATION
    * ============================================================
    */
 
@@ -239,11 +257,6 @@ const EmployeeSidebar = ({
    */
 
   const handleFeedback = () => {
-    /*
-     * This can later be replaced with a proper
-     * feedback modal/page.
-     */
-
     window.alert(
       "Feedback form will be connected here."
     );
@@ -292,7 +305,6 @@ const EmployeeSidebar = ({
           .filter(Boolean)
           .join(" ")}
       >
-
         {/* ====================================================
             SIDEBAR HEADER
         ==================================================== */}
@@ -319,7 +331,6 @@ const EmployeeSidebar = ({
 
           </div>
 
-
           {/* Desktop collapse button */}
 
           <button
@@ -339,7 +350,6 @@ const EmployeeSidebar = ({
             )}
           </button>
 
-
           {/* Mobile close button */}
 
           <button
@@ -352,7 +362,6 @@ const EmployeeSidebar = ({
           </button>
 
         </div>
-
 
         {/* ====================================================
             NAVIGATION
@@ -367,17 +376,33 @@ const EmployeeSidebar = ({
             Workspace
           </div>
 
-
           {navigationItems.map((item) => (
             <React.Fragment key={item.label}>
+
+              {/* =================================================
+                  MAIN NAVIGATION ITEM
+              ================================================= */}
 
               <button
                 type="button"
                 className={[
                   "employee-sidebar-nav-item",
+
+                  /*
+                   * SOP Library should remain highlighted
+                   * whenever one of its child pages is active.
+                   */
+
+                  item.hasChildren &&
+                  isSopSectionActive
+                    ? "employee-sidebar-nav-item-active"
+                    : "",
+
+                  !item.hasChildren &&
                   isActive(item.path)
                     ? "employee-sidebar-nav-item-active"
                     : "",
+
                   item.hasChildren &&
                   sopOpen
                     ? "employee-sidebar-nav-item-expanded"
@@ -385,17 +410,27 @@ const EmployeeSidebar = ({
                 ]
                   .filter(Boolean)
                   .join(" ")}
+
                 onClick={() =>
                   handleNavigation(item)
                 }
+
                 title={
                   collapsed
                     ? item.label
                     : undefined
                 }
+
                 aria-current={
+                  !item.hasChildren &&
                   isActive(item.path)
                     ? "page"
+                    : undefined
+                }
+
+                aria-expanded={
+                  item.hasChildren
+                    ? sopOpen
                     : undefined
                 }
               >
@@ -404,11 +439,9 @@ const EmployeeSidebar = ({
                   {item.icon}
                 </span>
 
-
                 <span className="employee-sidebar-nav-label">
                   {item.label}
                 </span>
-
 
                 {item.badge > 0 && (
                   <span className="employee-sidebar-badge">
@@ -416,6 +449,7 @@ const EmployeeSidebar = ({
                   </span>
                 )}
 
+                {/* SOP dropdown arrow */}
 
                 {item.hasChildren && !collapsed && (
                   <span
@@ -434,18 +468,25 @@ const EmployeeSidebar = ({
 
               </button>
 
-
               {/* =================================================
-                  SOP SUBMENU
+                  SOP LIBRARY DROPDOWN
               ================================================= */}
 
               {item.hasChildren &&
                 sopOpen &&
                 !collapsed && (
-                  <div className="employee-sidebar-submenu">
+                  <div
+                    className="employee-sidebar-submenu"
+                    role="menu"
+                  >
+
+                    {/* -----------------------------------------
+                        ALL SOPS
+                    ----------------------------------------- */}
 
                     <button
                       type="button"
+                      role="menuitem"
                       className={
                         isActive(
                           "/dashboard/sop-library"
@@ -460,12 +501,19 @@ const EmployeeSidebar = ({
                       }
                     >
                       <span className="employee-sidebar-submenu-dot" />
-                      <span>All SOPs</span>
+
+                      <span>
+                        All SOPs
+                      </span>
                     </button>
 
+                    {/* -----------------------------------------
+                        MY SOPS
+                    ----------------------------------------- */}
 
                     <button
                       type="button"
+                      role="menuitem"
                       className={
                         isActive(
                           "/dashboard/my-sops"
@@ -480,12 +528,19 @@ const EmployeeSidebar = ({
                       }
                     >
                       <span className="employee-sidebar-submenu-dot" />
-                      <span>My SOPs</span>
+
+                      <span>
+                        My SOPs
+                      </span>
                     </button>
 
+                    {/* -----------------------------------------
+                        GENERATE SOP
+                    ----------------------------------------- */}
 
                     <button
                       type="button"
+                      role="menuitem"
                       className={
                         isActive(
                           "/dashboard/generate-sop"
@@ -500,7 +555,10 @@ const EmployeeSidebar = ({
                       }
                     >
                       <span className="employee-sidebar-submenu-dot" />
-                      <span>Generate SOP</span>
+
+                      <span>
+                        Generate SOP
+                      </span>
                     </button>
 
                   </div>
@@ -510,7 +568,6 @@ const EmployeeSidebar = ({
           ))}
 
         </nav>
-
 
         {/* ====================================================
             FOOTER
@@ -555,7 +612,6 @@ const EmployeeSidebar = ({
             </button>
           ))}
 
-
           {/* ==================================================
               FEEDBACK
           ================================================== */}
@@ -581,7 +637,6 @@ const EmployeeSidebar = ({
 
           </button>
 
-
           {/* ==================================================
               USER PROFILE
           ================================================== */}
@@ -591,12 +646,13 @@ const EmployeeSidebar = ({
             <div className="employee-sidebar-user-avatar">
               {employeeName
                 .split(" ")
-                .map((part) => part.charAt(0))
+                .map((part) =>
+                  part.charAt(0)
+                )
                 .join("")
                 .slice(0, 2)
                 .toUpperCase()}
             </div>
-
 
             <div className="employee-sidebar-user-info">
 
