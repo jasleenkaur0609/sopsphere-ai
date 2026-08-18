@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useProfile } from "../../context/ProfileContext";
 
 import EmployeeDashboard from "./Employee/EmployeeDashboard";
 import ManagerDashboard from "./Manager/ManagerDashboard";
@@ -12,48 +11,38 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { profile: contextProfile } = useProfile();
-
   /*
    * ============================================================
-   * PROFILE SOURCE
+   * GET PROFILE
    * ============================================================
    *
-   * RegistrationSuccess passes the completed profile through:
+   * The completed profile should be passed from the
+   * Registration Success page when the user clicks
+   * "Go to Dashboard".
+   *
+   * Expected:
    *
    * navigate("/dashboard", {
    *   state: {
-   *     profile: profile,
-   *     user: profile,
-   *     email: registeredEmail
+   *     profile: profile
    *   }
    * });
-   *
-   * Therefore, we first check the navigation state.
-   *
-   * ProfileContext is also supported because the application
-   * already has ProfileContext and other parts of the app may
-   * populate it.
    */
 
-  const navigationProfile =
+  const profile =
     location.state?.profile ||
     location.state?.user ||
     null;
 
-  const profile =
-    navigationProfile ||
-    contextProfile ||
-    null;
-
   /*
    * ============================================================
-   * INVALID PROFILE HANDLING
+   * NO PROFILE
    * ============================================================
    *
-   * We do NOT automatically open Employee Dashboard.
+   * We DO NOT automatically open Employee Dashboard.
    *
-   * If there is no completed profile, redirect the user to Login.
+   * If the user reaches /dashboard without completing
+   * the profile flow, send them back to Login.
    */
 
   useEffect(() => {
@@ -78,6 +67,7 @@ const Dashboard = () => {
     return (
       <div className="dashboard-loading">
         <div className="dashboard-loading-card">
+
           <div className="dashboard-loading-spinner" />
 
           <h2>
@@ -85,9 +75,10 @@ const Dashboard = () => {
           </h2>
 
           <p>
-            We couldn't find your completed profile.
+            Your completed profile could not be found.
             Redirecting you to Sign In...
           </p>
+
         </div>
       </div>
     );
@@ -99,11 +90,13 @@ const Dashboard = () => {
    * ============================================================
    *
    * IMPORTANT:
-   * We intentionally DO NOT use:
+   *
+   * We do NOT do:
    *
    * profile.role || "Employee"
    *
-   * because an empty role must NOT become Employee.
+   * because an empty role must never automatically
+   * become Employee.
    */
 
   const role = String(
@@ -114,11 +107,8 @@ const Dashboard = () => {
 
   /*
    * ============================================================
-   * ROLE NORMALIZATION
+   * NORMALIZE ROLE
    * ============================================================
-   *
-   * This allows slightly different role values to map to the
-   * correct dashboard.
    */
 
   let normalizedRole = role;
@@ -131,15 +121,13 @@ const Dashboard = () => {
     normalizedRole = "team lead";
   }
 
-  if (
-    role === "admin"
-  ) {
+  if (role === "admin") {
     normalizedRole = "administrator";
   }
 
   /*
    * ============================================================
-   * ROLE VALIDATION
+   * VALID ROLES
    * ============================================================
    */
 
@@ -152,11 +140,9 @@ const Dashboard = () => {
   ];
 
   /*
-   * No role or invalid role:
-   *
-   * DO NOT show Employee Dashboard.
-   *
-   * Send the user back to Login.
+   * ============================================================
+   * INVALID ROLE
+   * ============================================================
    */
 
   useEffect(() => {
@@ -190,6 +176,7 @@ const Dashboard = () => {
     return (
       <div className="dashboard-loading">
         <div className="dashboard-loading-card">
+
           <div className="dashboard-loading-spinner" />
 
           <h2>
@@ -201,6 +188,7 @@ const Dashboard = () => {
             dashboard role. Redirecting you to
             Sign In...
           </p>
+
         </div>
       </div>
     );
@@ -281,15 +269,8 @@ const Dashboard = () => {
    * FINAL SAFETY FALLBACK
    * ============================================================
    *
-   * This should technically never be reached because of the
-   * validRoles check above.
-   *
-   * We still redirect to Login rather than opening Employee.
+   * Never open Employee Dashboard as a fallback.
    */
-
-  navigate("/login", {
-    replace: true,
-  });
 
   return null;
 };

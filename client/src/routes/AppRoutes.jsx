@@ -9,7 +9,7 @@ import CompleteProfile from "../pages/Authentication/CompleteProfile";
 import RegistrationSuccess from "../pages/Authentication/RegistrationSuccess";
 import ForgotPassword from "../pages/Authentication/ForgotPassword";
 import ResetPassword from "../pages/Authentication/ResetPassword";
-//import Dashboard from "../pages/Dashboard/Dashboard";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 
 function AppRoutes() {
@@ -87,10 +87,10 @@ function AppRoutes() {
       {/* Uncomment when Dashboard is ready */}
 
       
-      {/* <Route
+      <Route
         path="/dashboard"
         element={<Dashboard />}
-      /> */}
+      />
       
 
 
