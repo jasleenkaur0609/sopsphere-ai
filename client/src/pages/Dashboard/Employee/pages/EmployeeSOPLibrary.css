@@ -1,0 +1,1111 @@
+/* =========================================================
+   EMPLOYEE SOP LIBRARY
+   AI SOP PORTAL
+   ========================================================= */
+
+.employee-sop-library-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: 24px 28px 36px;
+
+  box-sizing: border-box;
+
+  color: #e7e1eb;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.employee-sop-library-header {
+  margin-bottom: 22px;
+}
+
+.employee-sop-library-header-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 24px;
+}
+
+.employee-sop-library-title-wrapper {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  min-width: 0;
+}
+
+.employee-sop-library-title-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.18),
+      rgba(139, 92, 246, 0.07)
+    );
+
+  color: #a78bfa;
+
+  font-size: 17px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.employee-sop-library-eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #7d7483;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.1px;
+
+  line-height: 1.2;
+
+  text-transform: uppercase;
+}
+
+.employee-sop-library-title-wrapper h1 {
+  margin: 0;
+
+  color: #f0ebf2;
+
+  font-size: 24px;
+  font-weight: 720;
+
+  letter-spacing: -0.5px;
+
+  line-height: 1.2;
+}
+
+.employee-sop-library-title-wrapper p {
+  max-width: 600px;
+
+  margin: 6px 0 0;
+
+  color: #746c7a;
+
+  font-size: 9px;
+  font-weight: 400;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   HEADER STATISTICS
+   ========================================================= */
+
+.employee-sop-library-header-stats {
+  display: flex;
+  align-items: stretch;
+
+  gap: 8px;
+}
+
+.employee-sop-library-stat {
+  min-width: 92px;
+
+  padding: 11px 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.018);
+
+  box-sizing: border-box;
+}
+
+.employee-sop-library-stat strong {
+  display: block;
+
+  color: #c4b5fd;
+
+  font-size: 16px;
+  font-weight: 720;
+
+  line-height: 1.1;
+}
+
+.employee-sop-library-stat span {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #625b69;
+
+  font-size: 6.5px;
+  font-weight: 500;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   SEARCH + TOOLBAR
+   ========================================================= */
+
+.employee-sop-library-toolbar {
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 10px;
+}
+
+.employee-sop-library-search {
+  position: relative;
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 8px;
+
+  background: #151319;
+
+  color: #716979;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.employee-sop-library-search:focus-within {
+  border-color: rgba(139, 92, 246, 0.35);
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.06);
+}
+
+.employee-sop-library-search > svg {
+  flex: 0 0 auto;
+
+  margin-left: 12px;
+
+  font-size: 10px;
+}
+
+.employee-sop-library-search input {
+  width: 100%;
+  height: 100%;
+
+  min-width: 0;
+
+  padding: 0 36px 0 9px;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #cfc8d3;
+
+  font-family: inherit;
+
+  font-size: 8px;
+  font-weight: 400;
+
+  box-sizing: border-box;
+}
+
+.employee-sop-library-search input::placeholder {
+  color: #554e5a;
+}
+
+.employee-sop-library-search-clear {
+  position: absolute;
+
+  right: 8px;
+
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 5px;
+
+  background: transparent;
+
+  color: #68606e;
+
+  cursor: pointer;
+}
+
+.employee-sop-library-search-clear:hover {
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #a59aa9;
+}
+
+
+/* =========================================================
+   FILTER BUTTON
+   ========================================================= */
+
+.employee-sop-library-filter-button {
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 0 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 8px;
+
+  background: #151319;
+
+  color: #807786;
+
+  font-family: inherit;
+
+  font-size: 8px;
+  font-weight: 550;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.employee-sop-library-filter-button:hover,
+.employee-sop-library-filter-button-active {
+  border-color: rgba(139, 92, 246, 0.22);
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #a78bfa;
+}
+
+.employee-sop-library-filter-button > svg:first-child {
+  font-size: 9px;
+}
+
+.employee-sop-library-filter-button > svg:last-child {
+  margin-left: 3px;
+
+  font-size: 6px;
+
+  transition: transform 0.2s ease;
+}
+
+.employee-sop-library-filter-arrow-open {
+  transform: rotate(180deg);
+}
+
+
+/* =========================================================
+   FILTER PANEL
+   ========================================================= */
+
+.employee-sop-library-filter-panel {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 12px;
+
+  margin-bottom: 14px;
+
+  padding: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 9px;
+
+  background: rgba(255, 255, 255, 0.018);
+
+  animation:
+    employee-sop-filter-open
+    0.18s ease
+    both;
+}
+
+@keyframes employee-sop-filter-open {
+  from {
+    opacity: 0;
+
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+.employee-sop-library-filter-group {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+
+  min-width: 170px;
+}
+
+.employee-sop-library-filter-group label {
+  color: #756d7b;
+
+  font-size: 7px;
+  font-weight: 650;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.employee-sop-library-filter-group select {
+  min-width: 170px;
+  height: 32px;
+
+  padding: 0 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 6px;
+
+  outline: none;
+
+  background: #151319;
+
+  color: #aaa1ae;
+
+  font-family: inherit;
+
+  font-size: 7.5px;
+
+  cursor: pointer;
+}
+
+.employee-sop-library-filter-group select:focus {
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.employee-sop-library-clear-filters {
+  height: 32px;
+
+  padding: 0 11px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #776f7d;
+
+  font-family: inherit;
+
+  font-size: 7px;
+
+  cursor: pointer;
+}
+
+.employee-sop-library-clear-filters:hover {
+  border-color: rgba(139, 92, 246, 0.2);
+
+  color: #a78bfa;
+}
+
+
+/* =========================================================
+   RESULTS HEADER
+   ========================================================= */
+
+.employee-sop-library-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 11px;
+
+  padding: 0 2px;
+}
+
+.employee-sop-library-results-header > div {
+  color: #625b68;
+
+  font-size: 7.5px;
+}
+
+.employee-sop-library-results-header strong {
+  color: #a79eaa;
+
+  font-weight: 650;
+}
+
+.employee-sop-library-results-header button {
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #8b5cf6;
+
+  font-family: inherit;
+
+  font-size: 7px;
+  font-weight: 550;
+
+  cursor: pointer;
+}
+
+.employee-sop-library-results-header button:hover {
+  color: #a78bfa;
+
+  text-decoration: underline;
+}
+
+
+/* =========================================================
+   SOP GRID
+   ========================================================= */
+
+.employee-sop-library-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 11px;
+}
+
+
+/* =========================================================
+   SOP CARD
+   ========================================================= */
+
+.employee-sop-library-card {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 10px;
+
+  background: #151319;
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.employee-sop-library-card:hover {
+  transform: translateY(-2px);
+
+  border-color: rgba(139, 92, 246, 0.16);
+
+  background: #17151c;
+
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================================
+   CARD HEADER
+   ========================================================= */
+
+.employee-sop-library-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.employee-sop-library-card-icon {
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.13);
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #9b7de8;
+
+  font-size: 12px;
+}
+
+.employee-sop-library-favorite {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #59525f;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.employee-sop-library-favorite:hover {
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #a78bfa;
+}
+
+.employee-sop-library-favorite-active {
+  color: #a78bfa;
+}
+
+
+/* =========================================================
+   META
+   ========================================================= */
+
+.employee-sop-library-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 5px;
+
+  margin-bottom: 8px;
+}
+
+.employee-sop-library-category,
+.employee-sop-library-status {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 17px;
+
+  padding: 0 6px;
+
+  border-radius: 4px;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  line-height: 1;
+
+  box-sizing: border-box;
+}
+
+.employee-sop-library-category {
+  background: rgba(139, 92, 246, 0.08);
+
+  color: #9786a5;
+}
+
+.employee-sop-library-status {
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #77707e;
+}
+
+.employee-sop-library-status-published {
+  background: rgba(34, 197, 94, 0.06);
+
+  color: #7eaa8b;
+}
+
+.employee-sop-library-status-review {
+  background: rgba(234, 179, 8, 0.06);
+
+  color: #a49a73;
+}
+
+
+/* =========================================================
+   CARD TITLE
+   ========================================================= */
+
+.employee-sop-library-card h2 {
+  margin: 0;
+
+  color: #d4ced8;
+
+  font-size: 11px;
+  font-weight: 650;
+
+  letter-spacing: -0.1px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
+.employee-sop-library-description {
+  min-height: 44px;
+
+  margin: 6px 0 10px;
+
+  color: #716a77;
+
+  font-size: 7.2px;
+  font-weight: 400;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   TAGS
+   ========================================================= */
+
+.employee-sop-library-tags {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 4px;
+
+  margin-bottom: 12px;
+}
+
+.employee-sop-library-tags span {
+  padding: 4px 6px;
+
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  border-radius: 4px;
+
+  background: rgba(255, 255, 255, 0.018);
+
+  color: #625b68;
+
+  font-size: 5.8px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   DETAILS
+   ========================================================= */
+
+.employee-sop-library-details {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 8px;
+
+  padding-top: 9px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.employee-sop-library-details div {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  color: #5f5865;
+
+  font-size: 6px;
+}
+
+.employee-sop-library-details svg {
+  color: #766a82;
+
+  font-size: 7px;
+}
+
+
+/* =========================================================
+   OWNER
+   ========================================================= */
+
+.employee-sop-library-owner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-top: 9px;
+}
+
+.employee-sop-library-owner span {
+  color: #504955;
+
+  font-size: 6px;
+}
+
+.employee-sop-library-owner strong {
+  overflow: hidden;
+
+  color: #756d7b;
+
+  font-size: 6px;
+  font-weight: 550;
+
+  text-align: right;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.employee-sop-library-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 12px;
+}
+
+.employee-sop-library-primary-action {
+  flex: 1;
+
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  padding: 0 8px;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 6px;
+
+  background: rgba(124, 58, 237, 0.09);
+
+  color: #a995c1;
+
+  font-family: inherit;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.employee-sop-library-primary-action:hover {
+  border-color: rgba(139, 92, 246, 0.3);
+
+  background: rgba(124, 58, 237, 0.15);
+
+  color: #c4b5fd;
+}
+
+.employee-sop-library-primary-action svg {
+  font-size: 8px;
+}
+
+.employee-sop-library-secondary-action {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 6px;
+
+  background: rgba(255, 255, 255, 0.018);
+
+  color: #6f6876;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.employee-sop-library-secondary-action:hover {
+  border-color: rgba(139, 92, 246, 0.18);
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #a78bfa;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.employee-sop-library-empty {
+  grid-column: 1 / -1;
+
+  min-height: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  border: 1px dashed rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.012);
+
+  text-align: center;
+}
+
+.employee-sop-library-empty-icon {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #76638e;
+
+  font-size: 13px;
+}
+
+.employee-sop-library-empty h2 {
+  margin: 0;
+
+  color: #a79faa;
+
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.employee-sop-library-empty p {
+  max-width: 320px;
+
+  margin: 6px 0 13px;
+
+  color: #625b68;
+
+  font-size: 7px;
+
+  line-height: 1.6;
+}
+
+.employee-sop-library-empty button {
+  height: 29px;
+
+  padding: 0 11px;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 6px;
+
+  background: rgba(124, 58, 237, 0.08);
+
+  color: #9e8db0;
+
+  font-family: inherit;
+
+  font-size: 7px;
+  font-weight: 550;
+
+  cursor: pointer;
+}
+
+.employee-sop-library-empty button:hover {
+  background: rgba(124, 58, 237, 0.13);
+
+  color: #c4b5fd;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .employee-sop-library-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-sop-library-header-content {
+    flex-direction: column;
+  }
+
+  .employee-sop-library-header-stats {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .employee-sop-library-page {
+    padding: 18px 14px 28px;
+  }
+
+  .employee-sop-library-title-wrapper {
+    gap: 10px;
+  }
+
+  .employee-sop-library-title-icon {
+    width: 36px;
+    height: 36px;
+
+    flex-basis: 36px;
+
+    font-size: 14px;
+  }
+
+  .employee-sop-library-title-wrapper h1 {
+    font-size: 20px;
+  }
+
+  .employee-sop-library-title-wrapper p {
+    font-size: 8px;
+  }
+
+  .employee-sop-library-header-stats {
+    gap: 6px;
+  }
+
+  .employee-sop-library-stat {
+    flex: 1;
+
+    min-width: 0;
+  }
+
+  .employee-sop-library-toolbar {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .employee-sop-library-filter-button {
+    width: 100%;
+
+    justify-content: center;
+  }
+
+  .employee-sop-library-filter-panel {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .employee-sop-library-filter-group,
+  .employee-sop-library-filter-group select {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+  .employee-sop-library-clear-filters {
+    width: 100%;
+  }
+
+  .employee-sop-library-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+  .employee-sop-library-page {
+    padding: 15px 10px 24px;
+  }
+
+  .employee-sop-library-header-stats {
+    flex-direction: column;
+  }
+
+  .employee-sop-library-stat {
+    width: 100%;
+  }
+
+  .employee-sop-library-card {
+    padding: 12px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-sop-library-card,
+  .employee-sop-library-filter-panel {
+    animation: none;
+    transition: none;
+  }
+}
