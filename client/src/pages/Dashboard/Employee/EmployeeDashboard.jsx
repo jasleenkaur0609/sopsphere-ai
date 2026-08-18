@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import "./EmployeeDashboard.css";
 
-//import EmployeeSidebar from "./components/EmployeeSidebar";
+import EmployeeSidebar from "./components/EmployeeSidebar";
 // import EmployeeHeader from "./components/EmployeeHeader";
 // import EmployeeKPI from "./components/EmployeeKPI";
 // import EmployeeQuickActions from "./components/EmployeeQuickActions";
