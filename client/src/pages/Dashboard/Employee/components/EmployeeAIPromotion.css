@@ -1,0 +1,649 @@
+/* =========================================================
+   EMPLOYEE AI PROMOTION
+   AI SOP PORTAL
+   ========================================================= */
+
+.employee-ai-promotion {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(139, 92, 246, 0.16);
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(124, 58, 237, 0.10),
+      rgba(255, 255, 255, 0.025) 48%,
+      rgba(124, 58, 237, 0.055)
+    );
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   BACKGROUND GLOWS
+   ========================================================= */
+
+.employee-ai-promotion-glow {
+  position: absolute;
+
+  width: 170px;
+  height: 170px;
+
+  border-radius: 50%;
+
+  filter: blur(55px);
+
+  pointer-events: none;
+
+  opacity: 0.22;
+}
+
+.employee-ai-promotion-glow-one {
+  top: -90px;
+  right: 120px;
+
+  background: #7c3aed;
+}
+
+.employee-ai-promotion-glow-two {
+  bottom: -100px;
+  right: -30px;
+
+  background: #8b5cf6;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.employee-ai-promotion-content {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+
+  min-height: 205px;
+
+  padding: 22px 24px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+   ========================================================= */
+
+.employee-ai-promotion-main {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+/* =========================================================
+   BADGE
+   ========================================================= */
+
+.employee-ai-promotion-badge {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  min-height: 23px;
+
+  padding: 5px 8px;
+
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: 6px;
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #b9a4ff;
+
+  font-size: 8px;
+  font-weight: 750;
+
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.employee-ai-promotion-heading {
+  max-width: 600px;
+
+  margin-top: 10px;
+}
+
+.employee-ai-promotion-heading h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  line-height: 1.28;
+  letter-spacing: -0.3px;
+}
+
+.employee-ai-promotion-heading h2 span {
+  color: #a78bfa;
+}
+
+.employee-ai-promotion-heading p {
+  max-width: 560px;
+
+  margin: 8px 0 0;
+
+  color: #a49ba9;
+
+  font-size: 10px;
+  font-weight: 400;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   FEATURE LIST
+   ========================================================= */
+
+.employee-ai-promotion-features {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-top: 12px;
+}
+
+.employee-ai-promotion-feature {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  color: #8f8797;
+
+  font-size: 8px;
+  font-weight: 550;
+
+  line-height: 1.2;
+}
+
+.employee-ai-promotion-feature-icon {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.13);
+  border-radius: 6px;
+
+  background: rgba(124, 58, 237, 0.05);
+
+  color: #a78bfa;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.employee-ai-promotion-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-top: 14px;
+}
+
+.employee-ai-promotion-primary,
+.employee-ai-promotion-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  min-height: 32px;
+
+  padding: 8px 11px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+
+  font-size: 9px;
+  font-weight: 650;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    color 0.2s ease;
+}
+
+.employee-ai-promotion-primary {
+  border: 1px solid rgba(139, 92, 246, 0.35);
+
+  background:
+    linear-gradient(
+      135deg,
+      #6d28d9,
+      #7c3aed
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 18px rgba(76, 29, 149, 0.2);
+}
+
+.employee-ai-promotion-primary:hover {
+  transform: translateY(-1px);
+
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #8b5cf6
+    );
+
+  box-shadow:
+    0 8px 22px rgba(76, 29, 149, 0.3);
+}
+
+.employee-ai-promotion-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.025);
+
+  color: #aaa1ae;
+}
+
+.employee-ai-promotion-secondary:hover {
+  transform: translateY(-1px);
+
+  border-color: rgba(139, 92, 246, 0.22);
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #c4b5fd;
+}
+
+.employee-ai-promotion-primary:focus-visible,
+.employee-ai-promotion-secondary:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   AI VISUAL
+   ========================================================= */
+
+.employee-ai-promotion-visual {
+  position: relative;
+
+  width: 225px;
+  height: 160px;
+
+  flex: 0 0 225px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ORBITS
+   ========================================================= */
+
+.employee-ai-promotion-orbit {
+  position: absolute;
+
+  border: 1px solid rgba(139, 92, 246, 0.13);
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+.employee-ai-promotion-orbit-one {
+  width: 145px;
+  height: 145px;
+
+  transform: rotate(-25deg);
+}
+
+.employee-ai-promotion-orbit-two {
+  width: 190px;
+  height: 90px;
+
+  transform: rotate(28deg);
+
+  border-color: rgba(167, 139, 250, 0.08);
+}
+
+
+/* =========================================================
+   AI CARD
+   ========================================================= */
+
+.employee-ai-promotion-ai-card {
+  position: relative;
+  z-index: 3;
+
+  width: 145px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 12px;
+
+  border: 1px solid rgba(167, 139, 250, 0.18);
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(36, 28, 49, 0.88),
+      rgba(20, 17, 27, 0.92)
+    );
+
+  box-shadow:
+    0 16px 35px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+  backdrop-filter: blur(12px);
+
+  box-sizing: border-box;
+}
+
+.employee-ai-promotion-ai-icon {
+  position: relative;
+
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.22);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.18),
+      rgba(124, 58, 237, 0.04)
+    );
+
+  color: #b9a4ff;
+}
+
+.employee-ai-promotion-ai-pulse {
+  position: absolute;
+
+  top: 5px;
+  right: 5px;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #8b5cf6;
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.08);
+
+  animation: employee-ai-promotion-pulse 2s ease-in-out infinite;
+}
+
+.employee-ai-promotion-ai-label {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.employee-ai-promotion-ai-label span {
+  color: #777080;
+
+  font-size: 7px;
+  font-weight: 750;
+
+  line-height: 1;
+  letter-spacing: 0.8px;
+}
+
+.employee-ai-promotion-ai-label strong {
+  color: #e7e1eb;
+
+  font-size: 9px;
+  font-weight: 650;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   FLOATING CARDS
+   ========================================================= */
+
+.employee-ai-promotion-floating-card {
+  position: absolute;
+  z-index: 4;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 6px 8px;
+
+  border: 1px solid rgba(139, 92, 246, 0.14);
+  border-radius: 6px;
+
+  background: rgba(24, 20, 31, 0.88);
+
+  color: #918899;
+
+  font-size: 7px;
+  font-weight: 550;
+
+  line-height: 1;
+
+  box-shadow:
+    0 7px 20px rgba(0, 0, 0, 0.18);
+
+  backdrop-filter: blur(10px);
+
+  box-sizing: border-box;
+}
+
+.employee-ai-promotion-floating-card svg {
+  color: #a78bfa;
+}
+
+.employee-ai-promotion-floating-card-one {
+  top: 18px;
+  right: 5px;
+}
+
+.employee-ai-promotion-floating-card-two {
+  bottom: 17px;
+  left: 3px;
+}
+
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes employee-ai-promotion-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+  .employee-ai-promotion-content {
+    padding: 20px;
+  }
+
+  .employee-ai-promotion-visual {
+    width: 190px;
+    flex-basis: 190px;
+  }
+
+  .employee-ai-promotion-heading h2 {
+    font-size: 19px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .employee-ai-promotion-content {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 12px;
+
+    padding: 18px;
+  }
+
+  .employee-ai-promotion-visual {
+    width: 100%;
+    height: 135px;
+
+    flex-basis: 135px;
+  }
+
+  .employee-ai-promotion-heading h2 {
+    font-size: 18px;
+  }
+
+  .employee-ai-promotion-heading p {
+    font-size: 9px;
+  }
+
+  .employee-ai-promotion-actions {
+    flex-wrap: wrap;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 430px) {
+  .employee-ai-promotion-content {
+    padding: 15px;
+  }
+
+  .employee-ai-promotion-actions {
+    width: 100%;
+
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .employee-ai-promotion-primary,
+  .employee-ai-promotion-secondary {
+    width: 100%;
+  }
+
+  .employee-ai-promotion-features {
+    gap: 6px;
+  }
+
+  .employee-ai-promotion-feature {
+    font-size: 7px;
+  }
+
+  .employee-ai-promotion-floating-card {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-ai-promotion-ai-pulse {
+    animation: none;
+  }
+
+  .employee-ai-promotion-primary,
+  .employee-ai-promotion-secondary {
+    transition: none;
+  }
+}
