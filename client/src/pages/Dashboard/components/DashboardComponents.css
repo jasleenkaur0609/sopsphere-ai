@@ -1687,3 +1687,78 @@
     height: 38px;
   }
 }
+/* =========================================================
+   SIDEBAR SUBMENU
+   ========================================================= */
+
+.sidebar-submenu {
+  margin: 2px 0 8px 34px;
+
+  padding: 4px;
+
+  border-left: 1px solid rgba(139, 92, 246, 0.25);
+
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sidebar-submenu button {
+  min-height: 34px;
+
+  padding: 0 10px;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: var(--auth-text-muted);
+
+  text-align: left;
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.sidebar-submenu button:hover {
+  background: rgba(124, 58, 237, 0.12);
+  color: #fff;
+}
+
+/* =========================================================
+   MOBILE SIDEBAR OVERLAY
+   ========================================================= */
+
+.sidebar-mobile-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  background: rgba(10, 7, 15, 0.58);
+
+  z-index: 950;
+}
+
+@media (min-width: 901px) {
+  .sidebar-mobile-overlay {
+    display: none;
+  }
+}
+/* =========================================================
+   MOBILE MENU BUTTON
+   ========================================================= */
+
+.mobile-menu-btn {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
+}
