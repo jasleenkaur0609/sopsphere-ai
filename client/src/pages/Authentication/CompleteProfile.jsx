@@ -17,7 +17,6 @@ import {
   FaLock,
 } from "react-icons/fa";
 
-
 /* ============================================================
    ANIMATION VARIANTS
    ============================================================ */
@@ -36,7 +35,6 @@ const pageVariants = {
   },
 };
 
-
 const leftPanelVariants = {
   hidden: {
     opacity: 0,
@@ -52,7 +50,6 @@ const leftPanelVariants = {
     },
   },
 };
-
 
 const rightPanelVariants = {
   hidden: {
@@ -71,7 +68,6 @@ const rightPanelVariants = {
   },
 };
 
-
 const brandVariants = {
   hidden: {
     opacity: 0,
@@ -88,7 +84,6 @@ const brandVariants = {
     },
   },
 };
-
 
 const progressVariants = {
   hidden: {
@@ -107,7 +102,6 @@ const progressVariants = {
   },
 };
 
-
 const heroVariants = {
   hidden: {
     opacity: 0,
@@ -125,7 +119,6 @@ const heroVariants = {
   },
 };
 
-
 const benefitContainerVariants = {
   hidden: {
     opacity: 0,
@@ -139,7 +132,6 @@ const benefitContainerVariants = {
     },
   },
 };
-
 
 const benefitVariants = {
   hidden: {
@@ -156,7 +148,6 @@ const benefitVariants = {
     },
   },
 };
-
 
 const cardVariants = {
   hidden: {
@@ -177,7 +168,6 @@ const cardVariants = {
   },
 };
 
-
 const formItemVariants = {
   hidden: {
     opacity: 0,
@@ -194,7 +184,6 @@ const formItemVariants = {
   },
 };
 
-
 const blobAnimation = {
   animate: {
     x: [0, 18, -12, 0],
@@ -209,12 +198,9 @@ const blobAnimation = {
   },
 };
 
-
 export default function CompleteProfile() {
-
   const navigate = useNavigate();
   const location = useLocation();
-
 
   /* =========================================================
      EMAIL FROM PREVIOUS AUTHENTICATION PAGE
@@ -225,7 +211,6 @@ export default function CompleteProfile() {
     location.state?.user?.email ||
     localStorage.getItem("registrationEmail") ||
     "";
-
 
   /* =========================================================
      FORM STATE
@@ -240,16 +225,13 @@ export default function CompleteProfile() {
     role: "",
   });
 
-
   const [loading, setLoading] = useState(false);
-
 
   /* =========================================================
      HANDLE INPUT CHANGE
      ========================================================= */
 
   const handleChange = (e) => {
-
     const { name, value } = e.target;
 
     setFormData((prev) => ({
@@ -258,15 +240,12 @@ export default function CompleteProfile() {
     }));
   };
 
-
   /* =========================================================
      HANDLE SUBMIT
      ========================================================= */
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
-
 
     if (
       !formData.jobTitle.trim() ||
@@ -275,21 +254,27 @@ export default function CompleteProfile() {
       !formData.location ||
       !formData.role
     ) {
-
       alert("Please complete all required fields.");
-
       return;
     }
 
-
     setLoading(true);
 
-
+    /*
+     * Build the completed professional profile.
+     *
+     * These are the exact fields collected by
+     * the Complete Profile page.
+     */
     const completedProfile = {
-      ...formData,
+      jobTitle: formData.jobTitle.trim(),
+      department: formData.department,
+      organization: formData.organization.trim(),
+      employeeId: formData.employeeId.trim(),
+      location: formData.location,
+      role: formData.role,
       email: registeredEmail,
     };
-
 
     /* Save current onboarding information */
 
@@ -298,17 +283,14 @@ export default function CompleteProfile() {
       JSON.stringify(completedProfile)
     );
 
-
     /* Preserve registration email */
 
     if (registeredEmail) {
-
       localStorage.setItem(
         "registrationEmail",
         registeredEmail
       );
     }
-
 
     /*
      * Small delay so the loading animation can be seen
@@ -316,35 +298,48 @@ export default function CompleteProfile() {
      */
 
     setTimeout(() => {
-
       setLoading(false);
 
-      navigate("/registration-success", {
+      /*
+       * IMPORTANT:
+       *
+       * The completed profile is passed to the
+       * Registration Success page through navigation state.
+       *
+       * Registration Success will then pass this same
+       * profile to /dashboard when the user clicks
+       * "Go to Dashboard".
+       */
 
+      navigate("/registration-success", {
         replace: true,
 
         state: {
-
           email: registeredEmail,
 
           user: {
             ...completedProfile,
           },
 
+          profile: {
+            jobTitle: completedProfile.jobTitle,
+            department: completedProfile.department,
+            organization: completedProfile.organization,
+            employeeId: completedProfile.employeeId,
+            location: completedProfile.location,
+            role: completedProfile.role,
+            email: completedProfile.email,
+          },
         },
-
       });
-
     }, 1200);
   };
-
 
   /* =========================================================
      HANDLE BACK
      ========================================================= */
 
   const handleBack = () => {
-
     if (loading) {
       return;
     }
@@ -352,21 +347,17 @@ export default function CompleteProfile() {
     navigate("/verify-email");
   };
 
-
   /* =========================================================
      PAGE
      ========================================================= */
 
   return (
-
     <motion.main
       className="auth-page profile-page"
       variants={pageVariants}
       initial="hidden"
       animate="visible"
     >
-
-
       {/* =====================================================
           BACKGROUND
           ===================================================== */}
@@ -376,14 +367,12 @@ export default function CompleteProfile() {
         aria-hidden="true"
       />
 
-
       <motion.div
         className="profile-blob profile-blob1"
         aria-hidden="true"
         animate={blobAnimation.animate}
         transition={blobAnimation.transition}
       />
-
 
       <motion.div
         className="profile-blob profile-blob2"
@@ -400,7 +389,6 @@ export default function CompleteProfile() {
         }}
       />
 
-
       <motion.div
         className="profile-blob profile-blob3"
         aria-hidden="true"
@@ -415,14 +403,11 @@ export default function CompleteProfile() {
         }}
       />
 
-
       {/* =====================================================
           MAIN AUTH CONTAINER
           ===================================================== */}
 
       <section className="auth-container profile-container">
-
-
         {/* ===================================================
             LEFT PANEL
             =================================================== */}
@@ -433,8 +418,6 @@ export default function CompleteProfile() {
           initial="hidden"
           animate="visible"
         >
-
-
           {/* =================================================
               BRAND
               ================================================= */}
@@ -445,7 +428,6 @@ export default function CompleteProfile() {
             initial="hidden"
             animate="visible"
           >
-
             <motion.div
               className="auth-brand-logo profile-brand-logo"
               aria-hidden="true"
@@ -462,21 +444,14 @@ export default function CompleteProfile() {
               AI
             </motion.div>
 
-
             <div className="auth-brand-text profile-brand-text">
-
-              <h2>
-                AI SOP Portal
-              </h2>
+              <h2>AI SOP Portal</h2>
 
               <span>
                 Enterprise Knowledge Platform
               </span>
-
             </div>
-
           </motion.div>
-
 
           {/* =================================================
               REGISTRATION PROGRESS
@@ -488,9 +463,7 @@ export default function CompleteProfile() {
             initial="hidden"
             animate="visible"
           >
-
             <div className="profile-progress-header">
-
               <span>
                 Registration Progress
               </span>
@@ -498,12 +471,9 @@ export default function CompleteProfile() {
               <strong>
                 Step 3 of 4
               </strong>
-
             </div>
 
-
             <div className="profile-progress-bar">
-
               <motion.div
                 className="profile-progress-fill"
                 aria-hidden="true"
@@ -519,24 +489,15 @@ export default function CompleteProfile() {
                   ease: "easeOut",
                 }}
               />
-
             </div>
 
-
-            {/* Step indicators */}
-
             <div className="profile-step-items">
-
-
-              {/* STEP 1 */}
-
               <motion.div
                 className="profile-step completed"
                 whileHover={{
                   y: -2,
                 }}
               >
-
                 <div className="profile-step-circle">
                   <FaCheckCircle />
                 </div>
@@ -544,11 +505,7 @@ export default function CompleteProfile() {
                 <span>
                   Create Account
                 </span>
-
               </motion.div>
-
-
-              {/* STEP 2 */}
 
               <motion.div
                 className="profile-step completed"
@@ -556,7 +513,6 @@ export default function CompleteProfile() {
                   y: -2,
                 }}
               >
-
                 <div className="profile-step-circle">
                   <FaCheckCircle />
                 </div>
@@ -564,11 +520,7 @@ export default function CompleteProfile() {
                 <span>
                   Email Verification
                 </span>
-
               </motion.div>
-
-
-              {/* STEP 3 */}
 
               <motion.div
                 className="profile-step active"
@@ -581,7 +533,6 @@ export default function CompleteProfile() {
                   ease: "easeInOut",
                 }}
               >
-
                 <div className="profile-step-circle">
                   3
                 </div>
@@ -589,11 +540,7 @@ export default function CompleteProfile() {
                 <span>
                   Profile Completion
                 </span>
-
               </motion.div>
-
-
-              {/* STEP 4 */}
 
               <motion.div
                 className="profile-step"
@@ -601,7 +548,6 @@ export default function CompleteProfile() {
                   y: -2,
                 }}
               >
-
                 <div className="profile-step-circle">
                   4
                 </div>
@@ -609,13 +555,9 @@ export default function CompleteProfile() {
                 <span>
                   Registration Complete
                 </span>
-
               </motion.div>
-
             </div>
-
           </motion.div>
-
 
           {/* =================================================
               HERO
@@ -627,8 +569,6 @@ export default function CompleteProfile() {
             initial="hidden"
             animate="visible"
           >
-
-
             <motion.div
               className="profile-hero-icon"
               aria-hidden="true"
@@ -644,14 +584,12 @@ export default function CompleteProfile() {
               <FaUserTie />
             </motion.div>
 
-
             <h1>
               Complete Your{" "}
               <span>
                 Professional Profile
               </span>
             </h1>
-
 
             <p>
               Complete your professional profile to personalize
@@ -663,9 +601,7 @@ export default function CompleteProfile() {
               resources, and access to features aligned with your
               responsibilities.
             </p>
-
           </motion.section>
-
 
           {/* =================================================
               BENEFITS
@@ -677,10 +613,6 @@ export default function CompleteProfile() {
             initial="hidden"
             animate="visible"
           >
-
-
-            {/* BENEFIT 01 */}
-
             <motion.div
               className="profile-benefit"
               variants={benefitVariants}
@@ -694,7 +626,6 @@ export default function CompleteProfile() {
                 damping: 20,
               }}
             >
-
               <div
                 className="profile-benefit-icon"
                 aria-hidden="true"
@@ -703,7 +634,6 @@ export default function CompleteProfile() {
               </div>
 
               <div className="profile-benefit-content">
-
                 <strong>
                   Personalize your enterprise workspace
                 </strong>
@@ -712,7 +642,6 @@ export default function CompleteProfile() {
                   Get a customized workspace with relevant
                   content, workflows, and recommendations.
                 </span>
-
               </div>
 
               <span
@@ -721,11 +650,7 @@ export default function CompleteProfile() {
               >
                 01
               </span>
-
             </motion.div>
-
-
-            {/* BENEFIT 02 */}
 
             <motion.div
               className="profile-benefit"
@@ -740,7 +665,6 @@ export default function CompleteProfile() {
                 damping: 20,
               }}
             >
-
               <div
                 className="profile-benefit-icon"
                 aria-hidden="true"
@@ -749,7 +673,6 @@ export default function CompleteProfile() {
               </div>
 
               <div className="profile-benefit-content">
-
                 <strong>
                   Connect your organization
                 </strong>
@@ -758,7 +681,6 @@ export default function CompleteProfile() {
                   Link your organization details and enable
                   smoother collaboration across your team.
                 </span>
-
               </div>
 
               <span
@@ -767,11 +689,7 @@ export default function CompleteProfile() {
               >
                 02
               </span>
-
             </motion.div>
-
-
-            {/* BENEFIT 03 */}
 
             <motion.div
               className="profile-benefit"
@@ -786,7 +704,6 @@ export default function CompleteProfile() {
                 damping: 20,
               }}
             >
-
               <div
                 className="profile-benefit-icon"
                 aria-hidden="true"
@@ -795,7 +712,6 @@ export default function CompleteProfile() {
               </div>
 
               <div className="profile-benefit-content">
-
                 <strong>
                   Configure your professional identity
                 </strong>
@@ -804,7 +720,6 @@ export default function CompleteProfile() {
                   Set your role and professional identity for
                   relevant access and personalized experiences.
                 </span>
-
               </div>
 
               <span
@@ -813,11 +728,8 @@ export default function CompleteProfile() {
               >
                 03
               </span>
-
             </motion.div>
-
           </motion.div>
-
 
           {/* =================================================
               SECURITY NOTE
@@ -838,18 +750,14 @@ export default function CompleteProfile() {
               duration: 0.5,
             }}
           >
-
             <FaLock />
 
             <span>
               Your professional information is protected
               with secure enterprise authentication.
             </span>
-
           </motion.div>
-
         </motion.div>
-
 
         {/* ===================================================
             RIGHT PANEL
@@ -861,8 +769,6 @@ export default function CompleteProfile() {
           initial="hidden"
           animate="visible"
         >
-
-
           {/* =================================================
               PROFILE CARD
               ================================================= */}
@@ -873,8 +779,6 @@ export default function CompleteProfile() {
             initial="hidden"
             animate="visible"
           >
-
-
             {/* =================================================
                 CARD HEADER
                 ================================================= */}
@@ -894,22 +798,18 @@ export default function CompleteProfile() {
                 duration: 0.5,
               }}
             >
-
               <motion.div
                 className="profile-header-badge"
                 whileHover={{
                   scale: 1.03,
                 }}
               >
-
                 <FaUserTie />
 
                 <span>
                   Profile Setup
                 </span>
-
               </motion.div>
-
 
               <h2>
                 Complete Your Profile
@@ -919,9 +819,7 @@ export default function CompleteProfile() {
                 Tell us a little more about your professional
                 profile to complete your onboarding.
               </p>
-
             </motion.div>
-
 
             {/* =================================================
                 PROFILE FORM
@@ -931,8 +829,6 @@ export default function CompleteProfile() {
               className="profile-form"
               onSubmit={handleSubmit}
             >
-
-
               {/* =================================================
                   JOB TITLE + DEPARTMENT
                   ================================================= */}
@@ -950,15 +846,12 @@ export default function CompleteProfile() {
                   },
                 }}
               >
-
-
                 {/* JOB TITLE */}
 
                 <motion.div
                   className="profile-input-group"
                   variants={formItemVariants}
                 >
-
                   <label htmlFor="jobTitle">
                     Job Title
                   </label>
@@ -969,7 +862,6 @@ export default function CompleteProfile() {
                       scale: 1.01,
                     }}
                   >
-
                     <FaBriefcase
                       className="profile-input-icon"
                       aria-hidden="true"
@@ -985,11 +877,8 @@ export default function CompleteProfile() {
                       autoComplete="organization-title"
                       required
                     />
-
                   </motion.div>
-
                 </motion.div>
-
 
                 {/* DEPARTMENT */}
 
@@ -997,13 +886,11 @@ export default function CompleteProfile() {
                   className="profile-input-group"
                   variants={formItemVariants}
                 >
-
                   <label htmlFor="department">
                     Department
                   </label>
 
                   <div className="profile-input-field">
-
                     <FaBuilding
                       className="profile-input-icon"
                       aria-hidden="true"
@@ -1016,7 +903,6 @@ export default function CompleteProfile() {
                       onChange={handleChange}
                       required
                     >
-
                       <option value="">
                         Select your department
                       </option>
@@ -1052,15 +938,10 @@ export default function CompleteProfile() {
                       <option value="other">
                         Other
                       </option>
-
                     </select>
-
                   </div>
-
                 </motion.div>
-
               </motion.div>
-
 
               {/* =================================================
                   ORGANIZATION
@@ -1075,13 +956,11 @@ export default function CompleteProfile() {
                   delay: 0.62,
                 }}
               >
-
                 <label htmlFor="organization">
                   Organization
                 </label>
 
                 <div className="profile-input-field">
-
                   <FaBuilding
                     className="profile-input-icon"
                     aria-hidden="true"
@@ -1097,11 +976,8 @@ export default function CompleteProfile() {
                     autoComplete="organization"
                     required
                   />
-
                 </div>
-
               </motion.div>
-
 
               {/* =================================================
                   EMPLOYEE ID + LOCATION
@@ -1115,27 +991,21 @@ export default function CompleteProfile() {
                   delay: 0.7,
                 }}
               >
-
-
                 {/* EMPLOYEE ID */}
 
                 <motion.div
                   className="profile-input-group"
                   variants={formItemVariants}
                 >
-
                   <label htmlFor="employeeId">
-
                     Employee ID
 
                     <span className="optional-label">
                       Optional
                     </span>
-
                   </label>
 
                   <div className="profile-input-field">
-
                     <FaIdBadge
                       className="profile-input-icon"
                       aria-hidden="true"
@@ -1150,11 +1020,8 @@ export default function CompleteProfile() {
                       onChange={handleChange}
                       autoComplete="off"
                     />
-
                   </div>
-
                 </motion.div>
-
 
                 {/* LOCATION */}
 
@@ -1162,13 +1029,11 @@ export default function CompleteProfile() {
                   className="profile-input-group"
                   variants={formItemVariants}
                 >
-
                   <label htmlFor="location">
                     Location
                   </label>
 
                   <div className="profile-input-field">
-
                     <FaMapMarkerAlt
                       className="profile-input-icon"
                       aria-hidden="true"
@@ -1181,7 +1046,6 @@ export default function CompleteProfile() {
                       onChange={handleChange}
                       required
                     >
-
                       <option value="">
                         Select your location
                       </option>
@@ -1209,15 +1073,10 @@ export default function CompleteProfile() {
                       <option value="other">
                         Other
                       </option>
-
                     </select>
-
                   </div>
-
                 </motion.div>
-
               </motion.div>
-
 
               {/* =================================================
                   ROLE
@@ -1238,13 +1097,11 @@ export default function CompleteProfile() {
                   duration: 0.45,
                 }}
               >
-
                 <label htmlFor="role">
                   Role
                 </label>
 
                 <div className="profile-input-field">
-
                   <FaUserTie
                     className="profile-input-icon"
                     aria-hidden="true"
@@ -1257,7 +1114,6 @@ export default function CompleteProfile() {
                     onChange={handleChange}
                     required
                   >
-
                     <option value="">
                       Select your role
                     </option>
@@ -1281,13 +1137,9 @@ export default function CompleteProfile() {
                     <option value="other">
                       Other
                     </option>
-
                   </select>
-
                 </div>
-
               </motion.div>
-
 
               {/* =================================================
                   ACTION BUTTONS
@@ -1308,8 +1160,6 @@ export default function CompleteProfile() {
                   duration: 0.45,
                 }}
               >
-
-
                 {/* BACK */}
 
                 <motion.button
@@ -1324,15 +1174,12 @@ export default function CompleteProfile() {
                     scale: 0.97,
                   }}
                 >
-
                   <FaArrowLeft />
 
                   <span>
                     Back
                   </span>
-
                 </motion.button>
-
 
                 {/* CONTINUE */}
 
@@ -1356,9 +1203,7 @@ export default function CompleteProfile() {
                       : {}
                   }
                 >
-
                   {loading ? (
-
                     <>
                       <motion.span
                         className="profile-spinner"
@@ -1376,9 +1221,7 @@ export default function CompleteProfile() {
                         Saving...
                       </span>
                     </>
-
                   ) : (
-
                     <>
                       <span>
                         Continue
@@ -1396,14 +1239,10 @@ export default function CompleteProfile() {
                       >
                         <FaArrowRight />
                       </motion.span>
-
                     </>
                   )}
-
                 </motion.button>
-
               </motion.div>
-
 
               {/* =================================================
                   SECURITY NOTE
@@ -1422,23 +1261,16 @@ export default function CompleteProfile() {
                   duration: 0.5,
                 }}
               >
-
                 <FaLock />
 
                 <span>
                   Your information is secure and encrypted
                 </span>
-
               </motion.div>
-
             </form>
-
           </motion.div>
-
         </motion.div>
-
       </section>
-
     </motion.main>
   );
 }

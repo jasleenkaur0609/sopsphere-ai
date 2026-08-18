@@ -1,6 +1,5 @@
 import React from "react";
-
-
+import { useProfile } from "../../context/ProfileContext";
 
 import EmployeeDashboard from "./Employee/EmployeeDashboard";
 import ManagerDashboard from "./Manager/ManagerDashboard";
@@ -9,74 +8,95 @@ import AdministratorDashboard from "./Administrator/AdministratorDashboard";
 import OtherDashboard from "./Other/OtherDashboard";
 
 const Dashboard = () => {
-  const storedUser = localStorage.getItem("user");
+  const { profile } = useProfile();
 
-  let user = {};
+  /*
+   * Profile is created when the user completes
+   * the Complete Profile page.
+   *
+   * Registration Success only navigates to /dashboard.
+   */
 
-  try {
-    user = storedUser
-      ? JSON.parse(storedUser)
-      : {};
-  } catch (error) {
-    user = {};
+  if (!profile) {
+    return (
+      <div className="dashboard-loading">
+        <div className="dashboard-loading-card">
+          <div className="dashboard-loading-spinner" />
+          <h2>Loading Dashboard</h2>
+          <p>
+            We're preparing your personalized workspace.
+          </p>
+        </div>
+      </div>
+    );
   }
 
-  const role =
-    user.role ||
-    localStorage.getItem("userRole") ||
-    "Employee";
+  const role = (profile.role || "Employee")
+    .toLowerCase()
+    .trim();
 
-  const normalizedRole =
-    role.toLowerCase().trim();
+  /*
+   * Role from Complete Profile decides
+   * which dashboard should be displayed.
+   */
 
-  const dashboardMap = {
-    employee: {
-      component: <EmployeeDashboard />,
-      title: "Dashboard",
-    },
+  if (role === "employee") {
+    return (
+      <EmployeeDashboard
+        profile={profile}
+      />
+    );
+  }
 
-    manager: {
-      component: <ManagerDashboard />,
-      title: "Dashboard",
-    },
+  if (role === "manager") {
+    return (
+      <ManagerDashboard
+        profile={profile}
+      />
+    );
+  }
 
-    "team lead": {
-      component: <TeamLeadDashboard />,
-      title: "Dashboard",
-    },
+  if (
+    role === "team lead" ||
+    role === "teamlead" ||
+    role === "team_lead"
+  ) {
+    return (
+      <TeamLeadDashboard
+        profile={profile}
+      />
+    );
+  }
 
-    teamlead: {
-      component: <TeamLeadDashboard />,
-      title: "Dashboard",
-    },
+  if (
+    role === "administrator" ||
+    role === "admin"
+  ) {
+    return (
+      <AdministratorDashboard
+        profile={profile}
+      />
+    );
+  }
 
-    administrator: {
-      component: <AdministratorDashboard />,
-      title: "Dashboard",
-    },
+  if (role === "other") {
+    return (
+      <OtherDashboard
+        profile={profile}
+      />
+    );
+  }
 
-    admin: {
-      component: <AdministratorDashboard />,
-      title: "Dashboard",
-    },
-
-    other: {
-      component: <OtherDashboard />,
-      title: "Dashboard",
-    },
-  };
-
-  const selectedDashboard =
-    dashboardMap[normalizedRole] ||
-    dashboardMap.employee;
+  /*
+   * Fallback:
+   * If the role is empty or doesn't match,
+   * show Employee Dashboard.
+   */
 
   return (
-    <DashboardLayout
-      role={role}
-      pageTitle={selectedDashboard.title}
-    >
-      {selectedDashboard.component}
-    </DashboardLayout>
+    <EmployeeDashboard
+      profile={profile}
+    />
   );
 };
 
