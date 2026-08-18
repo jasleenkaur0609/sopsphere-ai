@@ -1,0 +1,649 @@
+/* =========================================================
+   EMPLOYEE TEAM UPDATES
+   AI SOP PORTAL
+   ========================================================= */
+
+.employee-team-updates-section {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.employee-team-updates-header {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 16px;
+
+  box-sizing: border-box;
+}
+
+.employee-team-updates-heading {
+  min-width: 0;
+}
+
+.employee-team-updates-title-row {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+.employee-team-updates-title-icon {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.16),
+      rgba(124, 58, 237, 0.035)
+    );
+
+  color: #a78bfa;
+
+  box-sizing: border-box;
+}
+
+.employee-team-updates-eyebrow {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #a78bfa;
+
+  font-size: 10px;
+  font-weight: 750;
+
+  line-height: 1.2;
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.employee-team-updates-heading h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  line-height: 1.3;
+  letter-spacing: -0.2px;
+}
+
+.employee-team-updates-heading p {
+  margin: 8px 0 0;
+
+  color: #a9a0b3;
+
+  font-size: 13px;
+  font-weight: 400;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   VIEW ALL BUTTON
+   ========================================================= */
+
+.employee-team-updates-view-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  gap: 6px;
+
+  min-height: 31px;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.045);
+
+  color: #a78bfa;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 650;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.employee-team-updates-view-all:hover {
+  background: rgba(124, 58, 237, 0.1);
+
+  border-color: rgba(139, 92, 246, 0.32);
+
+  color: #c4b5fd;
+
+  transform: translateX(1px);
+}
+
+.employee-team-updates-view-all:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   UPDATE LIST
+   ========================================================= */
+
+.employee-team-updates-list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   UPDATE CARD
+   ========================================================= */
+
+.employee-team-update-card {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  padding: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.employee-team-update-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 2px;
+  height: 100%;
+
+  border-radius: 12px 0 0 12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(139, 92, 246, 0.65),
+      rgba(244, 184, 96, 0.25)
+    );
+
+  opacity: 0;
+
+  transition: opacity 0.2s ease;
+}
+
+.employee-team-update-card:hover {
+  transform: translateX(2px);
+
+  border-color: rgba(139, 92, 246, 0.18);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(124, 58, 237, 0.025)
+    );
+
+  box-shadow:
+    0 9px 25px rgba(0, 0, 0, 0.15);
+}
+
+.employee-team-update-card:hover::before {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   UPDATE ICON
+   ========================================================= */
+
+.employee-team-update-icon {
+  width: 40px;
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.14),
+      rgba(124, 58, 237, 0.035)
+    );
+
+  color: #a78bfa;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   UPDATE CONTENT
+   ========================================================= */
+
+.employee-team-update-content {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.employee-team-update-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  gap: 7px;
+
+  margin-bottom: 5px;
+}
+
+.employee-team-update-type {
+  color: #777080;
+
+  font-size: 8px;
+  font-weight: 750;
+
+  line-height: 1.2;
+  letter-spacing: 0.75px;
+
+  text-transform: uppercase;
+}
+
+.employee-team-update-status {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 19px;
+
+  padding: 3px 6px;
+
+  border-radius: 5px;
+
+  font-size: 7px;
+  font-weight: 750;
+
+  line-height: 1;
+
+  letter-spacing: 0.2px;
+
+  white-space: nowrap;
+}
+
+.employee-team-update-status-action {
+  border: 1px solid rgba(244, 184, 96, 0.2);
+
+  background: rgba(244, 184, 96, 0.07);
+
+  color: #f4b860;
+}
+
+.employee-team-update-status-upcoming {
+  border: 1px solid rgba(139, 92, 246, 0.18);
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #a78bfa;
+}
+
+.employee-team-update-status-new {
+  border: 1px solid rgba(74, 222, 128, 0.17);
+
+  background: rgba(34, 197, 94, 0.06);
+
+  color: #4ade80;
+}
+
+.employee-team-update-content h3 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 680;
+
+  line-height: 1.4;
+
+  letter-spacing: -0.05px;
+}
+
+.employee-team-update-content p {
+  max-width: 800px;
+
+  margin: 6px 0 0;
+
+  color: #99909f;
+
+  font-size: 10px;
+  font-weight: 400;
+
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   TIME
+   ========================================================= */
+
+.employee-team-update-time {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  margin-top: 8px;
+
+  color: #706877;
+
+  font-size: 8px;
+  font-weight: 500;
+
+  line-height: 1.2;
+}
+
+.employee-team-update-time svg {
+  flex-shrink: 0;
+
+  color: #8b5cf6;
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+   ========================================================= */
+
+.employee-team-update-action {
+  width: 31px;
+  height: 31px;
+
+  flex: 0 0 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 4px;
+
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.04);
+
+  color: #756d80;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.employee-team-update-action:hover {
+  background: rgba(124, 58, 237, 0.1);
+
+  border-color: rgba(139, 92, 246, 0.3);
+
+  color: #a78bfa;
+
+  transform: translateX(2px);
+}
+
+.employee-team-update-action:focus-visible {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.employee-team-updates-summary {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  margin-top: 11px;
+
+  padding: 10px 12px;
+
+  border: 1px solid rgba(74, 222, 128, 0.1);
+  border-radius: 9px;
+
+  background: rgba(34, 197, 94, 0.025);
+
+  box-sizing: border-box;
+}
+
+.employee-team-updates-summary-icon {
+  width: 27px;
+  height: 27px;
+
+  flex: 0 0 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: rgba(34, 197, 94, 0.07);
+
+  color: #4ade80;
+}
+
+.employee-team-updates-summary-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.employee-team-updates-summary-content strong {
+  color: #d9d3dd;
+
+  font-size: 9px;
+  font-weight: 650;
+
+  line-height: 1.3;
+}
+
+.employee-team-updates-summary-content span {
+  color: #777080;
+
+  font-size: 8px;
+  font-weight: 400;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 800px) {
+  .employee-team-updates-header {
+    align-items: flex-start;
+  }
+
+  .employee-team-update-card {
+    padding: 13px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .employee-team-updates-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 11px;
+  }
+
+  .employee-team-updates-heading h2 {
+    font-size: 19px;
+  }
+
+  .employee-team-updates-heading p {
+    font-size: 12px;
+  }
+
+  .employee-team-updates-view-all {
+    align-self: flex-start;
+  }
+
+  .employee-team-update-card {
+    gap: 10px;
+  }
+
+  .employee-team-update-content h3 {
+    font-size: 12px;
+  }
+
+  .employee-team-update-content p {
+    font-size: 9px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 430px) {
+  .employee-team-update-card {
+    display: grid;
+
+    grid-template-columns: 38px minmax(0, 1fr) 30px;
+
+    gap: 9px;
+
+    padding: 12px;
+  }
+
+  .employee-team-update-icon {
+    width: 38px;
+    height: 38px;
+
+    flex-basis: 38px;
+  }
+
+  .employee-team-update-action {
+    width: 30px;
+    height: 30px;
+
+    flex-basis: 30px;
+  }
+
+  .employee-team-update-meta {
+    gap: 5px;
+  }
+
+  .employee-team-update-status {
+    font-size: 6.5px;
+  }
+
+  .employee-team-updates-summary {
+    align-items: flex-start;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-team-update-card,
+  .employee-team-update-action,
+  .employee-team-updates-view-all {
+    transition: none;
+  }
+}
