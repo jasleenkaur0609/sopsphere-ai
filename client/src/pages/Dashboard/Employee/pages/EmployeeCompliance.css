@@ -1,0 +1,879 @@
+/* =========================================================
+   EMPLOYEE COMPLIANCE PAGE
+   ========================================================= */
+
+.employee-compliance-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: 24px 28px 30px;
+  box-sizing: border-box;
+
+  color: #e7e1eb;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.employee-compliance-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.employee-compliance-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+}
+
+.employee-compliance-title-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 11px;
+
+  background: rgba(109, 40, 217, 0.09);
+
+  color: #a78bfa;
+  font-size: 15px;
+}
+
+.employee-compliance-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+
+  color: #706875;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.employee-compliance-title h1 {
+  margin: 0;
+
+  color: #eee9f0;
+
+  font-size: 24px;
+  font-weight: 720;
+  letter-spacing: -0.5px;
+}
+
+.employee-compliance-title p {
+  max-width: 620px;
+
+  margin: 6px 0 0;
+
+  color: #746d7a;
+
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.employee-compliance-date {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 0 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 7px;
+
+  background: #151319;
+
+  color: #746b79;
+
+  font-size: 7px;
+}
+
+.employee-compliance-date svg {
+  font-size: 8px;
+  color: #75677e;
+}
+
+
+/* =========================================================
+   OVERVIEW
+   ========================================================= */
+
+.employee-compliance-overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 12px;
+  padding: 17px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.055),
+      rgba(255, 255, 255, 0.012)
+    );
+}
+
+.employee-compliance-overview-content {
+  min-width: 0;
+}
+
+.employee-compliance-label {
+  display: block;
+  margin-bottom: 5px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+  letter-spacing: 0.75px;
+}
+
+.employee-compliance-overview h2 {
+  margin: 0;
+
+  color: #b8b0bb;
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.employee-compliance-overview p {
+  max-width: 680px;
+
+  margin: 6px 0 8px;
+
+  color: #665e6b;
+
+  font-size: 6.8px;
+  line-height: 1.6;
+}
+
+.employee-compliance-overview-status {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 5px 8px;
+
+  border: 1px solid rgba(91, 134, 102, 0.12);
+  border-radius: 5px;
+
+  background: rgba(91, 134, 102, 0.055);
+
+  color: #718876;
+
+  font-size: 6px;
+}
+
+.employee-compliance-overview-status svg {
+  font-size: 7px;
+}
+
+.employee-compliance-score {
+  flex: 0 0 auto;
+}
+
+.employee-compliance-score-ring {
+  width: 76px;
+  height: 76px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.17);
+  border-radius: 50%;
+
+  background: rgba(124, 58, 237, 0.05);
+}
+
+.employee-compliance-score-ring strong {
+  color: #a58fae;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.employee-compliance-score-ring span {
+  margin-top: 2px;
+
+  color: #625b67;
+
+  font-size: 5.5px;
+}
+
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
+
+.employee-compliance-kpis {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.employee-compliance-kpi {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+}
+
+.employee-compliance-kpi-icon {
+  width: 32px;
+  height: 32px;
+
+  flex: 0 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  font-size: 10px;
+}
+
+.employee-compliance-kpi-icon.compliant {
+  background: rgba(75, 116, 84, 0.08);
+  color: #78917d;
+}
+
+.employee-compliance-kpi-icon.warning {
+  background: rgba(143, 117, 63, 0.08);
+  color: #9b8962;
+}
+
+.employee-compliance-kpi-icon.pending {
+  background: rgba(111, 91, 127, 0.09);
+  color: #8c7899;
+}
+
+.employee-compliance-kpi > div:last-child {
+  min-width: 0;
+}
+
+.employee-compliance-kpi span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #655e69;
+
+  font-size: 6px;
+}
+
+.employee-compliance-kpi strong {
+  display: block;
+
+  margin-bottom: 2px;
+
+  color: #a9a1ad;
+
+  font-size: 15px;
+  font-weight: 680;
+}
+
+.employee-compliance-kpi small {
+  display: block;
+
+  color: #514b57;
+
+  font-size: 5.5px;
+}
+
+
+/* =========================================================
+   REQUIREMENTS SECTION
+   ========================================================= */
+
+.employee-compliance-section {
+  margin-bottom: 12px;
+  padding: 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+}
+
+.employee-compliance-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 13px;
+}
+
+.employee-compliance-section-header > div:first-child span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+  letter-spacing: 0.7px;
+}
+
+.employee-compliance-section-header h2 {
+  margin: 0;
+
+  color: #a9a1ad;
+
+  font-size: 10px;
+  font-weight: 640;
+}
+
+.employee-compliance-filters {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+
+  flex-wrap: wrap;
+}
+
+.employee-compliance-filters button {
+  padding: 5px 8px;
+
+  border: 1px solid transparent;
+  border-radius: 5px;
+
+  background: transparent;
+
+  color: #655d69;
+
+  font-family: inherit;
+  font-size: 5.8px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.employee-compliance-filters button:hover {
+  color: #958a9b;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.employee-compliance-filters button.active {
+  border-color: rgba(139, 92, 246, 0.12);
+
+  background: rgba(109, 40, 217, 0.08);
+
+  color: #9b8aa5;
+}
+
+
+/* =========================================================
+   REQUIREMENT LIST
+   ========================================================= */
+
+.employee-compliance-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-compliance-item {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 12px 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.035);
+}
+
+.employee-compliance-item:first-child {
+  border-top: 0;
+}
+
+.employee-compliance-item-icon {
+  width: 32px;
+  height: 32px;
+
+  flex: 0 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #786b82;
+
+  font-size: 9px;
+}
+
+.employee-compliance-item-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.employee-compliance-item-title {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 8px;
+}
+
+.employee-compliance-item-title h3 {
+  margin: 0 0 3px;
+
+  color: #938a98;
+
+  font-size: 7.5px;
+  font-weight: 620;
+}
+
+.employee-compliance-item-title span {
+  color: #554e5a;
+
+  font-size: 5.5px;
+}
+
+.employee-compliance-status {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 4px;
+
+  padding: 4px 6px;
+
+  border-radius: 5px;
+
+  font-size: 5.5px;
+}
+
+.employee-compliance-status svg {
+  font-size: 6px;
+}
+
+.employee-compliance-status.compliant {
+  background: rgba(75, 116, 84, 0.07);
+  color: #708875;
+}
+
+.employee-compliance-status.due-soon {
+  background: rgba(143, 117, 63, 0.07);
+  color: #99845c;
+}
+
+.employee-compliance-status.pending {
+  background: rgba(111, 91, 127, 0.08);
+  color: #8a7895;
+}
+
+.employee-compliance-item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.employee-compliance-progress-wrapper {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  flex: 1;
+  max-width: 420px;
+}
+
+.employee-compliance-progress {
+  width: 100%;
+  height: 4px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.employee-compliance-progress div {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(109, 40, 217, 0.5),
+      rgba(139, 92, 246, 0.68)
+    );
+
+  transition: width 0.3s ease;
+}
+
+.employee-compliance-progress-wrapper > span {
+  flex: 0 0 auto;
+
+  color: #645b69;
+
+  font-size: 5.5px;
+}
+
+.employee-compliance-due {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  color: #5c5561;
+
+  font-size: 5.5px;
+}
+
+.employee-compliance-due svg {
+  font-size: 6px;
+}
+
+.employee-compliance-item-action {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  flex: 0 0 auto;
+
+  padding: 6px 8px;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 5px;
+
+  background: transparent;
+
+  color: #776d7d;
+
+  font-family: inherit;
+  font-size: 5.8px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.employee-compliance-item-action:hover {
+  background: rgba(255, 255, 255, 0.025);
+  color: #a094a6;
+}
+
+.employee-compliance-item-action svg {
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.employee-compliance-empty {
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  color: #5f5765;
+}
+
+.employee-compliance-empty svg {
+  margin-bottom: 3px;
+
+  color: #766a80;
+
+  font-size: 18px;
+}
+
+.employee-compliance-empty strong {
+  color: #8b8190;
+
+  font-size: 8px;
+}
+
+.employee-compliance-empty span {
+  color: #57505c;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   REMINDER
+   ========================================================= */
+
+.employee-compliance-reminder {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 13px 15px;
+
+  border: 1px solid rgba(143, 117, 63, 0.09);
+  border-radius: 8px;
+
+  background: rgba(143, 117, 63, 0.025);
+}
+
+.employee-compliance-reminder-icon {
+  width: 31px;
+  height: 31px;
+
+  flex: 0 0 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: rgba(143, 117, 63, 0.07);
+
+  color: #9a845c;
+
+  font-size: 9px;
+}
+
+.employee-compliance-reminder > div:nth-child(2) {
+  min-width: 0;
+  flex: 1;
+}
+
+.employee-compliance-reminder strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #8d8290;
+
+  font-size: 7px;
+  font-weight: 620;
+}
+
+.employee-compliance-reminder p {
+  margin: 0;
+
+  color: #5e5662;
+
+  font-size: 5.8px;
+  line-height: 1.5;
+}
+
+.employee-compliance-reminder button {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 5px;
+
+  flex: 0 0 auto;
+
+  padding: 6px 9px;
+
+  border: 1px solid rgba(143, 117, 63, 0.1);
+  border-radius: 5px;
+
+  background: rgba(143, 117, 63, 0.04);
+
+  color: #8d7c5b;
+
+  font-family: inherit;
+  font-size: 5.8px;
+
+  cursor: pointer;
+}
+
+.employee-compliance-reminder button svg {
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .employee-compliance-kpis {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .employee-compliance-item-meta {
+    align-items: flex-start;
+    flex-direction: column;
+
+    gap: 7px;
+  }
+
+  .employee-compliance-progress-wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .employee-compliance-page {
+    padding: 20px 16px 26px;
+  }
+
+  .employee-compliance-header {
+    flex-direction: column;
+  }
+
+  .employee-compliance-date {
+    align-self: flex-start;
+  }
+
+  .employee-compliance-overview {
+    align-items: flex-start;
+  }
+
+  .employee-compliance-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-compliance-section-header {
+    flex-direction: column;
+  }
+
+  .employee-compliance-filters {
+    width: 100%;
+  }
+
+  .employee-compliance-item {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .employee-compliance-item-content {
+    width: calc(100% - 43px);
+  }
+
+  .employee-compliance-item-action {
+    margin-left: 43px;
+  }
+
+  .employee-compliance-reminder {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .employee-compliance-reminder button {
+    margin-left: 42px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .employee-compliance-page {
+    padding: 16px 12px 22px;
+  }
+
+  .employee-compliance-title h1 {
+    font-size: 20px;
+  }
+
+  .employee-compliance-title p {
+    font-size: 8px;
+  }
+
+  .employee-compliance-overview {
+    flex-direction: column;
+  }
+
+  .employee-compliance-score {
+    align-self: flex-start;
+  }
+
+  .employee-compliance-item-title {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .employee-compliance-status {
+    align-self: flex-start;
+  }
+
+  .employee-compliance-item-action {
+    margin-left: 43px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-compliance-filters button,
+  .employee-compliance-item-action,
+  .employee-compliance-progress div {
+    transition: none;
+  }
+}
