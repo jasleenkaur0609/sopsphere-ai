@@ -1,0 +1,1433 @@
+/* =========================================================
+   EMPLOYEE TRAINING & LEARNING
+   AI SOP PORTAL
+   ========================================================= */
+
+.employee-training-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: 24px 28px 30px;
+
+  box-sizing: border-box;
+
+  color: #e7e1eb;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.employee-training-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+}
+
+.employee-training-title-wrapper {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+
+  min-width: 0;
+}
+
+.employee-training-title-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.18),
+      rgba(139, 92, 246, 0.05)
+    );
+
+  color: #a78bfa;
+
+  font-size: 15px;
+}
+
+.employee-training-eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #706875;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.05px;
+
+  line-height: 1.2;
+}
+
+.employee-training-title-wrapper h1 {
+  margin: 0;
+
+  color: #eee9f0;
+
+  font-size: 24px;
+  font-weight: 720;
+
+  letter-spacing: -0.5px;
+
+  line-height: 1.2;
+}
+
+.employee-training-title-wrapper p {
+  margin: 6px 0 0;
+
+  max-width: 570px;
+
+  color: #746d7a;
+
+  font-size: 9px;
+
+  line-height: 1.55;
+}
+
+.employee-training-header-action {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  flex: 0 0 auto;
+
+  padding: 8px 11px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.018);
+
+  color: #776e80;
+
+  font-size: 7px;
+}
+
+.employee-training-header-action svg {
+  color: #8f7ba2;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
+
+.employee-training-kpis {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.employee-training-kpi-card {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+
+  box-sizing: border-box;
+}
+
+.employee-training-kpi-icon {
+  width: 32px;
+  height: 32px;
+
+  flex: 0 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #8f7aa4;
+
+  font-size: 10px;
+}
+
+.employee-training-kpi-card span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #625b68;
+
+  font-size: 6.5px;
+}
+
+.employee-training-kpi-card strong {
+  display: block;
+
+  color: #c0b8c4;
+
+  font-size: 15px;
+  font-weight: 680;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   OVERALL PROGRESS
+   ========================================================= */
+
+.employee-training-overview {
+  margin-bottom: 14px;
+
+  padding: 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.035),
+      rgba(255, 255, 255, 0.012)
+    );
+}
+
+.employee-training-overview-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 10px;
+}
+
+.employee-training-overview-heading span:first-child {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #635c69;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  letter-spacing: 0.75px;
+}
+
+.employee-training-overview-heading h2 {
+  margin: 0;
+
+  color: #a8a0ad;
+
+  font-size: 10px;
+  font-weight: 630;
+}
+
+.employee-training-overview-heading strong {
+  color: #9a88ac;
+
+  font-size: 14px;
+  font-weight: 680;
+}
+
+.employee-training-overview-track {
+  width: 100%;
+  height: 5px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.employee-training-overview-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(109, 40, 217, 0.62),
+      rgba(139, 92, 246, 0.72)
+    );
+
+  transition: width 0.3s ease;
+}
+
+.employee-training-overview-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-top: 7px;
+
+  color: #59525f;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.employee-training-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.employee-training-search {
+  position: relative;
+
+  width: min(280px, 100%);
+}
+
+.employee-training-search > svg {
+  position: absolute;
+
+  top: 50%;
+  left: 10px;
+
+  color: #5b5362;
+
+  font-size: 8px;
+
+  transform: translateY(-50%);
+
+  pointer-events: none;
+}
+
+.employee-training-search input {
+  width: 100%;
+  height: 34px;
+
+  padding: 0 30px 0 28px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 7px;
+
+  outline: none;
+
+  background: #151319;
+
+  color: #aaa2ae;
+
+  font-family: inherit;
+
+  font-size: 7px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.employee-training-search input::placeholder {
+  color: #504954;
+}
+
+.employee-training-search input:focus {
+  border-color: rgba(139, 92, 246, 0.25);
+
+  box-shadow:
+    0 0 0 3px rgba(139, 92, 246, 0.04);
+}
+
+.employee-training-search button {
+  position: absolute;
+
+  top: 50%;
+  right: 8px;
+
+  width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #5d5663;
+
+  font-size: 7px;
+
+  cursor: pointer;
+
+  transform: translateY(-50%);
+}
+
+.employee-training-search button:hover {
+  color: #958b9b;
+}
+
+.employee-training-filters {
+  display: flex;
+  align-items: center;
+
+  gap: 4px;
+}
+
+.employee-training-filters > svg {
+  margin-right: 3px;
+
+  color: #5d5664;
+
+  font-size: 7px;
+}
+
+.employee-training-filters button {
+  height: 29px;
+
+  padding: 0 9px;
+
+  border: 1px solid transparent;
+  border-radius: 6px;
+
+  background: transparent;
+
+  color: #615a67;
+
+  font-family: inherit;
+
+  font-size: 6.5px;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.employee-training-filters button:hover {
+  color: #8d8394;
+
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.employee-training-filters
+  .employee-training-filter-active {
+  border-color: rgba(139, 92, 246, 0.13);
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #a08cae;
+}
+
+
+/* =========================================================
+   LIST HEADING
+   ========================================================= */
+
+.employee-training-list-section {
+  width: 100%;
+}
+
+.employee-training-list-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-bottom: 10px;
+}
+
+.employee-training-list-heading > div > span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  letter-spacing: 0.7px;
+}
+
+.employee-training-list-heading h2 {
+  margin: 0;
+
+  color: #aaa2ad;
+
+  font-size: 11px;
+  font-weight: 640;
+}
+
+.employee-training-list-heading > span {
+  color: #5e5764;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   TRAINING GRID
+   ========================================================= */
+
+.employee-training-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+
+/* =========================================================
+   TRAINING CARD
+   ========================================================= */
+
+.employee-training-card {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 260px;
+
+  padding: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.employee-training-card:hover {
+  border-color: rgba(139, 92, 246, 0.13);
+
+  background: #17151b;
+
+  transform: translateY(-1px);
+}
+
+.employee-training-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 11px;
+}
+
+.employee-training-card-icon {
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #8d789f;
+
+  font-size: 10px;
+}
+
+.employee-training-status {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 19px;
+
+  padding: 0 7px;
+
+  border-radius: 999px;
+
+  font-size: 5.8px;
+  font-weight: 650;
+}
+
+.employee-training-status-completed {
+  background: rgba(34, 197, 94, 0.055);
+
+  color: #789c81;
+}
+
+.employee-training-status-progress {
+  background: rgba(139, 92, 246, 0.08);
+
+  color: #9781ab;
+}
+
+.employee-training-status-assigned {
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #746c79;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
+
+.employee-training-category {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #756b7c;
+
+  font-size: 5.8px;
+  font-weight: 600;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.45px;
+}
+
+.employee-training-card h3 {
+  margin: 0;
+
+  color: #b5adb9;
+
+  font-size: 9px;
+  font-weight: 650;
+
+  line-height: 1.4;
+}
+
+.employee-training-card > p {
+  display: -webkit-box;
+
+  margin: 7px 0 12px;
+
+  overflow: hidden;
+
+  color: #635b68;
+
+  font-size: 6.5px;
+
+  line-height: 1.6;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+
+/* =========================================================
+   CARD META
+   ========================================================= */
+
+.employee-training-card-meta {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 13px;
+}
+
+.employee-training-card-meta span {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  color: #605866;
+
+  font-size: 6px;
+}
+
+.employee-training-card-meta svg {
+  color: #756881;
+
+  font-size: 7px;
+}
+
+
+/* =========================================================
+   CARD PROGRESS
+   ========================================================= */
+
+.employee-training-card-progress {
+  margin-top: auto;
+
+  margin-bottom: 12px;
+}
+
+.employee-training-card-progress-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 5px;
+}
+
+.employee-training-card-progress-heading span {
+  color: #59525f;
+
+  font-size: 5.8px;
+}
+
+.employee-training-card-progress-heading strong {
+  color: #766b7e;
+
+  font-size: 6px;
+  font-weight: 650;
+}
+
+.employee-training-progress-track {
+  width: 100%;
+  height: 4px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.employee-training-progress-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(109, 40, 217, 0.55),
+      rgba(139, 92, 246, 0.7)
+    );
+
+  transition: width 0.3s ease;
+}
+
+
+/* =========================================================
+   CARD FOOTER
+   ========================================================= */
+
+.employee-training-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  padding-top: 10px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.employee-training-card-footer > div span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #514a57;
+
+  font-size: 5.5px;
+}
+
+.employee-training-card-footer > div strong {
+  display: block;
+
+  color: #706877;
+
+  font-size: 6px;
+  font-weight: 600;
+}
+
+.employee-training-card-footer button {
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+
+  padding: 0 8px;
+
+  border: 1px solid rgba(139, 92, 246, 0.14);
+  border-radius: 6px;
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #8d7b9d;
+
+  font-family: inherit;
+
+  font-size: 6px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.employee-training-card-footer button:hover {
+  border-color: rgba(139, 92, 246, 0.25);
+
+  background: rgba(124, 58, 237, 0.11);
+
+  color: #b09fc0;
+}
+
+.employee-training-card-footer button svg {
+  font-size: 5px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.employee-training-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 270px;
+
+  padding: 25px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+
+  text-align: center;
+}
+
+.employee-training-empty-icon {
+  width: 39px;
+  height: 39px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #756680;
+
+  font-size: 11px;
+}
+
+.employee-training-empty h3 {
+  margin: 0;
+
+  color: #a39aa7;
+
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.employee-training-empty p {
+  max-width: 300px;
+
+  margin: 6px 0 12px;
+
+  color: #625b68;
+
+  font-size: 6.5px;
+
+  line-height: 1.55;
+}
+
+.employee-training-empty button {
+  height: 29px;
+
+  padding: 0 11px;
+
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 6px;
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #907da0;
+
+  font-family: inherit;
+
+  font-size: 6.5px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   TRAINING DETAIL PAGE
+   ========================================================= */
+
+.employee-training-detail-page {
+  position: relative;
+
+  width: min(720px, 100%);
+
+  margin: 35px auto;
+
+  padding: 30px;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 12px;
+
+  background: #151319;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.12);
+}
+
+.employee-training-detail-close {
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.015);
+
+  color: #625b68;
+
+  font-size: 8px;
+
+  cursor: pointer;
+}
+
+.employee-training-detail-close:hover {
+  color: #9a909e;
+
+  border-color: rgba(139, 92, 246, 0.16);
+}
+
+.employee-training-detail-icon {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 12px;
+
+  border-radius: 10px;
+
+  background: rgba(124, 58, 237, 0.08);
+
+  color: #987eaa;
+
+  font-size: 15px;
+}
+
+.employee-training-detail-page h1 {
+  margin: 0;
+
+  color: #ddd7e0;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  line-height: 1.3;
+}
+
+.employee-training-detail-description {
+  max-width: 620px;
+
+  margin: 8px 0 20px;
+
+  color: #69616e;
+
+  font-size: 7.5px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   DETAIL META
+   ========================================================= */
+
+.employee-training-detail-meta {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 7px;
+
+  margin-bottom: 20px;
+}
+
+.employee-training-detail-meta > div {
+  padding: 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.employee-training-detail-meta span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #554e5a;
+
+  font-size: 5.5px;
+
+  text-transform: uppercase;
+}
+
+.employee-training-detail-meta strong {
+  display: block;
+
+  overflow: hidden;
+
+  color: #817786;
+
+  font-size: 6.5px;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   DETAIL PROGRESS
+   ========================================================= */
+
+.employee-training-detail-progress {
+  margin-bottom: 18px;
+
+  padding: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.employee-training-detail-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 8px;
+}
+
+.employee-training-detail-progress-header span {
+  color: #706875;
+
+  font-size: 7px;
+}
+
+.employee-training-detail-progress-header strong {
+  color: #9a88aa;
+
+  font-size: 9px;
+}
+
+.employee-training-detail-progress > p {
+  margin: 6px 0 0;
+
+  color: #57505d;
+
+  font-size: 5.8px;
+}
+
+
+/* =========================================================
+   DETAIL INFORMATION
+   ========================================================= */
+
+.employee-training-detail-info {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.employee-training-detail-info > div {
+  display: grid;
+
+  grid-template-columns: auto 1fr;
+
+  column-gap: 7px;
+
+  padding: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 7px;
+
+  background: rgba(255, 255, 255, 0.012);
+}
+
+.employee-training-detail-info svg {
+  grid-row: 1 / span 2;
+
+  align-self: center;
+
+  color: #766782;
+
+  font-size: 9px;
+}
+
+.employee-training-detail-info span {
+  color: #554e5a;
+
+  font-size: 5.5px;
+}
+
+.employee-training-detail-info strong {
+  margin-top: 3px;
+
+  color: #7e7584;
+
+  font-size: 6.5px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   DETAIL ACTIONS
+   ========================================================= */
+
+.employee-training-detail-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+.employee-training-primary-button,
+.employee-training-secondary-button {
+  height: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 0 13px;
+
+  border-radius: 7px;
+
+  font-family: inherit;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.employee-training-primary-button {
+  border: 1px solid rgba(139, 92, 246, 0.24);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.25),
+      rgba(124, 58, 237, 0.11)
+    );
+
+  color: #b09ebf;
+}
+
+.employee-training-primary-button:hover {
+  border-color: rgba(139, 92, 246, 0.36);
+
+  color: #c8bad4;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.32),
+      rgba(124, 58, 237, 0.15)
+    );
+}
+
+.employee-training-secondary-button {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  background: rgba(255, 255, 255, 0.015);
+
+  color: #706876;
+}
+
+.employee-training-secondary-button:hover {
+  border-color: rgba(139, 92, 246, 0.14);
+
+  color: #918695;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .employee-training-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-training-kpis {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 800px) {
+  .employee-training-page {
+    padding: 20px 18px 26px;
+  }
+
+  .employee-training-header {
+    flex-direction: column;
+  }
+
+  .employee-training-header-action {
+    align-self: flex-start;
+  }
+
+  .employee-training-toolbar {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+  .employee-training-search {
+    width: 100%;
+  }
+
+  .employee-training-filters {
+    overflow-x: auto;
+
+    padding-bottom: 2px;
+
+    scrollbar-width: none;
+  }
+
+  .employee-training-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .employee-training-detail-meta {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .employee-training-page {
+    padding: 16px 12px 24px;
+  }
+
+  .employee-training-title-wrapper {
+    gap: 10px;
+  }
+
+  .employee-training-title-icon {
+    width: 36px;
+    height: 36px;
+
+    flex-basis: 36px;
+  }
+
+  .employee-training-title-wrapper h1 {
+    font-size: 20px;
+  }
+
+  .employee-training-title-wrapper p {
+    font-size: 8px;
+  }
+
+  .employee-training-kpis {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 7px;
+  }
+
+  .employee-training-kpi-card {
+    padding: 10px;
+  }
+
+  .employee-training-kpi-icon {
+    width: 28px;
+    height: 28px;
+
+    flex-basis: 28px;
+  }
+
+  .employee-training-kpi-card strong {
+    font-size: 13px;
+  }
+
+  .employee-training-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-training-card {
+    min-height: 245px;
+  }
+
+  .employee-training-overview-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .employee-training-detail-page {
+    margin: 20px auto;
+
+    padding: 22px 16px;
+  }
+
+  .employee-training-detail-meta {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .employee-training-detail-info {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-training-detail-actions {
+    flex-direction: column;
+  }
+
+  .employee-training-primary-button,
+  .employee-training-secondary-button {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .employee-training-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-training-detail-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-training-overview-heading {
+    align-items: flex-start;
+  }
+
+  .employee-training-overview-heading strong {
+    font-size: 12px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-training-card,
+  .employee-training-progress-fill,
+  .employee-training-overview-fill,
+  .employee-training-search input,
+  .employee-training-filters button,
+  .employee-training-card-footer button,
+  .employee-training-primary-button,
+  .employee-training-secondary-button {
+    transition: none;
+  }
+}
