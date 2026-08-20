@@ -1,0 +1,719 @@
+/* =========================================================
+   EMPLOYEE ANALYTICS
+   ========================================================= */
+
+.employee-analytics-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: 24px 28px 30px;
+  box-sizing: border-box;
+
+  color: #e7e1eb;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.employee-analytics-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.employee-analytics-title {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+}
+
+.employee-analytics-title-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 11px;
+
+  background: rgba(109, 40, 217, 0.09);
+
+  color: #a78bfa;
+
+  font-size: 15px;
+}
+
+.employee-analytics-eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #706875;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.employee-analytics-title h1 {
+  margin: 0;
+
+  color: #eee9f0;
+
+  font-size: 24px;
+  font-weight: 720;
+
+  letter-spacing: -0.5px;
+}
+
+.employee-analytics-title p {
+  margin: 6px 0 0;
+
+  color: #746d7a;
+
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.employee-analytics-period {
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 0 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 7px;
+
+  background: #151319;
+}
+
+.employee-analytics-period svg {
+  color: #75677e;
+
+  font-size: 8px;
+}
+
+.employee-analytics-period select {
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #8b818f;
+
+  font-family: inherit;
+  font-size: 7px;
+
+  cursor: pointer;
+}
+
+.employee-analytics-period select option {
+  background: #151319;
+  color: #aaa2ad;
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.employee-analytics-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 12px;
+  padding: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.05),
+      rgba(255, 255, 255, 0.012)
+    );
+}
+
+.employee-analytics-summary > div:first-child {
+  min-width: 0;
+}
+
+.employee-analytics-summary span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  letter-spacing: 0.75px;
+}
+
+.employee-analytics-summary h2 {
+  margin: 0;
+
+  color: #b8b0bb;
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.employee-analytics-summary p {
+  max-width: 620px;
+
+  margin: 6px 0 0;
+
+  color: #665e6b;
+
+  font-size: 6.8px;
+  line-height: 1.6;
+}
+
+.employee-analytics-score {
+  flex: 0 0 auto;
+}
+
+.employee-analytics-score-circle {
+  width: 70px;
+  height: 70px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.16);
+  border-radius: 50%;
+
+  background: rgba(124, 58, 237, 0.055);
+}
+
+.employee-analytics-score-circle strong {
+  color: #a38daf;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.employee-analytics-score-circle span {
+  margin: 3px 0 0;
+
+  color: #5e5665;
+
+  font-size: 5px;
+  letter-spacing: 0;
+}
+
+
+/* =========================================================
+   KPI CARDS
+   ========================================================= */
+
+.employee-analytics-kpis {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.employee-analytics-kpi {
+  padding: 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+}
+
+.employee-analytics-kpi-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 11px;
+}
+
+.employee-analytics-kpi-icon {
+  width: 31px;
+  height: 31px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.07);
+
+  color: #8d789f;
+
+  font-size: 10px;
+}
+
+.employee-analytics-kpi-change {
+  display: flex;
+  align-items: center;
+
+  gap: 3px;
+
+  color: #6d8b75;
+
+  font-size: 5.8px;
+}
+
+.employee-analytics-kpi-change svg {
+  font-size: 5px;
+}
+
+.employee-analytics-kpi-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #625b68;
+
+  font-size: 6.2px;
+}
+
+.employee-analytics-kpi > strong {
+  color: #b8b0bc;
+
+  font-size: 16px;
+  font-weight: 680;
+}
+
+
+/* =========================================================
+   MAIN ANALYTICS
+   ========================================================= */
+
+.employee-analytics-main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(270px, 0.9fr);
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+.employee-analytics-chart-card,
+.employee-analytics-breakdown,
+.employee-analytics-activity {
+  min-width: 0;
+
+  padding: 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.employee-analytics-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-bottom: 15px;
+}
+
+.employee-analytics-section-header span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  letter-spacing: 0.7px;
+}
+
+.employee-analytics-section-header h2 {
+  margin: 0;
+
+  color: #a9a1ad;
+
+  font-size: 10px;
+  font-weight: 640;
+}
+
+.employee-analytics-section-header > svg {
+  color: #6e6178;
+
+  font-size: 9px;
+}
+
+
+/* =========================================================
+   BAR CHART
+   ========================================================= */
+
+.employee-analytics-chart {
+  height: 180px;
+
+  display: flex;
+  align-items: stretch;
+
+  gap: 10px;
+
+  padding-top: 8px;
+}
+
+.employee-analytics-bar-column {
+  flex: 1;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 7px;
+}
+
+.employee-analytics-bar-wrapper {
+  width: 100%;
+  height: 145px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.employee-analytics-bar {
+  width: min(24px, 65%);
+
+  min-height: 4px;
+
+  border-radius: 5px 5px 2px 2px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(139, 92, 246, 0.72),
+      rgba(109, 40, 217, 0.35)
+    );
+
+  transition: height 0.25s ease;
+}
+
+.employee-analytics-bar:hover {
+  opacity: 0.8;
+}
+
+.employee-analytics-bar-column > span {
+  color: #59525f;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   PERFORMANCE BREAKDOWN
+   ========================================================= */
+
+.employee-analytics-breakdown-item {
+  margin-bottom: 18px;
+}
+
+.employee-analytics-breakdown-item:last-child {
+  margin-bottom: 0;
+}
+
+.employee-analytics-breakdown-item > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 6px;
+}
+
+.employee-analytics-breakdown-item span {
+  color: #706875;
+
+  font-size: 6.5px;
+}
+
+.employee-analytics-breakdown-item strong {
+  color: #8e8195;
+
+  font-size: 7px;
+  font-weight: 650;
+}
+
+.employee-analytics-progress {
+  width: 100%;
+  height: 4px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.employee-analytics-progress div {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(109, 40, 217, 0.55),
+      rgba(139, 92, 246, 0.7)
+    );
+
+  transition: width 0.3s ease;
+}
+
+
+/* =========================================================
+   RECENT ACTIVITY
+   ========================================================= */
+
+.employee-analytics-activity {
+  margin-bottom: 10px;
+}
+
+.employee-analytics-activity-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-analytics-activity-row {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.035);
+}
+
+.employee-analytics-activity-row:first-child {
+  border-top: 0;
+}
+
+.employee-analytics-activity-icon {
+  width: 29px;
+  height: 29px;
+
+  flex: 0 0 29px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: rgba(124, 58, 237, 0.06);
+
+  color: #796a83;
+
+  font-size: 8px;
+}
+
+.employee-analytics-activity-info {
+  min-width: 0;
+
+  flex: 1;
+}
+
+.employee-analytics-activity-info strong {
+  display: block;
+
+  overflow: hidden;
+
+  margin-bottom: 3px;
+
+  color: #958c9a;
+
+  font-size: 7px;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.employee-analytics-activity-info span {
+  display: block;
+
+  color: #5b5461;
+
+  font-size: 5.8px;
+}
+
+.employee-analytics-activity-status {
+  flex: 0 0 auto;
+
+  color: #6f8174;
+
+  font-size: 5.8px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .employee-analytics-kpis {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-analytics-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 750px) {
+  .employee-analytics-page {
+    padding: 20px 18px 26px;
+  }
+
+  .employee-analytics-header {
+    flex-direction: column;
+  }
+
+  .employee-analytics-period {
+    align-self: flex-start;
+  }
+
+  .employee-analytics-summary {
+    align-items: flex-start;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .employee-analytics-page {
+    padding: 16px 12px 24px;
+  }
+
+  .employee-analytics-title-icon {
+    width: 36px;
+    height: 36px;
+
+    flex-basis: 36px;
+  }
+
+  .employee-analytics-title h1 {
+    font-size: 20px;
+  }
+
+  .employee-analytics-title p {
+    font-size: 8px;
+  }
+
+  .employee-analytics-kpis {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 7px;
+  }
+
+  .employee-analytics-kpi {
+    padding: 10px;
+  }
+
+  .employee-analytics-kpi > strong {
+    font-size: 14px;
+  }
+
+  .employee-analytics-summary {
+    flex-direction: column;
+  }
+
+  .employee-analytics-score {
+    align-self: flex-start;
+  }
+
+  .employee-analytics-chart {
+    gap: 5px;
+  }
+
+  .employee-analytics-bar {
+    width: 55%;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 390px) {
+  .employee-analytics-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-analytics-chart {
+    height: 150px;
+  }
+
+  .employee-analytics-bar-wrapper {
+    height: 120px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-analytics-bar,
+  .employee-analytics-progress div {
+    transition: none;
+  }
+}
