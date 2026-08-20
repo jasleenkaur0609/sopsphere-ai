@@ -4,8 +4,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaBook,
-  FaFolderOpen,
+  FaFileAlt,
+  FaMagic,
   FaRobot,
+  FaFolderOpen,
   FaGraduationCap,
   FaShieldAlt,
   FaTasks,
@@ -22,6 +24,7 @@ import {
 
 import "./EmployeeSidebar.css";
 
+
 const EmployeeSidebar = ({
   profile,
   collapsed = false,
@@ -29,16 +32,21 @@ const EmployeeSidebar = ({
   onToggle,
   onMobileClose,
 }) => {
+
   const navigate = useNavigate();
   const location = useLocation();
 
+
+  /* ============================================================
+     SOP SUBMENU STATE
+     ============================================================ */
+
   const [sopOpen, setSopOpen] = useState(false);
 
-  /*
-   * ============================================================
-   * PROFILE DATA
-   * ============================================================
-   */
+
+  /* ============================================================
+     PROFILE DATA
+     ============================================================ */
 
   const employeeName =
     profile?.firstName ||
@@ -51,25 +59,12 @@ const EmployeeSidebar = ({
     "Employee";
 
 
-  /*
-   * ============================================================
-   * NAVIGATION ITEMS
-   * ============================================================
-   *
-   * All paths are aligned with AppRoutes.jsx:
-   *
-   * /dashboard/employee
-   * /dashboard/employee/sop-library
-   * /dashboard/employee/ai-assistant
-   * /dashboard/employee/documents
-   * /dashboard/employee/training
-   * /dashboard/employee/compliance
-   * /dashboard/employee/tasks
-   * /dashboard/employee/analytics
-   * /dashboard/employee/notifications
-   */
+  /* ============================================================
+     NAVIGATION ITEMS
+     ============================================================ */
 
   const navigationItems = [
+
     {
       label: "Dashboard",
       icon: <FaHome />,
@@ -126,16 +121,16 @@ const EmployeeSidebar = ({
       path: "/dashboard/employee/notifications",
       badge: 6,
     },
+
   ];
 
 
-  /*
-   * ============================================================
-   * FOOTER ITEMS
-   * ============================================================
-   */
+  /* ============================================================
+     FOOTER ITEMS
+     ============================================================ */
 
   const footerItems = [
+
     {
       label: "Settings",
       icon: <FaCog />,
@@ -147,307 +142,489 @@ const EmployeeSidebar = ({
       icon: <FaQuestionCircle />,
       path: "/dashboard/employee/help",
     },
+
   ];
 
 
-  /*
-   * ============================================================
-   * ACTIVE ROUTE
-   * ============================================================
-   */
+  /* ============================================================
+     SOP SUBMENU ITEMS
+     ============================================================ */
 
-  const isActive = (path) => {
-    if (path === "/dashboard/employee") {
-      return location.pathname === "/dashboard/employee";
-    }
+  const sopSubmenuItems = [
 
-    return (
-      location.pathname === path ||
-      location.pathname.startsWith(`${path}/`)
-    );
+    {
+      label: "All SOPs",
+      icon: <FaBook />,
+      path: "/dashboard/employee/sop-library",
+    },
+
+    {
+      label: "My SOPs",
+      icon: <FaFileAlt />,
+      path: "/dashboard/employee/my-sops",
+    },
+
+    {
+      label: "Generate SOP",
+      icon: <FaMagic />,
+      path: "/dashboard/employee/generate-sop",
+    },
+
+  ];
+
+
+  /* ============================================================
+     EXACT ACTIVE ROUTE
+     ============================================================
+     
+     IMPORTANT:
+     
+     We intentionally DO NOT use startsWith() here.
+
+     Example:
+
+     /dashboard
+     
+     must NOT remain active when the user is on:
+
+     /dashboard/employee/sop-library
+
+     Every navigation item is therefore active only when its
+     exact route matches the current URL.
+     
+     ============================================================ */
+
+  const isExactActive = (path) => {
+
+    return location.pathname === path;
+
   };
 
 
-  /*
-   * ============================================================
-   * SOP SECTION
-   * ============================================================
-   */
+  /* ============================================================
+     SOP ACTIVE STATE
+     ============================================================
+     
+     SOP Library parent should ONLY be active on the actual
+     SOP Library page.
 
-  const isSopSectionActive =
-    location.pathname.startsWith(
-      "/dashboard/employee/sop-library"
-    ) ||
-    location.pathname.startsWith(
-      "/dashboard/employee/my-sops"
-    ) ||
-    location.pathname.startsWith(
-      "/dashboard/employee/generate-sop"
-    );
+     If the user is on My SOPs or Generate SOP, the parent
+     remains inactive and only the child is highlighted.
+     
+     ============================================================ */
+
+  const isSOPLibraryActive =
+    location.pathname ===
+    "/dashboard/employee/sop-library";
 
 
-  /*
-   * ============================================================
-   * OPEN SOP DROPDOWN AUTOMATICALLY
-   * ============================================================
-   */
+  /* ============================================================
+     CURRENT SOP SUBMENU PAGE
+     ============================================================ */
+
+  const isSOPSubmenuActive = (path) => {
+
+    return location.pathname === path;
+
+  };
+
+
+  /* ============================================================
+     AUTOMATICALLY OPEN SOP SUBMENU
+     ============================================================
+     
+     If the current page belongs to the SOP section,
+     automatically open the dropdown.
+     
+     ============================================================ */
 
   useEffect(() => {
-    if (isSopSectionActive) {
+
+    const isInsideSOPSection =
+      location.pathname ===
+        "/dashboard/employee/sop-library" ||
+
+      location.pathname ===
+        "/dashboard/employee/my-sops" ||
+
+      location.pathname ===
+        "/dashboard/employee/generate-sop";
+
+    if (isInsideSOPSection) {
+
       setSopOpen(true);
-    }
-  }, [location.pathname, isSopSectionActive]);
 
-
-  /*
-   * ============================================================
-   * NAVIGATION
-   * ============================================================
-   */
-
-  const handleNavigation = (item) => {
-    /*
-     * SOP Library acts as a dropdown parent.
-     */
-
-    if (item.hasChildren) {
-      if (!collapsed) {
-        setSopOpen((previous) => !previous);
-      }
-
-      /*
-       * When sidebar is collapsed,
-       * clicking SOP Library opens the main SOP Library page.
-       */
-
-      if (collapsed) {
-        navigate(item.path);
-
-        if (onMobileClose) {
-          onMobileClose();
-        }
-      }
-
-      return;
     }
 
-
-    /*
-     * Normal navigation item.
-     */
-
-    navigate(item.path);
-
-    if (onMobileClose) {
-      onMobileClose();
-    }
-  };
+  }, [location.pathname]);
 
 
-  /*
-   * ============================================================
-   * SOP SUBMENU NAVIGATION
-   * ============================================================
-   */
+  /* ============================================================
+     NAVIGATION HANDLER
+     ============================================================ */
 
-  const handleSubNavigation = (path) => {
+  const handleNavigation = (path) => {
+
     navigate(path);
 
     if (onMobileClose) {
       onMobileClose();
     }
+
   };
 
 
-  /*
-   * ============================================================
-   * FEEDBACK
-   * ============================================================
-   */
+  /* ============================================================
+     SOP PARENT CLICK
+     ============================================================
+     
+     Clicking SOP Library:
+     
+     1. Opens/closes the dropdown.
+     2. Navigates to All SOPs when sidebar is expanded.
+     
+     ============================================================ */
 
-  const handleFeedback = () => {
-    window.alert(
-      "Feedback form will be connected here."
-    );
+  const handleSOPClick = () => {
+
+    setSopOpen((previous) => !previous);
+
+
+    /*
+     * When expanded, clicking the parent also opens
+     * the main SOP Library page.
+     */
+
+    if (!collapsed) {
+
+      navigate(
+        "/dashboard/employee/sop-library"
+      );
+
+      if (onMobileClose) {
+        onMobileClose();
+      }
+
+    } else {
+
+      /*
+       * When collapsed, expand the sidebar first.
+       */
+
+      if (onToggle) {
+        onToggle();
+      }
+
+    }
+
   };
 
 
-  /*
-   * ============================================================
-   * CLOSE MOBILE SIDEBAR
-   * ============================================================
-   */
+  /* ============================================================
+     SOP CHILD NAVIGATION
+     ============================================================ */
 
-  const handleMobileClose = () => {
+  const handleSubNavigation = (path) => {
+
+    navigate(path);
+
+    setSopOpen(true);
+
     if (onMobileClose) {
       onMobileClose();
     }
+
   };
 
 
+  /* ============================================================
+     FEEDBACK
+     ============================================================ */
+
+  const handleFeedback = () => {
+
+    window.alert(
+      "Feedback form will be connected here."
+    );
+
+  };
+
+
+  /* ============================================================
+     RENDER
+     ============================================================ */
+
   return (
+
     <>
-      {/* ======================================================
+
+      {/* ========================================================
           MOBILE OVERLAY
-      ====================================================== */}
+          ======================================================== */}
 
       {mobileOpen && (
+
         <div
           className="employee-sidebar-overlay"
-          onClick={handleMobileClose}
-          aria-hidden="true"
+          onClick={onMobileClose}
         />
+
       )}
 
 
-      {/* ======================================================
+      {/* ========================================================
           SIDEBAR
-      ====================================================== */}
+          ======================================================== */}
 
       <aside
         className={[
           "employee-sidebar",
+
           collapsed
             ? "employee-sidebar-collapsed"
             : "",
+
           mobileOpen
             ? "employee-sidebar-mobile-open"
             : "",
+
         ]
           .filter(Boolean)
           .join(" ")}
       >
 
-        {/* ====================================================
-            SIDEBAR HEADER
-        ==================================================== */}
 
-        <div className="employee-sidebar-header">
+        {/* ======================================================
+            BRAND
+            ====================================================== */}
 
-          <div className="employee-sidebar-brand">
+        <div className="employee-sidebar-brand">
 
-            <div className="employee-sidebar-brand-icon">
-              AI
-            </div>
-
-            <div className="employee-sidebar-brand-content">
-
-              <div className="employee-sidebar-brand-title">
-                AI<span>SOP Intelligence</span>
-              </div>
-
-              <div className="employee-sidebar-brand-subtitle">
-                Smarter Processes. Better Decisions.
-              </div>
-
-            </div>
-
+          <div className="employee-sidebar-brand-icon">
+            <FaBook />
           </div>
 
 
-          {/* Desktop collapse button */}
+          {!collapsed && (
 
-          <button
-            type="button"
-            className="employee-sidebar-collapse-button"
-            onClick={onToggle}
-            aria-label={
-              collapsed
-                ? "Expand sidebar"
-                : "Collapse sidebar"
-            }
-          >
-            {collapsed ? (
-              <FaChevronRight />
-            ) : (
-              <FaChevronLeft />
-            )}
-          </button>
+            <div className="employee-sidebar-brand-content">
+
+              <strong>
+                SOP INTELLIGENCE
+              </strong>
+
+              <span>
+                Employee Portal
+              </span>
+
+            </div>
+
+          )}
 
 
-          {/* Mobile close button */}
+          {/* MOBILE CLOSE */}
 
-          <button
-            type="button"
-            className="employee-sidebar-mobile-close"
-            onClick={handleMobileClose}
-            aria-label="Close navigation"
-          >
-            <FaTimes />
-          </button>
+          {mobileOpen && (
+
+            <button
+              type="button"
+              className="employee-sidebar-close"
+              onClick={onMobileClose}
+              aria-label="Close sidebar"
+            >
+              <FaTimes />
+            </button>
+
+          )}
 
         </div>
 
 
-        {/* ====================================================
+        {/* ======================================================
             NAVIGATION
-        ==================================================== */}
+            ====================================================== */}
 
-        <nav
-          className="employee-sidebar-navigation"
-          aria-label="Employee dashboard navigation"
-        >
+        <nav className="employee-sidebar-navigation">
 
-          <div className="employee-sidebar-section-title">
-            Workspace
-          </div>
+          {navigationItems.map((item) => {
+
+            const isSOPItem =
+              item.hasChildren;
+
+            const active =
+              isSOPItem
+                ? isSOPLibraryActive
+                : isExactActive(item.path);
 
 
-          {navigationItems.map((item) => (
-            <React.Fragment key={item.label}>
+            /* ==================================================
+               SOP LIBRARY PARENT
+               ================================================== */
 
-              {/* =================================================
-                  MAIN NAVIGATION ITEM
-              ================================================= */}
+            if (isSOPItem) {
+
+              return (
+
+                <React.Fragment key={item.label}>
+
+                  <button
+                    type="button"
+                    className={[
+                      "employee-sidebar-nav-item",
+
+                      active
+                        ? "employee-sidebar-nav-item-active"
+                        : "",
+
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
+
+                    onClick={handleSOPClick}
+
+                    title={
+                      collapsed
+                        ? item.label
+                        : undefined
+                    }
+                  >
+
+                    <span className="employee-sidebar-nav-icon">
+                      {item.icon}
+                    </span>
+
+
+                    {!collapsed && (
+
+                      <span className="employee-sidebar-nav-label">
+                        {item.label}
+                      </span>
+
+                    )}
+
+
+                    {!collapsed && (
+
+                      <FaChevronDown
+                        className={[
+                          "employee-sidebar-chevron",
+
+                          sopOpen
+                            ? "employee-sidebar-chevron-open"
+                            : "",
+
+                        ]
+                          .filter(Boolean)
+                          .join(" ")}
+                      />
+
+                    )}
+
+                  </button>
+
+
+                  {/* ==========================================
+                      SOP SUBMENU
+                      ========================================== */}
+
+                  {!collapsed && sopOpen && (
+
+                    <div className="employee-sidebar-submenu">
+
+                      {sopSubmenuItems.map(
+                        (submenuItem) => {
+
+                          const submenuActive =
+                            isSOPSubmenuActive(
+                              submenuItem.path
+                            );
+
+                          return (
+
+                            <button
+                              key={
+                                submenuItem.path
+                              }
+
+                              type="button"
+
+                              className={[
+                                "employee-sidebar-submenu-item",
+
+                                submenuActive
+                                  ? "employee-sidebar-submenu-active"
+                                  : "",
+
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
+
+                              onClick={() =>
+                                handleSubNavigation(
+                                  submenuItem.path
+                                )
+                              }
+
+                              title={
+                                submenuItem.label
+                              }
+                            >
+
+                              <span className="employee-sidebar-submenu-dot" />
+
+
+                              <span>
+                                {submenuItem.label}
+                              </span>
+
+                            </button>
+
+                          );
+
+                        }
+                      )}
+
+                    </div>
+
+                  )}
+
+                </React.Fragment>
+
+              );
+
+            }
+
+
+            /* ==================================================
+               NORMAL NAVIGATION ITEM
+               ================================================== */
+
+            return (
 
               <button
+                key={item.label}
                 type="button"
+
                 className={[
                   "employee-sidebar-nav-item",
 
-                  /*
-                   * Keep SOP Library active when
-                   * one of its child pages is active.
-                   */
-
-                  item.hasChildren &&
-                  isSopSectionActive
+                  active
                     ? "employee-sidebar-nav-item-active"
                     : "",
 
-                  !item.hasChildren &&
-                  isActive(item.path)
-                    ? "employee-sidebar-nav-item-active"
-                    : "",
-
-                  item.hasChildren &&
-                  sopOpen
-                    ? "employee-sidebar-nav-item-expanded"
-                    : "",
                 ]
                   .filter(Boolean)
                   .join(" ")}
 
                 onClick={() =>
-                  handleNavigation(item)
+                  handleNavigation(
+                    item.path
+                  )
                 }
 
                 title={
                   collapsed
                     ? item.label
-                    : undefined
-                }
-
-                aria-current={
-                  !item.hasChildren &&
-                  isActive(item.path)
-                    ? "page"
-                    : undefined
-                }
-
-                aria-expanded={
-                  item.hasChildren
-                    ? sopOpen
                     : undefined
                 }
               >
@@ -456,197 +633,114 @@ const EmployeeSidebar = ({
                   {item.icon}
                 </span>
 
-                <span className="employee-sidebar-nav-label">
-                  {item.label}
-                </span>
 
+                {!collapsed && (
 
-                {item.badge > 0 && (
-                  <span className="employee-sidebar-badge">
-                    {item.badge}
+                  <span className="employee-sidebar-nav-label">
+                    {item.label}
                   </span>
+
                 )}
 
 
-                {/* SOP dropdown arrow */}
+                {item.badge &&
+                  !collapsed && (
 
-                {item.hasChildren && !collapsed && (
-                  <span
-                    className={[
-                      "employee-sidebar-nav-arrow",
-                      sopOpen
-                        ? "employee-sidebar-nav-arrow-open"
-                        : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
-                  >
-                    <FaChevronDown />
-                  </span>
-                )}
+                    <span className="employee-sidebar-nav-badge">
+                      {item.badge}
+                    </span>
+
+                  )}
 
               </button>
 
+            );
 
-              {/* =================================================
-                  SOP LIBRARY DROPDOWN
-              ================================================= */}
-
-              {item.hasChildren &&
-                sopOpen &&
-                !collapsed && (
-                  <div
-                    className="employee-sidebar-submenu"
-                    role="menu"
-                  >
-
-                    {/* -----------------------------------------
-                        ALL SOPS
-                    ----------------------------------------- */}
-
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className={
-                        isActive(
-                          "/dashboard/employee/sop-library"
-                        )
-                          ? "employee-sidebar-submenu-active"
-                          : ""
-                      }
-                      onClick={() =>
-                        handleSubNavigation(
-                          "/dashboard/employee/sop-library"
-                        )
-                      }
-                    >
-                      <span className="employee-sidebar-submenu-dot" />
-
-                      <span>
-                        All SOPs
-                      </span>
-                    </button>
-
-
-                    {/* -----------------------------------------
-                        MY SOPS
-                    ----------------------------------------- */}
-
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className={
-                        isActive(
-                          "/dashboard/employee/my-sops"
-                        )
-                          ? "employee-sidebar-submenu-active"
-                          : ""
-                      }
-                      onClick={() =>
-                        handleSubNavigation(
-                          "/dashboard/employee/my-sops"
-                        )
-                      }
-                    >
-                      <span className="employee-sidebar-submenu-dot" />
-
-                      <span>
-                        My SOPs
-                      </span>
-                    </button>
-
-
-                    {/* -----------------------------------------
-                        GENERATE SOP
-                    ----------------------------------------- */}
-
-                    <button
-                      type="button"
-                      role="menuitem"
-                      className={
-                        isActive(
-                          "/dashboard/employee/generate-sop"
-                        )
-                          ? "employee-sidebar-submenu-active"
-                          : ""
-                      }
-                      onClick={() =>
-                        handleSubNavigation(
-                          "/dashboard/employee/generate-sop"
-                        )
-                      }
-                    >
-                      <span className="employee-sidebar-submenu-dot" />
-
-                      <span>
-                        Generate SOP
-                      </span>
-                    </button>
-
-                  </div>
-                )}
-
-            </React.Fragment>
-          ))}
+          })}
 
         </nav>
 
 
-        {/* ====================================================
+        {/* ======================================================
             FOOTER
-        ==================================================== */}
+            ====================================================== */}
 
         <div className="employee-sidebar-footer">
 
-          {footerItems.map((item) => (
-            <button
-              key={item.label}
-              type="button"
-              className={[
-                "employee-sidebar-nav-item",
 
-                isActive(item.path)
-                  ? "employee-sidebar-nav-item-active"
-                  : "",
-              ]
-                .filter(Boolean)
-                .join(" ")}
+          {/* ====================================================
+              SETTINGS / HELP
+              ==================================================== */}
 
-              onClick={() => {
-                navigate(item.path);
+          {footerItems.map((item) => {
 
-                if (onMobileClose) {
-                  onMobileClose();
+            const active =
+              isExactActive(
+                item.path
+              );
+
+            return (
+
+              <button
+                key={item.label}
+                type="button"
+
+                className={[
+                  "employee-sidebar-nav-item",
+
+                  active
+                    ? "employee-sidebar-nav-item-active"
+                    : "",
+
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+
+                onClick={() =>
+                  handleNavigation(
+                    item.path
+                  )
                 }
-              }}
 
-              title={
-                collapsed
-                  ? item.label
-                  : undefined
-              }
-            >
+                title={
+                  collapsed
+                    ? item.label
+                    : undefined
+                }
+              >
 
-              <span className="employee-sidebar-nav-icon">
-                {item.icon}
-              </span>
-
-              <span className="employee-sidebar-nav-label">
-                {item.label}
-              </span>
-
-            </button>
-          ))}
+                <span className="employee-sidebar-nav-icon">
+                  {item.icon}
+                </span>
 
 
-          {/* ==================================================
+                {!collapsed && (
+
+                  <span className="employee-sidebar-nav-label">
+                    {item.label}
+                  </span>
+
+                )}
+
+              </button>
+
+            );
+
+          })}
+
+
+          {/* ====================================================
               FEEDBACK
-          ================================================== */}
+              ==================================================== */}
 
           <button
             type="button"
             className="employee-sidebar-nav-item"
-            onClick={handleFeedback}
+
+            onClick={
+              handleFeedback
+            }
+
             title={
               collapsed
                 ? "Give Feedback"
@@ -658,50 +752,94 @@ const EmployeeSidebar = ({
               <FaCommentDots />
             </span>
 
-            <span className="employee-sidebar-nav-label">
-              Give Feedback
-            </span>
+
+            {!collapsed && (
+
+              <span className="employee-sidebar-nav-label">
+                Give Feedback
+              </span>
+
+            )}
 
           </button>
 
 
-          {/* ==================================================
+          {/* ====================================================
               USER PROFILE
-          ================================================== */}
+              ==================================================== */}
 
           <div className="employee-sidebar-user">
 
             <div className="employee-sidebar-user-avatar">
+
               {employeeName
                 .split(" ")
-                .map((part) =>
-                  part.charAt(0)
+                .map(
+                  (part) =>
+                    part.charAt(0)
                 )
                 .join("")
                 .slice(0, 2)
                 .toUpperCase()}
-            </div>
-
-
-            <div className="employee-sidebar-user-info">
-
-              <div className="employee-sidebar-user-name">
-                {employeeName}
-              </div>
-
-              <div className="employee-sidebar-user-role">
-                {employeeRole}
-              </div>
 
             </div>
+
+
+            {!collapsed && (
+
+              <div className="employee-sidebar-user-info">
+
+                <div className="employee-sidebar-user-name">
+                  {employeeName}
+                </div>
+
+                <div className="employee-sidebar-user-role">
+                  {employeeRole}
+                </div>
+
+              </div>
+
+            )}
 
           </div>
+
+
+          {/* ====================================================
+              COLLAPSE / EXPAND
+              ==================================================== */}
+
+          {onToggle && (
+
+            <button
+              type="button"
+              className="employee-sidebar-toggle"
+              onClick={onToggle}
+              title={
+                collapsed
+                  ? "Expand sidebar"
+                  : "Collapse sidebar"
+              }
+            >
+
+              {collapsed ? (
+                <FaChevronRight />
+              ) : (
+                <FaChevronLeft />
+              )}
+
+            </button>
+
+          )}
 
         </div>
 
       </aside>
+
     </>
+
   );
+
 };
+
 
 export default EmployeeSidebar;
