@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+
 import {
   FaBookOpen,
   FaSearch,
@@ -16,26 +17,35 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+import EmployeeSidebar from "../components/EmployeeSidebar";
+
 import "./EmployeeMySOPs.css";
 
+
 const EmployeeMySOPs = ({ profile }) => {
+
+  /* =========================================================
+     STATE
+  ========================================================= */
+
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("All");
-  const [selectedType, setSelectedType] = useState("All");
-  const [showFilters, setShowFilters] = useState(false);
 
-  const [favorites, setFavorites] = useState([]);
+  const [selectedStatus, setSelectedStatus] =
+    useState("All");
 
-  /*
-   * =========================================================
-   * EMPLOYEE SOP DATA
-   * =========================================================
-   *
-   * Temporary frontend data.
-   *
-   * This will later be replaced with data retrieved from
-   * the backend based on the authenticated employee.
-   */
+  const [selectedType, setSelectedType] =
+    useState("All");
+
+  const [showFilters, setShowFilters] =
+    useState(false);
+
+  const [favorites, setFavorites] =
+    useState([]);
+
+
+  /* =========================================================
+     SOP DATA
+  ========================================================= */
 
   const mySOPData = [
     {
@@ -52,7 +62,6 @@ const EmployeeMySOPs = ({ profile }) => {
       progress: 100,
       owner: "HR Operations",
     },
-
     {
       id: 2,
       title: "Information Security Guidelines",
@@ -67,7 +76,6 @@ const EmployeeMySOPs = ({ profile }) => {
       progress: 65,
       owner: "Information Security",
     },
-
     {
       id: 3,
       title: "IT Access Request Procedure",
@@ -82,7 +90,6 @@ const EmployeeMySOPs = ({ profile }) => {
       progress: 0,
       owner: "IT Operations",
     },
-
     {
       id: 4,
       title: "Incident Reporting Procedure",
@@ -97,7 +104,6 @@ const EmployeeMySOPs = ({ profile }) => {
       progress: 40,
       owner: "Compliance Team",
     },
-
     {
       id: 5,
       title: "Document Management Procedure",
@@ -112,7 +118,6 @@ const EmployeeMySOPs = ({ profile }) => {
       progress: 25,
       owner: "Knowledge Management",
     },
-
     {
       id: 6,
       title: "Expense Reimbursement Procedure",
@@ -129,11 +134,10 @@ const EmployeeMySOPs = ({ profile }) => {
     },
   ];
 
-  /*
-   * =========================================================
-   * FILTER OPTIONS
-   * =========================================================
-   */
+
+  /* =========================================================
+     FILTER OPTIONS
+  ========================================================= */
 
   const statuses = [
     "All",
@@ -150,17 +154,18 @@ const EmployeeMySOPs = ({ profile }) => {
     "Created",
   ];
 
-  /*
-   * =========================================================
-   * FILTER SOPs
-   * =========================================================
-   */
+
+  /* =========================================================
+     FILTER SOPs
+  ========================================================= */
 
   const filteredSOPs = useMemo(() => {
+
     const normalizedSearch =
       searchTerm.toLowerCase().trim();
 
     return mySOPData.filter((sop) => {
+
       const matchesSearch =
         !normalizedSearch ||
         sop.title
@@ -189,713 +194,808 @@ const EmployeeMySOPs = ({ profile }) => {
         matchesStatus &&
         matchesType
       );
+
     });
+
   }, [
     searchTerm,
     selectedStatus,
     selectedType,
   ]);
 
-  /*
-   * =========================================================
-   * STATISTICS
-   * =========================================================
-   */
+
+  /* =========================================================
+     STATISTICS
+  ========================================================= */
 
   const totalSOPs = mySOPData.length;
 
-  const completedSOPs = mySOPData.filter(
-    (sop) => sop.status === "Completed"
-  ).length;
+  const completedSOPs =
+    mySOPData.filter(
+      (sop) => sop.status === "Completed"
+    ).length;
 
-  const inProgressSOPs = mySOPData.filter(
-    (sop) => sop.status === "In Progress"
-  ).length;
+  const inProgressSOPs =
+    mySOPData.filter(
+      (sop) => sop.status === "In Progress"
+    ).length;
 
-  const pendingSOPs = mySOPData.filter(
-    (sop) =>
-      sop.status === "Not Started"
-  ).length;
+  const pendingSOPs =
+    mySOPData.filter(
+      (sop) => sop.status === "Not Started"
+    ).length;
 
-  /*
-   * =========================================================
-   * FAVORITES
-   * =========================================================
-   */
+
+  /* =========================================================
+     FAVORITES
+  ========================================================= */
 
   const toggleFavorite = (id) => {
+
     setFavorites((current) => {
+
       if (current.includes(id)) {
+
         return current.filter(
-          (favoriteId) => favoriteId !== id
+          (favoriteId) =>
+            favoriteId !== id
         );
+
       }
 
-      return [...current, id];
+      return [
+        ...current,
+        id,
+      ];
+
     });
+
   };
 
-  /*
-   * =========================================================
-   * CLEAR FILTERS
-   * =========================================================
-   */
+
+  /* =========================================================
+     CLEAR FILTERS
+  ========================================================= */
 
   const clearFilters = () => {
+
     setSearchTerm("");
+
     setSelectedStatus("All");
+
     setSelectedType("All");
+
   };
 
-  /*
-   * =========================================================
-   * ACTIONS
-   * =========================================================
-   */
+
+  /* =========================================================
+     ACTION HANDLERS
+  ========================================================= */
 
   const handleViewSOP = (sop) => {
-    console.log("View employee SOP:", sop);
+    console.log("View SOP:", sop);
   };
 
   const handleDownloadSOP = (sop) => {
-    console.log("Download employee SOP:", sop);
+    console.log("Download SOP:", sop);
   };
 
   const handleAskAI = (sop) => {
-    console.log("Ask AI about employee SOP:", sop);
+    console.log("Ask AI:", sop);
   };
 
   const handleEditSOP = (sop) => {
-    console.log("Edit employee SOP:", sop);
+    console.log("Edit SOP:", sop);
   };
 
-  /*
-   * =========================================================
-   * STATUS ICON
-   * =========================================================
-   */
+
+  /* =========================================================
+     STATUS ICON
+  ========================================================= */
 
   const getStatusIcon = (status) => {
-    if (status === "Completed") {
-      return <FaCheckCircle />;
+
+    switch (status) {
+
+      case "Completed":
+        return <FaCheckCircle />;
+
+      case "In Progress":
+        return <FaHourglassHalf />;
+
+      case "Not Started":
+        return <FaClock />;
+
+      default:
+        return <FaEdit />;
+
     }
 
-    if (status === "In Progress") {
-      return <FaHourglassHalf />;
-    }
-
-    if (status === "Not Started") {
-      return <FaClock />;
-    }
-
-    return <FaEdit />;
   };
 
-  /*
-   * =========================================================
-   * STATUS CLASS
-   * =========================================================
-   */
+
+  /* =========================================================
+     STATUS CLASS
+  ========================================================= */
 
   const getStatusClass = (status) => {
-    if (status === "Completed") {
-      return "employee-my-sops-status-completed";
+
+    switch (status) {
+
+      case "Completed":
+        return "employee-my-sops-status-completed";
+
+      case "In Progress":
+        return "employee-my-sops-status-progress";
+
+      case "Not Started":
+        return "employee-my-sops-status-pending";
+
+      default:
+        return "employee-my-sops-status-draft";
+
     }
 
-    if (status === "In Progress") {
-      return "employee-my-sops-status-progress";
-    }
-
-    if (status === "Not Started") {
-      return "employee-my-sops-status-pending";
-    }
-
-    return "employee-my-sops-status-draft";
   };
 
-  /*
-   * =========================================================
-   * RENDER
-   * =========================================================
-   */
+
+  /* =========================================================
+     RENDER
+  ========================================================= */
 
   return (
+
     <div className="employee-my-sops-page">
 
+
       {/* =====================================================
-          PAGE HEADER
+          LEFT SIDEBAR
       ===================================================== */}
 
-      <header className="employee-my-sops-header">
+      <aside className="employee-my-sops-sidebar">
 
-        <div className="employee-my-sops-title-wrapper">
+        <EmployeeSidebar
+          profile={profile}
+        />
 
-          <div className="employee-my-sops-title-icon">
-            <FaBookOpen />
-          </div>
-
-          <div>
-
-            <span className="employee-my-sops-eyebrow">
-              Personal Workspace
-            </span>
-
-            <h1>
-              My SOPs
-            </h1>
-
-            <p>
-              View and manage SOPs assigned to you,
-              required for your role, or created by you.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        {/* =================================================
-            SUMMARY STATISTICS
-        ================================================= */}
-
-        <div className="employee-my-sops-summary">
-
-          <div className="employee-my-sops-summary-item">
-
-            <strong>
-              {totalSOPs}
-            </strong>
-
-            <span>
-              Total
-            </span>
-
-          </div>
-
-          <div className="employee-my-sops-summary-item">
-
-            <strong>
-              {completedSOPs}
-            </strong>
-
-            <span>
-              Completed
-            </span>
-
-          </div>
-
-          <div className="employee-my-sops-summary-item">
-
-            <strong>
-              {inProgressSOPs}
-            </strong>
-
-            <span>
-              In Progress
-            </span>
-
-          </div>
-
-          <div className="employee-my-sops-summary-item">
-
-            <strong>
-              {pendingSOPs}
-            </strong>
-
-            <span>
-              Pending
-            </span>
-
-          </div>
-
-        </div>
-
-      </header>
+      </aside>
 
 
       {/* =====================================================
-          SEARCH TOOLBAR
+          MAIN CONTENT
       ===================================================== */}
 
-      <section className="employee-my-sops-toolbar">
+      <main className="employee-my-sops-main">
 
-        <div className="employee-my-sops-search">
 
-          <FaSearch />
+        {/* ===================================================
+            PAGE HEADER
+        =================================================== */}
 
-          <input
-            type="text"
-            placeholder="Search your SOPs..."
-            value={searchTerm}
-            onChange={(event) =>
-              setSearchTerm(event.target.value)
-            }
-            aria-label="Search my SOPs"
-          />
+        <section className="employee-my-sops-header">
 
-          {searchTerm && (
-            <button
-              type="button"
-              className="employee-my-sops-search-clear"
-              onClick={() => setSearchTerm("")}
-              aria-label="Clear search"
-            >
-              <FaTimes />
-            </button>
-          )}
+          <div className="employee-my-sops-header-left">
 
-        </div>
-
-
-        <button
-          type="button"
-          className={`employee-my-sops-filter-button ${
-            showFilters
-              ? "employee-my-sops-filter-button-active"
-              : ""
-          }`}
-          onClick={() =>
-            setShowFilters((current) => !current)
-          }
-        >
-
-          <FaFilter />
-
-          <span>
-            Filters
-          </span>
-
-          <FaChevronDown
-            className={
-              showFilters
-                ? "employee-my-sops-filter-arrow-open"
-                : ""
-            }
-          />
-
-        </button>
-
-      </section>
-
-
-      {/* =====================================================
-          FILTER PANEL
-      ===================================================== */}
-
-      {showFilters && (
-        <section className="employee-my-sops-filter-panel">
-
-          <div className="employee-my-sops-filter-group">
-
-            <label>
-              Status
-            </label>
-
-            <select
-              value={selectedStatus}
-              onChange={(event) =>
-                setSelectedStatus(
-                  event.target.value
-                )
-              }
-            >
-
-              {statuses.map((status) => (
-                <option
-                  key={status}
-                  value={status}
-                >
-                  {status}
-                </option>
-              ))}
-
-            </select>
-
-          </div>
-
-
-          <div className="employee-my-sops-filter-group">
-
-            <label>
-              SOP Type
-            </label>
-
-            <select
-              value={selectedType}
-              onChange={(event) =>
-                setSelectedType(
-                  event.target.value
-                )
-              }
-            >
-
-              {types.map((type) => (
-                <option
-                  key={type}
-                  value={type}
-                >
-                  {type}
-                </option>
-              ))}
-
-            </select>
-
-          </div>
-
-
-          <button
-            type="button"
-            className="employee-my-sops-clear-filters"
-            onClick={clearFilters}
-          >
-            Clear Filters
-          </button>
-
-        </section>
-      )}
-
-
-      {/* =====================================================
-          RESULTS HEADER
-      ===================================================== */}
-
-      <div className="employee-my-sops-results-header">
-
-        <div>
-
-          <strong>
-            {filteredSOPs.length}
-          </strong>
-
-          <span>
-            {" "}
-            SOP
-            {filteredSOPs.length !== 1
-              ? "s"
-              : ""}{" "}
-            in your workspace
-          </span>
-
-        </div>
-
-
-        {(searchTerm ||
-          selectedStatus !== "All" ||
-          selectedType !== "All") && (
-
-          <button
-            type="button"
-            onClick={clearFilters}
-          >
-            Clear all filters
-          </button>
-
-        )}
-
-      </div>
-
-
-      {/* =====================================================
-          SOP LIST
-      ===================================================== */}
-
-      <main className="employee-my-sops-list">
-
-        {filteredSOPs.length > 0 ? (
-
-          filteredSOPs.map((sop) => {
-
-            const isFavorite =
-              favorites.includes(sop.id);
-
-            return (
-              <article
-                key={sop.id}
-                className="employee-my-sops-card"
-              >
-
-                {/* -------------------------------------------
-                    CARD MAIN
-                ------------------------------------------- */}
-
-                <div className="employee-my-sops-card-main">
-
-                  <div className="employee-my-sops-card-icon">
-                    <FaBookOpen />
-                  </div>
-
-
-                  <div className="employee-my-sops-card-content">
-
-                    <div className="employee-my-sops-card-top">
-
-                      <div className="employee-my-sops-card-heading">
-
-                        <div className="employee-my-sops-card-labels">
-
-                          <span className="employee-my-sops-type">
-                            {sop.type}
-                          </span>
-
-                          <span
-                            className={`employee-my-sops-status ${getStatusClass(
-                              sop.status
-                            )}`}
-                          >
-
-                            {getStatusIcon(
-                              sop.status
-                            )}
-
-                            {sop.status}
-
-                          </span>
-
-                        </div>
-
-
-                        <h2>
-                          {sop.title}
-                        </h2>
-
-                      </div>
-
-
-                      <button
-                        type="button"
-                        className={`employee-my-sops-favorite ${
-                          isFavorite
-                            ? "employee-my-sops-favorite-active"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          toggleFavorite(sop.id)
-                        }
-                        aria-label={
-                          isFavorite
-                            ? "Remove from favorites"
-                            : "Add to favorites"
-                        }
-                      >
-
-                        {isFavorite ? (
-                          <FaStar />
-                        ) : (
-                          <FaRegStar />
-                        )}
-
-                      </button>
-
-                    </div>
-
-
-                    <p className="employee-my-sops-description">
-                      {sop.description}
-                    </p>
-
-
-                    {/* ---------------------------------------
-                        PROGRESS
-                    --------------------------------------- */}
-
-                    <div className="employee-my-sops-progress-wrapper">
-
-                      <div className="employee-my-sops-progress-header">
-
-                        <span>
-                          Completion
-                        </span>
-
-                        <strong>
-                          {sop.progress}%
-                        </strong>
-
-                      </div>
-
-                      <div className="employee-my-sops-progress-track">
-
-                        <div
-                          className="employee-my-sops-progress-fill"
-                          style={{
-                            width: `${sop.progress}%`,
-                          }}
-                        />
-
-                      </div>
-
-                    </div>
-
-
-                    {/* ---------------------------------------
-                        DETAILS
-                    --------------------------------------- */}
-
-                    <div className="employee-my-sops-details">
-
-                      <div>
-                        <span>
-                          Version
-                        </span>
-
-                        <strong>
-                          {sop.version}
-                        </strong>
-                      </div>
-
-
-                      <div>
-                        <span>
-                          Last Accessed
-                        </span>
-
-                        <strong>
-                          {sop.lastAccessed}
-                        </strong>
-                      </div>
-
-
-                      <div>
-                        <span>
-                          Due Date
-                        </span>
-
-                        <strong>
-                          {sop.dueDate}
-                        </strong>
-                      </div>
-
-
-                      <div>
-                        <span>
-                          Reading Time
-                        </span>
-
-                        <strong>
-                          {sop.readTime}
-                        </strong>
-                      </div>
-
-
-                      <div>
-                        <span>
-                          Owner
-                        </span>
-
-                        <strong>
-                          {sop.owner}
-                        </strong>
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                {/* =================================================
-                    CARD ACTIONS
-                ================================================= */}
-
-                <div className="employee-my-sops-actions">
-
-                  <button
-                    type="button"
-                    className="employee-my-sops-primary-action"
-                    onClick={() =>
-                      handleViewSOP(sop)
-                    }
-                  >
-                    <FaEye />
-
-                    <span>
-                      {sop.status === "Not Started"
-                        ? "Start SOP"
-                        : "Open SOP"}
-                    </span>
-
-                  </button>
-
-
-                  <button
-                    type="button"
-                    className="employee-my-sops-secondary-action"
-                    onClick={() =>
-                      handleAskAI(sop)
-                    }
-                    title="Ask AI about this SOP"
-                  >
-                    <FaRobot />
-                  </button>
-
-
-                  <button
-                    type="button"
-                    className="employee-my-sops-secondary-action"
-                    onClick={() =>
-                      handleDownloadSOP(sop)
-                    }
-                    title="Download SOP"
-                  >
-                    <FaDownload />
-                  </button>
-
-
-                  {sop.type === "Created" && (
-                    <button
-                      type="button"
-                      className="employee-my-sops-secondary-action"
-                      onClick={() =>
-                        handleEditSOP(sop)
-                      }
-                      title="Edit SOP"
-                    >
-                      <FaEdit />
-                    </button>
-                  )}
-
-                </div>
-
-              </article>
-            );
-          })
-
-        ) : (
-
-          /* ===================================================
-             EMPTY STATE
-          =================================================== */
-
-          <div className="employee-my-sops-empty">
-
-            <div className="employee-my-sops-empty-icon">
+            <div className="employee-my-sops-title-icon">
               <FaBookOpen />
             </div>
 
-            <h2>
-              No SOPs Found
-            </h2>
+            <div>
 
-            <p>
-              There are no SOPs matching your current
-              search or filter selection.
-            </p>
+              <span className="employee-my-sops-eyebrow">
+                SOP WORKSPACE
+              </span>
+
+              <h1>
+                My SOPs
+              </h1>
+
+              <p>
+                View, track and manage the SOPs
+                assigned to you or created by you.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {/* =================================================
+              KPI SUMMARY
+          ================================================= */}
+
+          <div className="employee-my-sops-kpis">
+
+            <div className="employee-my-sops-kpi">
+
+              <span>
+                Total SOPs
+              </span>
+
+              <strong>
+                {totalSOPs}
+              </strong>
+
+            </div>
+
+
+            <div className="employee-my-sops-kpi">
+
+              <span>
+                Completed
+              </span>
+
+              <strong>
+                {completedSOPs}
+              </strong>
+
+            </div>
+
+
+            <div className="employee-my-sops-kpi">
+
+              <span>
+                In Progress
+              </span>
+
+              <strong>
+                {inProgressSOPs}
+              </strong>
+
+            </div>
+
+
+            <div className="employee-my-sops-kpi">
+
+              <span>
+                Pending
+              </span>
+
+              <strong>
+                {pendingSOPs}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* ===================================================
+            SEARCH / FILTER TOOLBAR
+        =================================================== */}
+
+        <section className="employee-my-sops-toolbar">
+
+
+          <div className="employee-my-sops-search">
+
+            <FaSearch />
+
+            <input
+              type="text"
+              placeholder="Search SOPs..."
+              value={searchTerm}
+              onChange={(event) =>
+                setSearchTerm(
+                  event.target.value
+                )
+              }
+            />
+
+            {searchTerm && (
+
+              <button
+                type="button"
+                className="employee-my-sops-clear-search"
+                onClick={() =>
+                  setSearchTerm("")
+                }
+              >
+
+                <FaTimes />
+
+              </button>
+
+            )}
+
+          </div>
+
+
+          <button
+            type="button"
+            className={`employee-my-sops-filter-button ${
+              showFilters
+                ? "active"
+                : ""
+            }`}
+            onClick={() =>
+              setShowFilters(
+                (current) => !current
+              )
+            }
+          >
+
+            <FaFilter />
+
+            <span>
+              Filters
+            </span>
+
+            <FaChevronDown
+              className={
+                showFilters
+                  ? "employee-my-sops-chevron-open"
+                  : ""
+              }
+            />
+
+          </button>
+
+        </section>
+
+
+        {/* ===================================================
+            FILTER PANEL
+        =================================================== */}
+
+        {showFilters && (
+
+          <section className="employee-my-sops-filter-panel">
+
+            <div className="employee-my-sops-filter-field">
+
+              <label>
+                Status
+              </label>
+
+              <select
+                value={selectedStatus}
+                onChange={(event) =>
+                  setSelectedStatus(
+                    event.target.value
+                  )
+                }
+              >
+
+                {statuses.map(
+                  (status) => (
+
+                    <option
+                      key={status}
+                      value={status}
+                    >
+                      {status}
+                    </option>
+
+                  )
+                )}
+
+              </select>
+
+            </div>
+
+
+            <div className="employee-my-sops-filter-field">
+
+              <label>
+                SOP Type
+              </label>
+
+              <select
+                value={selectedType}
+                onChange={(event) =>
+                  setSelectedType(
+                    event.target.value
+                  )
+                }
+              >
+
+                {types.map(
+                  (type) => (
+
+                    <option
+                      key={type}
+                      value={type}
+                    >
+                      {type}
+                    </option>
+
+                  )
+                )}
+
+              </select>
+
+            </div>
+
 
             <button
               type="button"
+              className="employee-my-sops-clear-filters"
               onClick={clearFilters}
             >
               Clear Filters
             </button>
 
-          </div>
+          </section>
 
         )}
+
+
+        {/* ===================================================
+            RESULTS BAR
+        =================================================== */}
+
+        <div className="employee-my-sops-results-bar">
+
+          <div>
+
+            <strong>
+              {filteredSOPs.length}
+            </strong>
+
+            <span>
+              {" "}
+              SOP
+              {filteredSOPs.length !== 1
+                ? "s"
+                : ""}{" "}
+              found
+            </span>
+
+          </div>
+
+
+          {(searchTerm ||
+            selectedStatus !== "All" ||
+            selectedType !== "All") && (
+
+            <button
+              type="button"
+              onClick={clearFilters}
+            >
+              Clear all filters
+            </button>
+
+          )}
+
+        </div>
+
+
+        {/* ===================================================
+            SOP CARDS
+        =================================================== */}
+
+        <section className="employee-my-sops-list">
+
+
+          {filteredSOPs.length > 0 ? (
+
+            filteredSOPs.map((sop) => {
+
+              const isFavorite =
+                favorites.includes(
+                  sop.id
+                );
+
+              return (
+
+                <article
+                  key={sop.id}
+                  className="employee-my-sops-card"
+                >
+
+
+                  {/* =========================================
+                      CARD HEADER
+                  ========================================= */}
+
+                  <div className="employee-my-sops-card-header">
+
+                    <div className="employee-my-sops-document-icon">
+                      <FaBookOpen />
+                    </div>
+
+
+                    <div className="employee-my-sops-card-heading">
+
+                      <div className="employee-my-sops-tags">
+
+                        <span className="employee-my-sops-type">
+                          {sop.type}
+                        </span>
+
+                        <span
+                          className={`employee-my-sops-status ${getStatusClass(
+                            sop.status
+                          )}`}
+                        >
+
+                          {getStatusIcon(
+                            sop.status
+                          )}
+
+                          {sop.status}
+
+                        </span>
+
+                      </div>
+
+
+                      <h2>
+                        {sop.title}
+                      </h2>
+
+                    </div>
+
+
+                    <button
+                      type="button"
+                      className={`employee-my-sops-favorite ${
+                        isFavorite
+                          ? "active"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        toggleFavorite(
+                          sop.id
+                        )
+                      }
+                      title={
+                        isFavorite
+                          ? "Remove from favorites"
+                          : "Add to favorites"
+                      }
+                    >
+
+                      {isFavorite ? (
+                        <FaStar />
+                      ) : (
+                        <FaRegStar />
+                      )}
+
+                    </button>
+
+                  </div>
+
+
+                  {/* =========================================
+                      DESCRIPTION
+                  ========================================= */}
+
+                  <p className="employee-my-sops-description">
+                    {sop.description}
+                  </p>
+
+
+                  {/* =========================================
+                      PROGRESS
+                  ========================================= */}
+
+                  <div className="employee-my-sops-progress">
+
+                    <div className="employee-my-sops-progress-header">
+
+                      <span>
+                        Completion
+                      </span>
+
+                      <strong>
+                        {sop.progress}%
+                      </strong>
+
+                    </div>
+
+
+                    <div className="employee-my-sops-progress-track">
+
+                      <div
+                        className="employee-my-sops-progress-fill"
+                        style={{
+                          width:
+                            `${sop.progress}%`,
+                        }}
+                      />
+
+                    </div>
+
+                  </div>
+
+
+                  {/* =========================================
+                      INFORMATION
+                  ========================================= */}
+
+                  <div className="employee-my-sops-info">
+
+                    <div>
+                      <span>
+                        Version
+                      </span>
+
+                      <strong>
+                        {sop.version}
+                      </strong>
+                    </div>
+
+
+                    <div>
+                      <span>
+                        Last Accessed
+                      </span>
+
+                      <strong>
+                        {sop.lastAccessed}
+                      </strong>
+                    </div>
+
+
+                    <div>
+                      <span>
+                        Due Date
+                      </span>
+
+                      <strong>
+                        {sop.dueDate}
+                      </strong>
+                    </div>
+
+
+                    <div>
+                      <span>
+                        Reading Time
+                      </span>
+
+                      <strong>
+                        {sop.readTime}
+                      </strong>
+                    </div>
+
+
+                    <div>
+                      <span>
+                        Owner
+                      </span>
+
+                      <strong>
+                        {sop.owner}
+                      </strong>
+                    </div>
+
+                  </div>
+
+
+                  {/* =========================================
+                      ACTIONS
+                  ========================================= */}
+
+                  <div className="employee-my-sops-actions">
+
+
+                    <button
+                      type="button"
+                      className="employee-my-sops-primary-action"
+                      onClick={() =>
+                        handleViewSOP(
+                          sop
+                        )
+                      }
+                    >
+
+                      <FaEye />
+
+                      <span>
+                        {sop.status ===
+                        "Not Started"
+                          ? "Start SOP"
+                          : "Open SOP"}
+                      </span>
+
+                    </button>
+
+
+                    <button
+                      type="button"
+                      className="employee-my-sops-secondary-action"
+                      onClick={() =>
+                        handleAskAI(
+                          sop
+                        )
+                      }
+                      title="Ask AI about this SOP"
+                    >
+
+                      <FaRobot />
+
+                    </button>
+
+
+                    <button
+                      type="button"
+                      className="employee-my-sops-secondary-action"
+                      onClick={() =>
+                        handleDownloadSOP(
+                          sop
+                        )
+                      }
+                      title="Download SOP"
+                    >
+
+                      <FaDownload />
+
+                    </button>
+
+
+                    {sop.type ===
+                      "Created" && (
+
+                      <button
+                        type="button"
+                        className="employee-my-sops-secondary-action"
+                        onClick={() =>
+                          handleEditSOP(
+                            sop
+                          )
+                        }
+                        title="Edit SOP"
+                      >
+
+                        <FaEdit />
+
+                      </button>
+
+                    )}
+
+                  </div>
+
+                </article>
+
+              );
+
+            })
+
+          ) : (
+
+            /* ===============================================
+               EMPTY STATE
+            =============================================== */
+
+            <div className="employee-my-sops-empty">
+
+              <div className="employee-my-sops-empty-icon">
+                <FaBookOpen />
+              </div>
+
+              <h2>
+                No SOPs Found
+              </h2>
+
+              <p>
+                There are no SOPs matching your
+                current search or filter selection.
+              </p>
+
+              <button
+                type="button"
+                onClick={clearFilters}
+              >
+                Clear Filters
+              </button>
+
+            </div>
+
+          )}
+
+        </section>
 
       </main>
 
     </div>
+
   );
+
 };
+
 
 export default EmployeeMySOPs;
