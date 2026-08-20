@@ -1,790 +1,1165 @@
-/* =========================================================
+/* ============================================================
    EMPLOYEE MY SOPS
-   AI SOP PORTAL
-   ========================================================= */
+   ENTERPRISE SOP INTELLIGENCE UI
+   ============================================================ */
 
-.employee-my-sops-page {
-  width: 100%;
-  min-height: 100%;
+:root {
+  --auth-bg: #120d1d;
+  --auth-bg-soft: #181123;
 
-  padding: 24px 28px 36px;
+  --auth-primary: #7c3aed;
+  --auth-primary-light: #8b5cf6;
+  --auth-primary-dark: #6d28d9;
 
-  box-sizing: border-box;
+  --auth-accent: #f4b860;
 
-  color: #e7e1eb;
+  --auth-success: #22c55e;
+  --auth-success-light: #4ade80;
+
+  --auth-text: #ffffff;
+  --auth-text-secondary: #d8d1df;
+  --auth-text-muted: #a9a0b3;
+  --auth-text-faint: #777080;
+
+  --auth-border: rgba(255, 255, 255, 0.075);
+  --auth-border-hover: rgba(255, 255, 255, 0.15);
+
+  --auth-surface: rgba(255, 255, 255, 0.035);
+  --auth-surface-hover: rgba(255, 255, 255, 0.06);
+
+  --sidebar-width: 265px;
 }
 
 
-/* =========================================================
-   PAGE HEADER
-   ========================================================= */
+/* ============================================================
+   RESET
+   ============================================================ */
+
+.employee-my-sops-page,
+.employee-my-sops-page * {
+  box-sizing: border-box;
+}
+
+.employee-my-sops-page {
+  min-height: 100vh;
+  width: 100%;
+
+  color: var(--auth-text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(124, 58, 237, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 8% 90%,
+      rgba(124, 58, 237, 0.06),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #120d1d 0%,
+      #140e20 55%,
+      #110c1b 100%
+    );
+
+  overflow-x: hidden;
+}
+
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+
+.employee-my-sops-sidebar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: var(--sidebar-width);
+  height: 100vh;
+
+  z-index: 1000;
+}
+
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+
+.employee-my-sops-main {
+  position: relative;
+
+  width: calc(100% - var(--sidebar-width));
+
+  min-height: 100vh;
+
+  margin-left: var(--sidebar-width);
+
+  padding:
+    30px
+    34px
+    45px;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
 
 .employee-my-sops-header {
+  position: relative;
+  z-index: 2;
+
   display: flex;
-  align-items: flex-start;
+
+  align-items: center;
+
   justify-content: space-between;
 
-  gap: 24px;
+  gap: 30px;
 
   margin-bottom: 22px;
 }
 
-.employee-my-sops-title-wrapper {
+
+.employee-my-sops-header-left {
   display: flex;
-  align-items: flex-start;
 
-  gap: 14px;
+  align-items: center;
 
-  min-width: 0;
+  gap: 15px;
+
+  min-width: 280px;
 }
 
-.employee-my-sops-title-icon {
-  width: 42px;
-  height: 42px;
 
-  flex: 0 0 42px;
+/* ============================================================
+   HEADER ICON
+   ============================================================ */
+
+.employee-my-sops-title-icon {
+  position: relative;
+
+  width: 60px;
+  height: 60px;
+
+  min-width: 60px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  border: 1px solid rgba(139, 92, 246, 0.18);
-  border-radius: 11px;
+  border:
+    1px solid rgba(139, 92, 246, 0.45);
+
+  border-radius: 17px;
 
   background:
     linear-gradient(
-      135deg,
-      rgba(109, 40, 217, 0.18),
-      rgba(139, 92, 246, 0.07)
+      145deg,
+      rgba(124, 58, 237, 0.25),
+      rgba(124, 58, 237, 0.07)
     );
 
-  color: #a78bfa;
-
-  font-size: 17px;
+  color: var(--auth-primary-light);
 
   box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.12);
+    0 12px 35px rgba(0, 0, 0, 0.20),
+    inset 0 1px rgba(255, 255, 255, 0.07);
 }
+
+
+/* ============================================================
+   HEADER TEXT
+   ============================================================ */
 
 .employee-my-sops-eyebrow {
   display: block;
 
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 
-  color: #7d7483;
+  color: var(--auth-primary-light);
 
-  font-size: 7px;
+  font-size: 10px;
+
   font-weight: 700;
 
-  letter-spacing: 1.1px;
-
-  line-height: 1.2;
+  letter-spacing: 1.6px;
 
   text-transform: uppercase;
 }
 
-.employee-my-sops-title-wrapper h1 {
+
+.employee-my-sops-header h1 {
   margin: 0;
 
-  color: #f0ebf2;
+  color: #ffffff;
 
-  font-size: 24px;
-  font-weight: 720;
+  font-size: 30px;
 
-  letter-spacing: -0.5px;
+  font-weight: 750;
 
-  line-height: 1.2;
+  line-height: 1.15;
+
+  letter-spacing: -0.7px;
 }
 
-.employee-my-sops-title-wrapper p {
-  max-width: 610px;
 
+.employee-my-sops-header p {
   margin: 6px 0 0;
 
-  color: #746c7a;
+  color: var(--auth-text-muted);
 
-  font-size: 9px;
-  font-weight: 400;
+  font-size: 12px;
 
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 
-/* =========================================================
-   SUMMARY STATISTICS
-   ========================================================= */
+/* ============================================================
+   KPI SUMMARY
+   ============================================================ */
 
 .employee-my-sops-summary {
-  display: flex;
-  align-items: stretch;
+  display: grid;
 
-  gap: 7px;
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  width: 560px;
+
+  min-width: 560px;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  overflow: hidden;
+
+  backdrop-filter: blur(12px);
 }
+
 
 .employee-my-sops-summary-item {
-  min-width: 76px;
+  position: relative;
 
-  padding: 10px 12px;
+  min-height: 70px;
 
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: 8px;
+  padding:
+    13px
+    15px;
 
-  background: rgba(255, 255, 255, 0.018);
-
-  box-sizing: border-box;
-}
-
-.employee-my-sops-summary-item strong {
-  display: block;
-
-  color: #c4b5fd;
-
-  font-size: 15px;
-  font-weight: 720;
-
-  line-height: 1.1;
-}
-
-.employee-my-sops-summary-item span {
-  display: block;
-
-  margin-top: 4px;
-
-  color: #625b69;
-
-  font-size: 6px;
-  font-weight: 500;
-
-  line-height: 1.2;
-}
-
-
-/* =========================================================
-   SEARCH TOOLBAR
-   ========================================================= */
-
-.employee-my-sops-toolbar {
   display: flex;
+
   align-items: center;
 
-  gap: 9px;
+  gap: 10px;
 
-  margin-bottom: 10px;
+  border-right:
+    1px solid var(--auth-border);
 }
+
+
+.employee-my-sops-summary-item:last-child {
+  border-right: none;
+}
+
+
+.employee-my-sops-summary-item > div:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+.employee-my-sops-summary-item strong {
+  color: var(--auth-text);
+
+  font-size: 21px;
+
+  font-weight: 750;
+
+  line-height: 1;
+}
+
+
+.employee-my-sops-summary-item span {
+  color: var(--auth-text-muted);
+
+  font-size: 10px;
+
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   KPI ICONS
+   ============================================================ */
+
+.employee-my-sops-kpi-icon {
+  width: 36px;
+  height: 36px;
+
+  min-width: 36px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+}
+
+
+.employee-my-sops-kpi-icon.total {
+  color: var(--auth-primary-light);
+
+  background:
+    rgba(124, 58, 237, 0.14);
+
+  border:
+    1px solid rgba(124, 58, 237, 0.22);
+}
+
+
+.employee-my-sops-kpi-icon.completed {
+  color: var(--auth-success-light);
+
+  background:
+    rgba(34, 197, 94, 0.10);
+
+  border:
+    1px solid rgba(34, 197, 94, 0.18);
+}
+
+
+.employee-my-sops-kpi-icon.progress {
+  color: var(--auth-accent);
+
+  background:
+    rgba(244, 184, 96, 0.10);
+
+  border:
+    1px solid rgba(244, 184, 96, 0.18);
+}
+
+
+.employee-my-sops-kpi-icon.pending {
+  color: #f472b6;
+
+  background:
+    rgba(236, 72, 153, 0.10);
+
+  border:
+    1px solid rgba(236, 72, 153, 0.18);
+}
+
+
+/* ============================================================
+   TOOLBAR
+   ============================================================ */
+
+.employee-my-sops-toolbar {
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-bottom: 13px;
+}
+
 
 .employee-my-sops-search {
   position: relative;
 
   flex: 1;
 
-  min-width: 0;
-
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-
-  border: 1px solid rgba(255, 255, 255, 0.065);
-  border-radius: 8px;
-
-  background: #151319;
-
-  color: #716979;
-
-  box-sizing: border-box;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  height: 46px;
 }
 
-.employee-my-sops-search:focus-within {
-  border-color: rgba(139, 92, 246, 0.35);
-
-  box-shadow:
-    0 0 0 3px rgba(139, 92, 246, 0.06);
-}
 
 .employee-my-sops-search > svg {
-  flex: 0 0 auto;
+  position: absolute;
 
-  margin-left: 12px;
+  top: 50%;
+  left: 15px;
 
-  font-size: 10px;
+  transform: translateY(-50%);
+
+  color: var(--auth-text-muted);
 }
+
 
 .employee-my-sops-search input {
   width: 100%;
-  height: 100%;
+  height: 46px;
 
-  min-width: 0;
+  padding:
+    0 42px;
 
-  padding: 0 36px 0 9px;
+  border:
+    1px solid var(--auth-border);
 
-  border: 0;
-  outline: 0;
+  border-radius: 11px;
 
-  background: transparent;
+  outline: none;
 
-  color: #cfc8d3;
+  background:
+    rgba(255, 255, 255, 0.028);
 
-  font-family: inherit;
+  color: var(--auth-text);
 
-  font-size: 8px;
-  font-weight: 400;
+  font-size: 12px;
 
-  box-sizing: border-box;
+  transition: 0.2s ease;
 }
+
 
 .employee-my-sops-search input::placeholder {
-  color: #554e5a;
+  color: var(--auth-text-faint);
 }
+
+
+.employee-my-sops-search input:focus {
+  border-color:
+    rgba(124, 58, 237, 0.50);
+
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  box-shadow:
+    0 0 0 3px rgba(124, 58, 237, 0.08);
+}
+
+
+/* ============================================================
+   CLEAR SEARCH
+   ============================================================ */
 
 .employee-my-sops-search-clear {
   position: absolute;
 
-  right: 8px;
+  top: 50%;
+  right: 9px;
 
-  width: 22px;
-  height: 22px;
+  width: 28px;
+  height: 28px;
+
+  transform: translateY(-50%);
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  border: 0;
-  border-radius: 5px;
+  border: none;
 
-  background: transparent;
+  border-radius: 7px;
 
-  color: #68606e;
+  background:
+    rgba(255, 255, 255, 0.05);
+
+  color: var(--auth-text-muted);
 
   cursor: pointer;
 }
 
-.employee-my-sops-search-clear:hover {
-  background: rgba(255, 255, 255, 0.04);
 
-  color: #a59aa9;
-}
+/* ============================================================
+   TOOLBAR BUTTONS
+   ============================================================ */
 
-
-/* =========================================================
-   FILTER BUTTON
-   ========================================================= */
-
-.employee-my-sops-filter-button {
-  height: 38px;
+.employee-my-sops-toolbar-button,
+.employee-my-sops-sort-wrapper {
+  height: 46px;
 
   display: flex;
+
   align-items: center;
 
-  gap: 7px;
+  gap: 8px;
 
-  padding: 0 12px;
+  padding:
+    0 14px;
 
-  border: 1px solid rgba(255, 255, 255, 0.065);
-  border-radius: 8px;
+  border:
+    1px solid var(--auth-border);
 
-  background: #151319;
+  border-radius: 11px;
 
-  color: #807786;
+  background:
+    rgba(255, 255, 255, 0.028);
 
-  font-family: inherit;
+  color: var(--auth-text-secondary);
 
-  font-size: 8px;
-  font-weight: 550;
+  font-size: 11px;
 
+  font-weight: 600;
+}
+
+
+.employee-my-sops-toolbar-button {
   cursor: pointer;
-
-  transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
 }
 
-.employee-my-sops-filter-button:hover,
-.employee-my-sops-filter-button-active {
-  border-color: rgba(139, 92, 246, 0.22);
 
-  background: rgba(124, 58, 237, 0.06);
+.employee-my-sops-toolbar-button:hover,
+.employee-my-sops-toolbar-button-active {
+  border-color:
+    rgba(124, 58, 237, 0.42);
 
-  color: #a78bfa;
+  background:
+    rgba(124, 58, 237, 0.10);
+
+  color:
+    var(--auth-primary-light);
 }
 
-.employee-my-sops-filter-button > svg:first-child {
-  font-size: 9px;
-}
 
-.employee-my-sops-filter-button > svg:last-child {
-  margin-left: 3px;
-
-  font-size: 6px;
-
-  transition: transform 0.2s ease;
-}
-
-.employee-my-sops-filter-arrow-open {
+.employee-my-sops-chevron-open {
   transform: rotate(180deg);
 }
 
 
-/* =========================================================
+/* ============================================================
+   SORT
+   ============================================================ */
+
+.employee-my-sops-sort-wrapper {
+  position: relative;
+
+  min-width: 125px;
+}
+
+
+.employee-my-sops-sort-wrapper select {
+  width: 72px;
+
+  appearance: none;
+
+  border: none;
+
+  outline: none;
+
+  background: transparent;
+
+  color: var(--auth-text-secondary);
+
+  font-size: 11px;
+
+  cursor: pointer;
+}
+
+
+.employee-my-sops-sort-wrapper select option {
+  background: #181123;
+
+  color: #ffffff;
+}
+
+
+.employee-my-sops-sort-wrapper > svg:last-child {
+  pointer-events: none;
+}
+
+
+/* ============================================================
+   VIEW TOGGLE
+   ============================================================ */
+
+.employee-my-sops-view-toggle {
+  display: flex;
+
+  height: 46px;
+
+  padding: 3px;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-radius: 11px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
+}
+
+
+.employee-my-sops-view-toggle button {
+  width: 39px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: var(--auth-text-faint);
+
+  cursor: pointer;
+}
+
+
+.employee-my-sops-view-toggle button.active {
+  background:
+    linear-gradient(
+      135deg,
+      var(--auth-primary),
+      var(--auth-primary-dark)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 5px 15px
+    rgba(124, 58, 237, 0.25);
+}
+
+
+/* ============================================================
    FILTER PANEL
-   ========================================================= */
+   ============================================================ */
 
 .employee-my-sops-filter-panel {
-  display: flex;
-  align-items: flex-end;
+  position: relative;
+  z-index: 10;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr)
+    auto;
 
   gap: 12px;
 
   margin-bottom: 14px;
 
-  padding: 14px;
+  padding: 16px;
 
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: 9px;
+  border:
+    1px solid var(--auth-border);
 
-  background: rgba(255, 255, 255, 0.018);
+  border-radius: 14px;
 
-  animation:
-    employee-my-sops-filter-open
-    0.18s ease
-    both;
+  background:
+    rgba(24, 17, 35, 0.98);
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.28);
 }
 
-@keyframes employee-my-sops-filter-open {
-  from {
-    opacity: 0;
-
-    transform: translateY(-4px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform: translateY(0);
-  }
-}
 
 .employee-my-sops-filter-group {
   display: flex;
+
   flex-direction: column;
 
-  gap: 5px;
-
-  min-width: 170px;
+  gap: 6px;
 }
 
+
 .employee-my-sops-filter-group label {
-  color: #756d7b;
+  color: var(--auth-text-muted);
 
-  font-size: 7px;
-  font-weight: 650;
+  font-size: 9px;
 
-  letter-spacing: 0.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.6px;
 
   text-transform: uppercase;
 }
 
+
 .employee-my-sops-filter-group select {
-  width: 100%;
-  min-width: 170px;
-  height: 32px;
+  height: 38px;
 
-  padding: 0 9px;
+  padding:
+    0 10px;
 
-  border: 1px solid rgba(255, 255, 255, 0.065);
-  border-radius: 6px;
+  border:
+    1px solid var(--auth-border);
+
+  border-radius: 8px;
 
   outline: none;
 
-  background: #151319;
+  background: #181123;
 
-  color: #aaa1ae;
+  color: var(--auth-text-secondary);
 
-  font-family: inherit;
-
-  font-size: 7.5px;
-
-  cursor: pointer;
+  font-size: 11px;
 }
 
-.employee-my-sops-filter-group select:focus {
-  border-color: rgba(139, 92, 246, 0.3);
+
+.employee-my-sops-filter-group select option {
+  background: #181123;
+
+  color: #ffffff;
 }
+
 
 .employee-my-sops-clear-filters {
-  height: 32px;
+  align-self: end;
 
-  padding: 0 11px;
+  height: 38px;
 
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 6px;
+  padding:
+    0 14px;
 
-  background: transparent;
+  border:
+    1px solid rgba(124, 58, 237, 0.30);
 
-  color: #776f7d;
+  border-radius: 8px;
 
-  font-family: inherit;
+  background:
+    rgba(124, 58, 237, 0.10);
 
-  font-size: 7px;
+  color:
+    var(--auth-primary-light);
 
-  cursor: pointer;
-}
-
-.employee-my-sops-clear-filters:hover {
-  border-color: rgba(139, 92, 246, 0.2);
-
-  color: #a78bfa;
-}
-
-
-/* =========================================================
-   RESULTS HEADER
-   ========================================================= */
-
-.employee-my-sops-results-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  margin-bottom: 11px;
-
-  padding: 0 2px;
-}
-
-.employee-my-sops-results-header > div {
-  color: #625b68;
-
-  font-size: 7.5px;
-}
-
-.employee-my-sops-results-header strong {
-  color: #a79eaa;
+  font-size: 10px;
 
   font-weight: 650;
-}
-
-.employee-my-sops-results-header button {
-  padding: 0;
-
-  border: 0;
-
-  background: transparent;
-
-  color: #8b5cf6;
-
-  font-family: inherit;
-
-  font-size: 7px;
-  font-weight: 550;
 
   cursor: pointer;
 }
 
-.employee-my-sops-results-header button:hover {
-  color: #a78bfa;
 
-  text-decoration: underline;
+/* ============================================================
+   RESULTS HEADER
+   ============================================================ */
+
+.employee-my-sops-results-header {
+  min-height: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
 }
 
 
-/* =========================================================
+.employee-my-sops-results-header > div {
+  color: var(--auth-text-muted);
+
+  font-size: 11px;
+}
+
+
+.employee-my-sops-results-header strong {
+  color: var(--auth-text-secondary);
+}
+
+
+.employee-my-sops-results-header button {
+  border: none;
+
+  background: transparent;
+
+  color: var(--auth-primary-light);
+
+  font-size: 10px;
+
+  cursor: pointer;
+}
+
+
+/* ============================================================
+   COLUMN HEADER
+   ============================================================ */
+
+.employee-my-sops-column-header {
+  display: grid;
+
+  grid-template-columns:
+    minmax(330px, 2.2fr)
+    minmax(150px, 1fr)
+    minmax(170px, 1.05fr)
+    minmax(150px, 0.9fr)
+    minmax(100px, 0.65fr)
+    95px;
+
+  align-items: center;
+
+  min-height: 38px;
+
+  padding:
+    0 17px;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-bottom: none;
+
+  border-radius:
+    14px
+    14px
+    0
+    0;
+
+  background:
+    rgba(255, 255, 255, 0.018);
+}
+
+
+.employee-my-sops-column-header span {
+  color:
+    var(--auth-text-faint);
+
+  font-size: 9px;
+
+  font-weight: 650;
+
+  letter-spacing: 0.55px;
+}
+
+
+/* ============================================================
    SOP LIST
-   ========================================================= */
+   ============================================================ */
 
 .employee-my-sops-list {
   display: flex;
+
   flex-direction: column;
 
-  gap: 10px;
+  gap: 0;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-radius:
+    0
+    0
+    15px
+    15px;
+
+  overflow: hidden;
+
+  background:
+    rgba(255, 255, 255, 0.012);
 }
 
 
-/* =========================================================
+/* ============================================================
    SOP CARD
-   ========================================================= */
+   ============================================================ */
 
 .employee-my-sops-card {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
+  position: relative;
 
-  gap: 18px;
+  display: grid;
 
-  padding: 14px;
+  grid-template-columns:
+    minmax(330px, 2.2fr)
+    minmax(150px, 1fr)
+    minmax(170px, 1.05fr)
+    minmax(150px, 0.9fr)
+    minmax(100px, 0.65fr)
+    95px;
 
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: 10px;
+  align-items: center;
 
-  background: #151319;
+  min-height: 130px;
 
-  box-sizing: border-box;
+  padding:
+    17px;
+
+  border-bottom:
+    1px solid var(--auth-border);
+
+  background:
+    rgba(255, 255, 255, 0.012);
 
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+    background 0.2s ease;
 }
+
+
+.employee-my-sops-card:last-child {
+  border-bottom: none;
+}
+
 
 .employee-my-sops-card:hover {
-  transform: translateY(-1px);
-
-  border-color: rgba(139, 92, 246, 0.16);
-
-  background: #17151c;
-
-  box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.14);
+  background:
+    rgba(124, 58, 237, 0.035);
 }
 
 
-/* =========================================================
-   CARD MAIN
-   ========================================================= */
+/* ============================================================
+   LEFT DETAILS
+   ============================================================ */
 
-.employee-my-sops-card-main {
-  display: flex;
-
-  flex: 1;
+.employee-my-sops-details-column {
+  position: relative;
 
   min-width: 0;
 
-  gap: 13px;
+  padding-right: 18px;
 }
 
-.employee-my-sops-card-icon {
-  width: 36px;
-  height: 36px;
 
-  flex: 0 0 36px;
-
+.employee-my-sops-document-row {
   display: flex;
-  align-items: center;
-  justify-content: center;
 
-  border: 1px solid rgba(139, 92, 246, 0.14);
-  border-radius: 9px;
-
-  background: rgba(124, 58, 237, 0.07);
-
-  color: #9b7de8;
-
-  font-size: 13px;
-}
-
-.employee-my-sops-card-content {
-  flex: 1;
-
-  min-width: 0;
-}
-
-
-/* =========================================================
-   CARD TOP
-   ========================================================= */
-
-.employee-my-sops-card-top {
-  display: flex;
   align-items: flex-start;
-  justify-content: space-between;
 
   gap: 12px;
 }
 
-.employee-my-sops-card-heading {
-  min-width: 0;
-}
 
-.employee-my-sops-card-labels {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+.employee-my-sops-document-icon {
+  width: 43px;
+  height: 43px;
 
-  gap: 5px;
-
-  margin-bottom: 5px;
-}
-
-.employee-my-sops-type,
-.employee-my-sops-status {
-  display: inline-flex;
-  align-items: center;
-
-  gap: 4px;
-
-  min-height: 17px;
-
-  padding: 0 6px;
-
-  border-radius: 4px;
-
-  font-size: 5.8px;
-  font-weight: 650;
-
-  line-height: 1;
-
-  box-sizing: border-box;
-}
-
-.employee-my-sops-type {
-  background: rgba(139, 92, 246, 0.08);
-
-  color: #9786a5;
-}
-
-.employee-my-sops-status {
-  background: rgba(255, 255, 255, 0.035);
-
-  color: #77707e;
-}
-
-.employee-my-sops-status svg {
-  font-size: 6px;
-}
-
-.employee-my-sops-status-completed {
-  background: rgba(34, 197, 94, 0.06);
-
-  color: #7eaa8b;
-}
-
-.employee-my-sops-status-progress {
-  background: rgba(59, 130, 246, 0.06);
-
-  color: #8296ae;
-}
-
-.employee-my-sops-status-pending {
-  background: rgba(234, 179, 8, 0.06);
-
-  color: #a49a73;
-}
-
-.employee-my-sops-status-draft {
-  background: rgba(255, 255, 255, 0.035);
-
-  color: #837b88;
-}
-
-.employee-my-sops-card-heading h2 {
-  overflow: hidden;
-
-  margin: 0;
-
-  color: #d4ced8;
-
-  font-size: 11px;
-  font-weight: 650;
-
-  line-height: 1.4;
-
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-
-/* =========================================================
-   FAVORITE
-   ========================================================= */
-
-.employee-my-sops-favorite {
-  width: 26px;
-  height: 26px;
-
-  flex: 0 0 26px;
+  min-width: 43px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  border: 0;
-  border-radius: 6px;
+  border:
+    1px solid rgba(124, 58, 237, 0.32);
 
-  background: transparent;
+  border-radius: 11px;
 
-  color: #59525f;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(124, 58, 237, 0.20),
+      rgba(124, 58, 237, 0.06)
+    );
 
-  cursor: pointer;
-
-  transition:
-    color 0.2s ease,
-    background 0.2s ease;
-}
-
-.employee-my-sops-favorite:hover {
-  background: rgba(255, 255, 255, 0.04);
-
-  color: #a78bfa;
-}
-
-.employee-my-sops-favorite-active {
-  color: #a78bfa;
+  color:
+    var(--auth-primary-light);
 }
 
 
-/* =========================================================
-   DESCRIPTION
-   ========================================================= */
+.employee-my-sops-document-info {
+  min-width: 0;
+}
 
-.employee-my-sops-description {
-  max-width: 760px;
 
-  margin: 6px 0 11px;
+.employee-my-sops-document-info h2 {
+  margin: 1px 0 4px;
 
-  color: #716a77;
+  color: var(--auth-text);
 
-  font-size: 7.2px;
-  font-weight: 400;
+  font-size: 13px;
+
+  font-weight: 700;
+
+  line-height: 1.3;
+}
+
+
+.employee-my-sops-document-info p {
+  max-width: 390px;
+
+  margin: 0;
+
+  color: var(--auth-text-muted);
+
+  font-size: 10px;
 
   line-height: 1.55;
 }
 
 
-/* =========================================================
-   PROGRESS
-   ========================================================= */
+/* ============================================================
+   TAGS
+   ============================================================ */
 
-.employee-my-sops-progress-wrapper {
-  max-width: 620px;
+.employee-my-sops-tags {
+  display: flex;
 
-  margin-bottom: 11px;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 8px;
 }
 
-.employee-my-sops-progress-header {
-  display: flex;
+
+.employee-my-sops-type,
+.employee-my-sops-status {
+  min-height: 20px;
+
+  display: inline-flex;
+
   align-items: center;
+
+  gap: 4px;
+
+  padding:
+    0 7px;
+
+  border-radius: 20px;
+
+  font-size: 8px;
+
+  font-weight: 650;
+}
+
+
+.employee-my-sops-type {
+  color:
+    var(--auth-primary-light);
+
+  border:
+    1px solid rgba(124, 58, 237, 0.25);
+
+  background:
+    rgba(124, 58, 237, 0.08);
+}
+
+
+.employee-my-sops-status-completed {
+  color:
+    var(--auth-success-light);
+
+  border:
+    1px solid rgba(34, 197, 94, 0.22);
+
+  background:
+    rgba(34, 197, 94, 0.08);
+}
+
+
+.employee-my-sops-status-in-progress {
+  color:
+    var(--auth-accent);
+
+  border:
+    1px solid rgba(244, 184, 96, 0.22);
+
+  background:
+    rgba(244, 184, 96, 0.08);
+}
+
+
+.employee-my-sops-status-pending {
+  color:
+    #f472b6;
+
+  border:
+    1px solid rgba(236, 72, 153, 0.22);
+
+  background:
+    rgba(236, 72, 153, 0.08);
+}
+
+
+/* ============================================================
+   FAVORITE
+   ============================================================ */
+
+.employee-my-sops-favorite {
+  position: absolute;
+
+  left: 17px;
+  bottom: -1px;
+
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: transparent;
+
+  color:
+    var(--auth-text-faint);
+
+  cursor: pointer;
+}
+
+
+.employee-my-sops-favorite.active {
+  color:
+    var(--auth-accent);
+}
+
+
+/* ============================================================
+   PROGRESS COLUMN
+   ============================================================ */
+
+.employee-my-sops-progress-column {
+  padding:
+    0 20px;
+
+  border-left:
+    1px solid var(--auth-border);
+
+  border-right:
+    1px solid var(--auth-border);
+}
+
+
+.employee-my-sops-progress-label {
+  display: flex;
+
+  align-items: center;
+
   justify-content: space-between;
 
-  margin-bottom: 5px;
+  margin-bottom: 7px;
+
+  color: var(--auth-text-muted);
+
+  font-size: 9px;
 }
 
-.employee-my-sops-progress-header span {
-  color: #5f5865;
 
-  font-size: 6px;
+.employee-my-sops-progress-label strong {
+  color: var(--auth-text-secondary);
+
+  font-size: 10px;
 }
 
-.employee-my-sops-progress-header strong {
-  color: #81768b;
-
-  font-size: 6px;
-  font-weight: 600;
-}
 
 .employee-my-sops-progress-track {
   width: 100%;
-  height: 4px;
+
+  height: 5px;
 
   overflow: hidden;
 
-  border-radius: 999px;
+  border-radius: 10px;
 
-  background: rgba(255, 255, 255, 0.045);
+  background:
+    rgba(255, 255, 255, 0.07);
 }
+
 
 .employee-my-sops-progress-fill {
   height: 100%;
@@ -794,446 +1169,841 @@
   background:
     linear-gradient(
       90deg,
-      #6d28d9,
-      #8b5cf6
+      var(--auth-primary-dark),
+      var(--auth-primary-light)
     );
 
-  transition: width 0.35s ease;
+  box-shadow:
+    0 0 10px
+    rgba(124, 58, 237, 0.25);
 }
 
 
-/* =========================================================
-   DETAILS
-   ========================================================= */
+.employee-my-sops-progress-status {
+  display: block;
 
-.employee-my-sops-details {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  margin-top: 7px;
 
-  gap: 13px;
+  color: var(--auth-text-faint);
 
-  padding-top: 9px;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.employee-my-sops-details div {
-  display: flex;
-  align-items: center;
-
-  gap: 5px;
-}
-
-.employee-my-sops-details span {
-  color: #504955;
-
-  font-size: 6px;
-}
-
-.employee-my-sops-details strong {
-  color: #756d7b;
-
-  font-size: 6px;
-  font-weight: 550;
+  font-size: 9px;
 }
 
 
-/* =========================================================
-   CARD ACTIONS
-   ========================================================= */
+/* ============================================================
+   VERSION COLUMN
+   ============================================================ */
 
-.employee-my-sops-actions {
-  width: 100px;
-
-  flex: 0 0 100px;
+.employee-my-sops-version-column {
+  padding:
+    0 20px;
 
   display: flex;
+
   flex-direction: column;
 
-  justify-content: center;
+  gap: 5px;
+}
+
+
+.employee-my-sops-version {
+  margin-bottom: 2px;
+
+  color:
+    var(--auth-primary-light);
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+
+.employee-my-sops-version-column > div {
+  display: flex;
+
+  align-items: center;
 
   gap: 5px;
 
-  padding-left: 14px;
+  color: var(--auth-text-faint);
 
-  border-left: 1px solid rgba(255, 255, 255, 0.04);
-
-  box-sizing: border-box;
-}
-
-.employee-my-sops-primary-action {
-  width: 100%;
-  height: 29px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  gap: 5px;
-
-  padding: 0 7px;
-
-  border: 1px solid rgba(139, 92, 246, 0.18);
-  border-radius: 6px;
-
-  background: rgba(124, 58, 237, 0.09);
-
-  color: #a995c1;
-
-  font-family: inherit;
-
-  font-size: 6.5px;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-}
-
-.employee-my-sops-primary-action:hover {
-  border-color: rgba(139, 92, 246, 0.3);
-
-  background: rgba(124, 58, 237, 0.15);
-
-  color: #c4b5fd;
-}
-
-.employee-my-sops-primary-action svg {
-  font-size: 7px;
-}
-
-.employee-my-sops-secondary-action {
-  width: 100%;
-  height: 28px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  border-radius: 6px;
-
-  background: rgba(255, 255, 255, 0.018);
-
-  color: #6f6876;
-
-  cursor: pointer;
-
-  transition:
-    color 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.employee-my-sops-secondary-action:hover {
-  border-color: rgba(139, 92, 246, 0.18);
-
-  background: rgba(124, 58, 237, 0.06);
-
-  color: #a78bfa;
-}
-
-.employee-my-sops-secondary-action svg {
   font-size: 8px;
 }
 
 
-/* =========================================================
-   EMPTY STATE
-   ========================================================= */
+.employee-my-sops-version-column > div strong {
+  color:
+    var(--auth-text-secondary);
 
-.employee-my-sops-empty {
-  width: 100%;
-  min-height: 300px;
+  font-size: 9px;
+
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   OWNER
+   ============================================================ */
+
+.employee-my-sops-owner-column {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding:
+    0 16px;
+}
+
+
+.employee-my-sops-owner-avatar {
+  width: 34px;
+  height: 34px;
+
+  min-width: 34px;
 
   display: flex;
-  flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
-  padding: 30px;
+  border:
+    1px solid var(--auth-border-hover);
 
-  border: 1px dashed rgba(255, 255, 255, 0.07);
-  border-radius: 10px;
+  border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.012);
+  background:
+    rgba(255, 255, 255, 0.045);
+
+  color:
+    var(--auth-text-secondary);
+
+  font-size: 9px;
+
+  font-weight: 650;
+}
+
+
+.employee-my-sops-owner-column > div:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  min-width: 0;
+}
+
+
+.employee-my-sops-owner-column strong {
+  color:
+    var(--auth-text-secondary);
+
+  font-size: 10px;
+
+  font-weight: 650;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.employee-my-sops-owner-column span {
+  color:
+    var(--auth-text-faint);
+
+  font-size: 8px;
+}
+
+
+/* ============================================================
+   STATUS COLUMN
+   ============================================================ */
+
+.employee-my-sops-status-column {
+  display: flex;
+
+  justify-content: center;
+}
+
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+.employee-my-sops-actions {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 4px;
+}
+
+
+.employee-my-sops-open-button {
+  height: 34px;
+
+  padding:
+    0 12px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 6px;
+
+  border:
+    1px solid rgba(124, 58, 237, 0.35);
+
+  border-radius: 8px;
+
+  background:
+    rgba(124, 58, 237, 0.08);
+
+  color:
+    var(--auth-primary-light);
+
+  font-size: 9px;
+
+  font-weight: 650;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+
+.employee-my-sops-open-button:hover {
+  background:
+    rgba(124, 58, 237, 0.20);
+
+  border-color:
+    rgba(139, 92, 246, 0.55);
+
+  color: #ffffff;
+}
+
+
+.employee-my-sops-more-button {
+  width: 30px;
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: transparent;
+
+  color:
+    var(--auth-text-faint);
+
+  cursor: pointer;
+}
+
+
+.employee-my-sops-more-button:hover {
+  color:
+    var(--auth-text-secondary);
+}
+
+
+/* ============================================================
+   GRID VIEW
+   ============================================================ */
+
+.employee-my-sops-list.employee-my-sops-grid-view {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
+
+  padding: 14px;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.012);
+}
+
+
+.employee-my-sops-grid-view .employee-my-sops-card {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 16px;
+
+  min-height: 310px;
+
+  padding: 18px;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-radius: 15px;
+}
+
+
+.employee-my-sops-grid-view .employee-my-sops-details-column {
+  padding: 0;
+}
+
+
+.employee-my-sops-grid-view .employee-my-sops-progress-column,
+.employee-my-sops-grid-view .employee-my-sops-version-column {
+  padding: 0;
+
+  border: none;
+}
+
+
+.employee-my-sops-grid-view .employee-my-sops-owner-column {
+  padding: 0;
+}
+
+
+.employee-my-sops-grid-view .employee-my-sops-status-column {
+  justify-content: flex-start;
+}
+
+
+.employee-my-sops-grid-view .employee-my-sops-actions {
+  margin-top: auto;
+
+  justify-content: flex-start;
+}
+
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+
+.employee-my-sops-empty {
+  min-height: 350px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
 
   text-align: center;
 
-  box-sizing: border-box;
+  border:
+    1px dashed var(--auth-border-hover);
+
+  border-radius: 15px;
+
+  background:
+    rgba(255, 255, 255, 0.015);
 }
 
+
 .employee-my-sops-empty-icon {
-  width: 40px;
-  height: 40px;
+  width: 58px;
+  height: 58px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 
-  border-radius: 10px;
+  border:
+    1px solid rgba(124, 58, 237, 0.28);
 
-  background: rgba(124, 58, 237, 0.07);
+  border-radius: 15px;
 
-  color: #76638e;
+  background:
+    rgba(124, 58, 237, 0.10);
 
-  font-size: 13px;
+  color:
+    var(--auth-primary-light);
 }
+
 
 .employee-my-sops-empty h2 {
   margin: 0;
 
-  color: #a79faa;
+  color:
+    var(--auth-text);
 
-  font-size: 12px;
-  font-weight: 650;
+  font-size: 18px;
 }
 
+
 .employee-my-sops-empty p {
-  max-width: 330px;
+  max-width: 400px;
 
-  margin: 6px 0 13px;
+  margin: 8px 0 17px;
 
-  color: #625b68;
+  color:
+    var(--auth-text-muted);
 
-  font-size: 7px;
+  font-size: 11px;
 
   line-height: 1.6;
 }
 
+
 .employee-my-sops-empty button {
-  height: 29px;
+  height: 36px;
 
-  padding: 0 11px;
+  padding:
+    0 15px;
 
-  border: 1px solid rgba(139, 92, 246, 0.18);
-  border-radius: 6px;
+  border:
+    1px solid rgba(124, 58, 237, 0.30);
 
-  background: rgba(124, 58, 237, 0.08);
+  border-radius: 8px;
 
-  color: #9e8db0;
+  background:
+    rgba(124, 58, 237, 0.10);
 
-  font-family: inherit;
+  color:
+    var(--auth-primary-light);
 
-  font-size: 7px;
-  font-weight: 550;
+  font-size: 10px;
+
+  font-weight: 650;
 
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-.employee-my-sops-empty button:hover {
-  background: rgba(124, 58, 237, 0.13);
-
-  color: #c4b5fd;
 }
 
 
-/* =========================================================
-   TABLET
-   ========================================================= */
+/* ============================================================
+   PAGINATION
+   ============================================================ */
 
-@media (max-width: 1100px) {
-  .employee-my-sops-header {
-    flex-direction: column;
+.employee-my-sops-pagination {
+  min-height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding:
+    0 15px;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-top: none;
+
+  border-radius:
+    0
+    0
+    15px
+    15px;
+
+  background:
+    rgba(255, 255, 255, 0.015);
+}
+
+
+.employee-my-sops-pagination > span {
+  color:
+    var(--auth-text-faint);
+
+  font-size: 9px;
+}
+
+
+.employee-my-sops-pagination > div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+
+.employee-my-sops-pagination button {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border:
+    1px solid var(--auth-border);
+
+  border-radius: 7px;
+
+  background:
+    rgba(255, 255, 255, 0.025);
+
+  color:
+    var(--auth-text-muted);
+
+  font-size: 10px;
+
+  cursor: pointer;
+}
+
+
+.employee-my-sops-pagination button.active {
+  border-color:
+    rgba(124, 58, 237, 0.55);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--auth-primary),
+      var(--auth-primary-dark)
+    );
+
+  color:
+    #ffffff;
+}
+
+
+.employee-my-sops-pagination button:disabled {
+  opacity: 0.35;
+
+  cursor: not-allowed;
+}
+
+
+/* ============================================================
+   RESPONSIVE — 1400
+   ============================================================ */
+
+@media (max-width: 1400px) {
+
+  .employee-my-sops-main {
+    padding-left: 28px;
+    padding-right: 28px;
   }
 
   .employee-my-sops-summary {
-    width: 100%;
+    width: 500px;
+    min-width: 500px;
   }
 
-  .employee-my-sops-summary-item {
-    flex: 1;
-  }
-}
-
-
-/* =========================================================
-   SMALL DESKTOP / TABLET
-   ========================================================= */
-
-@media (max-width: 850px) {
-  .employee-my-sops-card {
-    flex-direction: column;
-
-    gap: 12px;
-  }
-
-  .employee-my-sops-actions {
-    width: 100%;
-
-    flex: none;
-
-    flex-direction: row;
-
-    padding: 10px 0 0;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    border-left: 0;
-  }
-
-  .employee-my-sops-primary-action {
-    flex: 1;
-  }
-
-  .employee-my-sops-secondary-action {
-    width: 34px;
-
-    flex: 0 0 34px;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 700px) {
-  .employee-my-sops-page {
-    padding: 18px 14px 28px;
-  }
-
-  .employee-my-sops-title-wrapper {
-    gap: 10px;
-  }
-
-  .employee-my-sops-title-icon {
-    width: 36px;
-    height: 36px;
-
-    flex-basis: 36px;
-
-    font-size: 14px;
-  }
-
-  .employee-my-sops-title-wrapper h1 {
-    font-size: 20px;
-  }
-
-  .employee-my-sops-title-wrapper p {
-    font-size: 8px;
-  }
-
-  .employee-my-sops-summary {
-    display: grid;
-
+  .employee-my-sops-card,
+  .employee-my-sops-column-header {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+      minmax(280px, 2fr)
+      minmax(130px, 0.9fr)
+      minmax(150px, 1fr)
+      minmax(125px, 0.8fr)
+      minmax(90px, 0.6fr)
+      90px;
+  }
+}
 
-    gap: 6px;
+
+/* ============================================================
+   RESPONSIVE — 1200
+   ============================================================ */
+
+@media (max-width: 1200px) {
+
+  .employee-my-sops-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .employee-my-sops-summary {
+    width: 100%;
+
+    min-width: 0;
+  }
+
+  .employee-my-sops-card,
+  .employee-my-sops-column-header {
+    grid-template-columns:
+      minmax(260px, 2fr)
+      minmax(120px, 0.9fr)
+      minmax(140px, 1fr)
+      minmax(120px, 0.8fr)
+      90px;
+  }
+
+  .employee-my-sops-status-column {
+    display: none;
+  }
+
+  .employee-my-sops-column-header span:nth-child(5) {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 1000
+   ============================================================ */
+
+@media (max-width: 1000px) {
+
+  .employee-my-sops-main {
+    width:
+      calc(100% - 78px);
+
+    margin-left: 78px;
+  }
+
+  .employee-my-sops-sidebar {
+    width: 78px;
+  }
+
+  .employee-my-sops-card,
+  .employee-my-sops-column-header {
+    grid-template-columns:
+      minmax(260px, 2fr)
+      minmax(130px, 1fr)
+      minmax(140px, 1fr)
+      90px;
+  }
+
+  .employee-my-sops-owner-column {
+    display: none;
+  }
+
+  .employee-my-sops-column-header span:nth-child(4) {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 800
+   ============================================================ */
+
+@media (max-width: 800px) {
+
+  .employee-my-sops-main {
+    padding:
+      22px
+      18px
+      35px;
   }
 
   .employee-my-sops-toolbar {
-    flex-direction: column;
-
-    align-items: stretch;
+    flex-wrap: wrap;
   }
 
-  .employee-my-sops-filter-button {
+  .employee-my-sops-search {
+    flex-basis: 100%;
+  }
+
+  .employee-my-sops-card,
+  .employee-my-sops-column-header {
+    grid-template-columns:
+      minmax(240px, 2fr)
+      minmax(120px, 1fr)
+      85px;
+  }
+
+  .employee-my-sops-version-column {
+    display: none;
+  }
+
+  .employee-my-sops-column-header span:nth-child(3) {
+    display: none;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 650
+   ============================================================ */
+
+@media (max-width: 650px) {
+
+  .employee-my-sops-main {
     width: 100%;
+
+    margin-left: 0;
+
+    padding:
+      18px
+      13px
+      30px;
+  }
+
+  .employee-my-sops-sidebar {
+    display: none;
+  }
+
+  .employee-my-sops-header-left {
+    min-width: 0;
+  }
+
+  .employee-my-sops-title-icon {
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
+  }
+
+  .employee-my-sops-header h1 {
+    font-size: 24px;
+  }
+
+  .employee-my-sops-summary {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+  .employee-my-sops-summary-item {
+    border-bottom:
+      1px solid var(--auth-border);
+  }
+
+  .employee-my-sops-column-header {
+    display: none;
+  }
+
+  .employee-my-sops-list {
+    border-radius: 14px;
+  }
+
+  .employee-my-sops-card {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 17px;
+
+    min-height: auto;
+
+    padding: 17px;
+
+    border-bottom:
+      1px solid var(--auth-border);
+  }
+
+  .employee-my-sops-progress-column,
+  .employee-my-sops-version-column,
+  .employee-my-sops-owner-column {
+    padding:
+      14px
+      0
+      0;
+
+    border-left: none;
+    border-right: none;
+
+    border-top:
+      1px solid var(--auth-border);
+  }
+
+  .employee-my-sops-owner-column {
+    display: flex;
+  }
+
+  .employee-my-sops-status-column {
+    display: flex;
+
+    justify-content: flex-start;
+  }
+
+  .employee-my-sops-actions {
+    justify-content: flex-start;
+
+    padding-top: 3px;
+  }
+
+  .employee-my-sops-grid-view {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE — 480
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+  .employee-my-sops-header {
+    gap: 17px;
+  }
+
+  .employee-my-sops-header-left {
+    align-items: flex-start;
+  }
+
+  .employee-my-sops-header h1 {
+    font-size: 22px;
+  }
+
+  .employee-my-sops-header p {
+    font-size: 11px;
+  }
+
+  .employee-my-sops-summary-item {
+    min-height: 65px;
+
+    padding: 11px;
+  }
+
+  .employee-my-sops-kpi-icon {
+    width: 31px;
+    height: 31px;
+
+    min-width: 31px;
+  }
+
+  .employee-my-sops-summary-item strong {
+    font-size: 18px;
+  }
+
+  .employee-my-sops-summary-item span {
+    font-size: 9px;
+  }
+
+  .employee-my-sops-toolbar-button,
+  .employee-my-sops-sort-wrapper {
+    flex: 1;
 
     justify-content: center;
   }
 
-  .employee-my-sops-filter-panel {
-    flex-direction: column;
-
-    align-items: stretch;
+  .employee-my-sops-view-toggle {
+    display: none;
   }
 
-  .employee-my-sops-filter-group {
-    width: 100%;
-
-    min-width: 0;
+  .employee-my-sops-document-row {
+    align-items: flex-start;
   }
 
-  .employee-my-sops-filter-group select {
-    width: 100%;
-
-    min-width: 0;
+  .employee-my-sops-document-info h2 {
+    font-size: 12px;
   }
 
-  .employee-my-sops-clear-filters {
-    width: 100%;
+  .employee-my-sops-document-info p {
+    font-size: 9px;
   }
 
-  .employee-my-sops-card {
-    padding: 12px;
-  }
-
-  .employee-my-sops-card-main {
-    gap: 10px;
-  }
-
-  .employee-my-sops-card-heading h2 {
-    white-space: normal;
-  }
-
-  .employee-my-sops-description {
-    font-size: 7px;
-  }
-
-  .employee-my-sops-details {
-    gap: 8px 12px;
-  }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 420px) {
-  .employee-my-sops-page {
-    padding: 15px 10px 24px;
-  }
-
-  .employee-my-sops-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .employee-my-sops-card-icon {
-    width: 32px;
-    height: 32px;
-
-    flex-basis: 32px;
-
-    font-size: 11px;
-  }
-
-  .employee-my-sops-card-top {
-    gap: 5px;
-  }
-
-  .employee-my-sops-actions {
-    flex-wrap: wrap;
-  }
-
-  .employee-my-sops-primary-action {
-    min-width: 100%;
-  }
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .employee-my-sops-card,
-  .employee-my-sops-filter-panel,
-  .employee-my-sops-progress-fill {
-    animation: none;
-
-    transition: none;
+  .employee-my-sops-pagination {
+    padding:
+      0
+      10px;
   }
 }
