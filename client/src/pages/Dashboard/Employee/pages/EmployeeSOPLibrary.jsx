@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+
 import {
   FaBook,
   FaSearch,
@@ -13,29 +14,35 @@ import {
   FaTimes,
 } from "react-icons/fa";
 
+import EmployeeSidebar from "../components/EmployeeSidebar";
+
 import "./EmployeeSOPLibrary.css";
 
+
 const EmployeeSOPLibrary = ({ profile }) => {
+
+  /* =========================================================
+     STATE
+  ========================================================= */
+
   const [searchTerm, setSearchTerm] = useState("");
+
   const [selectedCategory, setSelectedCategory] =
     useState("All");
+
   const [selectedStatus, setSelectedStatus] =
     useState("All");
+
   const [showFilters, setShowFilters] =
     useState(false);
 
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] =
+    useState([]);
 
-  /*
-   * =========================================================
-   * SAMPLE SOP DATA
-   * =========================================================
-   *
-   * This is currently frontend demonstration data.
-   *
-   * Backend/API integration can replace this later without
-   * changing the page structure.
-   */
+
+  /* =========================================================
+     SOP DATA
+  ========================================================= */
 
   const sopData = [
     {
@@ -50,7 +57,11 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Aug 12, 2026",
       owner: "HR Operations",
       readTime: "8 min",
-      tags: ["Onboarding", "HR", "Employee"],
+      tags: [
+        "Onboarding",
+        "HR",
+        "Employee",
+      ],
     },
 
     {
@@ -65,7 +76,11 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Aug 10, 2026",
       owner: "IT Operations",
       readTime: "6 min",
-      tags: ["IT", "Access", "Security"],
+      tags: [
+        "IT",
+        "Access",
+        "Security",
+      ],
     },
 
     {
@@ -80,7 +95,11 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Aug 08, 2026",
       owner: "Compliance Team",
       readTime: "7 min",
-      tags: ["Incident", "Compliance", "Reporting"],
+      tags: [
+        "Incident",
+        "Compliance",
+        "Reporting",
+      ],
     },
 
     {
@@ -95,7 +114,11 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Aug 05, 2026",
       owner: "HR Operations",
       readTime: "5 min",
-      tags: ["Leave", "HR", "Attendance"],
+      tags: [
+        "Leave",
+        "HR",
+        "Attendance",
+      ],
     },
 
     {
@@ -110,7 +133,11 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Jul 30, 2026",
       owner: "Finance Operations",
       readTime: "9 min",
-      tags: ["Finance", "Expenses", "Reimbursement"],
+      tags: [
+        "Finance",
+        "Expenses",
+        "Reimbursement",
+      ],
     },
 
     {
@@ -125,7 +152,11 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Jul 28, 2026",
       owner: "Information Security",
       readTime: "12 min",
-      tags: ["Security", "Information", "Policy"],
+      tags: [
+        "Security",
+        "Information",
+        "Policy",
+      ],
     },
 
     {
@@ -140,7 +171,11 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Jul 25, 2026",
       owner: "Operations Team",
       readTime: "8 min",
-      tags: ["Customer", "Escalation", "Operations"],
+      tags: [
+        "Customer",
+        "Escalation",
+        "Operations",
+      ],
     },
 
     {
@@ -155,20 +190,25 @@ const EmployeeSOPLibrary = ({ profile }) => {
       lastUpdated: "Jul 22, 2026",
       owner: "Knowledge Management",
       readTime: "10 min",
-      tags: ["Documents", "Knowledge", "Management"],
+      tags: [
+        "Documents",
+        "Knowledge",
+        "Management",
+      ],
     },
   ];
 
-  /*
-   * =========================================================
-   * CATEGORIES
-   * =========================================================
-   */
+
+  /* =========================================================
+     FILTER OPTIONS
+  ========================================================= */
 
   const categories = [
     "All",
     ...new Set(
-      sopData.map((sop) => sop.category)
+      sopData.map(
+        (sop) => sop.category
+      )
     ),
   ];
 
@@ -178,17 +218,20 @@ const EmployeeSOPLibrary = ({ profile }) => {
     "Under Review",
   ];
 
-  /*
-   * =========================================================
-   * FILTER SOPs
-   * =========================================================
-   */
+
+  /* =========================================================
+     FILTER SOPs
+  ========================================================= */
 
   const filteredSOPs = useMemo(() => {
+
     const normalizedSearch =
-      searchTerm.toLowerCase().trim();
+      searchTerm
+        .toLowerCase()
+        .trim();
 
     return sopData.filter((sop) => {
+
       const matchesSearch =
         !normalizedSearch ||
         sop.title
@@ -211,11 +254,13 @@ const EmployeeSOPLibrary = ({ profile }) => {
 
       const matchesCategory =
         selectedCategory === "All" ||
-        sop.category === selectedCategory;
+        sop.category ===
+          selectedCategory;
 
       const matchesStatus =
         selectedStatus === "All" ||
-        sop.status === selectedStatus;
+        sop.status ===
+          selectedStatus;
 
       return (
         matchesSearch &&
@@ -223,543 +268,668 @@ const EmployeeSOPLibrary = ({ profile }) => {
         matchesStatus
       );
     });
+
   }, [
     searchTerm,
     selectedCategory,
     selectedStatus,
   ]);
 
-  /*
-   * =========================================================
-   * FAVORITES
-   * =========================================================
-   */
+
+  /* =========================================================
+     FAVORITES
+  ========================================================= */
 
   const toggleFavorite = (id) => {
+
     setFavorites((current) => {
+
       if (current.includes(id)) {
+
         return current.filter(
-          (favoriteId) => favoriteId !== id
+          (favoriteId) =>
+            favoriteId !== id
         );
+
       }
 
-      return [...current, id];
+      return [
+        ...current,
+        id,
+      ];
+
     });
+
   };
 
-  /*
-   * =========================================================
-   * CLEAR FILTERS
-   * =========================================================
-   */
+
+  /* =========================================================
+     CLEAR FILTERS
+  ========================================================= */
 
   const clearFilters = () => {
+
     setSearchTerm("");
+
     setSelectedCategory("All");
+
     setSelectedStatus("All");
+
   };
 
-  /*
-   * =========================================================
-   * SOP ACTIONS
-   * =========================================================
-   */
+
+  /* =========================================================
+     ACTION HANDLERS
+  ========================================================= */
 
   const handleViewSOP = (sop) => {
-    console.log("View SOP:", sop);
+    console.log(
+      "View SOP:",
+      sop
+    );
   };
 
   const handleDownloadSOP = (sop) => {
-    console.log("Download SOP:", sop);
+    console.log(
+      "Download SOP:",
+      sop
+    );
   };
 
   const handleAskAI = (sop) => {
-    console.log("Ask AI about SOP:", sop);
+    console.log(
+      "Ask AI about SOP:",
+      sop
+    );
   };
 
-  /*
-   * =========================================================
-   * RENDER
-   * =========================================================
-   */
+
+  /* =========================================================
+     RENDER
+  ========================================================= */
 
   return (
-    <div className="employee-sop-library-page">
+
+    <div className="employee-sop-library-layout">
+
 
       {/* =====================================================
-          PAGE HEADER
+          EMPLOYEE SIDEBAR
       ===================================================== */}
 
-      <header className="employee-sop-library-header">
+      <aside className="employee-sop-library-sidebar">
 
-        <div className="employee-sop-library-header-content">
+        <EmployeeSidebar
+          profile={profile}
+        />
 
-          <div className="employee-sop-library-title-wrapper">
+      </aside>
 
-            <div className="employee-sop-library-title-icon">
-              <FaBook />
+
+      {/* =====================================================
+          MAIN PAGE CONTENT
+      ===================================================== */}
+
+      <main className="employee-sop-library-page">
+
+
+        {/* ===================================================
+            PAGE HEADER
+        =================================================== */}
+
+        <header className="employee-sop-library-header">
+
+          <div className="employee-sop-library-header-content">
+
+            <div className="employee-sop-library-title-wrapper">
+
+              <div className="employee-sop-library-title-icon">
+                <FaBook />
+              </div>
+
+              <div>
+
+                <span className="employee-sop-library-eyebrow">
+                  KNOWLEDGE REPOSITORY
+                </span>
+
+                <h1>
+                  SOP Library
+                </h1>
+
+                <p>
+                  Browse and access approved
+                  Standard Operating Procedures
+                  across the organization.
+                </p>
+
+              </div>
+
             </div>
 
-            <div>
-              <span className="employee-sop-library-eyebrow">
-                Knowledge Repository
-              </span>
 
-              <h1>
-                SOP Library
-              </h1>
+            {/* ===============================================
+                HEADER STATISTICS
+            =============================================== */}
 
-              <p>
-                Browse and access approved Standard
-                Operating Procedures across the
-                organization.
-              </p>
+            <div className="employee-sop-library-header-stats">
+
+              <div className="employee-sop-library-stat">
+
+                <strong>
+                  {sopData.length}
+                </strong>
+
+                <span>
+                  Available SOPs
+                </span>
+
+              </div>
+
+
+              <div className="employee-sop-library-stat">
+
+                <strong>
+                  {favorites.length}
+                </strong>
+
+                <span>
+                  Favorites
+                </span>
+
+              </div>
+
             </div>
 
           </div>
 
-          <div className="employee-sop-library-header-stats">
-
-            <div className="employee-sop-library-stat">
-              <strong>
-                {sopData.length}
-              </strong>
-
-              <span>
-                Available SOPs
-              </span>
-            </div>
-
-            <div className="employee-sop-library-stat">
-              <strong>
-                {favorites.length}
-              </strong>
-
-              <span>
-                Favorites
-              </span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </header>
+        </header>
 
 
-      {/* =====================================================
-          SEARCH + FILTERS
-      ===================================================== */}
+        {/* ===================================================
+            SEARCH + FILTER BAR
+        =================================================== */}
 
-      <section className="employee-sop-library-toolbar">
+        <section className="employee-sop-library-toolbar">
 
-        <div className="employee-sop-library-search">
+          <div className="employee-sop-library-search">
 
-          <FaSearch />
+            <FaSearch />
 
-          <input
-            type="text"
-            placeholder="Search SOPs, processes, departments or keywords..."
-            value={searchTerm}
-            onChange={(event) =>
-              setSearchTerm(event.target.value)
-            }
-            aria-label="Search SOP library"
-          />
-
-          {searchTerm && (
-            <button
-              type="button"
-              className="employee-sop-library-search-clear"
-              onClick={() => setSearchTerm("")}
-              aria-label="Clear search"
-            >
-              <FaTimes />
-            </button>
-          )}
-
-        </div>
-
-
-        <button
-          type="button"
-          className={`employee-sop-library-filter-button ${
-            showFilters
-              ? "employee-sop-library-filter-button-active"
-              : ""
-          }`}
-          onClick={() =>
-            setShowFilters((current) => !current)
-          }
-        >
-          <FaFilter />
-
-          <span>
-            Filters
-          </span>
-
-          <FaChevronDown
-            className={
-              showFilters
-                ? "employee-sop-library-filter-arrow-open"
-                : ""
-            }
-          />
-        </button>
-
-      </section>
-
-
-      {/* =====================================================
-          FILTER PANEL
-      ===================================================== */}
-
-      {showFilters && (
-        <section className="employee-sop-library-filter-panel">
-
-          <div className="employee-sop-library-filter-group">
-
-            <label>
-              Category
-            </label>
-
-            <select
-              value={selectedCategory}
+            <input
+              type="text"
+              placeholder="Search SOPs, processes, departments or keywords..."
+              value={searchTerm}
               onChange={(event) =>
-                setSelectedCategory(
+                setSearchTerm(
                   event.target.value
                 )
               }
-            >
-              {categories.map((category) => (
-                <option
-                  key={category}
-                  value={category}
-                >
-                  {category}
-                </option>
-              ))}
-            </select>
+              aria-label="Search SOP library"
+            />
 
-          </div>
+            {searchTerm && (
 
+              <button
+                type="button"
+                className="employee-sop-library-search-clear"
+                onClick={() =>
+                  setSearchTerm("")
+                }
+                aria-label="Clear search"
+              >
+                <FaTimes />
+              </button>
 
-          <div className="employee-sop-library-filter-group">
-
-            <label>
-              Status
-            </label>
-
-            <select
-              value={selectedStatus}
-              onChange={(event) =>
-                setSelectedStatus(
-                  event.target.value
-                )
-              }
-            >
-              {statuses.map((status) => (
-                <option
-                  key={status}
-                  value={status}
-                >
-                  {status}
-                </option>
-              ))}
-            </select>
+            )}
 
           </div>
 
 
           <button
             type="button"
-            className="employee-sop-library-clear-filters"
-            onClick={clearFilters}
+            className={`employee-sop-library-filter-button ${
+              showFilters
+                ? "employee-sop-library-filter-button-active"
+                : ""
+            }`}
+            onClick={() =>
+              setShowFilters(
+                (current) =>
+                  !current
+              )
+            }
           >
-            Clear Filters
+
+            <FaFilter />
+
+            <span>
+              Filters
+            </span>
+
+            <FaChevronDown
+              className={
+                showFilters
+                  ? "employee-sop-library-filter-arrow-open"
+                  : ""
+              }
+            />
+
           </button>
 
         </section>
-      )}
 
 
-      {/* =====================================================
-          RESULTS SUMMARY
-      ===================================================== */}
+        {/* ===================================================
+            FILTER PANEL
+        =================================================== */}
 
-      <div className="employee-sop-library-results-header">
+        {showFilters && (
 
-        <div>
-          <strong>
-            {filteredSOPs.length}
-          </strong>
+          <section className="employee-sop-library-filter-panel">
 
-          <span>
-            {" "}
-            SOP
-            {filteredSOPs.length !== 1
-              ? "s"
-              : ""}{" "}
-            found
-          </span>
-        </div>
+            <div className="employee-sop-library-filter-group">
 
-        {(searchTerm ||
-          selectedCategory !== "All" ||
-          selectedStatus !== "All") && (
-          <button
-            type="button"
-            onClick={clearFilters}
-          >
-            Clear all filters
-          </button>
-        )}
+              <label>
+                Category
+              </label>
 
-      </div>
-
-
-      {/* =====================================================
-          SOP GRID
-      ===================================================== */}
-
-      <main className="employee-sop-library-grid">
-
-        {filteredSOPs.length > 0 ? (
-          filteredSOPs.map((sop) => {
-
-            const isFavorite =
-              favorites.includes(sop.id);
-
-            return (
-              <article
-                key={sop.id}
-                className="employee-sop-library-card"
+              <select
+                value={selectedCategory}
+                onChange={(event) =>
+                  setSelectedCategory(
+                    event.target.value
+                  )
+                }
               >
 
-                {/* ---------------------------------------------
-                    CARD HEADER
-                --------------------------------------------- */}
+                {categories.map(
+                  (category) => (
 
-                <div className="employee-sop-library-card-header">
+                    <option
+                      key={category}
+                      value={category}
+                    >
+                      {category}
+                    </option>
 
-                  <div className="employee-sop-library-card-icon">
-                    <FaBook />
-                  </div>
+                  )
+                )}
 
-                  <button
-                    type="button"
-                    className={`employee-sop-library-favorite ${
-                      isFavorite
-                        ? "employee-sop-library-favorite-active"
-                        : ""
-                    }`}
-                    onClick={() =>
-                      toggleFavorite(sop.id)
-                    }
-                    aria-label={
-                      isFavorite
-                        ? "Remove from favorites"
-                        : "Add to favorites"
-                    }
-                  >
-                    {isFavorite ? (
-                      <FaStar />
-                    ) : (
-                      <FaRegStar />
-                    )}
-                  </button>
+              </select>
 
-                </div>
-
-
-                {/* ---------------------------------------------
-                    CATEGORY + STATUS
-                --------------------------------------------- */}
-
-                <div className="employee-sop-library-card-meta">
-
-                  <span className="employee-sop-library-category">
-                    {sop.category}
-                  </span>
-
-                  <span
-                    className={`employee-sop-library-status ${
-                      sop.status ===
-                      "Published"
-                        ? "employee-sop-library-status-published"
-                        : "employee-sop-library-status-review"
-                    }`}
-                  >
-                    {sop.status}
-                  </span>
-
-                </div>
-
-
-                {/* ---------------------------------------------
-                    TITLE
-                --------------------------------------------- */}
-
-                <h2>
-                  {sop.title}
-                </h2>
-
-
-                {/* ---------------------------------------------
-                    DESCRIPTION
-                --------------------------------------------- */}
-
-                <p className="employee-sop-library-description">
-                  {sop.description}
-                </p>
-
-
-                {/* ---------------------------------------------
-                    TAGS
-                --------------------------------------------- */}
-
-                <div className="employee-sop-library-tags">
-
-                  {sop.tags.map((tag) => (
-                    <span key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-
-                </div>
-
-
-                {/* ---------------------------------------------
-                    DETAILS
-                --------------------------------------------- */}
-
-                <div className="employee-sop-library-details">
-
-                  <div>
-                    <FaClock />
-
-                    <span>
-                      {sop.readTime}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span>
-                      {sop.version}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span>
-                      Updated{" "}
-                      {sop.lastUpdated}
-                    </span>
-                  </div>
-
-                </div>
-
-
-                {/* ---------------------------------------------
-                    OWNER
-                --------------------------------------------- */}
-
-                <div className="employee-sop-library-owner">
-
-                  <span>
-                    Owner
-                  </span>
-
-                  <strong>
-                    {sop.owner}
-                  </strong>
-
-                </div>
-
-
-                {/* ---------------------------------------------
-                    ACTIONS
-                --------------------------------------------- */}
-
-                <div className="employee-sop-library-actions">
-
-                  <button
-                    type="button"
-                    className="employee-sop-library-primary-action"
-                    onClick={() =>
-                      handleViewSOP(sop)
-                    }
-                  >
-                    <FaEye />
-
-                    <span>
-                      View SOP
-                    </span>
-                  </button>
-
-
-                  <button
-                    type="button"
-                    className="employee-sop-library-secondary-action"
-                    onClick={() =>
-                      handleAskAI(sop)
-                    }
-                    title="Ask AI about this SOP"
-                  >
-                    <FaRobot />
-                  </button>
-
-
-                  <button
-                    type="button"
-                    className="employee-sop-library-secondary-action"
-                    onClick={() =>
-                      handleDownloadSOP(sop)
-                    }
-                    title="Download SOP"
-                  >
-                    <FaDownload />
-                  </button>
-
-                </div>
-
-              </article>
-            );
-          })
-        ) : (
-
-          /* ===================================================
-             EMPTY STATE
-          =================================================== */
-
-          <div className="employee-sop-library-empty">
-
-            <div className="employee-sop-library-empty-icon">
-              <FaSearch />
             </div>
 
-            <h2>
-              No SOPs Found
-            </h2>
 
-            <p>
-              We couldn't find any SOPs matching
-              your current search or filters.
-            </p>
+            <div className="employee-sop-library-filter-group">
+
+              <label>
+                Status
+              </label>
+
+              <select
+                value={selectedStatus}
+                onChange={(event) =>
+                  setSelectedStatus(
+                    event.target.value
+                  )
+                }
+              >
+
+                {statuses.map(
+                  (status) => (
+
+                    <option
+                      key={status}
+                      value={status}
+                    >
+                      {status}
+                    </option>
+
+                  )
+                )}
+
+              </select>
+
+            </div>
+
 
             <button
               type="button"
+              className="employee-sop-library-clear-filters"
               onClick={clearFilters}
             >
               Clear Filters
             </button>
 
-          </div>
+          </section>
+
         )}
+
+
+        {/* ===================================================
+            RESULTS HEADER
+        =================================================== */}
+
+        <div className="employee-sop-library-results-header">
+
+          <div>
+
+            <strong>
+              {filteredSOPs.length}
+            </strong>
+
+            <span>
+              {" "}
+              SOP
+              {filteredSOPs.length !== 1
+                ? "s"
+                : ""}{" "}
+              found
+            </span>
+
+          </div>
+
+
+          {(searchTerm ||
+            selectedCategory !==
+              "All" ||
+            selectedStatus !==
+              "All") && (
+
+            <button
+              type="button"
+              onClick={clearFilters}
+            >
+              Clear all filters
+            </button>
+
+          )}
+
+        </div>
+
+
+        {/* ===================================================
+            SOP GRID
+        =================================================== */}
+
+        <section className="employee-sop-library-grid">
+
+          {filteredSOPs.length > 0 ? (
+
+            filteredSOPs.map(
+              (sop) => {
+
+                const isFavorite =
+                  favorites.includes(
+                    sop.id
+                  );
+
+                return (
+
+                  <article
+                    key={sop.id}
+                    className="employee-sop-library-card"
+                  >
+
+
+                    {/* =========================================
+                        CARD HEADER
+                    ========================================= */}
+
+                    <div className="employee-sop-library-card-header">
+
+                      <div className="employee-sop-library-card-icon">
+                        <FaBook />
+                      </div>
+
+                      <button
+                        type="button"
+                        className={`employee-sop-library-favorite ${
+                          isFavorite
+                            ? "employee-sop-library-favorite-active"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          toggleFavorite(
+                            sop.id
+                          )
+                        }
+                        aria-label={
+                          isFavorite
+                            ? "Remove from favorites"
+                            : "Add to favorites"
+                        }
+                      >
+
+                        {isFavorite ? (
+                          <FaStar />
+                        ) : (
+                          <FaRegStar />
+                        )}
+
+                      </button>
+
+                    </div>
+
+
+                    {/* =========================================
+                        CATEGORY + STATUS
+                    ========================================= */}
+
+                    <div className="employee-sop-library-card-meta">
+
+                      <span className="employee-sop-library-category">
+                        {sop.category}
+                      </span>
+
+                      <span
+                        className={`employee-sop-library-status ${
+                          sop.status ===
+                          "Published"
+                            ? "employee-sop-library-status-published"
+                            : "employee-sop-library-status-review"
+                        }`}
+                      >
+                        {sop.status}
+                      </span>
+
+                    </div>
+
+
+                    {/* =========================================
+                        TITLE
+                    ========================================= */}
+
+                    <h2>
+                      {sop.title}
+                    </h2>
+
+
+                    {/* =========================================
+                        DESCRIPTION
+                    ========================================= */}
+
+                    <p className="employee-sop-library-description">
+                      {sop.description}
+                    </p>
+
+
+                    {/* =========================================
+                        TAGS
+                    ========================================= */}
+
+                    <div className="employee-sop-library-tags">
+
+                      {sop.tags.map(
+                        (tag) => (
+
+                          <span
+                            key={tag}
+                          >
+                            {tag}
+                          </span>
+
+                        )
+                      )}
+
+                    </div>
+
+
+                    {/* =========================================
+                        DETAILS
+                    ========================================= */}
+
+                    <div className="employee-sop-library-details">
+
+                      <div>
+
+                        <FaClock />
+
+                        <span>
+                          {sop.readTime}
+                        </span>
+
+                      </div>
+
+                      <div>
+
+                        <span>
+                          {sop.version}
+                        </span>
+
+                      </div>
+
+                      <div>
+
+                        <span>
+                          Updated{" "}
+                          {sop.lastUpdated}
+                        </span>
+
+                      </div>
+
+                    </div>
+
+
+                    {/* =========================================
+                        OWNER
+                    ========================================= */}
+
+                    <div className="employee-sop-library-owner">
+
+                      <span>
+                        Owner
+                      </span>
+
+                      <strong>
+                        {sop.owner}
+                      </strong>
+
+                    </div>
+
+
+                    {/* =========================================
+                        ACTIONS
+                    ========================================= */}
+
+                    <div className="employee-sop-library-actions">
+
+                      <button
+                        type="button"
+                        className="employee-sop-library-primary-action"
+                        onClick={() =>
+                          handleViewSOP(
+                            sop
+                          )
+                        }
+                      >
+
+                        <FaEye />
+
+                        <span>
+                          View SOP
+                        </span>
+
+                      </button>
+
+
+                      <button
+                        type="button"
+                        className="employee-sop-library-secondary-action"
+                        onClick={() =>
+                          handleAskAI(
+                            sop
+                          )
+                        }
+                        title="Ask AI about this SOP"
+                      >
+                        <FaRobot />
+                      </button>
+
+
+                      <button
+                        type="button"
+                        className="employee-sop-library-secondary-action"
+                        onClick={() =>
+                          handleDownloadSOP(
+                            sop
+                          )
+                        }
+                        title="Download SOP"
+                      >
+                        <FaDownload />
+                      </button>
+
+                    </div>
+
+                  </article>
+
+                );
+
+              }
+            )
+
+          ) : (
+
+            /* ===============================================
+               EMPTY STATE
+            =============================================== */
+
+            <div className="employee-sop-library-empty">
+
+              <div className="employee-sop-library-empty-icon">
+                <FaSearch />
+              </div>
+
+              <h2>
+                No SOPs Found
+              </h2>
+
+              <p>
+                We couldn't find any SOPs
+                matching your current
+                search or filters.
+              </p>
+
+              <button
+                type="button"
+                onClick={clearFilters}
+              >
+                Clear Filters
+              </button>
+
+            </div>
+
+          )}
+
+        </section>
 
       </main>
 
     </div>
   );
 };
+
 
 export default EmployeeSOPLibrary;
