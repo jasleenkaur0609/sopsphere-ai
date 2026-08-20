@@ -1,0 +1,812 @@
+/* =========================================================
+   EMPLOYEE HELP & SUPPORT
+   ========================================================= */
+
+.employee-help-page {
+  width: 100%;
+  min-height: 100%;
+
+  padding: 24px 28px 30px;
+  box-sizing: border-box;
+
+  color: #e7e1eb;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.employee-help-header {
+  display: flex;
+  align-items: flex-start;
+
+  margin-bottom: 20px;
+}
+
+.employee-help-title {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 13px;
+}
+
+.employee-help-title-icon {
+  width: 42px;
+  height: 42px;
+
+  flex: 0 0 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 11px;
+
+  background: rgba(109, 40, 217, 0.09);
+
+  color: #a78bfa;
+
+  font-size: 15px;
+}
+
+.employee-help-eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #706875;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.employee-help-title h1 {
+  margin: 0;
+
+  color: #eee9f0;
+
+  font-size: 24px;
+  font-weight: 720;
+
+  letter-spacing: -0.5px;
+}
+
+.employee-help-title p {
+  margin: 6px 0 0;
+
+  color: #746d7a;
+
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   SEARCH CARD
+   ========================================================= */
+
+.employee-help-search-card {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  margin-bottom: 12px;
+  padding: 17px;
+
+  border: 1px solid rgba(139, 92, 246, 0.09);
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(109, 40, 217, 0.07),
+      rgba(255, 255, 255, 0.012)
+    );
+}
+
+.employee-help-search-icon {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: rgba(124, 58, 237, 0.09);
+
+  color: #927fa0;
+
+  font-size: 12px;
+}
+
+.employee-help-search-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.employee-help-search-content > span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  letter-spacing: 0.75px;
+}
+
+.employee-help-search-content h2 {
+  margin: 0 0 9px;
+
+  color: #aaa2ae;
+
+  font-size: 10px;
+  font-weight: 640;
+}
+
+.employee-help-search {
+  width: min(650px, 100%);
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 0 10px;
+
+  box-sizing: border-box;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+
+  background: #111015;
+}
+
+.employee-help-search svg {
+  flex: 0 0 auto;
+
+  color: #665d6d;
+
+  font-size: 8px;
+}
+
+.employee-help-search input {
+  width: 100%;
+
+  border: 0;
+  outline: 0;
+
+  background: transparent;
+
+  color: #a59ba9;
+
+  font-family: inherit;
+  font-size: 7px;
+}
+
+.employee-help-search input::placeholder {
+  color: #514a57;
+}
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.employee-help-section {
+  margin-bottom: 12px;
+
+  padding: 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+}
+
+.employee-help-section-header {
+  margin-bottom: 13px;
+}
+
+.employee-help-section-header span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  letter-spacing: 0.7px;
+}
+
+.employee-help-section-header h2 {
+  margin: 0;
+
+  color: #a9a1ad;
+
+  font-size: 10px;
+  font-weight: 640;
+}
+
+
+/* =========================================================
+   HELP CATEGORIES
+   ========================================================= */
+
+.employee-help-categories {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 8px;
+}
+
+.employee-help-category {
+  min-width: 0;
+
+  display: flex;
+  align-items: flex-start;
+
+  position: relative;
+
+  padding: 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.045);
+  border-radius: 8px;
+
+  background: rgba(255, 255, 255, 0.012);
+
+  color: inherit;
+
+  text-align: left;
+
+  font-family: inherit;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.employee-help-category:hover {
+  border-color: rgba(139, 92, 246, 0.12);
+
+  background: rgba(109, 40, 217, 0.035);
+
+  transform: translateY(-1px);
+}
+
+.employee-help-category-icon {
+  width: 29px;
+  height: 29px;
+
+  flex: 0 0 29px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 9px;
+
+  border-radius: 7px;
+
+  background: rgba(124, 58, 237, 0.065);
+
+  color: #806f8c;
+
+  font-size: 8px;
+}
+
+.employee-help-category-content {
+  min-width: 0;
+
+  padding-right: 14px;
+}
+
+.employee-help-category-content h3 {
+  margin: 0 0 4px;
+
+  color: #8f8694;
+
+  font-size: 7px;
+  font-weight: 620;
+}
+
+.employee-help-category-content p {
+  margin: 0 0 6px;
+
+  color: #5a5360;
+
+  font-size: 5.6px;
+  line-height: 1.5;
+}
+
+.employee-help-category-content span {
+  color: #75687d;
+
+  font-size: 5.3px;
+}
+
+.employee-help-category-arrow {
+  position: absolute;
+
+  right: 10px;
+  top: 13px;
+
+  color: #514a57;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.employee-help-main {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.65fr)
+    minmax(250px, 0.8fr);
+
+  gap: 10px;
+
+  margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   FAQ SECTION
+   ========================================================= */
+
+.employee-help-faq-section {
+  min-width: 0;
+
+  padding: 15px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 9px;
+
+  background: #151319;
+}
+
+.employee-help-faq-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.employee-help-faq {
+  border-top: 1px solid rgba(255, 255, 255, 0.035);
+}
+
+.employee-help-faq:first-child {
+  border-top: 0;
+}
+
+.employee-help-faq-question {
+  width: 100%;
+
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 9px 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #817784;
+
+  text-align: left;
+
+  font-family: inherit;
+  font-size: 7px;
+  font-weight: 590;
+
+  cursor: pointer;
+}
+
+.employee-help-faq-question:hover {
+  color: #a095a5;
+}
+
+.employee-help-faq-question svg {
+  flex: 0 0 auto;
+
+  color: #5e5664;
+
+  font-size: 6px;
+
+  transition: transform 0.2s ease;
+}
+
+.employee-help-faq-open .employee-help-faq-question {
+  color: #9a8ea0;
+}
+
+.employee-help-faq-open
+  .employee-help-faq-question
+  svg {
+  transform: rotate(180deg);
+}
+
+.employee-help-faq-answer {
+  padding: 0 28px 12px 0;
+
+  color: #5e5663;
+
+  font-size: 6px;
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   FAQ EMPTY
+   ========================================================= */
+
+.employee-help-empty {
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  color: #5d5663;
+}
+
+.employee-help-empty svg {
+  margin-bottom: 3px;
+
+  color: #756980;
+
+  font-size: 17px;
+}
+
+.employee-help-empty strong {
+  color: #8a808e;
+
+  font-size: 8px;
+}
+
+.employee-help-empty span {
+  color: #57505c;
+
+  font-size: 6px;
+}
+
+
+/* =========================================================
+   SUPPORT CARD
+   ========================================================= */
+
+.employee-help-support {
+  min-width: 0;
+
+  padding: 17px;
+
+  border: 1px solid rgba(139, 92, 246, 0.08);
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(109, 40, 217, 0.045),
+      #151319
+    );
+}
+
+.employee-help-support-icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 11px;
+
+  border-radius: 8px;
+
+  background: rgba(124, 58, 237, 0.08);
+
+  color: #927e9f;
+
+  font-size: 10px;
+}
+
+.employee-help-support-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #625a68;
+
+  font-size: 5.8px;
+  font-weight: 650;
+
+  letter-spacing: 0.7px;
+}
+
+.employee-help-support h2 {
+  margin: 0;
+
+  color: #aaa1ae;
+
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.employee-help-support > p {
+  margin: 7px 0 13px;
+
+  color: #625a67;
+
+  font-size: 6px;
+  line-height: 1.6;
+}
+
+.employee-help-support-button {
+  width: 100%;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 0 9px;
+
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  border-radius: 6px;
+
+  background: rgba(109, 40, 217, 0.07);
+
+  color: #94839d;
+
+  font-family: inherit;
+  font-size: 6px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.employee-help-support-button:hover {
+  border-color: rgba(139, 92, 246, 0.2);
+
+  background: rgba(109, 40, 217, 0.12);
+}
+
+.employee-help-support-button svg:first-child {
+  font-size: 7px;
+}
+
+.employee-help-support-button svg:last-child {
+  margin-left: auto;
+
+  font-size: 6px;
+}
+
+.employee-help-support-divider {
+  height: 1px;
+
+  margin: 14px 0;
+
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.employee-help-support-email {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 13px;
+}
+
+.employee-help-support-email > svg {
+  color: #76687e;
+
+  font-size: 8px;
+}
+
+.employee-help-support-email span {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #514a57;
+
+  font-size: 5px;
+}
+
+.employee-help-support-email strong {
+  display: block;
+
+  color: #7f7484;
+
+  font-size: 5.8px;
+  font-weight: 580;
+}
+
+.employee-help-support-note {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 7px;
+
+  padding: 8px;
+
+  border: 1px solid rgba(143, 117, 63, 0.07);
+  border-radius: 6px;
+
+  background: rgba(143, 117, 63, 0.025);
+}
+
+.employee-help-support-note svg {
+  flex: 0 0 auto;
+
+  margin-top: 1px;
+
+  color: #927d58;
+
+  font-size: 7px;
+}
+
+.employee-help-support-note span {
+  color: #655b5e;
+
+  font-size: 5.3px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   FOOTER TIP
+   ========================================================= */
+
+.employee-help-footer {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 10px 13px;
+
+  border: 1px solid rgba(139, 92, 246, 0.06);
+  border-radius: 7px;
+
+  background: rgba(109, 40, 217, 0.025);
+
+  color: #665d6b;
+
+  font-size: 5.8px;
+}
+
+.employee-help-footer svg {
+  flex: 0 0 auto;
+
+  color: #86728f;
+
+  font-size: 8px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1050px) {
+  .employee-help-categories {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .employee-help-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .employee-help-page {
+    padding: 20px 16px 26px;
+  }
+
+  .employee-help-categories {
+    grid-template-columns: 1fr;
+  }
+
+  .employee-help-search-card {
+    align-items: flex-start;
+  }
+
+  .employee-help-search {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .employee-help-page {
+    padding: 16px 12px 22px;
+  }
+
+  .employee-help-title h1 {
+    font-size: 20px;
+  }
+
+  .employee-help-title p {
+    font-size: 8px;
+  }
+
+  .employee-help-search-card {
+    gap: 10px;
+
+    padding: 13px;
+  }
+
+  .employee-help-search-icon {
+    width: 32px;
+    height: 32px;
+
+    flex-basis: 32px;
+  }
+
+  .employee-help-faq-question {
+    font-size: 6.5px;
+  }
+
+  .employee-help-support {
+    padding: 14px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .employee-help-category,
+  .employee-help-support-button,
+  .employee-help-faq-question svg {
+    transition: none;
+  }
+}
