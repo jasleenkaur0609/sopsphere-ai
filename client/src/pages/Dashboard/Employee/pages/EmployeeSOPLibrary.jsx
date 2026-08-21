@@ -1,935 +1,685 @@
 import React, { useMemo, useState } from "react";
-
-import {
-  FaBook,
-  FaSearch,
-  FaFilter,
-  FaStar,
-  FaRegStar,
-  FaClock,
-  FaChevronDown,
-  FaEye,
-  FaDownload,
-  FaRobot,
-  FaTimes,
-} from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
 import EmployeeSidebar from "../components/EmployeeSidebar";
-
 import "./EmployeeSOPLibrary.css";
 
+const SOP_DATA = [
+  {
+    id: 1,
+    title: "Employee Onboarding Process",
+    category: "Human Resources",
+    status: "Published",
+    description:
+      "Standard process for onboarding new employees and completing required activities.",
+    readingTime: 8,
+    version: "2.1",
+    date: "Aug 12, 2026",
+    owner: "HR Operations",
+  },
+  {
+    id: 2,
+    title: "IT Access Request Procedure",
+    category: "IT Operations",
+    status: "Published",
+    description:
+      "Process for requesting, approving and provisioning enterprise system access.",
+    readingTime: 6,
+    version: "3.0",
+    date: "Aug 10, 2026",
+    owner: "IT Operations",
+  },
+  {
+    id: 3,
+    title: "Incident Reporting Procedure",
+    category: "Compliance",
+    status: "Published",
+    description:
+      "Guidelines for reporting, documenting and escalating workplace incidents.",
+    readingTime: 7,
+    version: "1.8",
+    date: "Aug 08, 2026",
+    owner: "Compliance Team",
+  },
+  {
+    id: 4,
+    title: "Information Security Guidelines",
+    category: "Information Security",
+    status: "Published",
+    description:
+      "Required security practices for protecting organizational systems, data and information.",
+    readingTime: 12,
+    version: "4.2",
+    date: "Aug 05, 2026",
+    owner: "Information Security",
+  },
+  {
+    id: 5,
+    title: "Expense Reimbursement Process",
+    category: "Finance",
+    status: "Published",
+    description:
+      "Process for submitting and approving employee expense reimbursements.",
+    readingTime: 9,
+    version: "2.3",
+    date: "Aug 03, 2026",
+    owner: "Finance Team",
+  },
+  {
+    id: 6,
+    title: "Password Management Policy",
+    category: "IT Operations",
+    status: "In Progress",
+    description:
+      "Policy and procedures for creating, storing and managing secure passwords.",
+    readingTime: 5,
+    version: "1.2",
+    date: "Aug 01, 2026",
+    owner: "IT Operations",
+  },
+  {
+    id: 7,
+    title: "Exit Process Procedure",
+    category: "Human Resources",
+    status: "Pending Review",
+    description:
+      "Standard procedure for employee exit and offboarding activities.",
+    readingTime: 6,
+    version: "1.0",
+    date: "Jul 26, 2026",
+    owner: "HR Operations",
+  },
+  {
+    id: 8,
+    title: "Data Backup and Recovery",
+    category: "IT Operations",
+    status: "Published",
+    description:
+      "Procedure for data backup, recovery and business continuity management.",
+    readingTime: 10,
+    version: "1.5",
+    date: "Jul 25, 2026",
+    owner: "IT Operations",
+  },
+];
 
-const EmployeeSOPLibrary = ({ profile }) => {
+const CATEGORIES = [
+  "All Categories",
+  "Human Resources",
+  "IT Operations",
+  "Compliance",
+  "Information Security",
+  "Finance",
+];
 
-  /* =========================================================
-     STATE
-  ========================================================= */
+function EmployeeSOPLibrary() {
+  const navigate = useNavigate();
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All Categories");
+  const [status, setStatus] = useState("All Status");
+  const [sortBy, setSortBy] = useState("Newest");
+  const [viewMode, setViewMode] = useState("grid");
+  const [showFilters, setShowFilters] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [page, setPage] = useState(1);
+  const [notification, setNotification] = useState("");
 
-  const [selectedCategory, setSelectedCategory] =
-    useState("All");
+  const ITEMS_PER_PAGE = viewMode === "grid" ? 8 : 5;
 
-  const [selectedStatus, setSelectedStatus] =
-    useState("All");
+  const showMessage = (message) => {
+    setNotification(message);
 
-  const [showFilters, setShowFilters] =
-    useState(false);
-
-  const [favorites, setFavorites] =
-    useState([]);
-
-
-  /* =========================================================
-     SOP DATA
-  ========================================================= */
-
-  const sopData = [
-    {
-      id: 1,
-      title: "Employee Onboarding Process",
-      description:
-        "Standard process for onboarding new employees and completing required activities.",
-      category: "Human Resources",
-      department: "Human Resources",
-      status: "Published",
-      version: "v2.1",
-      lastUpdated: "Aug 12, 2026",
-      owner: "HR Operations",
-      readTime: "8 min",
-      tags: [
-        "Onboarding",
-        "HR",
-        "Employee",
-      ],
-    },
-
-    {
-      id: 2,
-      title: "IT Access Request Procedure",
-      description:
-        "Process for requesting, approving and provisioning enterprise system access.",
-      category: "IT Operations",
-      department: "Technology",
-      status: "Published",
-      version: "v3.0",
-      lastUpdated: "Aug 10, 2026",
-      owner: "IT Operations",
-      readTime: "6 min",
-      tags: [
-        "IT",
-        "Access",
-        "Security",
-      ],
-    },
-
-    {
-      id: 3,
-      title: "Incident Reporting Procedure",
-      description:
-        "Guidelines for reporting, documenting and escalating workplace incidents.",
-      category: "Compliance",
-      department: "Compliance",
-      status: "Published",
-      version: "v1.8",
-      lastUpdated: "Aug 08, 2026",
-      owner: "Compliance Team",
-      readTime: "7 min",
-      tags: [
-        "Incident",
-        "Compliance",
-        "Reporting",
-      ],
-    },
-
-    {
-      id: 4,
-      title: "Leave Request Process",
-      description:
-        "Standard procedure for submitting, reviewing and approving employee leave requests.",
-      category: "Human Resources",
-      department: "Human Resources",
-      status: "Published",
-      version: "v2.4",
-      lastUpdated: "Aug 05, 2026",
-      owner: "HR Operations",
-      readTime: "5 min",
-      tags: [
-        "Leave",
-        "HR",
-        "Attendance",
-      ],
-    },
-
-    {
-      id: 5,
-      title: "Expense Reimbursement Procedure",
-      description:
-        "Process for submitting business expenses and completing reimbursement approval.",
-      category: "Finance",
-      department: "Finance",
-      status: "Published",
-      version: "v1.6",
-      lastUpdated: "Jul 30, 2026",
-      owner: "Finance Operations",
-      readTime: "9 min",
-      tags: [
-        "Finance",
-        "Expenses",
-        "Reimbursement",
-      ],
-    },
-
-    {
-      id: 6,
-      title: "Information Security Guidelines",
-      description:
-        "Enterprise security practices employees must follow when handling organizational information.",
-      category: "Information Security",
-      department: "Technology",
-      status: "Published",
-      version: "v4.2",
-      lastUpdated: "Jul 28, 2026",
-      owner: "Information Security",
-      readTime: "12 min",
-      tags: [
-        "Security",
-        "Information",
-        "Policy",
-      ],
-    },
-
-    {
-      id: 7,
-      title: "Customer Escalation Process",
-      description:
-        "Standard process for identifying, documenting and escalating customer issues.",
-      category: "Operations",
-      department: "Operations",
-      status: "Published",
-      version: "v2.0",
-      lastUpdated: "Jul 25, 2026",
-      owner: "Operations Team",
-      readTime: "8 min",
-      tags: [
-        "Customer",
-        "Escalation",
-        "Operations",
-      ],
-    },
-
-    {
-      id: 8,
-      title: "Document Management Procedure",
-      description:
-        "Guidelines for creating, storing, reviewing and maintaining enterprise documents.",
-      category: "Operations",
-      department: "Operations",
-      status: "Under Review",
-      version: "v1.3",
-      lastUpdated: "Jul 22, 2026",
-      owner: "Knowledge Management",
-      readTime: "10 min",
-      tags: [
-        "Documents",
-        "Knowledge",
-        "Management",
-      ],
-    },
-  ];
-
-
-  /* =========================================================
-     FILTER OPTIONS
-  ========================================================= */
-
-  const categories = [
-    "All",
-    ...new Set(
-      sopData.map(
-        (sop) => sop.category
-      )
-    ),
-  ];
-
-  const statuses = [
-    "All",
-    "Published",
-    "Under Review",
-  ];
-
-
-  /* =========================================================
-     FILTER SOPs
-  ========================================================= */
-
-  const filteredSOPs = useMemo(() => {
-
-    const normalizedSearch =
-      searchTerm
-        .toLowerCase()
-        .trim();
-
-    return sopData.filter((sop) => {
-
-      const matchesSearch =
-        !normalizedSearch ||
-        sop.title
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        sop.description
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        sop.department
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        sop.owner
-          .toLowerCase()
-          .includes(normalizedSearch) ||
-        sop.tags.some((tag) =>
-          tag
-            .toLowerCase()
-            .includes(normalizedSearch)
-        );
-
-      const matchesCategory =
-        selectedCategory === "All" ||
-        sop.category ===
-          selectedCategory;
-
-      const matchesStatus =
-        selectedStatus === "All" ||
-        sop.status ===
-          selectedStatus;
-
-      return (
-        matchesSearch &&
-        matchesCategory &&
-        matchesStatus
-      );
-    });
-
-  }, [
-    searchTerm,
-    selectedCategory,
-    selectedStatus,
-  ]);
-
-
-  /* =========================================================
-     FAVORITES
-  ========================================================= */
+    setTimeout(() => {
+      setNotification("");
+    }, 2500);
+  };
 
   const toggleFavorite = (id) => {
-
-    setFavorites((current) => {
-
-      if (current.includes(id)) {
-
-        return current.filter(
-          (favoriteId) =>
-            favoriteId !== id
-        );
-
-      }
-
-      return [
-        ...current,
-        id,
-      ];
-
-    });
-
+    setFavorites((prev) =>
+      prev.includes(id)
+        ? prev.filter((item) => item !== id)
+        : [...prev, id]
+    );
   };
-
-
-  /* =========================================================
-     CLEAR FILTERS
-  ========================================================= */
-
-  const clearFilters = () => {
-
-    setSearchTerm("");
-
-    setSelectedCategory("All");
-
-    setSelectedStatus("All");
-
-  };
-
-
-  /* =========================================================
-     ACTION HANDLERS
-  ========================================================= */
 
   const handleViewSOP = (sop) => {
-    console.log(
-      "View SOP:",
-      sop
+    /*
+      Replace this route with your actual SOP details route
+      when the backend/details page is available.
+    */
+    navigate(`/employee/sop/${sop.id}`);
+  };
+
+  const handleDownload = (sop) => {
+    /*
+      Backend/download API can be connected later.
+    */
+    showMessage(
+      `Download request created for "${sop.title}". Backend integration required.`
     );
   };
 
-  const handleDownloadSOP = (sop) => {
-    console.log(
-      "Download SOP:",
-      sop
+  const handleAI = (sop) => {
+    showMessage(
+      `AI Assistant requested for "${sop.title}". AI backend integration required.`
     );
   };
 
-  const handleAskAI = (sop) => {
-    console.log(
-      "Ask AI about SOP:",
-      sop
-    );
+  const filteredSOPs = useMemo(() => {
+    let result = [...SOP_DATA];
+
+    const query = search.trim().toLowerCase();
+
+    if (query) {
+      result = result.filter((sop) =>
+        [
+          sop.title,
+          sop.category,
+          sop.description,
+          sop.owner,
+          sop.status,
+          sop.version,
+        ]
+          .join(" ")
+          .toLowerCase()
+          .includes(query)
+      );
+    }
+
+    if (category !== "All Categories") {
+      result = result.filter((sop) => sop.category === category);
+    }
+
+    if (status !== "All Status") {
+      result = result.filter((sop) => sop.status === status);
+    }
+
+    if (sortBy === "A-Z") {
+      result.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    if (sortBy === "Z-A") {
+      result.sort((a, b) => b.title.localeCompare(a.title));
+    }
+
+    if (sortBy === "Reading Time") {
+      result.sort((a, b) => a.readingTime - b.readingTime);
+    }
+
+    if (sortBy === "Favorites") {
+      result.sort(
+        (a, b) =>
+          Number(favorites.includes(b.id)) -
+          Number(favorites.includes(a.id))
+      );
+    }
+
+    return result;
+  }, [search, category, status, sortBy, favorites]);
+
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredSOPs.length / ITEMS_PER_PAGE)
+  );
+
+  const currentPage = Math.min(page, totalPages);
+
+  const paginatedSOPs = filteredSOPs.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const publishedCount = SOP_DATA.filter(
+    (sop) => sop.status === "Published"
+  ).length;
+
+  const progressCount = SOP_DATA.filter(
+    (sop) => sop.status === "In Progress"
+  ).length;
+
+  const pendingCount = SOP_DATA.filter(
+    (sop) => sop.status === "Pending Review"
+  ).length;
+
+  const clearFilters = () => {
+    setCategory("All Categories");
+    setStatus("All Status");
+    setSortBy("Newest");
+    setSearch("");
+    setPage(1);
   };
 
+  const handleCategoryChange = (value) => {
+    setCategory(value);
+    setPage(1);
+  };
 
-  /* =========================================================
-     RENDER
-  ========================================================= */
+  const handleStatusChange = (value) => {
+    setStatus(value);
+    setPage(1);
+  };
+
+  const handleSearch = (value) => {
+    setSearch(value);
+    setPage(1);
+  };
 
   return (
+    <div className="employee-library-shell">
+      <EmployeeSidebar activePage="sop-library" />
 
-    <div className="employee-sop-library-layout">
-
-
-      {/* =====================================================
-          EMPLOYEE SIDEBAR
-      ===================================================== */}
-
-      <aside className="employee-sop-library-sidebar">
-
-        <EmployeeSidebar
-          profile={profile}
-        />
-
-      </aside>
-
-
-      {/* =====================================================
-          MAIN PAGE CONTENT
-      ===================================================== */}
-
-      <main className="employee-sop-library-page">
-
-
-        {/* ===================================================
-            PAGE HEADER
-        =================================================== */}
-
-        <header className="employee-sop-library-header">
-
-          <div className="employee-sop-library-header-content">
-
-            <div className="employee-sop-library-title-wrapper">
-
-              <div className="employee-sop-library-title-icon">
-                <FaBook />
-              </div>
-
-              <div>
-
-                <span className="employee-sop-library-eyebrow">
-                  KNOWLEDGE REPOSITORY
-                </span>
-
-                <h1>
-                  SOP Library
-                </h1>
-
-                <p>
-                  Browse and access approved
-                  Standard Operating Procedures
-                  across the organization.
-                </p>
-
-              </div>
-
+      <main className="employee-library-main">
+        {/* ================= HEADER ================= */}
+        <section className="library-header">
+          <div className="library-title-area">
+            <div className="library-title-icon">
+              <span>▤</span>
             </div>
 
+            <div>
+              <span className="library-eyebrow">
+                KNOWLEDGE REPOSITORY
+              </span>
 
-            {/* ===============================================
-                HEADER STATISTICS
-            =============================================== */}
+              <h1>SOP Library</h1>
 
-            <div className="employee-sop-library-header-stats">
-
-              <div className="employee-sop-library-stat">
-
-                <strong>
-                  {sopData.length}
-                </strong>
-
-                <span>
-                  Available SOPs
-                </span>
-
-              </div>
-
-
-              <div className="employee-sop-library-stat">
-
-                <strong>
-                  {favorites.length}
-                </strong>
-
-                <span>
-                  Favorites
-                </span>
-
-              </div>
-
+              <p>
+                Browse and access approved Standard Operating Procedures
+                across the organization.
+              </p>
             </div>
-
           </div>
 
-        </header>
+          <div className="library-kpis">
+            <div className="library-kpi">
+              <div className="kpi-icon purple">▤</div>
+              <div>
+                <strong>{SOP_DATA.length}</strong>
+                <span>Available SOPs</span>
+              </div>
+            </div>
 
+            <div className="library-kpi">
+              <div className="kpi-icon green">✓</div>
+              <div>
+                <strong>{progressCount}</strong>
+                <span>In Progress</span>
+              </div>
+            </div>
 
-        {/* ===================================================
-            SEARCH + FILTER BAR
-        =================================================== */}
+            <div className="library-kpi">
+              <div className="kpi-icon amber">⌛</div>
+              <div>
+                <strong>{pendingCount}</strong>
+                <span>Pending Review</span>
+              </div>
+            </div>
 
-        <section className="employee-sop-library-toolbar">
+            <div className="library-kpi">
+              <div className="kpi-icon pink">☆</div>
+              <div>
+                <strong>{favorites.length}</strong>
+                <span>Favorites</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-          <div className="employee-sop-library-search">
-
-            <FaSearch />
+        {/* ================= TOOLBAR ================= */}
+        <section className="library-toolbar">
+          <div className="search-wrapper">
+            <span className="search-icon">⌕</span>
 
             <input
               type="text"
+              value={search}
+              onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search SOPs, processes, departments or keywords..."
-              value={searchTerm}
-              onChange={(event) =>
-                setSearchTerm(
-                  event.target.value
-                )
-              }
-              aria-label="Search SOP library"
             />
 
-            {searchTerm && (
-
+            {search && (
               <button
+                className="clear-search"
+                onClick={() => handleSearch("")}
                 type="button"
-                className="employee-sop-library-search-clear"
-                onClick={() =>
-                  setSearchTerm("")
-                }
-                aria-label="Clear search"
               >
-                <FaTimes />
+                ×
               </button>
-
             )}
-
           </div>
 
-
           <button
-            type="button"
-            className={`employee-sop-library-filter-button ${
-              showFilters
-                ? "employee-sop-library-filter-button-active"
-                : ""
+            className={`toolbar-button ${
+              showFilters ? "active" : ""
             }`}
-            onClick={() =>
-              setShowFilters(
-                (current) =>
-                  !current
-              )
-            }
+            onClick={() => setShowFilters((prev) => !prev)}
+            type="button"
           >
-
-            <FaFilter />
-
-            <span>
-              Filters
+            <span>⚑</span>
+            Filters
+            <span className="button-chevron">
+              {showFilters ? "⌃" : "⌄"}
             </span>
-
-            <FaChevronDown
-              className={
-                showFilters
-                  ? "employee-sop-library-filter-arrow-open"
-                  : ""
-              }
-            />
-
           </button>
 
-        </section>
+          <div className="sort-wrapper">
+            <span className="sort-symbol">↕</span>
 
+            <select
+              value={sortBy}
+              onChange={(e) => {
+                setSortBy(e.target.value);
+                setPage(1);
+              }}
+              aria-label="Sort SOPs"
+            >
+              <option value="Newest">Newest</option>
+              <option value="A-Z">A-Z</option>
+              <option value="Z-A">Z-A</option>
+              <option value="Reading Time">Reading Time</option>
+              <option value="Favorites">Favorites</option>
+            </select>
+          </div>
 
-        {/* ===================================================
-            FILTER PANEL
-        =================================================== */}
-
-        {showFilters && (
-
-          <section className="employee-sop-library-filter-panel">
-
-            <div className="employee-sop-library-filter-group">
-
-              <label>
-                Category
-              </label>
-
-              <select
-                value={selectedCategory}
-                onChange={(event) =>
-                  setSelectedCategory(
-                    event.target.value
-                  )
-                }
-              >
-
-                {categories.map(
-                  (category) => (
-
-                    <option
-                      key={category}
-                      value={category}
-                    >
-                      {category}
-                    </option>
-
-                  )
-                )}
-
-              </select>
-
-            </div>
-
-
-            <div className="employee-sop-library-filter-group">
-
-              <label>
-                Status
-              </label>
-
-              <select
-                value={selectedStatus}
-                onChange={(event) =>
-                  setSelectedStatus(
-                    event.target.value
-                  )
-                }
-              >
-
-                {statuses.map(
-                  (status) => (
-
-                    <option
-                      key={status}
-                      value={status}
-                    >
-                      {status}
-                    </option>
-
-                  )
-                )}
-
-              </select>
-
-            </div>
-
+          <div className="view-toggle">
+            <button
+              type="button"
+              className={viewMode === "grid" ? "selected" : ""}
+              onClick={() => {
+                setViewMode("grid");
+                setPage(1);
+              }}
+              title="Grid view"
+            >
+              ▦
+            </button>
 
             <button
               type="button"
-              className="employee-sop-library-clear-filters"
+              className={viewMode === "list" ? "selected" : ""}
+              onClick={() => {
+                setViewMode("list");
+                setPage(1);
+              }}
+              title="List view"
+            >
+              ☷
+            </button>
+          </div>
+        </section>
+
+        {/* ================= FILTER PANEL ================= */}
+        {showFilters && (
+          <section className="filter-panel">
+            <div className="filter-field">
+              <label>Status</label>
+
+              <select
+                value={status}
+                onChange={(e) =>
+                  handleStatusChange(e.target.value)
+                }
+              >
+                <option>All Status</option>
+                <option>Published</option>
+                <option>In Progress</option>
+                <option>Pending Review</option>
+              </select>
+            </div>
+
+            <div className="filter-field">
+              <label>Category</label>
+
+              <select
+                value={category}
+                onChange={(e) =>
+                  handleCategoryChange(e.target.value)
+                }
+              >
+                {CATEGORIES.map((item) => (
+                  <option key={item}>{item}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="filter-summary">
+              <span>
+                {filteredSOPs.length} matching SOP
+                {filteredSOPs.length !== 1 ? "s" : ""}
+              </span>
+            </div>
+
+            <button
+              type="button"
+              className="clear-filter-button"
               onClick={clearFilters}
             >
               Clear Filters
             </button>
-
           </section>
-
         )}
 
+        {/* ================= CATEGORY CHIPS ================= */}
+        <div className="category-row">
+          {CATEGORIES.map((item) => (
+            <button
+              key={item}
+              type="button"
+              className={
+                category === item ? "category-chip active" : "category-chip"
+              }
+              onClick={() => handleCategoryChange(item)}
+            >
+              {item}
+            </button>
+          ))}
 
-        {/* ===================================================
-            RESULTS HEADER
-        =================================================== */}
+          <button
+            type="button"
+            className="category-chip more-chip"
+            onClick={() => setShowFilters(true)}
+          >
+            + More
+          </button>
+        </div>
 
-        <div className="employee-sop-library-results-header">
+        {/* ================= RESULTS ================= */}
+        <div className="results-header">
+          <span>
+            {filteredSOPs.length} SOP
+            {filteredSOPs.length !== 1 ? "s" : ""} found
+          </span>
 
-          <div>
-
-            <strong>
-              {filteredSOPs.length}
-            </strong>
-
-            <span>
-              {" "}
-              SOP
-              {filteredSOPs.length !== 1
-                ? "s"
-                : ""}{" "}
-              found
+          {favorites.length > 0 && (
+            <span className="favorites-summary">
+              ★ {favorites.length} favorite
+              {favorites.length !== 1 ? "s" : ""}
             </span>
+          )}
+        </div>
 
+        {paginatedSOPs.length > 0 ? (
+          <div
+            className={
+              viewMode === "grid"
+                ? "sop-grid"
+                : "sop-list"
+            }
+          >
+            {paginatedSOPs.map((sop) => (
+              <article className="sop-card" key={sop.id}>
+                <div className="sop-card-top">
+                  <div className="sop-document-icon">
+                    ▤
+                  </div>
+
+                  <button
+                    type="button"
+                    className={`favorite-button ${
+                      favorites.includes(sop.id) ? "favorite" : ""
+                    }`}
+                    onClick={() => toggleFavorite(sop.id)}
+                    title={
+                      favorites.includes(sop.id)
+                        ? "Remove from favorites"
+                        : "Add to favorites"
+                    }
+                  >
+                    {favorites.includes(sop.id) ? "★" : "☆"}
+                  </button>
+                </div>
+
+                <div className="sop-badges">
+                  <span className="category-badge">
+                    {sop.category}
+                  </span>
+
+                  <span
+                    className={`status-badge ${sop.status
+                      .toLowerCase()
+                      .replaceAll(" ", "-")}`}
+                  >
+                    {sop.status}
+                  </span>
+                </div>
+
+                <h2>{sop.title}</h2>
+
+                <p className="sop-description">
+                  {sop.description}
+                </p>
+
+                <div className="sop-meta">
+                  <span>◷ {sop.readingTime} min</span>
+                  <span className="meta-divider">|</span>
+                  <span>v{sop.version}</span>
+                  <span className="meta-divider">|</span>
+                  <span>▣ {sop.date}</span>
+                </div>
+
+                <div className="sop-divider" />
+
+                <div className="sop-bottom">
+                  <div className="owner-info">
+                    <span>Owner</span>
+                    <strong>{sop.owner}</strong>
+                  </div>
+
+                  <div className="sop-actions">
+                    <button
+                      type="button"
+                      className="primary-action"
+                      onClick={() => handleViewSOP(sop)}
+                    >
+                      ◉ View SOP
+                    </button>
+
+                    <button
+                      type="button"
+                      className="icon-action"
+                      onClick={() => handleAI(sop)}
+                      title="AI Assistant"
+                    >
+                      ✦
+                    </button>
+
+                    <button
+                      type="button"
+                      className="icon-action"
+                      onClick={() => handleDownload(sop)}
+                      title="Download"
+                    >
+                      ↓
+                    </button>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
-
-
-          {(searchTerm ||
-            selectedCategory !==
-              "All" ||
-            selectedStatus !==
-              "All") && (
+        ) : (
+          <div className="empty-state">
+            <div className="empty-icon">⌕</div>
+            <h2>No SOPs found</h2>
+            <p>
+              Try changing your search or clearing one of the filters.
+            </p>
 
             <button
               type="button"
               onClick={clearFilters}
+              className="primary-action"
             >
-              Clear all filters
+              Clear Filters
+            </button>
+          </div>
+        )}
+
+        {/* ================= FOOTER / PAGINATION ================= */}
+        <div className="library-footer">
+          <span>
+            Showing{" "}
+            {filteredSOPs.length === 0
+              ? 0
+              : (currentPage - 1) * ITEMS_PER_PAGE + 1}{" "}
+            to{" "}
+            {Math.min(
+              currentPage * ITEMS_PER_PAGE,
+              filteredSOPs.length
+            )}{" "}
+            of {filteredSOPs.length} SOPs
+          </span>
+
+          <div className="pagination">
+            <button
+              type="button"
+              disabled={currentPage === 1}
+              onClick={() =>
+                setPage((prev) => Math.max(1, prev - 1))
+              }
+            >
+              ‹
             </button>
 
-          )}
-
-        </div>
-
-
-        {/* ===================================================
-            SOP GRID
-        =================================================== */}
-
-        <section className="employee-sop-library-grid">
-
-          {filteredSOPs.length > 0 ? (
-
-            filteredSOPs.map(
-              (sop) => {
-
-                const isFavorite =
-                  favorites.includes(
-                    sop.id
-                  );
-
-                return (
-
-                  <article
-                    key={sop.id}
-                    className="employee-sop-library-card"
-                  >
-
-
-                    {/* =========================================
-                        CARD HEADER
-                    ========================================= */}
-
-                    <div className="employee-sop-library-card-header">
-
-                      <div className="employee-sop-library-card-icon">
-                        <FaBook />
-                      </div>
-
-                      <button
-                        type="button"
-                        className={`employee-sop-library-favorite ${
-                          isFavorite
-                            ? "employee-sop-library-favorite-active"
-                            : ""
-                        }`}
-                        onClick={() =>
-                          toggleFavorite(
-                            sop.id
-                          )
-                        }
-                        aria-label={
-                          isFavorite
-                            ? "Remove from favorites"
-                            : "Add to favorites"
-                        }
-                      >
-
-                        {isFavorite ? (
-                          <FaStar />
-                        ) : (
-                          <FaRegStar />
-                        )}
-
-                      </button>
-
-                    </div>
-
-
-                    {/* =========================================
-                        CATEGORY + STATUS
-                    ========================================= */}
-
-                    <div className="employee-sop-library-card-meta">
-
-                      <span className="employee-sop-library-category">
-                        {sop.category}
-                      </span>
-
-                      <span
-                        className={`employee-sop-library-status ${
-                          sop.status ===
-                          "Published"
-                            ? "employee-sop-library-status-published"
-                            : "employee-sop-library-status-review"
-                        }`}
-                      >
-                        {sop.status}
-                      </span>
-
-                    </div>
-
-
-                    {/* =========================================
-                        TITLE
-                    ========================================= */}
-
-                    <h2>
-                      {sop.title}
-                    </h2>
-
-
-                    {/* =========================================
-                        DESCRIPTION
-                    ========================================= */}
-
-                    <p className="employee-sop-library-description">
-                      {sop.description}
-                    </p>
-
-
-                    {/* =========================================
-                        TAGS
-                    ========================================= */}
-
-                    <div className="employee-sop-library-tags">
-
-                      {sop.tags.map(
-                        (tag) => (
-
-                          <span
-                            key={tag}
-                          >
-                            {tag}
-                          </span>
-
-                        )
-                      )}
-
-                    </div>
-
-
-                    {/* =========================================
-                        DETAILS
-                    ========================================= */}
-
-                    <div className="employee-sop-library-details">
-
-                      <div>
-
-                        <FaClock />
-
-                        <span>
-                          {sop.readTime}
-                        </span>
-
-                      </div>
-
-                      <div>
-
-                        <span>
-                          {sop.version}
-                        </span>
-
-                      </div>
-
-                      <div>
-
-                        <span>
-                          Updated{" "}
-                          {sop.lastUpdated}
-                        </span>
-
-                      </div>
-
-                    </div>
-
-
-                    {/* =========================================
-                        OWNER
-                    ========================================= */}
-
-                    <div className="employee-sop-library-owner">
-
-                      <span>
-                        Owner
-                      </span>
-
-                      <strong>
-                        {sop.owner}
-                      </strong>
-
-                    </div>
-
-
-                    {/* =========================================
-                        ACTIONS
-                    ========================================= */}
-
-                    <div className="employee-sop-library-actions">
-
-                      <button
-                        type="button"
-                        className="employee-sop-library-primary-action"
-                        onClick={() =>
-                          handleViewSOP(
-                            sop
-                          )
-                        }
-                      >
-
-                        <FaEye />
-
-                        <span>
-                          View SOP
-                        </span>
-
-                      </button>
-
-
-                      <button
-                        type="button"
-                        className="employee-sop-library-secondary-action"
-                        onClick={() =>
-                          handleAskAI(
-                            sop
-                          )
-                        }
-                        title="Ask AI about this SOP"
-                      >
-                        <FaRobot />
-                      </button>
-
-
-                      <button
-                        type="button"
-                        className="employee-sop-library-secondary-action"
-                        onClick={() =>
-                          handleDownloadSOP(
-                            sop
-                          )
-                        }
-                        title="Download SOP"
-                      >
-                        <FaDownload />
-                      </button>
-
-                    </div>
-
-                  </article>
-
-                );
-
-              }
-            )
-
-          ) : (
-
-            /* ===============================================
-               EMPTY STATE
-            =============================================== */
-
-            <div className="employee-sop-library-empty">
-
-              <div className="employee-sop-library-empty-icon">
-                <FaSearch />
-              </div>
-
-              <h2>
-                No SOPs Found
-              </h2>
-
-              <p>
-                We couldn't find any SOPs
-                matching your current
-                search or filters.
-              </p>
-
+            {Array.from(
+              { length: totalPages },
+              (_, index) => index + 1
+            ).map((number) => (
               <button
                 type="button"
-                onClick={clearFilters}
+                key={number}
+                className={
+                  currentPage === number ? "current" : ""
+                }
+                onClick={() => setPage(number)}
               >
-                Clear Filters
+                {number}
               </button>
+            ))}
 
-            </div>
-
-          )}
-
-        </section>
-
+            <button
+              type="button"
+              disabled={currentPage === totalPages}
+              onClick={() =>
+                setPage((prev) =>
+                  Math.min(totalPages, prev + 1)
+                )
+              }
+            >
+              ›
+            </button>
+          </div>
+        </div>
       </main>
 
+      {/* ================= FRONTEND NOTIFICATION ================= */}
+      {notification && (
+        <div className="library-toast">
+          <span>✓</span>
+          {notification}
+        </div>
+      )}
     </div>
   );
-};
-
+}
 
 export default EmployeeSOPLibrary;
